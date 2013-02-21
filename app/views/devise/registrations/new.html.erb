@@ -1,0 +1,46 @@
+<h2>Sign up</h2>
+
+<%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
+  <%= devise_error_messages! %>
+
+  <div><%= f.label :contact_name %><br />
+  <%= f.text_field :contact_name, :autofocus => true %></div>
+
+  <div><%= f.label :email %><br />
+  <%= f.email_field :email %></div>
+
+  <div><%= f.label :organisation_name %><br />
+  <%= f.text_field :organisation_name %></div>
+
+
+
+#  fill_in('member_email',                 :with => 'iain@foobar.com')
+#  fill_in('member_organisation_name',     :with => 'FooBar Inc')
+#  fill_in('member_phone',                 :with => '0121 123 446')
+#  fill_in('member_address_line1',         :with => '123 Fake Street')
+#  fill_in('member_address_line2',         :with => 'Fake place')
+#  fill_in('member_address_city',          :with => 'Faketown')
+#  fill_in('member_address_region',        :with => 'Fakeshire')
+#  fill_in('member_address_country',       :with => 'UK')
+#  fill_in('member_address_postcode',      :with => 'FAKE 123')
+#  fill_in('member_tax_number',            :with => '213244343')
+#  fill_in('member_purchase_order_number', :with => 'PO-43243242342')
+  #fill_in('member_agreed_to_terms'        = true)
+
+
+
+
+
+
+
+
+  <div><%= f.label :password %><br />
+  <%= f.password_field :password %></div>
+
+  <div><%= f.label :password_confirmation %><br />
+  <%= f.password_field :password_confirmation %></div>
+
+  <div><%= f.submit "Sign up" %></div>
+<% end %>
+
+<%= render "devise/shared/links" %>
