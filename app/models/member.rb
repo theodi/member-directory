@@ -22,6 +22,6 @@ class Member < ActiveRecord::Base
 	validates :address_city, :presence => true
 	validates :address_country, :presence => true
 	validates :address_postcode, :presence => true
-	validates :agreed_to_terms, :presence => true
+	validates_acceptance_of :agreed_to_terms
 
 end
