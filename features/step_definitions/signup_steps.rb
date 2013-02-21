@@ -26,36 +26,12 @@ When /^I enter my details$/ do
   @agreed_to_terms       = true
 end
 
-When /^I haven't chosen a membership level$/ do
-  @level = nil
-end
-
-When /^I don't enter my name$/ do
-  @contact_name = nil
-end
-
-When /^I don't enter my email$/ do
-  @email = nil
-end
-
-When /^I don't enter Address Line 1$/ do
-  @address_line1 = nil
-end
-
-When /^I don't enter my city$/ do
-  @address_city = nil
-end
-
-When /^I don't enter my country$/ do
-  @address_country = nil
-end
-
-When /^I don't agree to the terms and conditions$/ do
-  @agreed_to_terms = nil
+When /^I leave (\w*) blank$/ do |field|
+	instance_variable_set("@#{field}", nil)
 end
 
 When /^I click sign up$/ do
-  @user = User.new({
+  @member = Member.create({
     :level                 => @level,
     :organisation_name     => @organisation_name,
     :contact_name          => @contact_name,
@@ -95,8 +71,8 @@ Then /^my details should be queued for further processing$/ do
   #Resque.should_receive(:enqueue).with(SignupProcessor, user).once
 end
 
-Then /^I should see an error$/ do
-  @user.errors.should_not be_empty
+Then /^I should see an error relating to (\w*)$/ do |field|
+  @member.errors.keys.should include(field.to_sym)
 end
 
 Then /^my details should not be queued$/ do
