@@ -1,57 +1,63 @@
 <h2>Sign up</h2>
 
-<%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
+<%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => {:class => 'form-horizontal'}) do |f| %>
   <%= devise_error_messages! %>
-
-  <div><%= f.label :level %><br />
-  <%= f.text_field :level %></div>
-
-  <div><%= f.label :contact_name %><br />
-  <%= f.text_field :contact_name, :autofocus => true %></div>
-
-  <div><%= f.label :email %><br />
-  <%= f.email_field :email %></div>
-
-  <div><%= f.label :organisation_name %><br />
-  <%= f.text_field :organisation_name %></div>
-
-  <div><%= f.label :phone %><br />
-  <%= f.text_field :phone %></div>
   
-  <div><%= f.label :address_line1 %><br />
-  <%= f.text_field :address_line1 %></div>
+  <div class="control-group">
+		<%= f.label :level, :class => 'control-label' %>
+		<div class="controls">
+			<%= f.text_field :level %>
+		</div>
+	</div>
+  
+  <fieldset>
+  
+    <legend>Your details</legend>
+    
+    <div class="control-group">
+    	<%= f.label :email, :class => 'control-label' %>
+    	<div class="controls">
+    		<%= f.email_field :email %>
+    	</div>
+    </div>
+  
+    <%= render :partial => 'member_details', :locals => { :f => f } %>
+  
+    <div class="control-group">
+  		<%= f.label :password, :class => 'control-label' %>
+  		<div class="controls">
+  			<%= f.password_field :password %>
+  		</div>
+  	</div>
+  
+    <div class="control-group">
+  		<%= f.label :password_confirmation, :class => 'control-label' %>
+  		<div class="controls">
+  			<%= f.password_field :password_confirmation %>
+  		</div>
+  	</div>
+  	  	
+  	<h2>Terms and conditions</h2>
+  	
+  	<p>Please read the terms and conditions below and tick to say you accept them</p>
+  	
+  	<div id="terms" class="well">
+  	<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis rhoncus, quam a faucibus semper, tellus risus blandit nulla, non venenatis diam mi at lorem. Suspendisse eu laoreet purus. In porttitor semper vestibulum. Pellentesque dapibus lacinia lorem in vulputate. Nunc sit amet odio in turpis adipiscing pharetra. Quisque iaculis, metus vitae lobortis fermentum, sapien nulla accumsan leo, et iaculis massa mi eu est. Suspendisse ut nisl at ipsum imperdiet auctor at quis lacus. Aenean id quam nisi, eget lobortis risus. Nunc ut diam erat, id mollis mauris. Proin scelerisque mattis nulla et sodales. Aliquam in neque dolor, id volutpat orci. Nam luctus enim ornare mi posuere sit amet rhoncus justo condimentum. Curabitur malesuada eros ac massa commodo nec rhoncus ligula feugiat. Phasellus eget consectetur sem. In vel commodo lorem. In dapibus, arcu quis porttitor accumsan, libero dolor posuere metus, vel eleifend est massa non erat.</p>
 
-  <div><%= f.label :address_line2 %><br />
-  <%= f.text_field :address_line2 %></div>
+  	<p>Donec nec ante id nisl semper semper. Pellentesque at justo ut sapien gravida consequat. Nunc risus libero, rutrum sit amet ullamcorper vitae, laoreet id lorem. Aenean pharetra libero a dui mattis blandit. Suspendisse molestie pharetra risus sit amet luctus. Suspendisse at felis a augue pulvinar sollicitudin. Aliquam erat volutpat. Nunc eu arcu nibh, nec tristique est. Curabitur in pulvinar lorem. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam ultrices diam erat, quis placerat sem. Proin posuere nunc quis massa luctus sit amet iaculis neque varius. Nulla ut erat et mauris auctor mattis. Integer laoreet dignissim lacus ut interdum.</p>
+  	</div>
+  
+    <div class="control-group">
+  		<%= f.label :agreed_to_terms, 'I have read and agree to the terms and conditions of membership', :class => 'control-label' %>
+  		<%= f.check_box :agreed_to_terms %>
+  	</div>
+  	
+  </fieldset>
 
-  <div><%= f.label :address_city %><br />
-  <%= f.text_field :address_city %></div>
-
-  <div><%= f.label :address_region %><br />
-  <%= f.text_field :address_region %></div>
-
-  <div><%= f.label :address_country %><br />
-  <%= f.text_field :address_country %></div>
-
-  <div><%= f.label :address_postcode %><br />
-  <%= f.text_field :address_postcode %></div>
-
-  <div><%= f.label :tax_number %><br />
-  <%= f.text_field :tax_number %></div>
-
-  <div><%= f.label :purchase_order_number %><br />
-  <%= f.text_field :purchase_order_number %></div>
-
-  <div><%= f.label :agreed_to_terms %><br />
-  <%= f.check_box :agreed_to_terms %></div>
-
-  <div><%= f.label :password %><br />
-  <%= f.password_field :password %></div>
-
-  <div><%= f.label :password_confirmation %><br />
-  <%= f.password_field :password_confirmation %></div>
-
-  <div><%= f.submit "Sign up", :id => 'submit' %></div>
+  <div class="form-actions">
+    <%= f.submit "Sign up", :id => 'submit', :class => 'btn btn-primary' %>
+  </div>
+  
 <% end %>
 
 <%= render "devise/shared/links" %>
