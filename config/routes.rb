@@ -2,7 +2,7 @@ MemberDirectory::Application.routes.draw do
 
   devise_for :members
 
-  root :to => "home#index"
+  root :to => redirect("/members/sign_up")
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

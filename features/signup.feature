@@ -47,3 +47,13 @@ Feature: Add new signups to queue
     Then my details should not be queued
     When I click sign up
     And I should get an error telling me to accept the terms
+    
+  Scenario: Member tries to sign up, but their password doesn't match
+  
+    Given that I want to sign up
+    When I visit the signup page
+    And I enter my details
+    But my passwords don't match
+    Then my details should not be queued
+    When I click sign up
+    And I should get an error telling me my passwords don't match
