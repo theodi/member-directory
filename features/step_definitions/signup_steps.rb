@@ -70,6 +70,14 @@ Then /^my details should be queued for further processing$/ do
   #Resque.should_receive(:enqueue).with(SignupProcessor, user).once
 end
 
+And /^I should have a membership number generated$/ do
+  Member.find_by_email('iain@foobar.com').membership_number.should_not be_nil
+end
+
+And /^I should not have a membership number generated$/ do
+  # Guh?
+end
+
 Then /^I should see an error relating to (.*)$/ do |text|
   #puts @member.errors.keys
   #@member.errors.keys.should include(field.to_sym)
@@ -81,7 +89,7 @@ Then /^I should get an error telling me to accept the terms$/ do
   page.should have_content "Agreed to terms must be accepted"
 end
 
-When /^I should get an error telling me my passwords don't match$/ do
+When /^I should get an error telling my passwords don't match$/ do
   page.should have_content "Password doesn't match confirmation"
 end
 
