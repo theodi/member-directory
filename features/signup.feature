@@ -27,14 +27,23 @@ Feature: Add new signups to queue
     But I leave <field> blank
     Then my details should not be queued
     When I click sign up
-    And I should see an error relating to <field>
+    And I should see an error relating to <text>
 
     Examples:
-			| field 								|
-			| level 								|
-			| contact_name 					|
-			| address_line1 				|
-			| address_city 					|
-			| address_country 			|
-			| address_postcode 			|
-			| agreed_to_terms 			|
+			| field 								| text             |
+			| level 								| Level            |
+			| contact_name 					| Contact name     |
+			| address_line1 				| Address line1    |
+			| address_city 					| Address city     |
+			| address_country 			| Address country  |
+			| address_postcode 			| Address postcode |
+			
+  Scenario: Member tries to sign up, but doesn't agree to the terms
+  
+    Given that I want to sign up
+    When I visit the signup page
+    And I enter my details
+    But I don't agree to the terms
+    Then my details should not be queued
+    When I click sign up
+    And I should get an error telling me to accept the terms

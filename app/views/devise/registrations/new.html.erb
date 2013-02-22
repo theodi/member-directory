@@ -1,0 +1,57 @@
+<h2>Sign up</h2>
+
+<%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
+  <%= devise_error_messages! %>
+
+  <div><%= f.label :level %><br />
+  <%= f.text_field :level %></div>
+
+  <div><%= f.label :contact_name %><br />
+  <%= f.text_field :contact_name, :autofocus => true %></div>
+
+  <div><%= f.label :email %><br />
+  <%= f.email_field :email %></div>
+
+  <div><%= f.label :organisation_name %><br />
+  <%= f.text_field :organisation_name %></div>
+
+  <div><%= f.label :phone %><br />
+  <%= f.text_field :phone %></div>
+  
+  <div><%= f.label :address_line1 %><br />
+  <%= f.text_field :address_line1 %></div>
+
+  <div><%= f.label :address_line2 %><br />
+  <%= f.text_field :address_line2 %></div>
+
+  <div><%= f.label :address_city %><br />
+  <%= f.text_field :address_city %></div>
+
+  <div><%= f.label :address_region %><br />
+  <%= f.text_field :address_region %></div>
+
+  <div><%= f.label :address_country %><br />
+  <%= f.text_field :address_country %></div>
+
+  <div><%= f.label :address_postcode %><br />
+  <%= f.text_field :address_postcode %></div>
+
+  <div><%= f.label :tax_number %><br />
+  <%= f.text_field :tax_number %></div>
+
+  <div><%= f.label :purchase_order_number %><br />
+  <%= f.text_field :purchase_order_number %></div>
+
+  <div><%= f.label :agreed_to_terms %><br />
+  <%= f.check_box :agreed_to_terms %></div>
+
+  <div><%= f.label :password %><br />
+  <%= f.password_field :password %></div>
+
+  <div><%= f.label :password_confirmation %><br />
+  <%= f.password_field :password_confirmation %></div>
+
+  <div><%= f.submit "Sign up", :id => 'submit' %></div>
+<% end %>
+
+<%= render "devise/shared/links" %>
