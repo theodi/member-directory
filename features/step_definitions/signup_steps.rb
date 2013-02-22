@@ -25,6 +25,8 @@ When /^I enter my details$/ do
   fill_in('member_address_postcode',      :with => 'FAKE 123')
   fill_in('member_tax_number',            :with => '213244343')
   fill_in('member_purchase_order_number', :with => 'PO-43243242342')
+  fill_in('member_password',              :with => 'p4ssw0rd')
+  fill_in('member_password_confirmation', :with => 'p4ssw0rd')
 
   check('member_agreed_to_terms')
   
@@ -36,6 +38,10 @@ end
 
 When /^I don't agree to the terms$/ do
   uncheck('member_agreed_to_terms')
+end
+
+When /^my passwords don't match$/ do
+  fill_in('member_password_confirmation', :with => 'password')
 end
 
 When /^I click sign up$/ do
@@ -64,6 +70,14 @@ Then /^my details should be queued for further processing$/ do
   #Resque.should_receive(:enqueue).with(SignupProcessor, user).once
 end
 
+And /^I should have a membership number generated$/ do
+  Member.find_by_email('iain@foobar.com').membership_number.should_not be_nil
+end
+
+And /^I should not have a membership number generated$/ do
+  # Guh?
+end
+
 Then /^I should see an error relating to (.*)$/ do |text|
   #puts @member.errors.keys
   #@member.errors.keys.should include(field.to_sym)
@@ -73,6 +87,10 @@ end
 
 Then /^I should get an error telling me to accept the terms$/ do
   page.should have_content "Agreed to terms must be accepted"
+end
+
+When /^I should get an error telling my passwords don't match$/ do
+  page.should have_content "Password doesn't match confirmation"
 end
 
 Then /^my details should not be queued$/ do
