@@ -1,7 +1,6 @@
 GIT
   remote: https://github.com/theodi/open-orgn-services.git
-  revision: d67fa4e290e10befe7dd67cf5dde2e71caa2f258
-  branch: feature-141-gemification
+  revision: 45b8050cefe1b0e5fceeb34435c74eb629e6b451
   specs:
     open-orgn-services (0.0.0)
       activemodel (~> 3.2, >= 3.2.12)

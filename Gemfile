@@ -9,7 +9,7 @@ gem 'dotenv'
 # Manually specify the xeroizer dependency so we use our own version
 gem 'xeroizer', :git => 'https://github.com/theodi/xeroizer.git'
 
-gem 'open-orgn-services', :git =>  'https://github.com/theodi/open-orgn-services.git', :branch => "feature-141-gemification"
+gem 'open-orgn-services', :git =>  'https://github.com/theodi/open-orgn-services.git'
 
 
 # Gems used only for assets and not required
