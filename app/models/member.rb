@@ -2,6 +2,9 @@ class Member < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,
   # :lockable, :timeoutable and :omniauthable
+  
+  before_create :set_membership_number
+  
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable,
          :confirmable
@@ -23,5 +26,13 @@ class Member < ActiveRecord::Base
 	validates :address_country, :presence => true
 	validates :address_postcode, :presence => true
 	validates_acceptance_of :agreed_to_terms
+	
+	private
+	
+	 def set_membership_number
+	   begin 
+	     self.membership_number = (0...1000000).sort_by{rand}.first
+	   end while self.class.exists?(:membership_number => membership_number)
+	 end
 
 end
