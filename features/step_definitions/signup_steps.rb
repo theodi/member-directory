@@ -84,17 +84,10 @@ Then /^my details should be queued for further processing$/ do
 end
 
 And /^I should have a membership number generated$/ do
-  Member.find_by_email('iain@foobar.com').membership_number.should_not be_nil
-end
-
-And /^I should not have a membership number generated$/ do
-  # Guh?
+  Member.find_by_email(@email).membership_number.should_not be_nil
 end
 
 Then /^I should see an error relating to (.*)$/ do |text|
-  #puts @member.errors.keys
-  #@member.errors.keys.should include(field.to_sym)
-  
   page.should have_content "#{text} can't be blank"
 end
 
