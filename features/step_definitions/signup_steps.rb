@@ -61,7 +61,7 @@ Then /^my details should be queued for further processing$/ do
     :agreed_to_terms       => @agreed_to_terms
   }
 
-  #Resque.should_receive(:enqueue).with(SignupProcessor, user).once
+  Resque.should_receive(:enqueue).with(SignupProcessor, user).once
 end
 
 Then /^I should see an error relating to (.*)$/ do |text|
@@ -76,5 +76,5 @@ Then /^I should get an error telling me to accept the terms$/ do
 end
 
 Then /^my details should not be queued$/ do
-  #Resque.should_not_receive(:enqueue)
+  Resque.should_not_receive(:enqueue)
 end
