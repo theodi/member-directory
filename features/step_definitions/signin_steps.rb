@@ -1,4 +1,7 @@
 Given /^that I have a membership number and password$/ do
+  # We don't care about queueing here - we will have a separate expectation if we do, anyway.
+  Resque.should_receive(:enqueue).once
+  # Create a new member
   member = Member.create(
     :level                 => 'supporter',
     :organisation_name     => 'FooBar Inc',

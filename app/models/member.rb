@@ -35,4 +35,25 @@ class Member < ActiveRecord::Base
 	   end while self.class.exists?(:membership_number => membership_number)
 	 end
 
+  after_create :add_to_queue
+  
+  def add_to_queue
+    user_details =  {
+      :level                 => level,
+      :organisation_name     => organisation_name,
+      :contact_name          => contact_name,
+      :email                 => email,
+      :phone                 => phone, 
+      :address_line1         => address_line1, 
+      :address_line2         => address_line2, 
+      :address_city          => address_city, 
+      :address_region        => address_region, 
+      :address_country       => address_country, 
+      :address_postcode      => address_postcode, 
+      :tax_number            => tax_number, 
+      :purchase_order_number => purchase_order_number
+    }    
+    Resque.enqueue(SignupProcessor, user_details)
+  end
+
 end
