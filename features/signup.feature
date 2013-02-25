@@ -10,6 +10,7 @@ Feature: Add new signups to queue
     And I enter my details
     Then my details should be queued for further processing
     When I click sign up
+    And I should have a membership number generated
     
   Scenario: Member signup
   
@@ -18,6 +19,7 @@ Feature: Add new signups to queue
     And I enter my details
     Then my details should be queued for further processing
     When I click sign up
+    And I should have a membership number generated
 
 	Scenario Outline: Member tries to sign up, but misses a mandatory field
 
@@ -25,7 +27,8 @@ Feature: Add new signups to queue
     When I visit the signup page
     And I enter my details
     But I leave <field> blank
-    Then my details should not be queued
+    Then I should not have a membership number generated
+    And my details should be queued for further processing
     When I click sign up
     And I should see an error relating to <text>
 
@@ -44,6 +47,18 @@ Feature: Add new signups to queue
     When I visit the signup page
     And I enter my details
     But I don't agree to the terms
-    Then my details should not be queued
+    Then my details should be queued for further processing
     When I click sign up
     And I should get an error telling me to accept the terms
+    And I should not have a membership number generated
+    
+  Scenario: Member tries to sign up, but their password doesn't match
+  
+    Given that I want to sign up
+    When I visit the signup page
+    And I enter my details
+    But my passwords don't match
+    Then my details should be queued for further processing
+    When I click sign up
+    And I should get an error telling my passwords don't match
+    And I should not have a membership number generated
