@@ -28,7 +28,7 @@ Feature: Add new signups to queue
     And I enter my details
     But I leave <field> blank
     Then I should not have a membership number generated
-    And my details should be queued for further processing
+    And my details should not be queued
     When I click sign up
     And I should see an error relating to <text>
 
@@ -47,7 +47,7 @@ Feature: Add new signups to queue
     When I visit the signup page
     And I enter my details
     But I don't agree to the terms
-    Then my details should be queued for further processing
+    Then my details should not be queued
     When I click sign up
     And I should get an error telling me to accept the terms
     And I should not have a membership number generated
@@ -58,7 +58,7 @@ Feature: Add new signups to queue
     When I visit the signup page
     And I enter my details
     But my passwords don't match
-    Then my details should be queued for further processing
+    Then my details should not be queued
     When I click sign up
     And I should get an error telling my passwords don't match
     And I should not have a membership number generated

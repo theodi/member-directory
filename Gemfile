@@ -2,11 +2,15 @@ source 'https://rubygems.org'
 
 gem 'rails', '3.2.12'
 
-# Bundle edge Rails instead:
-# gem 'rails', :git => 'git://github.com/rails/rails.git'
-
 gem 'sqlite3'
 gem 'devise'
+gem 'dotenv'
+
+# Manually specify the xeroizer dependency so we use our own version
+gem 'xeroizer', :git => 'https://github.com/theodi/xeroizer.git'
+
+gem 'open-orgn-services', :git =>  'https://github.com/theodi/open-orgn-services.git'
+
 
 # Gems used only for assets and not required
 # in production environments by default.

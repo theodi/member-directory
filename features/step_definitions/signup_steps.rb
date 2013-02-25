@@ -12,19 +12,33 @@ When /^I visit the signup page$/ do
 end
 
 When /^I enter my details$/ do
-  fill_in('member_level',                 :with => 'supporter')
-  fill_in('member_contact_name',          :with => 'Ian McIain')
-  fill_in('member_email',                 :with => 'iain@foobar.com')
-  fill_in('member_organisation_name',     :with => 'FooBar Inc')
-  fill_in('member_phone',                 :with => '0121 123 446')
-  fill_in('member_address_line1',         :with => '123 Fake Street')
-  fill_in('member_address_line2',         :with => 'Fake place')
-  fill_in('member_address_city',          :with => 'Faketown')
-  fill_in('member_address_region',        :with => 'Fakeshire')
-  fill_in('member_address_country',       :with => 'UK')
-  fill_in('member_address_postcode',      :with => 'FAKE 123')
-  fill_in('member_tax_number',            :with => '213244343')
-  fill_in('member_purchase_order_number', :with => 'PO-43243242342')
+  # Store for later
+  @contact_name          = 'Ian McIain'
+  @email                 = 'iain@foobar.com'
+  @organisation_name     = 'FooBar Inc'
+  @phone                 = '0121 123 446'
+  @address_line1         = '123 Fake Street'
+  @address_line2         = 'Fake place'
+  @address_city          = 'Faketown'
+  @address_region        = 'Fakeshire'
+  @address_country       = 'UK'
+  @address_postcode      = 'FAKE 123'
+  @tax_number            = '213244343'
+  @purchase_order_number = 'PO-43243242342'  
+  # Fill in form
+  fill_in('member_level',                 :with => @level)
+  fill_in('member_contact_name',          :with => @contact_name)
+  fill_in('member_email',                 :with => @email)
+  fill_in('member_organisation_name',     :with => @organisation_name)
+  fill_in('member_phone',                 :with => @phone)
+  fill_in('member_address_line1',         :with => @address_line1)
+  fill_in('member_address_line2',         :with => @address_line2)
+  fill_in('member_address_city',          :with => @address_city)
+  fill_in('member_address_region',        :with => @address_region)
+  fill_in('member_address_country',       :with => @address_country)
+  fill_in('member_address_postcode',      :with => @address_postcode)
+  fill_in('member_tax_number',            :with => @tax_number)
+  fill_in('member_purchase_order_number', :with => @purchase_order_number)
   fill_in('member_password',              :with => 'p4ssw0rd')
   fill_in('member_password_confirmation', :with => 'p4ssw0rd')
 
@@ -63,11 +77,10 @@ Then /^my details should be queued for further processing$/ do
     :address_country       => @address_country,
     :address_postcode      => @address_postcode,
     :tax_number            => @tax_number,
-    :purchase_order_number => @purchase_order_number,
-    :agreed_to_terms       => @agreed_to_terms
+    :purchase_order_number => @purchase_order_number
   }
 
-  #Resque.should_receive(:enqueue).with(SignupProcessor, user).once
+  Resque.should_receive(:enqueue).with(SignupProcessor, user).once
 end
 
 And /^I should have a membership number generated$/ do
@@ -94,5 +107,5 @@ When /^I should get an error telling my passwords don't match$/ do
 end
 
 Then /^my details should not be queued$/ do
-  #Resque.should_not_receive(:enqueue)
+  Resque.should_not_receive(:enqueue)
 end
