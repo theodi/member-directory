@@ -47,8 +47,8 @@
 
     <div class="container">
 
-      <% if notice %><p class="notice"><%= notice %></p><% end %>
-      <% if notice %><p class="alert"><%= alert %></p><% end %>
+      <% if notice %><div class="alert alert-info"><%= notice %></div><% end %>
+      <% if alert %><div class="alert alert-error"><%= alert %></div><% end %>
 
       <%= yield %>
 
