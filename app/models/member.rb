@@ -19,7 +19,7 @@ class Member < ActiveRecord::Base
 									:address_postcode, :tax_number, :purchase_order_number, :agreed_to_terms
 
 	# validations
-	validates :level, :presence => true, :inclusion => %w{supporter member partner sponsor}
+	validates :level, :presence => true, :inclusion => %w{affiliate supporter member partner sponsor}
 	validates :contact_name, :presence => true
 	validates :address_line1, :presence => true
 	validates :address_city, :presence => true

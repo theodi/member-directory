@@ -3,23 +3,17 @@ Feature: Add new signups to queue
 
   As a potential member, when I fill in my details, I want my details to be queued for further processing
   
-  Scenario: Supporter signup
-  
-    Given that I want to sign up as a supporter
+  Scenario Outline: Member signup
+    Given that I want to sign up as a <level>
     When I visit the signup page
     And I enter my details
     Then my details should be queued for further processing
     When I click sign up
     And I should have a membership number generated
-    
-  Scenario: Member signup
-  
-    Given that I want to sign up as a member
-    When I visit the signup page
-    And I enter my details
-    Then my details should be queued for further processing
-    When I click sign up
-    And I should have a membership number generated
+    Examples:
+      | level     |
+      | supporter |
+      | affiliate |
 
   Scenario: Invalid level signup
   
