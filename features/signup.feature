@@ -21,6 +21,15 @@ Feature: Add new signups to queue
     When I click sign up
     And I should have a membership number generated
 
+  Scenario: Invalid level signup
+  
+    Given that I want to sign up as a spaceman
+    When I visit the signup page
+    And I enter my details
+    Then my details should not be queued
+    When I click sign up
+    And I should see that the level is invalid
+
 	Scenario Outline: Member tries to sign up, but misses a mandatory field
 
     Given that I want to sign up

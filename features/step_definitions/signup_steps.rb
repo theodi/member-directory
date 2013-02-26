@@ -98,6 +98,10 @@ Then /^I should see an error relating to (.*)$/ do |text|
   page.should have_content "#{text} can't be blank"
 end
 
+Then /^I should see that the level is invalid$/ do
+  page.should have_content "Level is not included in the list"
+end
+
 Then /^I should get an error telling me to accept the terms$/ do
   page.should have_content "Agreed to terms must be accepted"
 end
