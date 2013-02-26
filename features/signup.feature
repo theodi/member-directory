@@ -43,7 +43,6 @@ Feature: Add new signups to queue
 
     Examples:
 			| field 								| text             |
-			| level 								| Level            |
 			| contact_name 					| Contact name     |
 			| address_line1 				| Address line1    |
 			| address_city 					| Address city     |

@@ -7,7 +7,7 @@ Given /^that I want to sign up$/ do
 end
 
 When /^I visit the signup page$/ do
-  visit('/members/sign_up')
+  visit("/members/sign_up?level=#{@level}")
   page.should have_content 'Sign up'  
 end
 
@@ -26,7 +26,6 @@ When /^I enter my details$/ do
   @tax_number            = '213244343'
   @purchase_order_number = 'PO-43243242342'  
   # Fill in form
-  fill_in('member_level',                 :with => @level)
   fill_in('member_contact_name',          :with => @contact_name)
   fill_in('member_email',                 :with => @email)
   fill_in('member_organisation_name',     :with => @organisation_name)
