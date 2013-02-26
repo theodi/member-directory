@@ -11,18 +11,13 @@
 	</div>
   
   <fieldset>
+
+  <%= render :partial => 'member_details', :locals => { :f => f } %>
   
-    <legend>Your details</legend>
+  <fieldset>
+  
+    <legend>Password</legend>
     
-    <div class="control-group">
-    	<%= f.label :email, :class => 'control-label' %>
-    	<div class="controls">
-    		<%= f.email_field :email %>
-    	</div>
-    </div>
-  
-    <%= render :partial => 'member_details', :locals => { :f => f } %>
-  
     <div class="control-group">
   		<%= f.label :password, :class => 'control-label' %>
   		<div class="controls">
@@ -36,6 +31,8 @@
   			<%= f.password_field :password_confirmation %>
   		</div>
   	</div>
+    
+  </fieldset>
   	  	
   	<h2>Terms and conditions</h2>
   	
