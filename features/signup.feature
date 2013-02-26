@@ -32,7 +32,7 @@ Feature: Add new signups to queue
     When I visit the signup page
     And I enter my details
     But I leave <field> blank
-    And my details should not be queued
+    Then my details should not be queued
     When I click sign up
     And I should see an error relating to <text>
 
