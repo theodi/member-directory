@@ -1,17 +1,84 @@
 <!DOCTYPE html>
-<html>
-<head>
-  <title>MemberDirectory</title>
-  <%= stylesheet_link_tag    "application", :media => "all" %>
-  <%= javascript_include_tag "application" %>
-  <%= csrf_meta_tags %>
-</head>
-<body>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>ODI Member Directory</title>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+    <%= stylesheet_link_tag    "application", :media => "all" %>
+    <%= javascript_include_tag "application" %>
+    <%= csrf_meta_tags %>
+  </head>
+  <body data-spy="scroll" data-target="#mainnav">
 
-<p class="notice"><%= notice %></p>
-<p class="alert"><%= alert %></p>
+    <header id="header">
+    	<div class="container">
+    		<div class="branding">
+    	  	<a id="logo" rel="home" title="Home" href="http://theodi.org/">
+    				<img width="131" height="54" class="b_png" alt="Home" src="http://theodi.org/sites/default/files/logo.png">
+    			</a>
+    			<hgroup id="name-and-slogan">
+    				<h1 id="site-name">
+    					<a rel="home" title="Open Data Institute" href="http://theodi.org/">
+    	          <img width="326" height="30" class="b_png" alt="Open Data Institute" src="http://theodi.org/sites/default/files/logo_a.png">                            
+    	        </a>
+    	      </h1>
+    	      <h2 id="site-slogan">Knowledge for everyone</h2>
+    			</hgroup>
+    		</div>
+    		<nav>
+    			<div id="mainnav" class="navbar navbar-inverse">
+    				<div class="navbar-inner">
+    					<ul class="nav">
+    						<a class="brand" href="#">Bootstrap</a>
+    						<li class="active"><a href="#typography">Typography</a></li>
+    						<li class="divider-vertical"></li>
+    						<li><a href="#navbar">Navbar</a></li>
+    						<li class="divider-vertical"></li>
+    						<li><a href="#buttons">Buttons</a></li>
+    						<li class="divider-vertical"></li>
+    						<li><a href="#forms">Forms</a></li>
+    						<li class="divider-vertical"></li>
+    						<li><a href="#tables">Tables</a></li>
+    						<li class="divider-vertical"></li>
+    						<li><a href="#miscellaneous">Miscellaneous</a></li>
+    					</ul>
+    				</div>
+    			</div>
+    	  </nav>
+    	</div>
+    </header>
 
-<%= yield %>
+    <div class="container">
 
-</body>
+      <p class="notice"><%= notice %></p>
+      <p class="alert"><%= alert %></p>
+
+      <%= yield %>
+
+    </div>
+
+    <footer id="footer">
+    	<div class="container">
+      	<nav>
+    			<ul>
+    				<li><a href="/privacy-policy">Privacy Policy</a></li>
+    				<li><a href="/terms-of-use">Terms of Use</a></li>
+    				<li><a href="/cookie-policy">Cookie Policy</a></li>
+    				<li><a href="/feedback">Feedback</a></li>
+    			</ul>
+    		</nav>
+    		<p>
+    			<a rel="license" href="http://creativecommons.org/licenses/by/2.0/uk/deed.en_GB">
+    				<img style="border-width:0" src="http://i.creativecommons.org/l/by/2.0/uk/80x15.png" alt="Creative Commons Licence">
+    			</a>
+    			<a href="http://www.theodi.org">Open Data Institute</a> · 
+    			<a href="http://www.openstreetmap.org/?lat=51.522205&amp;lon=-0.08176500000001852&amp;zoom=16&amp;layers=T&amp;mlat=51.52210&amp;mlon=-0.08343">65 Clifton Street, London EC2A 4JE</a> · 
+    			<a href="mailto:info@theodi.org">info@theodi.org</a> · 
+    			Company <a href="http://opencorporates.com/companies/gb/08030289">08030289</a> · 
+    			VAT 143 7796 80
+    		</p>
+    	</div>
+    </footer>
+
+  </body>
 </html>
