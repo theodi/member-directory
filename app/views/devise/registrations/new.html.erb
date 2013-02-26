@@ -45,8 +45,10 @@
   	</div>
   
     <div class="control-group">
-  		<%= f.label :agreed_to_terms, 'I have read and agree to the terms and conditions of membership', :class => 'control-label' %>
-  		<%= f.check_box :agreed_to_terms %>
+      <div class="controls">
+  		  <label class='checkbox'>
+          <%= f.check_box :agreed_to_terms %> <%= t(:agreed_to_terms) %>
+        </label>
   	</div>
   	
   </fieldset>
