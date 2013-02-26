@@ -84,7 +84,9 @@ Then /^my details should be queued for further processing$/ do
 end
 
 And /^I should have a membership number generated$/ do
-  Member.find_by_email(@email).membership_number.should_not be_nil
+  member = Member.find_by_email(@email)
+  member.membership_number.should_not be_nil
+  member.membership_number.should match(/[0-9]{10}/)
 end
 
 Then /^I should see an error relating to (.*)$/ do |text|

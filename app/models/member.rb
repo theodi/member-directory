@@ -31,7 +31,7 @@ class Member < ActiveRecord::Base
 	
 	 def set_membership_number
 	   begin 
-	     self.membership_number = (0...1000000).sort_by{rand}.first
+	     self.membership_number = "%010d" % SecureRandom.random_number(9999999999)
 	   end while self.class.exists?(:membership_number => membership_number)
 	 end
 
