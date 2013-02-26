@@ -28,19 +28,16 @@
     		<nav>
     			<div id="mainnav" class="navbar navbar-inverse">
     				<div class="navbar-inner">
+  						<a class="brand" href="/">Member Directory</a>
     					<ul class="nav">
-    						<a class="brand" href="#">Member Directory</a>
-    						<li class="active"><a href="#typography">Typography</a></li>
-    						<li class="divider-vertical"></li>
-    						<li><a href="#navbar">Navbar</a></li>
-    						<li class="divider-vertical"></li>
-    						<li><a href="#buttons">Buttons</a></li>
-    						<li class="divider-vertical"></li>
-    						<li><a href="#forms">Forms</a></li>
-    						<li class="divider-vertical"></li>
-    						<li><a href="#tables">Tables</a></li>
-    						<li class="divider-vertical"></li>
-    						<li><a href="#miscellaneous">Miscellaneous</a></li>
+              </ul>
+    					<ul class="nav pull-right">
+                <% if signed_in? %>
+                  <li><a href="#">My Account</a></li>
+                  <li><a href="/members/sign_out">Sign Out</a></li>
+                <% else %>
+                  <li><a href="/members/sign_in">Sign In</a></li>
+                <% end %>
     					</ul>
     				</div>
     			</div>
