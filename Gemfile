@@ -48,3 +48,8 @@ group :development, :test do
   gem 'rspec-rails'
 end
 
+group :production do
+  gem 'foreman'
+  gem 'thin'
+  gem 'mysql2'
+end
