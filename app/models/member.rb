@@ -29,9 +29,13 @@ class Member < ActiveRecord::Base
 	
 	private
 	
+	 def generate_membership_number
+  	 "%010d" % SecureRandom.random_number(9999999999)
+	 end
+	
 	 def set_membership_number
 	   begin 
-	     self.membership_number = "%010d" % SecureRandom.random_number(9999999999)
+	     self.membership_number = generate_membership_number
 	   end while self.class.exists?(:membership_number => membership_number)
 	 end
 
@@ -61,7 +65,7 @@ class Member < ActiveRecord::Base
                         'membership_id' => membership_number
                       }
 
-    Resque.enqueue(SignupProcessor, organization, contact_person, billing_person, purchase)
+    Resque.enqueue(SignupProcessor, organization, contact_person, billing, purchase)
   end
 
 end
