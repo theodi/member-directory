@@ -5,8 +5,6 @@
    
 	<%= f.hidden_field :level, :value => params[:level] || @member.level %>
   
-  <fieldset>
-
   <%= render :partial => 'member_details', :locals => { :f => f } %>
   
   <fieldset>
