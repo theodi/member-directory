@@ -33,4 +33,5 @@ en:
         person_email: "Email Address"
         person_telephone: "Telephone Number"
         person_job_title: "Job Title"
+        product_name: "Membership Level"
         comment_text: "Your Interest"

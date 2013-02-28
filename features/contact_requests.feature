@@ -34,5 +34,14 @@ Feature: Send a contact request
     | person_email          | Email Address    |
     | person_telephone      | Telephone Number |
     | person_job_title      | Job Title        |
-    | product_name          | Level            |
     | comment_text          | Your Interest    |
+    
+  Scenario: Invalid level enquiry
+  
+    Given that I want to sign up as a spaceman
+    When I visit the contact page
+    And I enter my request details
+    Then my details should not be queued
+    When I click contact me
+    And I should see that the level is invalid
+  
