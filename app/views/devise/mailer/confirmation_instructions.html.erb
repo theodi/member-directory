@@ -1,5 +1,9 @@
-<p>Welcome <%= @email %>!</p>
+<p>Welcome to the Open Data Institute,</p>
 
-<p>You can confirm your account email through the link below:</p>
+<p>Your unique membership ID is <%= @resource.membership_number %></p>
+
+<p>An invoice will be generated and sent to you shortly.</p>
+
+<p>In the meantime, you can confirm your account email and change your details through the link below:</p>
 
 <p><%= link_to 'Confirm my account', confirmation_url(@resource, :confirmation_token => @resource.confirmation_token) %></p>

@@ -33,7 +33,7 @@
               </ul>
     					<ul class="nav pull-right">
                 <% if signed_in? %>
-                  <li><a href="#">My Account</a></li>
+                  <li><a href="members/edit">My Account</a></li>
                   <li><%= link_to "Sign out", destroy_member_session_path, :method => :delete %></li>
                 <% else %>
                   <li><%= link_to "Sign in", new_member_session_path %></li>
@@ -49,9 +49,9 @@
 
       <% if notice %><div class="alert alert-info"><%= notice %></div><% end %>
       <% if alert %><div class="alert alert-error"><%= alert %></div><% end %>
-
-      <%= yield %>
-
+	  <section>
+      	<%= yield %>
+  	  </section>
     </div>
 
     <footer id="footer">
