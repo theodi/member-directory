@@ -19,7 +19,7 @@ class Member < ActiveRecord::Base
 									:address_postcode, :tax_number, :purchase_order_number, :agreed_to_terms
 
 	# validations
-	validates :level, :presence => true
+	validates :level, :presence => true, :inclusion => %w{supporter member partner sponsor}
 	validates :contact_name, :presence => true
 	validates :address_line1, :presence => true
 	validates :address_city, :presence => true
@@ -29,31 +29,44 @@ class Member < ActiveRecord::Base
 	
 	private
 	
-	 def set_membership_number
-	   begin 
-	     self.membership_number = "%010d" % SecureRandom.random_number(9999999999)
-	   end while self.class.exists?(:membership_number => membership_number)
-	 end
+  def generate_membership_number
+    chars = ('A'..'Z').to_a
+    chars.sample + chars.sample + "%04d" % SecureRandom.random_number(9999) + chars.sample + chars.sample
+  end
+ 
+  def set_membership_number
+    begin 
+      self.membership_number = generate_membership_number
+    end while self.class.exists?(:membership_number => membership_number)
+  end
 
   after_create :add_to_queue
   
   def add_to_queue
-    user_details =  {
-      :level                 => level,
-      :organisation_name     => organisation_name,
-      :contact_name          => contact_name,
-      :email                 => email,
-      :phone                 => phone, 
-      :address_line1         => address_line1, 
-      :address_line2         => address_line2, 
-      :address_city          => address_city, 
-      :address_region        => address_region, 
-      :address_country       => address_country, 
-      :address_postcode      => address_postcode, 
-      :tax_number            => tax_number, 
-      :purchase_order_number => purchase_order_number
-    }    
-    Resque.enqueue(SignupProcessor, user_details)
+    
+    # construct hashes for signup processor
+    # some of the naming of purchase order and membership id needs updating for consistency
+    organization    = {'name' => organisation_name, 'vat_id' => tax_number}
+    contact_person  = {'name' => contact_name, 'email' => email, 'telephone' => phone}
+    billing         = {
+                        'name' => contact_name,
+                        'email' => email,
+                        'telephone' => phone,
+                        'address' => {
+                          'street_address' => address_line1,
+                          'address_locality' => address_city,
+                          'address_region' => address_region,
+                          'address_country' => address_country,
+                          'postal_code' => address_postcode
+                        }
+                      }
+    purchase        = {
+                        'offer_category' => level,
+                        'purchase_order_reference' => purchase_order_number,
+                        'membership_id' => membership_number
+                      }
+
+    Resque.enqueue(SignupProcessor, organization, contact_person, billing, purchase)
   end
 
 end

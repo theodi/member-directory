@@ -1,0 +1,4 @@
+concurrency: thin=1
+app: member-directory
+user: odi
+template: config/foreman/

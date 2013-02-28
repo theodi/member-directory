@@ -50,3 +50,8 @@ group :development, :test do
   gem 'rb-fsevent', '~> 0.9'
 end
 
+group :production do
+  gem 'foreman'
+  gem 'thin'
+  gem 'mysql2'
+end
