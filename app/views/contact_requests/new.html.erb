@@ -1,21 +1,53 @@
 <h1>Contact us</h1>
 
-<%= form_for(@contact_request) do |f| %>
-  <% if @contact_request.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@contact_request.errors.count, "error") %> prohibited this contact_request from being saved:</h2>
+<%= form_for(@contact_request, :html => {:class => 'form-horizontal'}) do |f| %>
 
-      <ul>
-      <% @contact_request.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
+
+  <div class='control-group'>
+    <%= f.label :person_name %>
+    <div class='controls'>
+      <%= f.text_field :person_name %>
     </div>
-  <% end %>
+  </div>
+  
+  <div class='control-group'>
+    <%= f.label :person_affiliation %>
+    <div class='controls'>
+      <%= f.text_field :person_affiliation %>
+    </div>
+  </div>
+  
+  <div class='control-group'>
+    <%= f.label :person_email %>
+    <div class='controls'>
+      <%= f.text_field :person_email %>
+    </div>
+  </div>
+  
+  <div class='control-group'>
+    <%= f.label :person_telephone %>
+    <div class='controls'>
+      <%= f.text_field :person_telephone %>
+    </div>
+  </div>
+  
+  <div class='control-group'>
+    <%= f.label :person_job_title %>
+    <div class='controls'>
+      <%= f.text_field :person_job_title %>
+    </div>
+  </div>
+  
+  <div class='control-group'>
+    <%= f.label :comment_text %>
+    <div class='controls'>
+      <%= f.text_field :comment_text %>
+    </div>
+  </div>
+  
+  <%= f.hidden_field :product_name, :value => params[:level] || params[:contact_request][:product_name] %>
 
-  <div class="actions">
-    <%= f.submit %>
+  <div class="form-actions">
+    <%= f.submit 'Contact me', :class => 'btn btn-primary' %>
   </div>
 <% end %>
-
-<%= link_to 'Back', contact_requests_path %>
