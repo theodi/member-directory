@@ -9,6 +9,7 @@ end
 When /^I visit the signup page$/ do
   visit("/members/sign_up?level=#{@product_name}")
   page.should have_content 'Sign up'  
+  @field_prefix = 'member'
 end
 
 When /^I enter my details$/ do
@@ -43,10 +44,6 @@ When /^I enter my details$/ do
 
   check('member_agreed_to_terms')
   
-end
-
-When /^I leave (\w*) blank$/ do |field|
-  fill_in("member_#{field}", :with => nil)
 end
 
 When /^I don't agree to the terms$/ do

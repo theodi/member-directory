@@ -1,6 +1,7 @@
 When /^I visit the contact page$/ do
   visit("/contact_requests/new?level=#{@product_name}")
   page.should have_content 'Contact us'
+  @field_prefix = 'contact_request'
 end
 
 When /^I enter my request details$/ do
