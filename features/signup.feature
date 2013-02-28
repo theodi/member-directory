@@ -15,7 +15,7 @@ Feature: Add new signups to queue
     Examples:
       | level     |
       | supporter |
-      | affiliate |
+      | member    |
 
   Scenario: Invalid level signup
   
@@ -38,11 +38,11 @@ Feature: Add new signups to queue
 
     Examples:
 			| field 								| text             |
-			| contact_name 					| Contact name     |
-			| address_line1 				| Address line1    |
-			| address_city 					| Address city     |
-			| address_country 			| Address country  |
-			| address_postcode 			| Address postcode |
+			| contact_name 					| Contact Name     |
+			| address_line1 				| Address          |
+			| address_city 					| City             |
+			| address_country 			| Country          |
+			| address_postcode 			| Postcode         |
 			
   Scenario: Member tries to sign up, but doesn't agree to the terms
   

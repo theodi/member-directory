@@ -2,4 +2,25 @@
 # See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 en:
-  hello: "Hello world"
+  agreed_to_terms: I have read and agree to the terms and conditions of membership
+  activerecord:
+    models:
+      member: Member
+    attributes:
+      member:
+        level: "Membership Level"
+        email: "Email Address"
+        contact_name: "Contact Name"
+        organisation_name: "Organisation Name"
+        phone: "Telephone Number"
+        address_line1: "Address"
+        address_line2: ""
+        address_city: "City"
+        address_region: "Region"
+        address_country: "Country"
+        address_postcode: "Postcode"
+        tax_number: "Tax Number"
+        purchase_order_number: "Purchase Order Number"
+        password: "Password"
+        password_confirmation: "Confirm Password"
+        

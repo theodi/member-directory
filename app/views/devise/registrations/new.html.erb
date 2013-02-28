@@ -6,18 +6,13 @@
 	<%= f.hidden_field :level, :value => params[:level] %>
   
   <fieldset>
+
+  <%= render :partial => 'member_details', :locals => { :f => f } %>
   
-    <legend>Your details</legend>
+  <fieldset>
+  
+    <legend>Password</legend>
     
-    <div class="control-group">
-    	<%= f.label :email, :class => 'control-label' %>
-    	<div class="controls">
-    		<%= f.email_field :email %>
-    	</div>
-    </div>
-  
-    <%= render :partial => 'member_details', :locals => { :f => f } %>
-  
     <div class="control-group">
   		<%= f.label :password, :class => 'control-label' %>
   		<div class="controls">
@@ -31,6 +26,8 @@
   			<%= f.password_field :password_confirmation %>
   		</div>
   	</div>
+    
+  </fieldset>
   	  	
   	<h2>Terms and conditions</h2>
   	
@@ -43,16 +40,17 @@
   	</div>
   
     <div class="control-group">
-  		<%= f.label :agreed_to_terms, 'I have read and agree to the terms and conditions of membership', :class => 'control-label' %>
-  		<%= f.check_box :agreed_to_terms %>
+      <div class="controls">
+  		  <label class='checkbox'>
+          <%= f.check_box :agreed_to_terms %> <%= t(:agreed_to_terms) %>
+        </label>
   	</div>
   	
   </fieldset>
 
   <div class="form-actions">
     <%= f.submit "Sign up", :id => 'submit', :class => 'btn btn-primary' %>
+    or <%= link_to "Sign in", new_session_path(resource_name) %>
   </div>
   
 <% end %>
-
-<%= render "devise/shared/links" %>
