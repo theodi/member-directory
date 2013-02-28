@@ -45,7 +45,7 @@
     </div>
   </div>
   
-  <%= f.hidden_field :product_name, :value => params[:level] || params[:contact_request][:product_name] %>
+  <%= f.hidden_field :product_name, :value => @product_name %>
 
   <div class="form-actions">
     <%= f.submit 'Contact me', :class => 'btn btn-primary' %>
