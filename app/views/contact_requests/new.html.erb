@@ -1,7 +1,8 @@
 <h1>Contact us</h1>
 
-<%= form_for(@contact_request, :html => {:class => 'form-horizontal'}) do |f| %>
+<%= error_messages(@contact_request) %>
 
+<%= form_for(@contact_request, :html => {:class => 'form-horizontal'}) do |f| %>
 
   <div class='control-group'>
     <%= f.label :person_name %>
