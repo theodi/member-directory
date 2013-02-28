@@ -7,42 +7,43 @@
   <div class='control-group'>
     <%= f.label :person_name, :class => 'control-label' %>
     <div class='controls'>
-      <%= f.text_field :person_name %>
+      <%= f.text_field :person_name, :class => 'input-xlarge' %>
     </div>
   </div>
   
   <div class='control-group'>
     <%= f.label :person_affiliation, :class => 'control-label' %>
     <div class='controls'>
-      <%= f.text_field :person_affiliation %>
+      <%= f.text_field :person_affiliation, :class => 'input-xlarge' %>
     </div>
   </div>
-  
+    
+  <div class='control-group'>
+    <%= f.label :person_job_title, :class => 'control-label' %>
+    <div class='controls'>
+      <%= f.text_field :person_job_title, :class => 'input-xlarge' %>
+    </div>
+  </div>
+
   <div class='control-group'>
     <%= f.label :person_email, :class => 'control-label' %>
     <div class='controls'>
-      <%= f.text_field :person_email %>
+      <%= f.text_field :person_email, :class => 'input-xlarge' %>
     </div>
   </div>
   
   <div class='control-group'>
     <%= f.label :person_telephone, :class => 'control-label' %>
     <div class='controls'>
-      <%= f.text_field :person_telephone %>
+      <%= f.text_field :person_telephone, :class => 'input-xlarge' %>
     </div>
   </div>
-  
-  <div class='control-group'>
-    <%= f.label :person_job_title, :class => 'control-label' %>
-    <div class='controls'>
-      <%= f.text_field :person_job_title %>
-    </div>
-  </div>
+
   
   <div class='control-group'>
     <%= f.label :comment_text, :class => 'control-label' %>
     <div class='controls'>
-      <%= f.text_field :comment_text %>
+      <%= f.text_area :comment_text, :rows => 5, :placeholder=>"What would you like to talk to us about?", :class => 'input-xxlarge' %>
     </div>
   </div>
   
