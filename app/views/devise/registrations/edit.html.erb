@@ -36,17 +36,16 @@
   
   </fieldset>
   
-  <fieldset>
-    <legend>Your details</legend>
-    
+  <fieldset>   
     <%= render :partial => 'member_details', :locals => { :f => f } %>
   </fieldset>
   
   <fieldset>
     <div class="control-group">
-      <%= f.label :current_password, :class => 'control-label' %><span class="help-inline">(we need your current password to confirm your changes)</span>
+      <%= f.label :current_password, :class => 'control-label' %>
       <div class="controls">
         <%= f.password_field :current_password %>
+		<span class="help-inline">(we need your current password to confirm your changes)</span>
       </div>
     </div>
   </fieldset>
