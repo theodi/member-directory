@@ -1,0 +1,21 @@
+<h1>Contact us</h1>
+
+<%= form_for(@contact_request) do |f| %>
+  <% if @contact_request.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@contact_request.errors.count, "error") %> prohibited this contact_request from being saved:</h2>
+
+      <ul>
+      <% @contact_request.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
+
+<%= link_to 'Back', contact_requests_path %>
