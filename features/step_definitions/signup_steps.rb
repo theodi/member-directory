@@ -63,24 +63,31 @@ When /^I click sign up$/ do
 end
 
 Then /^my details should be queued for further processing$/ do
-
-  user = {
-    :level                 => @level,
-    :organisation_name     => @organisation_name,
-    :contact_name          => @contact_name,
-    :email                 => @email,
-    :phone                 => @phone,
-    :address_line1         => @address_line1,
-    :address_line2         => @address_line2,
-    :address_city          => @address_city,
-    :address_region        => @address_region,
-    :address_country       => @address_country,
-    :address_postcode      => @address_postcode,
-    :tax_number            => @tax_number,
-    :purchase_order_number => @purchase_order_number
-  }
-
-  Resque.should_receive(:enqueue).with(SignupProcessor, user).once
+      
+  organization    = {'name' => @organisation_name, 'vat_id' => @tax_number}
+  contact_person  = {'name' => @contact_name, 'email' => @email, 'telephone' => @phone}
+  billing         = {
+                      'name' => @contact_name,
+                      'email' => @email,
+                      'telephone' => @phone,
+                      'address' => {
+                        'street_address' => @address_line1,
+                        'address_locality' => @address_city,
+                        'address_region' => @address_region,
+                        'address_country' => @address_country,
+                        'postal_code' => @address_postcode
+                      }
+                    }
+                    
+  Resque.should_receive(:enqueue).with do |*args|
+    args[0].should == SignupProcessor
+    args[1].should == organization
+    args[2].should == contact_person
+    args[3].should == billing
+    args[4]['offer_category'].should == @level
+    args[4]['membership_id'].should_not be_nil
+    args[4]['purchase_order_reference'].should == @purchase_order_number
+  end 
 end
 
 And /^I should have a membership number generated$/ do
