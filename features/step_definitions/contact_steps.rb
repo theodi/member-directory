@@ -41,3 +41,7 @@ end
 When /^I click contact me$/ do
   click_button('Contact me')
 end
+
+Then /^I should see "(.*?)"$/ do |text|
+  page.should have_content(text)
+end

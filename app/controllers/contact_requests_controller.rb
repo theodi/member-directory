@@ -17,7 +17,7 @@ class ContactRequestsController < ApplicationController
     @product_name = @contact_request.product_name    
     respond_to do |format|
       if @contact_request.save
-        format.html { redirect_to @contact_request, notice: 'Request successfully sent.' }
+        format.html { render }
         format.json { render json: @contact_request, status: :created, location: @contact_request }
       else
         format.html { render action: "new" }
