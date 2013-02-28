@@ -5,6 +5,14 @@ class ContactRequest
   
   attr_accessor :person_name, :person_affiliation, :person_email, :person_telephone, :person_job_title, :product_name, :comment_text
 
+  validates :person_name       , :presence => true
+  validates :person_affiliation, :presence => true
+  validates :person_email      , :presence => true
+  validates :person_telephone  , :presence => true
+  validates :person_job_title  , :presence => true
+  validates :product_name      , :presence => true, :inclusion => %w{supporter member partner sponsor}
+  validates :comment_text      , :presence => true
+
   def initialize(attributes = {})
     attributes.each do |name, value|
       send("#{name}=", value)
@@ -16,6 +24,9 @@ class ContactRequest
   end
   
   def save
+    # Validations
+    return unless valid?
+    # Queue
     Resque.enqueue(PartnerEnquiryProcessor, {
         'name'        => person_name,
         'affiliation' => person_affiliation,
