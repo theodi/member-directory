@@ -29,11 +29,12 @@ class Member < ActiveRecord::Base
 	
 	private
 	
-	 def set_membership_number
-	   begin 
-	     self.membership_number = "%010d" % SecureRandom.random_number(9999999999)
-	   end while self.class.exists?(:membership_number => membership_number)
-	 end
+  def set_membership_number
+    begin 
+      chars = ('A'..'Z').to_a
+      self.membership_number = chars.sample + chars.sample + "%04d" % SecureRandom.random_number(9999) + chars.sample + chars.sample
+    end while self.class.exists?(:membership_number => membership_number)
+  end
 
   after_create :add_to_queue
   

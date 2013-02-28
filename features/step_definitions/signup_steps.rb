@@ -86,7 +86,7 @@ end
 And /^I should have a membership number generated$/ do
   member = Member.find_by_email(@email)
   member.membership_number.should_not be_nil
-  member.membership_number.should match(/[0-9]{10}/)
+  member.membership_number.should match(/[A-Z]{2}[0-9]{4}[A-Z]{2}/)
 end
 
 Then /^I should see an error relating to (.*)$/ do |text|
