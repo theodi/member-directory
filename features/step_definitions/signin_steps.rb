@@ -13,7 +13,7 @@ Given /^that I have a membership number and password$/ do
     :address_region        => 'Fakeshire',
     :address_country       => 'UK',
     :address_postcode      => 'FAKE 123',
-    :tax_number            => '213244343',
+    :organisation_vat_id            => '213244343',
     :purchase_order_number => 'PO-43243242342',
     :password              => 'p4ssw0rd',
     :password_confirmation => 'p4ssw0rd',

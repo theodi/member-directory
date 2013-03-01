@@ -22,7 +22,7 @@ When /^I enter my details$/ do
   @address_region        = 'Fakeshire'
   @address_country       = 'UK'
   @address_postcode      = 'FAKE 123'
-  @tax_number            = '213244343'
+  @organisation_vat_id            = '213244343'
   @purchase_order_number = 'PO-43243242342'  
   # Fill in form
   fill_in('member_contact_name',          :with => @contact_name)
@@ -34,7 +34,7 @@ When /^I enter my details$/ do
   fill_in('member_address_region',        :with => @address_region)
   fill_in('member_address_country',       :with => @address_country)
   fill_in('member_address_postcode',      :with => @address_postcode)
-  fill_in('member_tax_number',            :with => @tax_number)
+  fill_in('member_organisation_vat_id',            :with => @organisation_vat_id)
   fill_in('member_purchase_order_number', :with => @purchase_order_number)
   fill_in('member_password',              :with => 'p4ssw0rd')
   fill_in('member_password_confirmation', :with => 'p4ssw0rd')
@@ -61,7 +61,7 @@ end
 
 Then /^my details should be queued for further processing$/ do
       
-  organization    = {'name' => @organisation_name, 'vat_id' => @tax_number}
+  organization    = {'name' => @organisation_name, 'vat_id' => @organisation_vat_id}
   contact_person  = {'name' => @contact_name, 'email' => @email, 'telephone' => @telephone}
   billing         = {
                       'name' => @contact_name,

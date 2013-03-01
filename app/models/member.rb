@@ -13,10 +13,10 @@ class Member < ActiveRecord::Base
   attr_accessible :email, :password, :password_confirmation, :remember_me
   attr_accessible :level, :organisation_name, :contact_name, :telephone, :street_address,
 									:address_city, :address_region, :address_country,
-									:address_postcode, :tax_number, :purchase_order_number, :agreed_to_terms
+									:address_postcode, :organisation_vat_id, :purchase_order_number, :agreed_to_terms
   attr_accessor :level, :organisation_name, :contact_name, :telephone, :street_address,
 									:address_city, :address_region, :address_country,
-									:address_postcode, :tax_number, :purchase_order_number, :agreed_to_terms
+									:address_postcode, :organisation_vat_id, :purchase_order_number, :agreed_to_terms
 
 	# validations
 	validates :level, :presence => true, :inclusion => %w{supporter member partner sponsor}
@@ -46,7 +46,7 @@ class Member < ActiveRecord::Base
     
     # construct hashes for signup processor
     # some of the naming of purchase order and membership id needs updating for consistency
-    organization    = {'name' => organisation_name, 'vat_id' => tax_number}
+    organization    = {'name' => organisation_name, 'vat_id' => organisation_vat_id}
     contact_person  = {'name' => contact_name, 'email' => email, 'telephone' => telephone}
     billing         = {
                         'name' => contact_name,
