@@ -1,6 +1,4 @@
-<h2>Edit <%= resource_name.to_s.humanize %></h2>
-
-<%= link_to('Logout', destroy_member_session_path, :method => :delete) %> 
+<h2>Edit your details</h2>
 
 <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put, :class => 'form-horizontal' }) do |f| %>
   <%= devise_error_messages! %>
@@ -37,7 +35,7 @@
   </fieldset>
   
   <fieldset>   
-    <%= render :partial => 'member_details', :locals => { :f => f } %>
+    <% render :partial => 'member_details', :locals => { :f => f } %>
   </fieldset>
   
   <fieldset>
@@ -54,9 +52,3 @@
     <%= f.submit "Update", :id => 'submit', :class => 'btn btn-primary' %>
   </div>
 <% end %>
-
-<h3>Cancel my account</h3>
-
-<p>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), :data => { :confirm => "Are you sure?" }, :method => :delete %>.</p>
-
-<%= link_to "Back", :back %>

@@ -10,9 +10,9 @@ en:
       member:
         product_name: "Membership Level"
         email: "Email Address"
-        contact_name: "Contact Name"
-        organisation_name: "Organisation Name"
-        telephone: "Telephone Number"
+        contact_name: "Your Name"
+        organisation_name: "Organisation"
+        telephone: "Contact Number"
         street_address: "Address"
         address_locality: "City"
         address_region: "Region"

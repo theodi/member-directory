@@ -1,9 +1,27 @@
-<p>Welcome to the Open Data Institute,</p>
+<p>Dear <%= @resource.contact_name %></p>
 
-<p>Your unique membership ID is <%= @resource.membership_number %></p>
+<p>Congratulations on joining us at the Open Data Institute. You have just become part of one the most exciting communities in Open Data in the world! We run a lecture series every Friday highlighting some of the awe inspiring work going on using Open Data - everything from data as art, through to how to how the CTO of the World Bank giving a 'fireside chat' about his experience at the White House. You can register for upcoming talks here: http://www.theodi.org/lunchtime-lectures </p>
 
-<p>An invoice will be generated and sent to you shortly.</p>
+<p>As with everything we do we are continously developing our membership offer so we should kep delivering more value. To give you the inside track on the next few months we will be adding:</p>
 
-<p>In the meantime, you can confirm your account email and change your details through the link below:</p>
+<ul>
+	<li>A directory of members - so you can advertise your services to the world</li>
+	<li>Online desk/room booking - so you can easily book space for that crucial business meeting</li>
+	<li>Your idea here!</li>
+</ul>
+
+<p>So <a href="mailto:richard.stirling@theodi.org">drop me a line</a> if there is anything that we can do to make your life as a member easier</p>
+
+<p>Your membership number is <%= @resource.membership_number %></p>
+
+<p>We are just drawing up your invoice and it will be sent to you shortly. In the meantime, you can confirm your account email and change your details through the link below:</p>
 
 <p><%= link_to 'Confirm my account', confirmation_url(@resource, :confirmation_token => @resource.confirmation_token) %></p>
+
+<p>Welcome again to the ODI community!</p>
+
+<p>Regards</p>
+
+<img src="http://members.theodi.org/signature.png" alt="" />
+
+<p>Richard</p>
