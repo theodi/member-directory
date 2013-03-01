@@ -39,7 +39,7 @@ Feature: Add new signups to queue
     Examples:
 			| field 								| text             |
 			| contact_name 					| Contact Name     |
-			| address_line1 				| Address          |
+			| street_address 				| Address          |
 			| address_city 					| City             |
 			| address_country 			| Country          |
 			| address_postcode 			| Postcode         |

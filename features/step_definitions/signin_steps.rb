@@ -8,7 +8,7 @@ Given /^that I have a membership number and password$/ do
     :contact_name          => 'Ian McIain',
     :email                 => 'iain@foobar.com',
     :phone                 => '0121 123 446',
-    :address_line1         => '123 Fake Street',
+    :street_address         => '123 Fake Street',
     :address_city          => 'Faketown',
     :address_region        => 'Fakeshire',
     :address_country       => 'UK',

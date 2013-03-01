@@ -13,7 +13,7 @@ en:
         contact_name: "Contact Name"
         organisation_name: "Organisation Name"
         phone: "Telephone Number"
-        address_line1: "Address"
+        street_address: "Address"
         address_city: "City"
         address_region: "Region"
         address_country: "Country"
