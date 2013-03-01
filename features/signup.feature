@@ -42,7 +42,7 @@ Feature: Add new signups to queue
 			| street_address 				| Address          |
 			| address_locality 					| City             |
 			| address_country 			| Country          |
-			| address_postcode 			| Postcode         |
+			| postal_code 			| Postcode         |
 			
   Scenario: Member tries to sign up, but doesn't agree to the terms
   
