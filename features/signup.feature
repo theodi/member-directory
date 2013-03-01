@@ -24,7 +24,7 @@ Feature: Add new signups to queue
     And I enter my details
     Then my details should not be queued
     When I click sign up
-    And I should see that the product is invalid
+    And I should see that the membership level is invalid
 
 	Scenario Outline: Member tries to sign up, but misses a mandatory field
 

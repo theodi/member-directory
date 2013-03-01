@@ -46,6 +46,8 @@ group :development, :test do
   gem 'cucumber-rails', :require => false
   gem 'database_cleaner'
   gem 'rspec-rails'
+  gem 'guard-cucumber'
+  gem 'rb-fsevent', '~> 0.9'
 end
 
 group :production do
