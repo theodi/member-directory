@@ -11,20 +11,20 @@ class Member < ActiveRecord::Base
 
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me
-  attr_accessible :level, :organisation_name, :contact_name, :phone, :address_line1,
-									:address_line2, :address_city, :address_region, :address_country,
-									:address_postcode, :tax_number, :purchase_order_number, :agreed_to_terms
-  attr_accessor :level, :organisation_name, :contact_name, :phone, :address_line1,
-									:address_line2, :address_city, :address_region, :address_country,
-									:address_postcode, :tax_number, :purchase_order_number, :agreed_to_terms
+  attr_accessible :product_name, :organisation_name, :contact_name, :telephone, :street_address,
+									:address_locality, :address_region, :address_country,
+									:postal_code, :organisation_vat_id, :purchase_order_number, :agreed_to_terms
+  attr_accessor :product_name, :organisation_name, :contact_name, :telephone, :street_address,
+									:address_locality, :address_region, :address_country,
+									:postal_code, :organisation_vat_id, :purchase_order_number, :agreed_to_terms
 
 	# validations
-	validates :level, :presence => true, :inclusion => %w{supporter member partner sponsor}
+	validates :product_name, :presence => true, :inclusion => %w{supporter member partner sponsor}
 	validates :contact_name, :presence => true
-	validates :address_line1, :presence => true
-	validates :address_city, :presence => true
+	validates :street_address, :presence => true
+	validates :address_locality, :presence => true
 	validates :address_country, :presence => true
-	validates :address_postcode, :presence => true
+	validates :postal_code, :presence => true
 	validates_acceptance_of :agreed_to_terms
 	
 	private
@@ -46,22 +46,22 @@ class Member < ActiveRecord::Base
     
     # construct hashes for signup processor
     # some of the naming of purchase order and membership id needs updating for consistency
-    organization    = {'name' => organisation_name, 'vat_id' => tax_number}
-    contact_person  = {'name' => contact_name, 'email' => email, 'telephone' => phone}
+    organization    = {'name' => organisation_name, 'vat_id' => organisation_vat_id}
+    contact_person  = {'name' => contact_name, 'email' => email, 'telephone' => telephone}
     billing         = {
                         'name' => contact_name,
                         'email' => email,
-                        'telephone' => phone,
+                        'telephone' => telephone,
                         'address' => {
-                          'street_address' => address_line1,
-                          'address_locality' => address_city,
+                          'street_address' => street_address,
+                          'address_locality' => address_locality,
                           'address_region' => address_region,
                           'address_country' => address_country,
-                          'postal_code' => address_postcode
+                          'postal_code' => postal_code
                         }
                       }
     purchase        = {
-                        'offer_category' => level,
+                        'offer_category' => product_name,
                         'purchase_order_reference' => purchase_order_number,
                         'membership_id' => membership_number
                       }

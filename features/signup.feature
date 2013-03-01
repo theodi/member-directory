@@ -5,7 +5,7 @@ Feature: Add new signups to queue
 
   Scenario Outline: Member signup
 
-    Given that I want to sign up as a <level>
+    Given that I want to sign up as a <product_name>
     When I visit the signup page
     And I enter my details
     Then my details should be queued for further processing
@@ -13,18 +13,18 @@ Feature: Add new signups to queue
     And I should have a membership number generated
 
     Examples:
-      | level     |
-      | supporter |
-      | member    |
+      | product_name |
+      | supporter    |
+      | member       |
 
-  Scenario: Invalid level signup
+  Scenario: Invalid product signup
   
     Given that I want to sign up as a spaceman
     When I visit the signup page
     And I enter my details
     Then my details should not be queued
     When I click sign up
-    And I should see that the level is invalid
+    And I should see that the product is invalid
 
 	Scenario Outline: Member tries to sign up, but misses a mandatory field
 
@@ -39,10 +39,10 @@ Feature: Add new signups to queue
     Examples:
 			| field 								| text             |
 			| contact_name 					| Contact Name     |
-			| address_line1 				| Address          |
-			| address_city 					| City             |
+			| street_address 				| Address          |
+			| address_locality 			| City             |
 			| address_country 			| Country          |
-			| address_postcode 			| Postcode         |
+			| postal_code 			    | Postcode         |
 			
   Scenario: Member tries to sign up, but doesn't agree to the terms
   
