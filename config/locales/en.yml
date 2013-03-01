@@ -14,7 +14,7 @@ en:
         organisation_name: "Organisation Name"
         telephone: "Telephone Number"
         street_address: "Address"
-        address_city: "City"
+        address_locality: "City"
         address_region: "Region"
         address_country: "Country"
         address_postcode: "Postcode"

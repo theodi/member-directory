@@ -40,7 +40,7 @@ Feature: Add new signups to queue
 			| field 								| text             |
 			| contact_name 					| Contact Name     |
 			| street_address 				| Address          |
-			| address_city 					| City             |
+			| address_locality 					| City             |
 			| address_country 			| Country          |
 			| address_postcode 			| Postcode         |
 			

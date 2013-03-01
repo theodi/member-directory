@@ -12,17 +12,17 @@ class Member < ActiveRecord::Base
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me
   attr_accessible :level, :organisation_name, :contact_name, :telephone, :street_address,
-									:address_city, :address_region, :address_country,
+									:address_locality, :address_region, :address_country,
 									:address_postcode, :organisation_vat_id, :purchase_order_number, :agreed_to_terms
   attr_accessor :level, :organisation_name, :contact_name, :telephone, :street_address,
-									:address_city, :address_region, :address_country,
+									:address_locality, :address_region, :address_country,
 									:address_postcode, :organisation_vat_id, :purchase_order_number, :agreed_to_terms
 
 	# validations
 	validates :level, :presence => true, :inclusion => %w{supporter member partner sponsor}
 	validates :contact_name, :presence => true
 	validates :street_address, :presence => true
-	validates :address_city, :presence => true
+	validates :address_locality, :presence => true
 	validates :address_country, :presence => true
 	validates :address_postcode, :presence => true
 	validates_acceptance_of :agreed_to_terms
@@ -54,7 +54,7 @@ class Member < ActiveRecord::Base
                         'telephone' => telephone,
                         'address' => {
                           'street_address' => street_address,
-                          'address_locality' => address_city,
+                          'address_locality' => address_locality,
                           'address_region' => address_region,
                           'address_country' => address_country,
                           'postal_code' => address_postcode

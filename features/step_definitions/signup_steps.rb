@@ -18,7 +18,7 @@ When /^I enter my details$/ do
   @organisation_name     = 'FooBar Inc'
   @telephone                 = '0121 123 446'
   @street_address         = '123 Fake Street'
-  @address_city          = 'Faketown'
+  @address_locality          = 'Faketown'
   @address_region        = 'Fakeshire'
   @address_country       = 'UK'
   @address_postcode      = 'FAKE 123'
@@ -30,7 +30,7 @@ When /^I enter my details$/ do
   fill_in('member_organisation_name',     :with => @organisation_name)
   fill_in('member_telephone',                 :with => @telephone)
   fill_in('member_street_address',         :with => @street_address)
-  fill_in('member_address_city',          :with => @address_city)
+  fill_in('member_address_locality',          :with => @address_locality)
   fill_in('member_address_region',        :with => @address_region)
   fill_in('member_address_country',       :with => @address_country)
   fill_in('member_address_postcode',      :with => @address_postcode)
@@ -69,7 +69,7 @@ Then /^my details should be queued for further processing$/ do
                       'telephone' => @telephone,
                       'address' => {
                         'street_address' => @street_address,
-                        'address_locality' => @address_city,
+                        'address_locality' => @address_locality,
                         'address_region' => @address_region,
                         'address_country' => @address_country,
                         'postal_code' => @address_postcode
