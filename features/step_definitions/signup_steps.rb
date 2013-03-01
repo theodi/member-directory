@@ -16,7 +16,7 @@ When /^I enter my details$/ do
   @contact_name          = 'Ian McIain'
   @email                 = 'iain@foobar.com'
   @organisation_name     = 'FooBar Inc'
-  @phone                 = '0121 123 446'
+  @telephone                 = '0121 123 446'
   @street_address         = '123 Fake Street'
   @address_city          = 'Faketown'
   @address_region        = 'Fakeshire'
@@ -28,7 +28,7 @@ When /^I enter my details$/ do
   fill_in('member_contact_name',          :with => @contact_name)
   fill_in('member_email',                 :with => @email)
   fill_in('member_organisation_name',     :with => @organisation_name)
-  fill_in('member_phone',                 :with => @phone)
+  fill_in('member_telephone',                 :with => @telephone)
   fill_in('member_street_address',         :with => @street_address)
   fill_in('member_address_city',          :with => @address_city)
   fill_in('member_address_region',        :with => @address_region)
@@ -62,11 +62,11 @@ end
 Then /^my details should be queued for further processing$/ do
       
   organization    = {'name' => @organisation_name, 'vat_id' => @tax_number}
-  contact_person  = {'name' => @contact_name, 'email' => @email, 'telephone' => @phone}
+  contact_person  = {'name' => @contact_name, 'email' => @email, 'telephone' => @telephone}
   billing         = {
                       'name' => @contact_name,
                       'email' => @email,
-                      'telephone' => @phone,
+                      'telephone' => @telephone,
                       'address' => {
                         'street_address' => @street_address,
                         'address_locality' => @address_city,

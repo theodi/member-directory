@@ -11,10 +11,10 @@ class Member < ActiveRecord::Base
 
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me
-  attr_accessible :level, :organisation_name, :contact_name, :phone, :street_address,
+  attr_accessible :level, :organisation_name, :contact_name, :telephone, :street_address,
 									:address_city, :address_region, :address_country,
 									:address_postcode, :tax_number, :purchase_order_number, :agreed_to_terms
-  attr_accessor :level, :organisation_name, :contact_name, :phone, :street_address,
+  attr_accessor :level, :organisation_name, :contact_name, :telephone, :street_address,
 									:address_city, :address_region, :address_country,
 									:address_postcode, :tax_number, :purchase_order_number, :agreed_to_terms
 
@@ -47,11 +47,11 @@ class Member < ActiveRecord::Base
     # construct hashes for signup processor
     # some of the naming of purchase order and membership id needs updating for consistency
     organization    = {'name' => organisation_name, 'vat_id' => tax_number}
-    contact_person  = {'name' => contact_name, 'email' => email, 'telephone' => phone}
+    contact_person  = {'name' => contact_name, 'email' => email, 'telephone' => telephone}
     billing         = {
                         'name' => contact_name,
                         'email' => email,
-                        'telephone' => phone,
+                        'telephone' => telephone,
                         'address' => {
                           'street_address' => street_address,
                           'address_locality' => address_city,

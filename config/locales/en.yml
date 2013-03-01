@@ -12,7 +12,7 @@ en:
         email: "Email Address"
         contact_name: "Contact Name"
         organisation_name: "Organisation Name"
-        phone: "Telephone Number"
+        telephone: "Telephone Number"
         street_address: "Address"
         address_city: "City"
         address_region: "Region"
