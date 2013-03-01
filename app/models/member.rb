@@ -11,15 +11,15 @@ class Member < ActiveRecord::Base
 
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me
-  attr_accessible :level, :organisation_name, :contact_name, :telephone, :street_address,
+  attr_accessible :product_name, :organisation_name, :contact_name, :telephone, :street_address,
 									:address_locality, :address_region, :address_country,
 									:postal_code, :organisation_vat_id, :purchase_order_number, :agreed_to_terms
-  attr_accessor :level, :organisation_name, :contact_name, :telephone, :street_address,
+  attr_accessor :product_name, :organisation_name, :contact_name, :telephone, :street_address,
 									:address_locality, :address_region, :address_country,
 									:postal_code, :organisation_vat_id, :purchase_order_number, :agreed_to_terms
 
 	# validations
-	validates :level, :presence => true, :inclusion => %w{supporter member partner sponsor}
+	validates :product_name, :presence => true, :inclusion => %w{supporter member partner sponsor}
 	validates :contact_name, :presence => true
 	validates :street_address, :presence => true
 	validates :address_locality, :presence => true
@@ -61,7 +61,7 @@ class Member < ActiveRecord::Base
                         }
                       }
     purchase        = {
-                        'offer_category' => level,
+                        'offer_category' => product_name,
                         'purchase_order_reference' => purchase_order_number,
                         'membership_id' => membership_number
                       }

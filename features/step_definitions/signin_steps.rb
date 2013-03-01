@@ -3,7 +3,7 @@ Given /^that I have a membership number and password$/ do
   Resque.should_receive(:enqueue).once
   # Create a new member
   member = Member.create(
-    :level                 => 'supporter',
+    :product_name                 => 'supporter',
     :organisation_name     => 'FooBar Inc',
     :contact_name          => 'Ian McIain',
     :email                 => 'iain@foobar.com',

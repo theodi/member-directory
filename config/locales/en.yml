@@ -8,7 +8,7 @@ en:
       member: Member
     attributes:
       member:
-        level: "Membership Level"
+        product_name: "Membership Level"
         email: "Email Address"
         contact_name: "Contact Name"
         organisation_name: "Organisation Name"

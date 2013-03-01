@@ -1,13 +1,13 @@
-Given /^that I want to sign up as a (\w*)$/ do |level|
-  @level = level # Required
+Given /^that I want to sign up as a (\w*)$/ do |product_name|
+  @product_name = product_name # Required
 end
 
 Given /^that I want to sign up$/ do
-  @level = 'supporter'
+  @product_name = 'supporter'
 end
 
 When /^I visit the signup page$/ do
-  visit("/members/sign_up?level=#{@level}")
+  visit("/members/sign_up?level=#{@product_name}")
   page.should have_content 'Sign up'  
 end
 
@@ -81,7 +81,7 @@ Then /^my details should be queued for further processing$/ do
     args[1].should == organization
     args[2].should == contact_person
     args[3].should == billing
-    args[4]['offer_category'].should == @level
+    args[4]['offer_category'].should == @product_name
     args[4]['membership_id'].should_not be_nil
     args[4]['purchase_order_reference'].should == @purchase_order_number
   end 
@@ -97,8 +97,8 @@ Then /^I should see an error relating to (.*)$/ do |text|
   page.should have_content "#{text} can't be blank"
 end
 
-Then /^I should see that the level is invalid$/ do
-  page.should have_content "Level is not included in the list"
+Then /^I should see that the product is invalid$/ do
+  page.should have_content "Membership Level is not included in the list"
 end
 
 Then /^I should get an error telling me to accept the terms$/ do
