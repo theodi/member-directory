@@ -9,7 +9,6 @@ Given /^that I have a membership number and password$/ do
     :email                 => 'iain@foobar.com',
     :phone                 => '0121 123 446',
     :address_line1         => '123 Fake Street',
-    :address_line2         => 'Fake place',
     :address_city          => 'Faketown',
     :address_region        => 'Fakeshire',
     :address_country       => 'UK',

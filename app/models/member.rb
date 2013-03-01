@@ -12,10 +12,10 @@ class Member < ActiveRecord::Base
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me
   attr_accessible :level, :organisation_name, :contact_name, :phone, :address_line1,
-									:address_line2, :address_city, :address_region, :address_country,
+									:address_city, :address_region, :address_country,
 									:address_postcode, :tax_number, :purchase_order_number, :agreed_to_terms
   attr_accessor :level, :organisation_name, :contact_name, :phone, :address_line1,
-									:address_line2, :address_city, :address_region, :address_country,
+									:address_city, :address_region, :address_country,
 									:address_postcode, :tax_number, :purchase_order_number, :agreed_to_terms
 
 	# validations

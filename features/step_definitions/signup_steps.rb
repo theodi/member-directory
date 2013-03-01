@@ -18,7 +18,6 @@ When /^I enter my details$/ do
   @organisation_name     = 'FooBar Inc'
   @phone                 = '0121 123 446'
   @address_line1         = '123 Fake Street'
-  @address_line2         = 'Fake place'
   @address_city          = 'Faketown'
   @address_region        = 'Fakeshire'
   @address_country       = 'UK'
@@ -31,7 +30,6 @@ When /^I enter my details$/ do
   fill_in('member_organisation_name',     :with => @organisation_name)
   fill_in('member_phone',                 :with => @phone)
   fill_in('member_address_line1',         :with => @address_line1)
-  fill_in('member_address_line2',         :with => @address_line2)
   fill_in('member_address_city',          :with => @address_city)
   fill_in('member_address_region',        :with => @address_region)
   fill_in('member_address_country',       :with => @address_country)
