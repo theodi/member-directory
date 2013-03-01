@@ -38,7 +38,7 @@ Feature: Add new signups to queue
 
     Examples:
 			| field 								| text             |
-			| contact_name 					| Contact Name     |
+			| contact_name 					| Your Name     |
 			| street_address 				| Address          |
 			| address_locality 			| City             |
 			| address_country 			| Country          |
