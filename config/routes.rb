@@ -2,6 +2,8 @@ MemberDirectory::Application.routes.draw do
 
   devise_for :members
 
+  resources :contact_requests
+
   root :to => "home#index"
 
   # The priority is based upon order of creation:
