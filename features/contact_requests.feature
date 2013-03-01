@@ -44,5 +44,5 @@ Feature: Send a contact request
     And I enter my request details
     Then my details should not be queued
     When I click contact me
-    And I should see that the level is invalid
+    And I should see that the membership level is invalid
   

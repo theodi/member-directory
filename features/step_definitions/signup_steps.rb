@@ -94,7 +94,7 @@ Then /^I should see an error relating to (.*)$/ do |text|
   page.should have_content "#{text} can't be blank"
 end
 
-Then /^I should see that the product is invalid$/ do
+Then /^I should see that the membership level is invalid$/ do
   page.should have_content "Membership Level is not included in the list"
 end
 
