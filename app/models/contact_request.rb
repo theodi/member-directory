@@ -26,7 +26,7 @@ class ContactRequest
   
   def save
     # Validations
-    return unless valid?
+    return false unless valid?
     # Queue
     Resque.enqueue(PartnerEnquiryProcessor, {
         'name'        => person_name,
@@ -38,6 +38,7 @@ class ContactRequest
       { 'name' => product_name },
       { 'text' => comment_text }
     )
+    true
   end
   
 end
