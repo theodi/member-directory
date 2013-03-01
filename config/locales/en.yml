@@ -18,7 +18,7 @@ en:
         address_region: "Region"
         address_country: "Country"
         postal_code: "Postcode"
-        organisation_vat_id: "VAT Number (if not in UK)"
+        organisation_vat_id: "VAT Number (if not UK)"
         purchase_order_number: "Purchase Order Number"
         password: "Password"
         password_confirmation: "Confirm Password"
