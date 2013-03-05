@@ -19,13 +19,13 @@ class Member < ActiveRecord::Base
 									:postal_code, :organisation_vat_id, :purchase_order_number, :agreed_to_terms
 
 	# validations
-	validates :product_name, :presence => true, :inclusion => %w{supporter member partner sponsor}
-	validates :contact_name, :presence => true
-	validates :street_address, :presence => true
-	validates :address_locality, :presence => true
-	validates :address_country, :presence => true
-	validates :postal_code, :presence => true
-	validates_acceptance_of :agreed_to_terms
+	validates :product_name, :presence => true, :inclusion => %w{supporter member partner sponsor}, :on => :create
+	validates :contact_name, :presence => true, :on => :create
+	validates :street_address, :presence => true, :on => :create
+	validates :address_locality, :presence => true, :on => :create
+	validates :address_country, :presence => true, :on => :create
+	validates :postal_code, :presence => true, :on => :create
+	validates_acceptance_of :agreed_to_terms, :on => :create
 	
 	private
 	
