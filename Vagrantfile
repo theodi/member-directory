@@ -12,7 +12,7 @@
 # rake db:migrate
 # rails server
 #
-# then point your browser at http://33.33.33.100:3000/
+# then point your browser at http://33.33.33.33:3000/
 
 Vagrant::Config.run do |config|
 
