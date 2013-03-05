@@ -18,4 +18,5 @@
 /.powrc
 .idea/
 .chef/chef-validator.pem
+.chef/knife.rb
 .vagrant
