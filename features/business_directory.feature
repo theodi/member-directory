@@ -27,14 +27,14 @@ Feature: Adding details to the business directory
 		Scenario: Sucessful business directory upload
 			
 			Given that I enter my request details
-			Then my submission should be queued for futher processing
+			Then my details should not be updated in CapsuleCRM
 			When I click submit
 			
 		Scenario: User tries to submit their details, but misses a mandatory field
 		
 			Given that I enter my request details
 			But I leave <field> blank
-			Then my submission should not be queued for futher processing
+			Then my details should be updated in CapsuleCRM
 			When I click submit
 			And I should see an error relating to <text>
 			
@@ -50,7 +50,7 @@ Feature: Adding details to the business directory
 		Then I am redirected to submit my business details
 		And I enter my request details
 		And my description is 525 characters long
-		Then my submission should not be queued for futher processing
+		Then my details should not be updated in CapsuleCRM
 		When I click submit
 		And I should see an error telling me that my description is too long
 
@@ -61,6 +61,6 @@ Feature: Adding details to the business directory
 		Then I am redirected to submit my business details
 		And I enter my request details
 		And my description is 1035 characters long
-		Then my submission should not be queued for futher processing
+		Then my details should be updated in CapsuleCRM
 		When I click submit
 		And I should see an error telling me that my description is too long

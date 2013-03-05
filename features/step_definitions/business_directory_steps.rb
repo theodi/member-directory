@@ -30,10 +30,6 @@ Given /^that I enter my request details$/ do
   pending # express the regexp above with the code you wish you had
 end
 
-Then /^my submission should be queued for futher processing$/ do
-  pending # express the regexp above with the code you wish you had
-end
-
 When /^I click submit$/ do
   pending # express the regexp above with the code you wish you had
 end
@@ -42,7 +38,11 @@ Given /^I leave <field> blank$/ do
   pending # express the regexp above with the code you wish you had
 end
 
-Then /^my submission should not be queued for futher processing$/ do
+Then /^my details should be updated in CapsuleCRM$/ do
+  pending # express the regexp above with the code you wish you had
+end
+
+Then /^my details should not be updated in CapsuleCRM$/ do
   pending # express the regexp above with the code you wish you had
 end
 
