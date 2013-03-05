@@ -2,7 +2,8 @@
 # vi: set ft=ruby :
 
 
-# You will need the chef-validator.pem keyfile to make this work. Then, you should be able to do:
+# You will need the chef-validator.pem keyfile to make this work, put it in .chef/.
+# Then, you should be able to do:
 #
 # vagrant up
 # vagrant ssh
