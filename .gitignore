@@ -17,3 +17,4 @@
 /.env
 /.powrc
 .idea/
+.DS_Store
