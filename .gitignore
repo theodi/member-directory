@@ -17,3 +17,5 @@
 /.env
 /.powrc
 .idea/
+.chef/chef-validator.pem
+.vagrant
