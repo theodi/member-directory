@@ -1,0 +1,39 @@
+<h2>Edit your organisation profile</h2>
+
+<%= error_messages(@organization) %>
+
+<%= form_for(@organization, :url => '/organizations', :html => {:class => 'form-horizontal'}) do |f| %>
+
+	<div class='control-group'>
+		<%= f.label :name, :class => 'control-label' %>
+		<div class='controls'>
+			<%= f.text_field :name, :class => 'input-xlarge' %>
+		</div>
+	</div>
+
+	<div class='control-group'>
+		<%= f.label :description, :class => 'control-label' %>
+		<div class='controls'>
+			<%= f.text_area :description, :class => 'input-xlarge', :rows => '8' %>
+		</div>
+	</div>
+	
+	<div class='control-group'>
+		<%= f.label :email, :class => 'control-label' %>
+		<div class='controls'>
+			<%= f.text_field :email, :class => 'input-xlarge' %>
+		</div>
+	</div>
+
+	<div class='control-group'>
+		<%= f.label :url, :class => 'control-label' %>
+		<div class='controls'>
+			<%= f.text_field :url, :class => 'input-xlarge' %>
+		</div>
+	</div>
+	
+    <div class="form-actions">
+      <%= f.submit 'Submit', :class => 'btn btn-primary' %>
+    </div>
+
+<% end %>

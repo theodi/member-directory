@@ -3,7 +3,9 @@ class Member < ActiveRecord::Base
   # :token_authenticatable, :confirmable,
   # :lockable, :timeoutable and :omniauthable
   
-  before_create :set_membership_number
+  has_one :organization, :primary_key => 'membership_number', :foreign_key => 'membership_number'
+  
+  before_create :set_membership_number, :setup_organization
   
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable,
@@ -19,15 +21,19 @@ class Member < ActiveRecord::Base
 									:postal_code, :organisation_vat_id, :purchase_order_number, :agreed_to_terms
 
 	# validations
-	validates :product_name, :presence => true, :inclusion => %w{supporter member partner sponsor}
-	validates :contact_name, :presence => true
-	validates :street_address, :presence => true
-	validates :address_locality, :presence => true
-	validates :address_country, :presence => true
-	validates :postal_code, :presence => true
-	validates_acceptance_of :agreed_to_terms
+	validates :product_name, :presence => true, :inclusion => %w{supporter member partner sponsor}, :on => :create
+	validates :contact_name, :presence => true, :on => :create
+	validates :street_address, :presence => true, :on => :create
+	validates :address_locality, :presence => true, :on => :create
+	validates :address_country, :presence => true, :on => :create
+	validates :postal_code, :presence => true, :on => :create
+	validates_acceptance_of :agreed_to_terms, :on => :create
 	
 	private
+  
+  def confirmation_required?
+    false
+  end
 	
   def generate_membership_number
     chars = ('A'..'Z').to_a
@@ -38,6 +44,10 @@ class Member < ActiveRecord::Base
     begin 
       self.membership_number = generate_membership_number
     end while self.class.exists?(:membership_number => membership_number)
+  end
+
+  def setup_organization
+    self.create_organization(:name => organisation_name)
   end
 
   after_create :add_to_queue
