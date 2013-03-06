@@ -17,6 +17,7 @@
 /.env
 /.powrc
 .idea/
+.DS_Store
 .chef/chef-validator.pem
 .chef/knife.rb
 .vagrant
