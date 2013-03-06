@@ -16,3 +16,4 @@
 
 /.env
 /.powrc
+.DS_Store
