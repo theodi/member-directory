@@ -18,3 +18,7 @@
 	 height: 200px;
 	 overflow-y: scroll;
  }
+
+ #terms ul li {
+   list-style-type: none;
+ }
