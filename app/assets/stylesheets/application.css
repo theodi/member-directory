@@ -19,8 +19,12 @@
 	 overflow-y: scroll;
  }
 
- #terms ul li {
-   list-style-type: none;
+ #terms ol li ol li {
+   list-style-type: lower-alpha;
+ }
+ 
+ #terms ol li ol li ol li {
+   list-style-type: lower-roman;
  }
  
  #terms h5 {
