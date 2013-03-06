@@ -1,14 +1,18 @@
 require 'spec_helper'
 
-describe ContactRequestsController do
+describe RegistrationsController do
 
-  it 'should show form for partner level signups' do
-    get :new, :level => 'partner'
+  before :each do
+    request.env['devise.mapping'] = Devise.mappings[:member]
+  end
+  
+  it 'should show form for supporter level signups' do
+    get :new, :level => 'supporter'
     response.should be_success
   end
 
-  it 'should show form for sponsor level signups' do
-    get :new, :level => 'sponsor'
+  it 'should show form for member level signups' do
+    get :new, :level => 'member'
     response.should be_success
   end
 

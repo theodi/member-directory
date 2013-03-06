@@ -20,7 +20,7 @@ Feature: Send a contact request
     
 	Scenario Outline: Enquirer tries to get in touch, but misses a mandatory field
 
-    Given that I want to sign up
+    Given that I want to sign up as a partner
     When I visit the contact page
     And I enter my request details
     But I leave <field> blank
@@ -36,13 +36,4 @@ Feature: Send a contact request
     | person_telephone      | Telephone Number |
     | person_job_title      | Job Title        |
     | comment_text          | Your Interest    |
-    
-  Scenario: Invalid level enquiry
-  
-    Given that I want to sign up as a spaceman
-    When I visit the contact page
-    And I enter my request details
-    Then my details should not be queued
-    When I click contact me
-    And I should see that the membership level is invalid
-  
+      
