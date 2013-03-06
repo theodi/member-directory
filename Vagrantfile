@@ -1,19 +1,6 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
-
-# You will need the chef-validator.pem keyfile to make this work, put it in .chef/.
-# Then, you should be able to do:
-#
-# vagrant up
-# vagrant ssh
-# cd members/
-# bundle --without production
-# rake db:migrate
-# rails server
-#
-# then point your browser at http://33.33.33.33:3000/
-
 Vagrant::Config.run do |config|
 
   config.vm.host_name = "members-vagrant"
