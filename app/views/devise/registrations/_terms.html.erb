@@ -1,15 +1,17 @@
 <p>
-  This Agreement is made [DATE] by and between the Open Data Institute having its principal
-   place of business at 3rd Floor, 65 Clifton Street, London, EC2A 4JE (“ODI”) and your organisation.
+  This Agreement is made <%= Date.today.to_formatted_s(:long_ordinal) %> by and between the 
+  Open Data Institute having its principal place of business at 3rd Floor, 65 Clifton Street, 
+  London, EC2A 4JE (“ODI”) and your organisation.
 </p>
 <p>
   Whereas ODI seeks to admit members to its organisation and to work with and provide services to them;
 </p>
 <p>
-  Whereas your organisation wishes to be admitted as a [TIER] of the ODI organisation;
+  Whereas your organisation wishes to be admitted as a <%= product_name %> 
+  of the ODI organisation;
 </p>
 <ol>
-  <li>Member agrees to pay an annual membership subscription of [AMOUNT].
+  <li>Member agrees to pay an annual membership subscription of <%= annual_product_price %>.
   </li>
   <li>The General Terms and Conditions of Membership as set out in Schedule 1 are incorporated
      in and shall form part of this Agreement.
