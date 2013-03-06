@@ -15,7 +15,7 @@
 		<%= f.label :description, :class => 'control-label' %>
 		<div class='controls'>
 			<%= f.text_area :description, :class => 'input-xlarge', :rows => '8' %>
-			<span class="help-block"><%= "Limit of #{@limit} characters" %></span>
+			<span class="help-block"><%= "Limit of #{@organization.character_limit} characters" %></span>
 			<!-- We need to do some fancy JS countdown thing. That will come later -->
 		</div>
 	</div>
@@ -34,15 +34,15 @@
 		</div>
 	</div>
 
-	<% unless @member.product_name == "supporter" %>
+	<% unless @organization.member.product_name == "supporter" %>
 
-	<div class='control-group'>
-		<%= f.label :logo, :class => 'control-label' %>
-		<div class='controls'>
-			<%= f.file_field :logo %>
-			<%= f.hidden_field :logo_cache %>
+		<div class='control-group'>
+			<%= f.label :logo, :class => 'control-label' %>
+			<div class='controls'>
+				<%= f.file_field :logo %>
+				<%= f.hidden_field :logo_cache %>
+			</div>
 		</div>
-	</div>
 	
 	<% end %>
 	
