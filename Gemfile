@@ -11,6 +11,8 @@ gem 'xeroizer', :git => 'https://github.com/theodi/xeroizer.git'
 
 gem 'open-orgn-services', :git =>  'https://github.com/theodi/open-orgn-services.git'
 
+gem 'haml'
+gem 'bluecloth'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -40,7 +42,6 @@ gem 'jquery-rails'
 
 # To use debugger
 # gem 'debugger'
-
 
 group :development, :test do 
   gem 'cucumber-rails', :require => false
