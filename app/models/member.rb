@@ -12,11 +12,11 @@ class Member < ActiveRecord::Base
          :confirmable
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me
-  attr_accessible :product_name, :organisation_name, :contact_name, :telephone, :street_address,
+  attr_accessible :email, :password, :password_confirmation, :remember_me, :product_name
+  attr_accessible :organisation_name, :contact_name, :telephone, :street_address,
 									:address_locality, :address_region, :address_country,
 									:postal_code, :organisation_vat_id, :purchase_order_number, :agreed_to_terms
-  attr_accessor :product_name, :organisation_name, :contact_name, :telephone, :street_address,
+  attr_accessor   :organisation_name, :contact_name, :telephone, :street_address,
 									:address_locality, :address_region, :address_country,
 									:postal_code, :organisation_vat_id, :purchase_order_number, :agreed_to_terms
 
