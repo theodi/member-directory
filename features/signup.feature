@@ -17,15 +17,6 @@ Feature: Add new signups to queue
       | supporter    |
       | member       |
 
-  Scenario: Invalid product signup
-  
-    Given that I want to sign up as a spaceman
-    When I visit the signup page
-    And I enter my details
-    Then my details should not be queued
-    When I click sign up
-    And I should see that the membership level is invalid
-
 	Scenario Outline: Member tries to sign up, but misses a mandatory field
 
     Given that I want to sign up
