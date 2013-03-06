@@ -3,7 +3,7 @@ class Member < ActiveRecord::Base
   # :token_authenticatable, :confirmable,
   # :lockable, :timeoutable and :omniauthable
   
-  has_one :organization, :primary_key => 'membership_number', :foreign_key => 'membership_number'
+  has_one :organization
   
   before_create :set_membership_number, :setup_organization
   

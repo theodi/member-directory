@@ -3,7 +3,7 @@ class OrganizationsController < ApplicationController
   # GET /organizations/edit
   def edit
     if member_signed_in?
-      @organization = Organization.find_by_membership_number(current_member.membership_number)
+      @organization = current_member.organization
       puts @organization.to_yaml
     else
       redirect_to root_path
@@ -13,7 +13,7 @@ class OrganizationsController < ApplicationController
   # POST /organizations
   def update
     if member_signed_in?
-      @organization = Organization.find_by_membership_number(current_member.membership_number)    
+      @organization = current_member.organization    
       if @organization.update_attributes(params[:organization])
         redirect_to '/', :notice => 'Your submission has been added. A more elegant message will go here.'
       else
