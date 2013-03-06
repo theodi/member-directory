@@ -6,7 +6,7 @@ class OrganizationsController < ApplicationController
       @organization = Organization.find_by_membership_number(current_member.membership_number)
       puts @organization.to_yaml
     else
-      redirect_to('/') 
+      redirect_to root_path
     end
   end
   
@@ -21,7 +21,7 @@ class OrganizationsController < ApplicationController
         render action: "edit"
       end    
     else
-      redirect_to('/')
+      redirect_to root_path
     end
   end
   
