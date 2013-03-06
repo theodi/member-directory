@@ -14,9 +14,10 @@ class OrganizationsController < ApplicationController
   # POST /organizations
   def update
     if member_signed_in?
+      @member = current_member
       @organization = current_member.organization    
       if @organization.update_attributes(params[:organization])
-        redirect_to '/', :notice => 'Your submission has been added. A more elegant message will go here.'
+        redirect_to root_path, :notice => 'Your submission has been added. A more elegant message will go here.'
       else
         render action: "edit"
       end    

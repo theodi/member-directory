@@ -5,7 +5,7 @@ class Member < ActiveRecord::Base
   
   has_one :organization
   
-  before_create :set_membership_number, :setup_organization
+  before_create :set_membership_number
   
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable,
@@ -46,11 +46,7 @@ class Member < ActiveRecord::Base
     end while self.class.exists?(:membership_number => membership_number)
   end
 
-  def setup_organization
-    self.create_organization(:name => organisation_name)
-  end
-
-  after_create :add_to_queue
+  after_create :add_to_queue, :setup_organization
   
   def add_to_queue
     
@@ -77,6 +73,10 @@ class Member < ActiveRecord::Base
                       }
 
     Resque.enqueue(SignupProcessor, organization, contact_person, billing, purchase)
+  end
+
+  def setup_organization
+    self.create_organization(:name => organisation_name)
   end
 
 end

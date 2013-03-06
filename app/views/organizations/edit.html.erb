@@ -2,7 +2,7 @@
 
 <%= error_messages(@organization) %>
 
-<%= form_for(@organization, :url => '/organizations', :html => {:class => 'form-horizontal'}) do |f| %>
+<%= form_for(@organization, :url => '/organizations', :html => {:class => 'form-horizontal', :multipart => true}) do |f| %>
 
 	<div class='control-group'>
 		<%= f.label :name, :class => 'control-label' %>
@@ -33,6 +33,18 @@
 			<%= f.text_field :url, :class => 'input-xlarge' %>
 		</div>
 	</div>
+
+	<% unless @member.product_name == "supporter" %>
+
+	<div class='control-group'>
+		<%= f.label :logo, :class => 'control-label' %>
+		<div class='controls'>
+			<%= f.file_field :logo %>
+			<%= f.hidden_field :logo_cache %>
+		</div>
+	</div>
+	
+	<% end %>
 	
     <div class="form-actions">
       <%= f.submit 'Submit', :class => 'btn btn-primary' %>
