@@ -13,3 +13,20 @@
  *= require bootstrap-responsive.min
  *= require_tree .
  */
+ 
+ #terms {
+	 height: 200px;
+	 overflow-y: scroll;
+ }
+
+ #terms ol li ol li {
+   list-style-type: lower-alpha;
+ }
+ 
+ #terms ol li ol li ol li {
+   list-style-type: lower-roman;
+ }
+ 
+ #terms h5 {
+   font-style: italic;
+ }
