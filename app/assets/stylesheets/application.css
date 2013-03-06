@@ -22,3 +22,7 @@
  #terms ul li {
    list-style-type: none;
  }
+ 
+ #terms h5 {
+   font-style: italic;
+ }
