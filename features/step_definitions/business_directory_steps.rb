@@ -6,8 +6,8 @@ Then /^I cannot see a logo upload$/ do
   pending # express the regexp above with the code you wish you had
 end
 
-Then /^the description field is limited to (\d+) characters$/ do |arg1|
-  pending # express the regexp above with the code you wish you had
+Then /^the description field is limited to (\d+) characters$/ do |limit|
+  page.should have_content "Limit of #{limit} characters"
 end
 
 Then /^I can see a logo upload$/ do

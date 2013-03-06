@@ -3,8 +3,9 @@ class OrganizationsController < ApplicationController
   # GET /organizations/edit
   def edit
     if member_signed_in?
-      @organization = current_member.organization
-      puts @organization.to_yaml
+      @member = current_member
+      @organization = @member.organization
+      @member.product_name == "supporter" ? @limit = 500 : @limit = 1000 
     else
       redirect_to root_path
     end
