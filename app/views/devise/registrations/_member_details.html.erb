@@ -5,7 +5,7 @@
   <div class="control-group">
   	<%= f.label :contact_name, :class => 'control-label' %>
   	<div class="controls">
-  		<%= f.text_field :contact_name , :autofocus => true %>
+  		<%= f.text_field :contact_name , :autofocus => true %> <span class="help-inline">(required)</span>
   	</div>
   </div>
     
@@ -13,6 +13,7 @@
   	<%= f.label :email, :class => 'control-label' %>
   	<div class="controls">
   		<%= f.email_field :email %>
+		<span class="help-inline">(required)</span>
   	</div>
   </div>
 
@@ -40,6 +41,7 @@
   	<%= f.label :street_address, :class => 'control-label' %>
   	<div class="controls">
   		<%= f.text_field :street_address %>
+		<span class="help-inline">(required)</span>
   	</div>
   </div>
 
@@ -47,6 +49,7 @@
   	<%= f.label :address_locality, :class => 'control-label' %>
   	<div class="controls">
   		<%= f.text_field :address_locality %>
+		<span class="help-inline">(required)</span>
   	</div>
   </div>
 
@@ -61,6 +64,7 @@
   	<%= f.label :address_country, :class => 'control-label' %>
   	<div class="controls">
   		<%= f.text_field :address_country %>
+		<span class="help-inline">(required)</span>
   	</div>
   </div>
 
@@ -68,6 +72,7 @@
   	<%= f.label :postal_code, :class => 'control-label' %>
   	<div class="controls">
   		<%= f.text_field :postal_code %>
+		<span class="help-inline">(required)</span>
   	</div>
   </div>
 
