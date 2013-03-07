@@ -10,7 +10,7 @@ Feature: Send a contact request
     And I enter my request details
     Then my request should be queued for further processing
     When I click contact me
-    Then I should see "Thanks for getting in touch. We'll give you a call soon to discuss how we can work together."
+    Then I should see "Thank you for getting in touch. We'll give you a call soon to discuss how we can work together."
     
     Examples:
     | level   |
