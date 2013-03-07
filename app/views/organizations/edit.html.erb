@@ -47,18 +47,6 @@
 			<%= f.text_field :url, :class => 'input-xlarge' %>
 		</div>
 	</div>
-
-	<% unless @member.product_name == "supporter" %>
-
-	<div class='control-group'>
-		<%= f.label :logo, :class => 'control-label' %>
-		<div class='controls'>
-			<%= f.file_field :logo %>
-			<%= f.hidden_field :logo_cache %>
-		</div>
-	</div>
-	
-	<% end %>
 	
 	<% unless @organization.member.product_name == "supporter" %>
 
