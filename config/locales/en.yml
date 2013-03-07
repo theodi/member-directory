@@ -6,6 +6,7 @@ en:
   activerecord:
     models:
       member: Member
+      organization: Organisation
     attributes:
       member:
         product_name: "Membership Level"
@@ -22,6 +23,11 @@ en:
         purchase_order_number: "Purchase Order Number"
         password: "Password"
         password_confirmation: "Confirm Password"
+      organization:
+        name: "Company Name"
+        url: "Company Homepage"
+        description: "Description"
+        logo: "Company Logo"
   activemodel:
     models:
       contact_request: Contact Request
