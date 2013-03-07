@@ -6,6 +6,7 @@ class ContactRequestsController < ApplicationController
   def new
     @contact_request = ContactRequest.new
     @product_name = params[:level]
+    @product_name == "sponsor" ? @title = "Sponsor us" : @title = "Partner with us"
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @contact_request }
