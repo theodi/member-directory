@@ -5,15 +5,13 @@ gem 'rails', '3.2.12'
 gem 'sqlite3'
 gem 'devise'
 gem 'dotenv'
+gem 'carrierwave'
 
 # Manually specify some dependencies so we use our own version
 gem 'xeroizer', :git => 'https://github.com/theodi/xeroizer.git'
 gem 'capsulecrm', :git => 'https://github.com/theodi/capsulecrm.git'
 
 gem 'open-orgn-services', :git =>  'https://github.com/theodi/open-orgn-services.git'
-
-gem 'haml'
-gem 'bluecloth'
 
 gem 'rack-google-analytics'
 
@@ -45,6 +43,7 @@ gem 'jquery-rails'
 
 # To use debugger
 # gem 'debugger'
+
 
 group :development, :test do 
   gem 'cucumber-rails', :require => false

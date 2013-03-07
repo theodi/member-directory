@@ -3,6 +3,8 @@ class Member < ActiveRecord::Base
   # :token_authenticatable, :confirmable,
   # :lockable, :timeoutable and :omniauthable
   
+  has_one :organization
+  
   before_create :set_membership_number
   
   devise :database_authenticatable, :registerable,
@@ -10,11 +12,11 @@ class Member < ActiveRecord::Base
          :confirmable
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me
-  attr_accessible :product_name, :organisation_name, :contact_name, :telephone, :street_address,
+  attr_accessible :email, :password, :password_confirmation, :remember_me, :product_name
+  attr_accessible :organisation_name, :contact_name, :telephone, :street_address,
 									:address_locality, :address_region, :address_country,
 									:postal_code, :organisation_vat_id, :purchase_order_number, :agreed_to_terms
-  attr_accessor :product_name, :organisation_name, :contact_name, :telephone, :street_address,
+  attr_accessor   :organisation_name, :contact_name, :telephone, :street_address,
 									:address_locality, :address_region, :address_country,
 									:postal_code, :organisation_vat_id, :purchase_order_number, :agreed_to_terms
 
@@ -28,6 +30,10 @@ class Member < ActiveRecord::Base
 	validates_acceptance_of :agreed_to_terms, :on => :create
 	
 	private
+  
+  def confirmation_required?
+    false
+  end
 	
   def generate_membership_number
     chars = ('A'..'Z').to_a
@@ -40,7 +46,7 @@ class Member < ActiveRecord::Base
     end while self.class.exists?(:membership_number => membership_number)
   end
 
-  after_create :add_to_queue
+  after_create :add_to_queue, :setup_organization
   
   def add_to_queue
     
@@ -67,6 +73,10 @@ class Member < ActiveRecord::Base
                       }
 
     Resque.enqueue(SignupProcessor, organization, contact_person, billing, purchase)
+  end
+
+  def setup_organization
+    self.create_organization(:name => organisation_name)
   end
 
 end

@@ -3,6 +3,9 @@ MemberDirectory::Application.routes.draw do
   devise_for :members, :controllers => { :registrations => "registrations" }
 
   resources :contact_requests
+  
+  match 'organizations/edit' => 'organizations#edit', :as => :edit
+  match 'organizations' => 'organizations#update', :as => :edit, :via => :put
 
   root :to => "home#index"
 

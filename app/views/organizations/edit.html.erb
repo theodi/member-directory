@@ -1,0 +1,67 @@
+<h2>Edit your organisation profile</h2>
+
+<p class="lead">
+	Please add your organisation's details which will be added to our member directory once your membership is confirmed.
+</p>
+
+<%= error_messages(@organization) %>
+
+<%= form_for(@organization, :url => '/organizations', :html => {:class => 'form-horizontal', :multipart => true}) do |f| %>
+
+	<div class='control-group'>
+		<%= f.label :name, :class => 'control-label' %>
+		<div class='controls'>
+			<%= f.text_field :name, :class => 'input-xlarge', :required => 'required' %>
+		</div>
+	</div>
+
+	<div class='control-group'>
+		<%= f.label :description, :class => 'control-label' %>
+		<div class='controls'>
+			<%= f.text_area :description, :class => 'input-xlarge', :rows => '8', :maxlength => @organization.character_limit, :required => 'required' %>
+			<span class="help-block" id="limit"><%= "Limit of #{@organization.character_limit} characters" %></span>
+			<script>
+			$(document).ready(function() {
+				var max = <%= "#{@organization.character_limit}" %>
+				$('#limit').html('<span id="remaining">'+ max +'</span> characters remaining');
+				$('#organization_description').keyup(function() {
+					var len = $(this).val().length;
+					var rem = max - len
+					$('#remaining').html(rem);
+				});
+			});
+			</script>
+		</div>
+	</div>
+	
+	<div class='control-group'>
+		<%= f.label :email, :class => 'control-label' %>
+		<div class='controls'>
+			<%= f.text_field :email, :class => 'input-xlarge' %>
+		</div>
+	</div>
+
+	<div class='control-group'>
+		<%= f.label :url, :class => 'control-label' %>
+		<div class='controls'>
+			<%= f.text_field :url, :class => 'input-xlarge' %>
+		</div>
+	</div>
+	
+	<% unless @organization.member.product_name == "supporter" %>
+
+		<div class='control-group'>
+			<%= f.label :logo, :class => 'control-label' %>
+			<div class='controls'>
+				<%= f.file_field :logo %>
+				<%= f.hidden_field :logo_cache %>
+			</div>
+		</div>
+	
+	<% end %>
+	
+    <div class="form-actions">
+      <%= f.submit 'Submit', :class => 'btn btn-primary' %>
+    </div>
+
+<% end %>
