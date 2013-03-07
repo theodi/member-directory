@@ -17,12 +17,10 @@ end
 Then /^I enter my organization details$/ do
   @organization_name = "FooBar Inc"
   @organization_description = "We're the best!"
-  @organization_email = "foo@bar.com"
   @organization_url = "http://www.foo.bar"
   
   fill_in('organization_name',         :with => @organization_name)
   fill_in('organization_description',  :with => @organization_description)
-  fill_in('organization_email',        :with => @organization_email)
   fill_in('organization_url',          :with => @organization_url)
 end
 
