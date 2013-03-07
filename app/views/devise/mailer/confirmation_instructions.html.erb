@@ -1,24 +1,16 @@
 <p>Dear <%= @resource.contact_name %></p>
 
 <p>We are delighted to have you join us at the Open Data Institute.</p>
-	
-<p>We run a lecture series every Friday highlighting some of the awe inspiring work going on using Open Data - everything from data as art, through to how to how the CTO of the World Bank giving a 'fireside chat' about his experience at the White House. You can register for upcoming talks here: <a href=http://www.theodi.org/lunchtime-lectures>http://www.theodi.org/lunchtime-lectures</a></p>
 
-<p>As with everything we do we are continuously developing our membership offer so we should keep delivering more value. To give you the inside track on the next few months we will be adding:</p>
-
-<ul>
-	<li>A directory of members - so you can advertise your services to the world</li>
-	<li>Online desk/room booking - so you can easily book space for that crucial business meeting</li>
-	<li>Your idea here!</li>
-</ul>
-
-<p>So <a href="mailto:richard.stirling@theodi.org">drop me a line</a> if there is anything that we can do to make your life as a member easier</p>
+<p>We run a free to attend lecture series every Friday highlighting some of the awe inspiring work going on using Open Data - everything from data as art, through to the CTO of the World Bank giving a 'fireside chat' about his experience at the White House. You can register for upcoming talks here: <a href="http://www.theodi.org/lunchtime-lectures">http://www.theodi.org/lunchtime-lectures</a></p>
 
 <p>Your membership number is <%= @resource.membership_number %></p>
 
 <p>We are just drawing up your invoice and it will be sent to you shortly. In the meantime, you can confirm your account email and change your details through the link below:</p>
 
 <p><%= link_to 'Confirm my account', confirmation_url(@resource, :confirmation_token => @resource.confirmation_token) %></p>
+
+<p>Please <a href="mailto:richard.stirling@theodi.org">drop me a line</a> if there is anything that we can do to make your life as a member easier</p>
 
 <p>Welcome again to the ODI community!</p>
 
