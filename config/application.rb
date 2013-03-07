@@ -67,5 +67,11 @@ module MemberDirectory
 
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
+    
+    # Use GA middleware
+    if ENV['GOOGLE_ANALYTICS_TRACKER']
+      config.middleware.use("Rack::GoogleAnalytics", :tracker => ENV['GOOGLE_ANALYTICS_TRACKER'])
+    end
+    
   end
 end
