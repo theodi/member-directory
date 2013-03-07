@@ -14,9 +14,19 @@
 	<div class='control-group'>
 		<%= f.label :description, :class => 'control-label' %>
 		<div class='controls'>
-			<%= f.text_area :description, :class => 'input-xlarge', :rows => '8' %>
-			<span class="help-block"><%= "Limit of #{@organization.character_limit} characters" %></span>
-			<!-- We need to do some fancy JS countdown thing. That will come later -->
+			<%= f.text_area :description, :class => 'input-xlarge', :rows => '8', :maxlength => @organization.character_limit %>
+			<span class="help-block" id="limit"><%= "Limit of #{@organization.character_limit} characters" %></span>
+			<script>
+			$(document).ready(function() {
+				var max = <%= "#{@organization.character_limit}" %>
+				$('#limit').html('<span id="remaining">'+ max +'</span> characters remaining');
+				$('#organization_description').keyup(function() {
+					var len = $(this).val().length;
+					var rem = max - len
+					$('#remaining').html(rem);
+				});
+			});
+			</script>
 		</div>
 	</div>
 	
