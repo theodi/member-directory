@@ -1,4 +1,6 @@
 class ContactRequestsController < ApplicationController
+  before_filter :check_product_name, :only => 'new'
+
   # GET /contact_requests/new
   # GET /contact_requests/new.json
   def new
@@ -24,6 +26,12 @@ class ContactRequestsController < ApplicationController
         format.json { render json: @contact_request.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  protected
+  
+  def check_product_name
+    redirect_to 'http://www.theodi.org/join-us' unless %w{partner sponsor}.include?(params[:level].to_s)
   end
 
 end
