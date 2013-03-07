@@ -6,8 +6,9 @@ gem 'sqlite3'
 gem 'devise'
 gem 'dotenv'
 
-# Manually specify the xeroizer dependency so we use our own version
+# Manually specify some dependencies so we use our own version
 gem 'xeroizer', :git => 'https://github.com/theodi/xeroizer.git'
+gem 'capsulecrm', :git => 'https://github.com/theodi/capsulecrm.git'
 
 gem 'open-orgn-services', :git =>  'https://github.com/theodi/open-orgn-services.git'
 
