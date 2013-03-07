@@ -4,7 +4,6 @@ class Organization < ActiveRecord::Base
   mount_uploader :logo, ImageObjectUploader
   
   attr_accessible :name, :description, :url, :logo, :logo_cache
-  attr_accessor :description, :url
   
   validates :name, :presence => true, :on => :update
   validates :description, :presence => true, :on => :update
