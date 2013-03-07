@@ -30,3 +30,10 @@
  #terms h5 {
    font-style: italic;
  }
+ 
+ .field_with_errors {
+     display:inline;
+     margin:0px;
+     padding:0px;
+ }
+ 
