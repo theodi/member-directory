@@ -12,7 +12,7 @@
   <div class='control-group'>
     <%= f.label :person_name, :class => 'control-label' %>
     <div class='controls'>
-      <%= f.text_field :person_name, :class => 'input-xlarge' %>
+      <%= f.text_field :person_name, :class => 'input-xlarge', :required => 'required' %>
 	  <span class="help-inline">(required)</span>
     </div>
   </div>
@@ -20,7 +20,7 @@
   <div class='control-group'>
     <%= f.label :person_affiliation, :class => 'control-label' %>
     <div class='controls'>
-      <%= f.text_field :person_affiliation, :class => 'input-xlarge' %>
+      <%= f.text_field :person_affiliation, :class => 'input-xlarge', :required => 'required' %>
 	  <span class="help-inline">(required)</span>
     </div>
   </div>
@@ -28,7 +28,7 @@
   <div class='control-group'>
     <%= f.label :person_job_title, :class => 'control-label' %>
     <div class='controls'>
-      <%= f.text_field :person_job_title, :class => 'input-xlarge' %>
+      <%= f.text_field :person_job_title, :class => 'input-xlarge', :required => 'required' %>
 	  <span class="help-inline">(required)</span>
     </div>
   </div>
@@ -36,7 +36,7 @@
   <div class='control-group'>
     <%= f.label :person_email, :class => 'control-label' %>
     <div class='controls'>
-      <%= f.text_field :person_email, :class => 'input-xlarge' %>
+      <%= f.text_field :person_email, :class => 'input-xlarge', :required => 'required' %>
 	  <span class="help-inline">(required)</span>
     </div>
   </div>
@@ -44,7 +44,7 @@
   <div class='control-group'>
     <%= f.label :person_telephone, :class => 'control-label' %>
     <div class='controls'>
-      <%= f.text_field :person_telephone, :class => 'input-xlarge' %>
+      <%= f.text_field :person_telephone, :class => 'input-xlarge', :required => 'required' %>
 	  <span class="help-inline">(required)</span>
     </div>
   </div>
@@ -53,7 +53,7 @@
   <div class='control-group'>
     <%= f.label :comment_text, :class => 'control-label' %>
     <div class='controls'>
-      <%= f.text_area :comment_text, :rows => 5, :placeholder=>"What would you like to talk to us about?", :class => 'input-xxlarge' %>
+      <%= f.text_area :comment_text, :rows => 5, :placeholder=>"What would you like to talk to us about?", :class => 'input-xxlarge', :required => 'required' %>
 	  <span class="help-inline">(required)</span>
     </div>
   </div>

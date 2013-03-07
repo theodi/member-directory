@@ -5,14 +5,14 @@
   <div class="control-group">
   	<%= f.label :contact_name, :class => 'control-label' %>
   	<div class="controls">
-  		<%= f.text_field :contact_name , :autofocus => true %> <span class="help-inline">(required)</span>
+  		<%= f.text_field :contact_name , :autofocus => true, :required => 'required' %> <span class="help-inline">(required)</span>
   	</div>
   </div>
     
   <div class="control-group">
   	<%= f.label :email, :class => 'control-label' %>
   	<div class="controls">
-  		<%= f.email_field :email %>
+  		<%= f.email_field :email, :required => 'required' %>
 		<span class="help-inline">(required)</span>
   	</div>
   </div>
@@ -40,7 +40,7 @@
   <div class="control-group">
   	<%= f.label :street_address, :class => 'control-label' %>
   	<div class="controls">
-  		<%= f.text_field :street_address %>
+  		<%= f.text_field :street_address, :required => 'required' %>
 		<span class="help-inline">(required)</span>
   	</div>
   </div>
@@ -48,7 +48,7 @@
   <div class="control-group">
   	<%= f.label :address_locality, :class => 'control-label' %>
   	<div class="controls">
-  		<%= f.text_field :address_locality %>
+  		<%= f.text_field :address_locality, :required => 'required' %>
 		<span class="help-inline">(required)</span>
   	</div>
   </div>
@@ -61,7 +61,7 @@
   </div>
 
   <div class="control-group">
-  	<%= f.label :address_country, :class => 'control-label' %>
+  	<%= f.label :address_country, :class => 'control-label', :required => 'required' %>
   	<div class="controls">
   		<%= f.text_field :address_country %>
 		<span class="help-inline">(required)</span>
@@ -69,7 +69,7 @@
   </div>
 
   <div class="control-group">
-  	<%= f.label :postal_code, :class => 'control-label' %>
+  	<%= f.label :postal_code, :class => 'control-label', :required => 'required' %>
   	<div class="controls">
   		<%= f.text_field :postal_code %>
 		<span class="help-inline">(required)</span>
