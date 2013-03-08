@@ -14,7 +14,7 @@ class OrganizationsController < ApplicationController
     if member_signed_in?
       @organization = current_member.organization
       if @organization.update_attributes(params[:organization])
-        redirect_to root_path, :notice => 'Your submission has been added. A more elegant message will go here.'
+        render action: "preview"
       else
         render action: "edit"
       end    

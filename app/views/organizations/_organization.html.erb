@@ -1,0 +1,9 @@
+<h2><%= organization.name %></h2>
+
+<%= simple_format(organization.description) %>
+
+<% unless organization.url.blank? %>
+  <ul>
+    <li><%= link_to "Visit website", organization.url %></li>
+  </ul>
+<% end %>
