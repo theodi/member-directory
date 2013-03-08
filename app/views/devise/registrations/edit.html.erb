@@ -47,7 +47,15 @@
     <%= f.fields_for :organization do |builder| %>
       <%= render :partial => 'organizations/form', :locals => { :f => builder } %>
     <% end %>
-    
+
+    <div class="control-group">
+  		<div class="controls">
+        <section class='preview'>
+          <%= render :partial => 'organizations/organization', :locals => { :organization => @organization } %>
+        </section>
+      </div>
+    </div>
+
   </fieldset>
 
   <fieldset>
@@ -68,6 +76,7 @@
   </fieldset>
 
   <div class="form-actions">
-    <%= f.submit "Update", :id => 'submit', :class => 'btn btn-primary' %>
+    <%= f.submit "Preview", :id => 'preview', :class => 'btn btn-primary' %>
+    <%= f.submit "Save", :id => 'save', :class => 'btn' %>
   </div>
 <% end %>
