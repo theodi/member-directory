@@ -91,7 +91,11 @@ And /^I should have a membership number generated$/ do
 end
 
 Then /^I should see an error relating to (.*)$/ do |text|
-  page.should have_content "#{text} can't be blank"
+  page.find(:css, "div.alert-error").should have_content(text)
+end
+
+Then /^I should not see an error$/ do
+  page.should_not have_css("div.alert-error")
 end
 
 Then /^I should see that the membership level is invalid$/ do

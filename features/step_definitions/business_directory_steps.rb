@@ -24,6 +24,11 @@ Then /^I enter my organization details$/ do
   fill_in('organization_url',          :with => @organization_url)
 end
 
+Then /^I enter the URL (.*?)$/ do |url|
+  @organization_url = url
+  fill_in('organization_url',          :with => @organization_url)
+end
+
 Then /^I leave my organization (.*?) blank$/ do |field|
   fill_in("organization_#{field}", :with => nil)
 end
