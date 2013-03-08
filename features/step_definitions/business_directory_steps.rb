@@ -84,7 +84,7 @@ end
 Then /^I should see my changed details on the preview page$/ do
   page.should have_content @changed_organization_name
   page.should have_content @changed_organization_description
-  page.find(:xpath, '/html/body/div/section/ul/li/a')[:href].should include @changed_organization_url
+  page.find(:css, '#organizationurl')[:href].should include @changed_organization_url
 end
 
 Then /^my description is (\d+) characters long$/ do |length|

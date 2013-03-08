@@ -4,6 +4,6 @@
 
 <% unless organization.url.blank? %>
   <ul>
-    <li><%= link_to "Visit website", organization.url %></li>
+    <li><%= link_to "Visit website", organization.url, :id => 'organizationurl' %></li>
   </ul>
 <% end %>
