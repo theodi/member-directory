@@ -5,6 +5,7 @@ MemberDirectory::Application.routes.draw do
   resources :contact_requests
   
   match 'organizations/edit' => 'organizations#edit', :as => :edit
+  match 'organizations/preview' => 'organizations#preview', :as => :preview, :via => :put
   match 'organizations' => 'organizations#update', :as => :edit, :via => :put
 
   root :to => "home#index"
