@@ -18,6 +18,8 @@
       <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
     <% end %>
   
+    <legend>Change Password</legend>
+
     <div class="control-group">
   		<%= f.label :password, :class => 'control-label' %>
   		<div class="controls">
@@ -39,11 +41,18 @@
   </fieldset>
   
   <fieldset>
+
+    <legend>Current Password</legend>
+    
+    <p>
+      We need your current password to confirm your changes.
+    </p>
+
     <div class="control-group">
       <%= f.label :current_password, :class => 'control-label' %>
       <div class="controls">
-        <%= f.password_field :current_password %>
-		<span class="help-inline">(we need your current password to confirm your changes)</span>
+        <%= f.password_field :current_password, :required => 'required' %>
+		<span class="help-inline">(required)</span>
       </div>
     </div>
   </fieldset>
