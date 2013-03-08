@@ -45,11 +45,12 @@ Feature: Adding details to the organization directory
 		Then I should <outcome>
 			
 		Examples:
-			| url               | outcome                      |
-			| this_is_not_a_url | see an error relating to URL |
-			| http://google.com | not see an error             |
-			| google.com        | not see an error             |
-    
+			| url                 | outcome                                   |
+			| example             | see an error relating to Company Homepage |
+      | http://ex/ample.com | see an error relating to Company Homepage |
+      | http://example      | see an error relating to Company Homepage |
+			| http://example.com  | not see an error                          |
+			| example.com         | not see an error                          |
     
 				
 	Scenario: Supporter cannot upload images

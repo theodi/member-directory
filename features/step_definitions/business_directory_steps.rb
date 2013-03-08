@@ -26,6 +26,7 @@ end
 
 Then /^I enter the URL (.*?)$/ do |url|
   @organization_url = url
+  fill_in('organization_url',          :with => @organization_url)
 end
 
 Then /^I leave my organization (.*?) blank$/ do |field|
