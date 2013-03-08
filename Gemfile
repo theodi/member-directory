@@ -6,6 +6,7 @@ gem 'sqlite3'
 gem 'devise'
 gem 'dotenv'
 gem 'carrierwave'
+gem 'data_migrate', :git => 'https://github.com/doublewide/data-migrate.git'
 
 # Manually specify some dependencies so we use our own version
 gem 'xeroizer', :git => 'https://github.com/theodi/xeroizer.git'
