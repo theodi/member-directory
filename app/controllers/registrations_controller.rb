@@ -1,6 +1,11 @@
 class RegistrationsController < Devise::RegistrationsController
   before_filter :check_product_name, :only => 'new'
 
+  def edit
+    @organization = @member.organization
+    super
+  end
+  
   protected
 
   def check_product_name

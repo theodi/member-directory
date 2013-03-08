@@ -40,6 +40,16 @@
     <% render :partial => 'member_details', :locals => { :f => f } %>
   </fieldset>
   
+  <fieldset>   
+    
+    <legend>Organization Details</legend>
+    
+    <%= f.fields_for :organization do |builder| %>
+      <%= render :partial => 'organizations/form', :locals => { :f => builder } %>
+    <% end %>
+    
+  </fieldset>
+
   <fieldset>
 
     <legend>Current Password</legend>
