@@ -28,8 +28,29 @@ Feature: Adding details to the organization directory
 			
 		Examples:
 			| field       | text         |
-			| name        | Name		 |
+			| name        | Name		     |
 			| description | Description  |
+      
+      
+  Scenario Outline: User submits bad URLs
+  
+		Given that I want to sign up
+		When I visit the signup page
+		And I enter my details
+		And I click sign up
+		Then I am redirected to submit my organization details
+		And I enter my organization details
+		But I enter the URL <url>
+		When I click submit
+		Then I should <outcome>
+			
+		Examples:
+			| url               | outcome                      |
+			| this_is_not_a_url | see an error relating to URL |
+			| http://google.com | not see an error             |
+			| google.com        | not see an error             |
+    
+    
 				
 	Scenario: Supporter cannot upload images
 		
