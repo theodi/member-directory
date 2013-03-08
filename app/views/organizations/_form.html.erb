@@ -12,10 +12,11 @@
 		<span class="help-block" id="limit"><%= "Limit of #{@organization.character_limit} characters" %></span>
 		<script>
 		$(document).ready(function() {
-			var max = <%= "#{@organization.character_limit}" %>
+      var max = <%= "#{@organization.character_limit}" %> - $('#organization_description').val().replace(/(\r\n|\n|\r)/g,"  ").length
 			$('#limit').html('<span id="remaining">'+ max +'</span> characters remaining');
 			$('#organization_description').keyup(function() {
-				var len = $(this).val().length;
+        var max = <%= "#{@organization.character_limit}" %>
+				var len = $(this).val().replace(/(\r\n|\n|\r)/g,"  ").length;
 				var rem = max - len
 				$('#remaining').html(rem);
 			});
@@ -23,7 +24,7 @@
 		</script>
 	</div>
 </div>
-
+  
 <div class='control-group'>
 	<%= f.label :url, :class => 'control-label' %>
 	<div class='controls'>
