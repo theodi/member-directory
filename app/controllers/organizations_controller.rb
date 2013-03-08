@@ -12,6 +12,12 @@ class OrganizationsController < ApplicationController
   # POST /organizations/preview
   def preview
     if member_signed_in?
+      # Prepend http to URL if not present
+      if params[:organization].try(:[], :url)
+        unless params[:organization][:url] =~ /^([a-z]+):\/\//
+          params[:organization][:url] = "http://#{params[:organization][:url]}"
+        end
+      end
       # Just validate for now, we're not updating
       @organization = current_member.organization
       @organization.attributes = params[:organization]

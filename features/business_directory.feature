@@ -37,6 +37,30 @@ Feature: Adding details to the organization directory
 			| field       | text         |
 			| name        | Name		     |
 			| description | Description  |
+      
+      
+  Scenario Outline: User submits bad URLs
+  
+		Given that I want to sign up
+		When I visit the signup page
+		And I enter my details
+		And I click sign up
+		Then I am redirected to submit my organization details
+		And I enter my organization details
+		But I enter the URL <url>
+		When I click submit
+		Then I should <outcome>
+			
+		Examples:
+      | url                    | outcome                                   |
+      | example                | see an error relating to Company Homepage |
+      | http://ex/ample.com    | see an error relating to Company Homepage |
+      | http://example         | see an error relating to Company Homepage |
+      | http://example.com     | not see an error                          |
+      | example.com            | not see an error                          |
+      | data://example.com     | see an error relating to Company Homepage |
+      | javascript:alert('no') | see an error relating to Company Homepage |
+    
 				
 	Scenario: Supporter cannot upload images
 		

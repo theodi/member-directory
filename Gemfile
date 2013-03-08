@@ -7,6 +7,11 @@ gem 'devise'
 gem 'dotenv'
 gem 'carrierwave'
 
+# We use this version as the original gem only allows Rails up to 3.0.11
+gem 'data_migrate', :git => 'https://github.com/doublewide/data-migrate.git'
+
+gem 'validate_url'
+
 # Manually specify some dependencies so we use our own version
 gem 'xeroizer', :git => 'https://github.com/theodi/xeroizer.git'
 gem 'capsulecrm', :git => 'https://github.com/theodi/capsulecrm.git'
@@ -51,6 +56,7 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'guard-cucumber'
   gem 'rb-fsevent', '~> 0.9'
+  gem 'launchy'
 end
 
 group :production do
