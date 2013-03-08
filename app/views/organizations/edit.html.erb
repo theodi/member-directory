@@ -6,7 +6,7 @@
 
 <%= error_messages(@organization) %>
 
-<%= form_for(@organization, :url => '/organizations', :html => {:class => 'form-horizontal', :multipart => true}) do |f| %>
+<%= form_for(@organization, :url => '/organizations/preview', :html => {:class => 'form-horizontal', :multipart => true}) do |f| %>
 
 	<div class='control-group'>
 		<%= f.label :name, :class => 'control-label' %>
@@ -54,7 +54,7 @@
 	<% end %>
 	
     <div class="form-actions">
-      <%= f.submit 'Submit', :class => 'btn btn-primary' %>
+      <%= f.submit 'Preview', :class => 'btn btn-primary' %>
     </div>
 
 <% end %>
