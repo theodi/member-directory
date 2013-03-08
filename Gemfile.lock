@@ -1,4 +1,11 @@
 GIT
+  remote: https://github.com/doublewide/data-migrate.git
+  revision: 972cedae91e035578b0141b1ac28c2730b07fcdc
+  specs:
+    data_migrate (1.2.0)
+      rails (>= 3.0.0, < 3.3)
+
+GIT
   remote: https://github.com/theodi/capsulecrm.git
   revision: 34a644d1028ddafd16efa9cd2c65eadc18c3514e
   specs:
@@ -303,6 +310,7 @@ DEPENDENCIES
   carrierwave
   coffee-rails (~> 3.2.1)
   cucumber-rails
+  data_migrate!
   database_cleaner
   devise
   dotenv
