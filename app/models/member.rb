@@ -4,7 +4,9 @@ class Member < ActiveRecord::Base
   # :lockable, :timeoutable and :omniauthable
   
   has_one :organization
-  
+  accepts_nested_attributes_for :organization
+  attr_accessible :organization_attributes
+    
   before_create :set_membership_number
   
   devise :database_authenticatable, :registerable,
