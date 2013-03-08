@@ -2,8 +2,11 @@
   See below to see how your profile will look in our directory. 
 </p>
 
-<p class="lead">
-  If you're happy with this, <a href="http://www.theodi.com">return to the ODI website</a>, otherwise click <a href="/organizations/edit" class="btn btn-primary">edit</a> to make any changes
-</p>
+<%= form_for(@organization, :url => '/organizations', :html => {:class => 'form-horizontal', :multipart => true}) do |f| %>
+<%= f.hidden_field :name %><%= f.hidden_field :description %><%= f.hidden_field :url %>
+<p>Happy? Click <%= f.submit 'Submit', :class => 'btn btn-success', :name => 'submit' %></p>
+<p>Need to make some changes? Click <%= f.submit 'Edit', :class => 'btn btn-danger', :name => 'edit' %></p>
+<% end %>
 
 <%= render :partial => 'organization', :locals => { :organization => @organization } %>
+

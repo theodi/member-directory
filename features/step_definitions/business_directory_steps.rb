@@ -1,3 +1,21 @@
+Given /^that I have signed up$/ do
+  steps %Q{
+    Given that I want to sign up
+		When I visit the signup page
+		And I enter my details
+		And I click sign up
+  }
+end
+
+Given /^that I have signed up as a (\w*)$/ do |product_name|
+  steps %Q{
+    Given that I want to sign up as a #{product_name}
+		When I visit the signup page
+		And I enter my details
+		And I click sign up
+  }
+end
+
 Then /^I am redirected to submit my organization details$/ do
   page.should have_content 'Edit your organisation profile' 
 end
@@ -32,12 +50,36 @@ When /^I click submit$/ do
   click_button('Submit')
 end
 
-Then /^my details should be updated in CapsuleCRM$/ do
-  # We don't have this code yet!
+Then /^I should see a preview page$/ do
+  page.should have_content 'See below to see how your profile will look in our directory.'
 end
 
-Then /^my details should not be updated in CapsuleCRM$/ do
-  # We don't have this code yet!
+Then /^I should see a notice saying my submission has been added$/ do
+  page.should have_content 'Your submission has been added.'
+end
+
+Then /^I click edit$/ do
+  click_button('Edit')
+end
+
+Then /^I should be able to edit my details$/ do
+  page.should have_content 'Edit your organisation profile'
+end
+
+Then /^I edit my details$/ do
+  @changed_organization_name = "FooBar Incorporated"
+  @changed_organization_description = "We really are the best!"
+  @changed_organization_url = "http://www.foo.bar/contact"  
+
+  fill_in('organization_name',         :with => @changed_organization_name)
+  fill_in('organization_description',  :with => @changed_organization_description)
+  fill_in('organization_url',          :with => @changed_organization_url)
+end
+
+Then /^I should see my changed details on the preview page$/ do
+  page.should have_content @changed_organization_name
+  page.should have_content @changed_organization_description
+  page.find(:xpath, '/html/body/div/section/ul/li/a')[:href].should include @changed_organization_url
 end
 
 Then /^my description is (\d+) characters long$/ do |length|
