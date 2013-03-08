@@ -55,6 +55,10 @@ When /^I click submit$/ do
   click_button('Submit')
 end
 
+When /^I click preview$/ do
+  click_button('Preview')
+end
+
 Then /^I should see a preview page$/ do
   page.should have_content 'See below to see how your profile will look in our directory.'
 end

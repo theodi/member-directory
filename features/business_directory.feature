@@ -7,7 +7,7 @@ Feature: Adding details to the organization directory
 		Given that I have signed up
 		Then I am redirected to submit my organization details
 		And I enter my organization details
-		When I click submit
+		When I click preview
     Then I should see a preview page
     And I click submit
     Then I should see a notice saying my submission has been added
@@ -16,12 +16,12 @@ Feature: Adding details to the organization directory
 			
 		Given that I have signed up 
 		And I enter my organization details
-		When I click submit
+		When I click preview
     Then I should see a preview page
     And I click edit
     Then I should be able to edit my details
     And I edit my details
-    And I click submit
+    And I click preview
     Then I should see my changed details on the preview page  
 			
 	Scenario Outline: User tries to submit their details, but misses a mandatory field
@@ -30,7 +30,7 @@ Feature: Adding details to the organization directory
 		Then I am redirected to submit my organization details
 		And I enter my organization details
 		But I leave my organization <field> blank
-		And I click submit
+		And I click preview
 		Then I should see an error relating to <text>
 			
 		Examples:
@@ -48,7 +48,7 @@ Feature: Adding details to the organization directory
 		Then I am redirected to submit my organization details
 		And I enter my organization details
 		But I enter the URL <url>
-		When I click submit
+		When I click preview
 		Then I should <outcome>
 			
 		Examples:
@@ -82,7 +82,7 @@ Feature: Adding details to the organization directory
 		Then I am redirected to submit my organization details
 		And I enter my organization details
 		And my description is 525 characters long
-		And I click submit
+		And I click preview
 		Then I should see an error telling me that my description should not be longer than 500 characters
 
 	Scenario: Member tries to enter more than 1000 characters
@@ -91,5 +91,5 @@ Feature: Adding details to the organization directory
 		Then I am redirected to submit my organization details
 		And I enter my organization details
 		And my description is 1035 characters long
-    And I click submit
+    And I click preview
 		Then I should see an error telling me that my description should not be longer than 1000 characters
