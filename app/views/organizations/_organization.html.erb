@@ -2,6 +2,10 @@
 
   <h2<% if @preview %> data-bind="text: name"<% end %>><%= organization.name %></h2>
 
+  <div class='pull-right'>
+    <img src=''<% if @preview %> data-bind='attr: {src: imageSrc}'<% end %> />
+  </div>
+
   <i class='icon icon-home'></i> <a<% if @preview %> data-bind="text: url, attr: {href: url}"<% end %> href='<%= organization.url %>'><%= organization.url%></a>
 
   <div class='organization-description'>
@@ -18,9 +22,27 @@
             this.name        = ko.observable("<%= organization.name %>");
             this.description = ko.observable("<%= organization.description %>");
             this.url         = ko.observable("<%= organization.url %>");
+            this.imageSrc    = ko.observable("http://placekitten.com/200/100");
+            this.updateImage = function() {
+              input = $('#member_organization_attributes_logo')[0]
+              if (input.files[0] && window.FileReader) {
+                reader = new FileReader();
+                reader.onloadend = function( ){
+                    window.organisationPreview.imageSrc(this.result);
+                }
+                reader.readAsDataURL(input.files[0]);
+              }
+            };
         };
-        ko.applyBindings(new OrganisationViewModel());
+        window.organisationPreview = new OrganisationViewModel()
+        ko.applyBindings(window.organisationPreview);
     </script>
   <% end %>
   
 </div>
+
+
+
+
+
+
