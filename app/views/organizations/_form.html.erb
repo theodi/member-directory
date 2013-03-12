@@ -1,14 +1,14 @@
 <div class='control-group'>
 	<%= f.label :name, :class => 'control-label' %>
 	<div class='controls'>
-		<%= f.text_field :name, :class => 'input-xlarge', :required => 'required', :'data-bind' => 'value: name' %>
+		<%= f.text_field :name, :class => 'input-xlarge', :required => 'required', :'data-bind' => "value: name, valueUpdate: 'afterkeydown'" %>
 	</div>
 </div>
 
 <div class='control-group'>
 	<%= f.label :description, :class => 'control-label' %>
 	<div class='controls'>
-		<%= f.text_area :description, :class => 'input-xlarge', :rows => '8', :maxlength => @organization.character_limit, :required => 'required', :'data-bind' => 'value: description' %>
+		<%= f.text_area :description, :class => 'input-xlarge', :rows => '8', :maxlength => @organization.character_limit, :required => 'required', :'data-bind' => "value: description, valueUpdate: 'afterkeydown'" %>
 		<span class="help-block" id="limit"><%= "Limit of #{@organization.character_limit} characters" %></span>
 		<script>
 		$(document).ready(function() {
@@ -28,7 +28,7 @@
 <div class='control-group'>
 	<%= f.label :url, :class => 'control-label' %>
 	<div class='controls'>
-		<%= f.url_field :url, :class => 'input-xlarge', :'data-bind' => 'value: url' %>
+		<%= f.url_field :url, :class => 'input-xlarge', :'data-bind' => "value: url, valueUpdate: 'afterkeydown'" %>
 	</div>
 </div>
 	
