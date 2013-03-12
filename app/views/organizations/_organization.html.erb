@@ -21,7 +21,7 @@
     <script type="text/javascript">
         function OrganisationViewModel() {
             this.name        = ko.observable("<%= organization.name %>");
-            this.description = ko.observable("<%= organization.description %>");
+            this.description = ko.observable("<%= organization.description.try(:squish) %>");
             this.url         = ko.observable("<%= organization.url %>");
             this.imageSrc    = ko.observable("url(<%= organization.logo %>)");
             this.updateImage = function() {
