@@ -1,2 +1,3 @@
-<h1>Members#index</h1>
-<p>Find me in app/views/members/index.html.erb</p>
+<% @organizations.each do |organization| %>
+  <%= render :partial => 'organizations/organization', :locals => {:organization => organization}%>
+<% end %>
