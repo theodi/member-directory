@@ -1,7 +1,9 @@
 MemberDirectory::Application.routes.draw do
 
   devise_for :members, :controllers => { :registrations => "registrations" }
-
+  
+  resources :members, :only => [:index, :show]
+  
   resources :contact_requests
   
   match 'organizations/edit' => 'organizations#edit', :as => :edit
