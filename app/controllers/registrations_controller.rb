@@ -24,7 +24,7 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
   def after_sign_up_path_for(resource)
-    '/organizations/edit'
+    '/members/edit'
   end
   
 end
