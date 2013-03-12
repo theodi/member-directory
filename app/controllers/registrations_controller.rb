@@ -3,6 +3,7 @@ class RegistrationsController < Devise::RegistrationsController
 
   def edit
     @organization = @member.organization
+    @preview = true
     super
   end
   
