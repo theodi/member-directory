@@ -40,6 +40,24 @@
     <% render :partial => 'member_details', :locals => { :f => f } %>
   </fieldset>
   
+  <fieldset>   
+    
+    <legend>Organization Details</legend>
+    
+    <%= f.fields_for :organization do |builder| %>
+      <%= render :partial => 'organizations/form', :locals => { :f => builder } %>
+    <% end %>
+
+    <div class="control-group">
+  		<div class="controls">
+        <section class='preview'>
+          <%= render :partial => 'organizations/organization', :locals => { :organization => @member.organization } %>
+        </section>
+      </div>
+    </div>
+
+  </fieldset>
+
   <fieldset>
 
     <legend>Current Password</legend>
@@ -58,6 +76,6 @@
   </fieldset>
 
   <div class="form-actions">
-    <%= f.submit "Update", :id => 'submit', :class => 'btn btn-primary' %>
+    <%= f.submit "Save", :id => 'save', :class => 'btn btn-primary' %>
   </div>
 <% end %>
