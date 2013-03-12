@@ -13,16 +13,16 @@
 		<%= f.text_area :description, 
                     :class => 'input-xlarge', 
                     :rows => '8', 
-                    :maxlength => @organization.character_limit, 
+                    :maxlength => @member.organization.character_limit, 
                     :required => 'required', 
                     :'data-bind' => "value: description, valueUpdate: 'afterkeydown'" %>                    
-		<span class="help-block" id="limit"><%= "Limit of #{@organization.character_limit} characters" %></span>
+		<span class="help-block" id="limit"><%= "Limit of #{@member.organization.character_limit} characters" %></span>
 		<script>
 		$(document).ready(function() {
-      var max = <%= "#{@organization.character_limit}" %> - $('#member_organization_attributes_description').val().replace(/(\r\n|\n|\r)/g,"  ").length
+      var max = <%= "#{@member.organization.character_limit}" %> - $('#member_organization_attributes_description').val().replace(/(\r\n|\n|\r)/g,"  ").length
 			$('#limit').html('<span id="remaining">'+ max +'</span> characters remaining');
 			$('#member_organization_attributes_description').keyup(function() {
-        var max = <%= "#{@organization.character_limit}" %>
+        var max = <%= "#{@member.organization.character_limit}" %>
 				var len = $(this).val().replace(/(\r\n|\n|\r)/g,"  ").length;
 				var rem = max - len
 				$('#remaining').html(rem);
@@ -40,7 +40,7 @@
 	</div>
 </div>
 	
-<% unless @organization.member.product_name == "supporter" %>
+<% unless @member.product_name == "supporter" %>
 
 	<div class='control-group'>
 		<%= f.label :logo, :class => 'control-label' %>

@@ -2,7 +2,6 @@ class RegistrationsController < Devise::RegistrationsController
   before_filter :check_product_name, :only => 'new'
 
   def edit
-    @organization = @member.organization
     @preview = true
     super
   end
@@ -14,6 +13,7 @@ class RegistrationsController < Devise::RegistrationsController
         params[:organization_attributes][:url] = "http://#{params[:organization_attributes][:url]}"
       end
     end
+    # Call base update
     super
   end  
   
