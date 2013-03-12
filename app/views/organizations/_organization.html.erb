@@ -2,7 +2,10 @@
 
   <h2<% if @preview %> data-bind="text: name"<% end %>><%= organization.name %></h2>
 
-  <div class='organization-logo pull-right' <% if @preview %> data-bind='style: {backgroundImage: imageSrc}'<% end %>></div>
+  <div class='organization-logo pull-right' 
+       style='background-image: url(<%= organization.logo %>)'
+       <% if @preview %> data-bind='style: {backgroundImage: imageSrc}'<% end %> >
+  </div>
 
   <i class='icon icon-home'></i> <a<% if @preview %> data-bind="text: url, attr: {href: url}"<% end %> href='<%= organization.url %>'><%= organization.url%></a>
 
@@ -20,7 +23,7 @@
             this.name        = ko.observable("<%= organization.name %>");
             this.description = ko.observable("<%= organization.description %>");
             this.url         = ko.observable("<%= organization.url %>");
-            this.imageSrc    = ko.observable("url(http://placekitten.com/1000/1000)");
+            this.imageSrc    = ko.observable("url(<%= organization.logo %>)");
             this.updateImage = function() {
               input = $('#member_organization_attributes_logo')[0]
               if (input.files[0] && window.FileReader) {
