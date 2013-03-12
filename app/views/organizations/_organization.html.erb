@@ -1,9 +1,49 @@
-<h2><%= organization.name %></h2>
+<div class='organization'>
 
-<%= simple_format(organization.description) %>
+  <h2<% if @preview %> data-bind="text: name"<% end %>><%= organization.name %></h2>
 
-<% unless organization.url.blank? %>
-  <ul>
-    <li><%= link_to "Visit website", organization.url, :id => 'organizationurl' %></li>
-  </ul>
-<% end %>
+  <div class='organization-logo pull-right' 
+       style='background-image: url(<%= organization.logo %>)'
+       <% if @preview %> data-bind='style: {backgroundImage: imageSrc}'<% end %> >
+  </div>
+
+  <i class='icon icon-home'></i> <a<% if @preview %> data-bind="text: url, attr: {href: url}"<% end %> href='<%= organization.url %>'><%= organization.url%></a>
+
+  <div class='organization-description'>
+    <% if @preview %>
+      <p data-bind="text: description"></p>
+    <% else %>
+      <%= simple_format(organization.description) %>
+    <% end %>
+  </div>
+
+  <% if @preview %>
+    <script type="text/javascript">
+        function OrganisationViewModel() {
+            this.name        = ko.observable("<%= organization.name %>");
+            this.description = ko.observable("<%= organization.description.try(:squish) %>");
+            this.url         = ko.observable("<%= organization.url %>");
+            this.imageSrc    = ko.observable("url(<%= organization.logo %>)");
+            this.updateImage = function() {
+              input = $('#member_organization_attributes_logo')[0]
+              if (input.files[0] && window.FileReader) {
+                reader = new FileReader();
+                reader.onloadend = function( ){
+                    window.organisationPreview.imageSrc("url("+this.result+")");
+                }
+                reader.readAsDataURL(input.files[0]);
+              }
+            };
+        };
+        window.organisationPreview = new OrganisationViewModel()
+        ko.applyBindings(window.organisationPreview);
+    </script>
+  <% end %>
+  
+</div>
+
+
+
+
+
+

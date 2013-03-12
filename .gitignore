@@ -21,3 +21,4 @@
 .chef/chef-validator.pem
 .chef/knife.rb
 .vagrant
+/public/uploads/
