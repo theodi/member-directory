@@ -14,22 +14,7 @@ class RegistrationsController < Devise::RegistrationsController
         params[:organization_attributes][:url] = "http://#{params[:organization_attributes][:url]}"
       end
     end
-    # If the preview button was pressed
-    if params[:commit] == 'Preview'
-      # Filter passwords out
-      filtered_params = params[:member].reject{|k,v| ['current_password', 'password', 'password_confirmation'].include? k}
-      # Update member
-      @member.attributes = filtered_params
-      # Validate
-      @member.valid?
-      @member.organization.valid?
-      # Render
-      @organization = @member.organization
-      render action: "edit"
-    else
-      # Otherwise, this is a normal save
-      super
-    end
+    super
   end  
   
   protected
