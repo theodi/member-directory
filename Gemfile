@@ -57,6 +57,8 @@ group :development, :test do
   gem 'guard-cucumber'
   gem 'rb-fsevent', '~> 0.9'
   gem 'launchy'
+  gem 'factory_girl_rails'
+  gem 'faker'
 end
 
 group :production do

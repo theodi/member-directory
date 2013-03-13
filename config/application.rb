@@ -73,5 +73,10 @@ module MemberDirectory
       config.middleware.use("Rack::GoogleAnalytics", :tracker => ENV['GOOGLE_ANALYTICS_TRACKER'])
     end
     
+    # Create factories instead of fixtures
+    config.generators do |g|
+      g.fixture_replacement :factory_girl
+    end
+    
   end
 end
