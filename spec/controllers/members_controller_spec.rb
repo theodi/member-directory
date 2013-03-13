@@ -11,7 +11,8 @@ describe MembersController do
 
   describe "GET 'show'" do
     it "returns http success" do
-      get 'show', :id => 1
+      @member = FactoryGirl.create :member
+      get 'show', :id => @member.membership_number
       response.should be_success
     end
   end
