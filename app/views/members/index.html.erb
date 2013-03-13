@@ -1,0 +1,3 @@
+<% @organizations.each do |organization| %>
+  <%= render :partial => 'organizations/summary', :locals => {:organization => organization}%>
+<% end %>

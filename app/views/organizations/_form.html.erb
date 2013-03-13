@@ -16,6 +16,7 @@
                     :maxlength => @member.organization.character_limit, 
                     :required => 'required', 
                     :'data-bind' => "value: description, valueUpdate: 'afterkeydown'" %>                    
+		<span class="help-block"><small>Plain text only, but you can use paragraphs</small></span>
 		<span class="help-block" id="limit"><%= "Limit of #{@member.organization.character_limit} characters" %></span>
 		<script>
 		$(document).ready(function() {
