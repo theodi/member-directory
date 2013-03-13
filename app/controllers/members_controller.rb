@@ -1,7 +1,7 @@
 class MembersController < ApplicationController
 
   def index
-    @organizations = Organization.all
+    @organizations = Organization.order(:name)
   end
 
   def show
