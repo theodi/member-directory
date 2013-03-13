@@ -1,8 +1,9 @@
 div.organization-logo {
   width: 200px;
   height: 100px;
-  background-size: cover;
+  background-size: contain;
   background-position: center;
+  background-repeat: no-repeat;
 }
 
 div.organization {
