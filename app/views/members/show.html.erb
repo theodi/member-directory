@@ -1,1 +1,6 @@
+<ul class="breadcrumb">
+  <li><%= link_to 'Members', members_path %></a> <span class="divider">/</span></li>
+  <li class="active"><%= @organization.name %></li>
+</ul>
+
 <%= render :partial => 'organizations/organization', :locals => {:organization => @organization}%>
