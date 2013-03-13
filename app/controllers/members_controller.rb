@@ -5,7 +5,11 @@ class MembersController < ApplicationController
   end
 
   def show
-    @organization = Member.find(params[:id]).organization
+    # Get member
+    @member = Member.where(:membership_number => params[:id]).first
+    raise ActiveRecord::RecordNotFound and return if @member.nil?
+    # Get organization
+    @organization = @member.organization
   end
   
 end
