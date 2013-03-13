@@ -24,6 +24,6 @@ class Organization < ActiveRecord::Base
   end
   
   def character_limit
-    self.member.product_name == "supporter" ? 500 : 1000 
+    supporter? ? 500 : 1000 
   end
 end
