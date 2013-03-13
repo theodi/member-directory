@@ -1,0 +1,15 @@
+<div class='organization organization-summary'>
+
+  <div class='organization-logo pull-right'
+       style='background-image: url(<%= organization.logo %>)'>
+  </div>
+
+  <h2><%= link_to organization.name, organization.member %></h2>
+
+  <i class='icon icon-home'></i> <a href='<%= organization.url %>'><%= organization.url%></a>
+
+  <div class='organization-description'>
+    <%= organization_description(organization) %>
+  </div>
+
+</div>

@@ -31,6 +31,10 @@ class Member < ActiveRecord::Base
 	validates :postal_code, :presence => true, :on => :create
 	validates_acceptance_of :agreed_to_terms, :on => :create
 	
+  def to_param
+    membership_number
+  end
+
 	private
   
   def confirmation_required?

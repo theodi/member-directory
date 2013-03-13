@@ -11,7 +11,7 @@
 
   <div class='organization-description'>
     <% if @preview %>
-      <p data-bind="text: description"></p>
+      <div data-bind="html: formattedDescription"></div>
     <% else %>
       <%= simple_format(organization.description) %>
     <% end %>
@@ -21,9 +21,19 @@
     <script type="text/javascript">
         function OrganisationViewModel() {
             this.name        = ko.observable("<%= organization.name %>");
-            this.description = ko.observable("<%= organization.description.try(:squish) %>");
+            this.description = ko.observable("<%= escape_javascript(organization.description) %>");
             this.url         = ko.observable("<%= organization.url %>");
             this.imageSrc    = ko.observable("url(<%= organization.logo %>)");
+            this.formattedDescription = ko.computed(function() {
+              str = this.description().replace(/\r\n?/, "\n");
+              str = $.trim(str);
+              if (str.length > 0) {
+                str = str.replace(/\n\n+/g, '</p><p>');
+                str = str.replace(/\n/g, '<br />');
+                str = '<p>' + str + '</p>';
+              }
+              return str;
+            }, this);
             this.updateImage = function() {
               input = $('#member_organization_attributes_logo')[0]
               if (input.files[0] && window.FileReader) {

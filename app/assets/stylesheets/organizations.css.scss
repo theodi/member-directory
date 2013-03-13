@@ -1,11 +1,27 @@
 div.organization-logo {
   width: 200px;
   height: 100px;
-  background-size: cover;
+  background-size: contain;
   background-position: center;
+  background-repeat: no-repeat;
 }
 
-div.organization-description {
+div.organization {
   margin-top: 10px;
-  min-height: 75px;
+  min-height: 150px;
+}
+
+div.organization-summary {
+  border-bottom: 1px solid #7ebbe4;
+  padding-bottom: 10px;
+  min-height: 140px;
+}
+
+div.organization-summary div.organization-logo {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+div.organization-summary div.organization-description {
+  min-height: auto;
 }
