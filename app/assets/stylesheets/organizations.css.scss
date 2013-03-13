@@ -5,7 +5,17 @@ div.organization-logo {
   background-position: center;
 }
 
-div.organization-description {
+div.organization {
   margin-top: 10px;
-  min-height: 75px;
+  min-height: 150px;
+}
+
+div.organization-summary {
+  border-bottom: 1px solid #7ebbe4;
+  padding-bottom: 10px;
+  min-height: 100px;
+}
+
+div.organization-summary div.organization-description {
+  min-height: auto;
 }
