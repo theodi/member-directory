@@ -119,6 +119,7 @@ GEM
       httparty (~> 0.8.0)
       tzinfo (~> 0.3.22)
     eventmachine (1.0.0)
+    excon (0.13.4)
     execjs (1.4.0)
       multi_json (~> 1.0)
     factory_girl (4.2.0)
@@ -131,8 +132,19 @@ GEM
     faraday (0.8.6)
       multipart-post (~> 1.1)
     ffi (1.4.0)
+    fog (1.3.1)
+      builder
+      excon (~> 0.13.0)
+      formatador (~> 0.2.0)
+      mime-types
+      multi_json (~> 1.0)
+      net-scp (~> 1.0.4)
+      net-ssh (>= 2.1.3)
+      nokogiri (~> 1.5.0)
+      ruby-hmac
     foreman (0.61.0)
       thor (>= 0.13.6)
+    formatador (0.2.4)
     gherkin (2.11.6)
       json (>= 1.7.6)
     github_api (0.9.1)
@@ -195,6 +207,9 @@ GEM
     mysql2 (0.3.11)
     net-http-digest_auth (1.2.1)
     net-http-persistent (1.9)
+    net-scp (1.0.4)
+      net-ssh (>= 1.99.1)
+    net-ssh (2.6.6)
     nokogiri (1.5.6)
     oauth (0.4.7)
     oauth2 (0.9.1)
@@ -260,6 +275,7 @@ GEM
       rspec-core (~> 2.13.0)
       rspec-expectations (~> 2.13.0)
       rspec-mocks (~> 2.13.0)
+    ruby-hmac (0.4.0)
     ruby-trello (0.5.1)
       activemodel
       addressable (~> 2.3)
@@ -327,6 +343,7 @@ DEPENDENCIES
   dotenv
   factory_girl_rails
   faker
+  fog (~> 1.3.1)
   foreman
   guard-cucumber
   jquery-rails
