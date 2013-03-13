@@ -10,6 +10,7 @@ class MembersController < ApplicationController
     raise ActiveRecord::RecordNotFound and return if @member.nil?
     # Get organization
     @organization = @member.organization
+    raise ActiveRecord::RecordNotFound and return if @organization.nil?
   end
   
 end
