@@ -9,25 +9,21 @@ describe RegistrationsController do
   it 'should show form for supporter level signups' do
     get :new, :level => 'supporter'
     response.should be_success
-    response.should include("Sign up")
   end
-
+  
   it 'should show form for member level signups' do
     get :new, :level => 'member'
     response.should be_success
-    response.should include("Sign up")
   end
-
+  
   it 'should show form for partner level signups' do
     get :new, :level => 'partner'
     response.should be_success
-    response.should include("Partner with us")
   end
-
+  
   it 'should show form for sponsor level signups' do
     get :new, :level => 'sponsor'
     response.should be_success
-    response.should include("Sponsor us")
   end
 
   it 'should redirect back to join us page for any other level' do
