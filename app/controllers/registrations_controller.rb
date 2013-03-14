@@ -1,6 +1,15 @@
 class RegistrationsController < Devise::RegistrationsController
   before_filter :check_product_name, :only => 'new'
 
+  def new
+    super
+    if %w{partner sponsor}.include? params[:level].to_s
+      render :action => 'contact_requests/new'
+    else
+      render :action => 'devise/registrations/new'      
+    end
+  end
+
   def edit
     @preview = true
     super
