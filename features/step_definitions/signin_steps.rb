@@ -27,7 +27,7 @@ Given /^that I have a membership number and password$/ do
 end
 
 When /^I visit the sign in page$/ do
-  visit('/sessions/new')
+  visit('/session/new')
   page.should have_content 'Sign in'  
 end
 

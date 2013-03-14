@@ -33,10 +33,10 @@
               </ul>
     					<ul class="nav pull-right">
                 <% if signed_in? %>
-                  <li><%= link_to "My Account", edit_member_registration_path %></li>
-                  <li><%= link_to "Sign out", destroy_member_session_path, :method => :delete %></li>
+                  <li><%= link_to "My Account", edit_member_path(current_member) %></li>
+                  <li><%= link_to "Sign out", session_path, :method => :delete %></li>
                 <% else %>
-                  <li><%= link_to "Sign in", new_member_session_path %></li>
+                  <li><%= link_to "Sign in", new_session_path %></li>
                 <% end %>
     					</ul>
     				</div>
