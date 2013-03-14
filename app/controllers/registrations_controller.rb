@@ -52,8 +52,4 @@ class RegistrationsController < Devise::RegistrationsController
     redirect_to 'http://www.theodi.org/join-us' unless %w{supporter member partner sponsor}.include?(@product_name)
   end
 
-  def after_sign_up_path_for(resource)
-    '/members/edit'
-  end
-  
 end
