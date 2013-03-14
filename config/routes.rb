@@ -1,16 +1,21 @@
 MemberDirectory::Application.routes.draw do
 
-  devise_for :members, :skip => :sessions,
-             :controllers => { :registrations => "registrations" },
-             :path_names => { :sign_up => "new" }
+  devise_for :members, :skip => [:sessions, :registrations]
   # Manually create session paths
   devise_scope :member do
-    get    '/sessions/new', :to => 'devise/sessions#new'    , :as => :new_member_session
-    post   '/sessions'    , :to => 'devise/sessions#create' , :as => :member_session
-    delete '/sessions'    , :to => 'devise/sessions#destroy', :as => :destroy_member_session
+    resource :session,
+      only: [:new, :create, :destroy],
+      controller: 'devise/sessions'
+    resource :registration,
+      only: [:new, :create, :destroy],
+      path: 'members',
+      controller: 'registrations',
+      as: :member_registration do
+        get :cancel
+      end
   end
   
-  resources :members, :only => [:index, :show]
+  resources :members, :only => [:index, :show, :edit, :update]
   
   root :to => "home#index"
 
