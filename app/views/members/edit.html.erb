@@ -1,7 +1,7 @@
 <h2>Edit your details</h2>
 
-<%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put, :class => 'form-horizontal' }) do |f| %>
-  <%= devise_error_messages! %>
+<%= form_for(@member, :html => { :method => :put, :class => 'form-horizontal' }) do |f| %>
+  <%= error_messages(@member) %>
   
   <fieldset>
   
@@ -14,7 +14,7 @@
   		</div>
   	</div>
   
-    <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+    <% if @member.pending_reconfirmation? %>
       <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
     <% end %>
   
@@ -37,7 +37,7 @@
   </fieldset>
   
   <fieldset>   
-    <% render :partial => 'member_details', :locals => { :f => f } %>
+    <% render :partial => 'devise/registrations/member_details', :locals => { :f => f } %>
   </fieldset>
   
   <fieldset>   

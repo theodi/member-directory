@@ -11,10 +11,31 @@ class MembersController < ApplicationController
   def show
     # Get organization
     @organization = @member.organization
-    raise ActiveRecord::RecordNotFound and return if @organization.nil? || @member.cached_active != true
+    if @organization.nil? || (current_member != @member && @member.cached_active == false)
+      raise ActiveRecord::RecordNotFound and return 
+    end
     respond_with(@organization)
   end
   
+  def edit
+    @preview = true
+    respond_with(@member)
+  end
+  
+  def update
+    # Prepend http to URL if not present
+    if params[:member].try(:[], :organization_attributes).try(:[], :url)
+      unless params[:member][:organization_attributes][:url] =~ /^([a-z]+):\/\//
+        params[:member][:organization_attributes][:url] = "http://#{params[:member][:organization_attributes][:url]}"
+      end
+    end
+    # Update
+    if @member.update_with_password params[:member]
+      flash[:notice] = "You updated your account successfully."
+    end
+    respond_with(@member)
+  end
+
   private
   
   def get_member
