@@ -16,7 +16,7 @@ if root_object.logo.url
     [
       {
         :'@type'     => "http://schema.org/ImageObject",
-        :description => "Full-sized logo image",
+        :description => "Original",
         :contentUrl  => org.logo.url,
         :thumbnail   => {
           :'@type'     => "http://schema.org/ImageObject",
