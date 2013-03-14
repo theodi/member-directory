@@ -10,16 +10,16 @@ class MembersController < ApplicationController
 
   def show
     # Get organization
-    @organization = @member.organization
-    if @organization.nil? || (current_member != @member && @member.cached_active == false)
-      raise ActiveRecord::RecordNotFound and return 
+    if current_member == @member
+      @preview = true
+      render 'edit'      
+    else
+      @organization = @member.organization
+      if @organization.nil? || @member.cached_active == false
+        raise ActiveRecord::RecordNotFound and return 
+      end
+      respond_with(@organization)
     end
-    respond_with(@organization)
-  end
-  
-  def edit
-    @preview = true
-    respond_with(@member)
   end
   
   def update

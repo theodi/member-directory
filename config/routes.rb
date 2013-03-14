@@ -15,7 +15,7 @@ MemberDirectory::Application.routes.draw do
       end
   end
   
-  resources :members, :only => [:index, :show, :edit, :update]
+  resources :members, :only => [:index, :show, :update]
   
   root :to => "home#index"
 

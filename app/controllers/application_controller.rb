@@ -11,7 +11,7 @@ class ApplicationController < ActionController::Base
   end
   
   def after_sign_in_path_for(resource)
-    edit_member_path(resource)    
+    member_path(resource)
   end
 
 end
