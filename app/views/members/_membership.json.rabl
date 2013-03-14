@@ -1,10 +1,12 @@
 node(:url         ) { |org| member_url(org.member) }
 node(:membershipId) { |org| org.member.membership_number }
-node(:role        ) do |org|
-  {
-    :url  => "http://schema.theodi.org/membership/#{org.member.product_name}",
-    :name => org.member.product_name,
-  }
+if root_object.member.product_name
+  node(:role        ) do |org|
+    {
+      :url  => "http://schema.theodi.org/membership/#{org.member.product_name}",
+      :name => org.member.product_name.capitalize,
+    }
+  end
 end
 node :member do |org|
   member = {
