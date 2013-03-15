@@ -39,14 +39,14 @@
               if (input.files[0] && window.FileReader) {
                 reader = new FileReader();
                 reader.onloadend = function( ){
-                    window.organisationPreview.imageSrc("url("+this.result+")");
+                    window.organizationPreview.imageSrc("url("+this.result+")");
                 }
                 reader.readAsDataURL(input.files[0]);
               }
             };
         };
-        window.organisationPreview = new OrganisationViewModel()
-        ko.applyBindings(window.organisationPreview);
+        window.organizationPreview = new OrganisationViewModel()
+        ko.applyBindings(window.organizationPreview);
     </script>
   <% end %>
   
