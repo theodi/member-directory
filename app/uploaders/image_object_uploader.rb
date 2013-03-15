@@ -50,19 +50,19 @@ class ImageObjectUploader < CarrierWave::Uploader::Base
     "original.#{file.extension}" if original_filename
   end
 
-  version :logo_scaled do
+  version :rectangular do
     process :convert => 'png'
     process :resize_to_fit => [200,100]
     def full_filename (for_file = model.member.logo)
-      "scaled.png"
+      "rectangular.png"
     end
   end
 
-  version :logo_cutout do
+  version :square do
     process :convert => 'png'
     process :resize_to_fill => [100,100]
     def full_filename (for_file = model.member.logo)
-      "cutout.png"
+      "square.png"
     end
   end
 
