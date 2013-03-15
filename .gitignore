@@ -22,3 +22,6 @@
 .chef/knife.rb
 .vagrant
 /public/uploads/
+/.env.development
+/.env.production
+/.env.test

@@ -97,13 +97,13 @@ end
 
 Then /^the fullsize logo should be available at the correct URL$/ do
   @member = Member.find_by_email(@email)
-  @member.organization.logo.url.should eq "http://3c15e477272a919c85ab-3fbe4c8744736fb7318f7d4ea2dff54a.r10.cf3.rackcdn.com/logos/#{@member.membership_number}/original.png"
+  @member.organization.logo.url.should eq "#{ENV['RACKSPACE_ASSET_HOST']}/logos/#{@member.membership_number}/original.png"
 end
 
 Then /^the rectangular logo should be available at the correct URL$/ do
-  @member.organization.logo.rectangular.url.should eq "http://3c15e477272a919c85ab-3fbe4c8744736fb7318f7d4ea2dff54a.r10.cf3.rackcdn.com/logos/#{@member.membership_number}/rectangular.png"
+  @member.organization.logo.rectangular.url.should eq "#{ENV['RACKSPACE_ASSET_HOST']}/logos/#{@member.membership_number}/rectangular.png"
 end
 
 Then /^the square logo should be available at the correct URL$/ do
-  @member.organization.logo.square.url.should eq "http://3c15e477272a919c85ab-3fbe4c8744736fb7318f7d4ea2dff54a.r10.cf3.rackcdn.com/logos/#{@member.membership_number}/square.png"
+  @member.organization.logo.square.url.should eq "#{ENV['RACKSPACE_ASSET_HOST']}/logos/#{@member.membership_number}/square.png"
 end
