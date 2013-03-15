@@ -1,14 +1,14 @@
-<div class='organization organization-summary'>
+<div class='organization organization-summary' vocab="http://schema.org/" typeOf="Organization">
 
   <div class='organization-logo pull-right'
        style='background-image: url(<%= organization.logo %>)'>
   </div>
 
-  <h2><%= link_to organization.name, organization.member %></h2>
+  <h2><%= link_to organization.name, organization.member, :property => "name" %></h2>
 
-  <i class='icon icon-home'></i> <a href='<%= organization.url %>'><%= organization.url%></a>
+  <i class='icon icon-home'></i> <%= link_to organization.url, organization.url, :property => "url"%></a>
 
-  <div class='organization-description'>
+  <div class='organization-description' property="description">
     <%= organization_description(organization) %>
   </div>
 
