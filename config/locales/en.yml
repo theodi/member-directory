@@ -12,7 +12,7 @@ en:
         product_name: "Membership Level"
         email: "Email Address"
         contact_name: "Your Name"
-        organization_name: "Organisation"
+        organization_name: "Organisation Name"
         telephone: "Contact Number"
         street_address: "Address"
         address_locality: "City"
@@ -24,10 +24,10 @@ en:
         password: "Password"
         password_confirmation: "Confirm Password"
       organization:
-        name: "Company Name"
-        url: "Company Homepage"
+        name: "Organisation Name"
+        url: "Homepage"
         description: "Description"
-        logo: "Company Logo"
+        logo: "Logo"
   activemodel:
     models:
       contact_request: Contact Request
