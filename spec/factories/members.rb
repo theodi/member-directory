@@ -2,14 +2,14 @@
 
 FactoryGirl.define do
   factory :member do
-    email             Faker::Internet.email
+    email             { Faker::Internet.email }
     product_name      'member'
-    organisation_name Faker::Company.name
-    contact_name      Faker::Name.name
-    street_address    Faker::Address.street_address
-    address_locality  Faker::Address.city
-    address_country   Faker::Address.country
-    postal_code       Faker::Address.postcode
+    organisation_name { Faker::Company.name }
+    contact_name      { Faker::Name.name }
+    street_address    { Faker::Address.street_address }
+    address_locality  { Faker::Address.city }
+    address_country   { Faker::Address.country }
+    postal_code       { Faker::Address.postcode }
     password          'passw0rd'
   end
 end
