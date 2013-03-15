@@ -23,7 +23,22 @@ node :member do |org|
         :contentUrl  => org.logo.url,
         :thumbnail   => {
           :type        => "http://schema.org/ImageObject",
-          :contentUrl  => "TODO",
+          :contentUrl  => org.logo.square.url,
+          :height      => 100,
+          :width       => 100,
+        }
+      },
+      {
+        :type        => "http://schema.org/ImageObject",
+        :description => "Rectangular",
+        :contentUrl  => org.logo.rectangular.url,
+        :height      => 100,
+        :width       => 200,
+        :thumbnail   => {
+          :type        => "http://schema.org/ImageObject",
+          :contentUrl  => org.logo.square.url,
+          :height      => 100,
+          :width       => 100,
         }
       }
     ]
