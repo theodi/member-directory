@@ -5,6 +5,9 @@ class MembersController < ApplicationController
 
   def index
     @organizations = Organization.includes(:member).where(:'members.cached_active' => true).order(:name)
+    if params[:level]
+      @organizations = @organizations.where(:'members.product_name' => params[:level].downcase)
+    end
     respond_with(@organizations)
   end
 
