@@ -15,12 +15,12 @@ class Member < ActiveRecord::Base
 
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me, :product_name
-  attr_accessible :organisation_name, :contact_name, :telephone, :street_address,
+  attr_accessible :organization_name, :contact_name, :telephone, :street_address,
 									:address_locality, :address_region, :address_country,
-									:postal_code, :organisation_vat_id, :purchase_order_number, :agreed_to_terms
-  attr_accessor   :organisation_name, :contact_name, :telephone, :street_address,
+									:postal_code, :organization_vat_id, :purchase_order_number, :agreed_to_terms
+  attr_accessor   :organization_name, :contact_name, :telephone, :street_address,
 									:address_locality, :address_region, :address_country,
-									:postal_code, :organisation_vat_id, :purchase_order_number, :agreed_to_terms
+									:postal_code, :organization_vat_id, :purchase_order_number, :agreed_to_terms
 
 	# validations
 	validates :product_name, :presence => true, :inclusion => %w{supporter member partner sponsor}, :on => :create
@@ -31,6 +31,16 @@ class Member < ActiveRecord::Base
 	validates :postal_code, :presence => true, :on => :create
 	validates_acceptance_of :agreed_to_terms, :on => :create
 	
+  validate :check_organization_names
+  
+  def check_organization_names
+    if new_record? # Only validate on create
+      unless Organization.where(:name => organization_name).empty?
+        errors.add(:organization_name, "is already taken")
+      end
+    end
+  end
+  
   def to_param
     membership_number
   end
@@ -58,7 +68,7 @@ class Member < ActiveRecord::Base
     
     # construct hashes for signup processor
     # some of the naming of purchase order and membership id needs updating for consistency
-    organization    = {'name' => organisation_name, 'vat_id' => organisation_vat_id}
+    organization    = {'name' => organization_name, 'vat_id' => organization_vat_id}
     contact_person  = {'name' => contact_name, 'email' => email, 'telephone' => telephone}
     billing         = {
                         'name' => contact_name,
@@ -82,7 +92,7 @@ class Member < ActiveRecord::Base
   end
 
   def setup_organization
-    self.create_organization(:name => organisation_name)
+    self.create_organization(:name => organization_name)
   end
 
 end

@@ -13,22 +13,22 @@ en:
         product_name: "Membership Level"
         email: "Email Address"
         contact_name: "Your Name"
-        organisation_name: "Organisation"
+        organization_name: "Organisation Name"
         telephone: "Contact Number"
         street_address: "Address"
         address_locality: "City"
         address_region: "Region"
         address_country: "Country"
         postal_code: "Postcode"
-        organisation_vat_id: "VAT Number (if not UK)"
+        organization_vat_id: "VAT Number (if not UK)"
         purchase_order_number: "Purchase Order Number"
         password: "Password"
         password_confirmation: "Confirm Password"
       organization:
-        name: "Company Name"
-        url: "Company Homepage"
+        name: "Organisation Name"
+        url: "Homepage"
         description: "Description"
-        logo: "Company Logo"
+        logo: "Logo"
   activemodel:
     models:
       contact_request: Contact Request

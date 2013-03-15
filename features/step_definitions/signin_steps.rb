@@ -4,7 +4,7 @@ Given /^that I have a membership number and password$/ do
   # Create a new member
   member = Member.create(
     :product_name                 => 'supporter',
-    :organisation_name     => 'FooBar Inc',
+    :organization_name     => 'FooBar Inc',
     :contact_name          => 'Ian McIain',
     :email                 => 'iain@foobar.com',
     :telephone                 => '0121 123 446',
@@ -13,7 +13,7 @@ Given /^that I have a membership number and password$/ do
     :address_region        => 'Fakeshire',
     :address_country       => 'UK',
     :postal_code      => 'FAKE 123',
-    :organisation_vat_id            => '213244343',
+    :organization_vat_id            => '213244343',
     :purchase_order_number => 'PO-43243242342',
     :password              => 'p4ssw0rd',
     :password_confirmation => 'p4ssw0rd',
