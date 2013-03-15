@@ -1,7 +1,9 @@
 class MembersController < ApplicationController
+  respond_to :html, :json
 
   def index
     @organizations = Organization.includes(:member).where(:'members.cached_active' => true).order(:name)
+    respond_with(@organizations)
   end
 
   def show
@@ -11,6 +13,7 @@ class MembersController < ApplicationController
     # Get organization
     @organization = @member.organization
     raise ActiveRecord::RecordNotFound and return if @organization.nil?
+    respond_with(@organization)
   end
   
 end
