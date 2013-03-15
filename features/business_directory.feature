@@ -39,14 +39,14 @@ Feature: Adding details to the organization directory
 		Then I should <outcome>
 			
 		Examples:
-      | url                    | outcome                                   |
-      | example                | see an error relating to Company Homepage |
-      | http://ex/ample.com    | see an error relating to Company Homepage |
-      | http://example         | see an error relating to Company Homepage |
-      | http://example.com     | not see an error                          |
-      | example.com            | not see an error                          |
-      | data://example.com     | see an error relating to Company Homepage |
-      | javascript:alert('no') | see an error relating to Company Homepage |
+      | url                    | outcome                           |
+      | example                | see an error relating to Homepage |
+      | http://ex/ample.com    | see an error relating to Homepage |
+      | http://example         | see an error relating to Homepage |
+      | http://example.com     | not see an error                  |
+      | example.com            | not see an error                  |
+      | data://example.com     | see an error relating to Homepage |
+      | javascript:alert('no') | see an error relating to Homepage |
     
 				
 	Scenario: Supporter cannot upload images
