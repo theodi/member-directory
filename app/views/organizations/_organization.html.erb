@@ -9,7 +9,7 @@
 
   <i class='icon icon-home'></i> <a property="url"<% if @preview %> data-bind="text: url, attr: {href: url}"<% end %> href='<%= organization.url %>'><%= organization.url%></a>
 
-  <div class='organization-description' property="description">
+  <div class='organization-description' property="description" datatype="rdf:HTML">
     <% if @preview %>
       <div data-bind="html: formattedDescription"></div>
     <% else %>
