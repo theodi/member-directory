@@ -6,6 +6,7 @@ gem 'sqlite3'
 gem 'devise'
 gem 'dotenv'
 gem 'carrierwave'
+gem 'rabl'
 
 # We use this version as the original gem only allows Rails up to 3.0.11
 gem 'data_migrate', :git => 'https://github.com/doublewide/data-migrate.git'
