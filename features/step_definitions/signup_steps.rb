@@ -6,6 +6,10 @@ Given /^that I want to sign up$/ do
   @product_name = 'supporter'
 end
 
+Given /^there is already an organization with the name I want to use$/ do
+  FactoryGirl.create :member, :organization_name => 'FooBar Inc'
+end
+
 When /^I visit the signup page$/ do
   visit("/members/new?level=#{@product_name}")
   page.should have_content 'Sign up'  
