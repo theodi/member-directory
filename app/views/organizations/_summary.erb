@@ -4,7 +4,7 @@
        style='background-image: url(<%= organization.logo %>)'>
   </div>
 
-  <h2><%= link_to organization.name, organization.member, :property => "name" %></h2>
+  <h2 property="name"><%= link_to organization.name, organization.member %></h2>
 
   <i class='icon icon-home'></i> <%= link_to organization.url, organization.url, :property => "url"%></a>
 
