@@ -56,5 +56,5 @@ And /^the membership number is incorrect$/ do
 end
 
 Then /^I should have recieve an error$/ do
-  page.should have_content "Invalid email or password"
+  page.should have_content "Invalid membership number or password"
 end
