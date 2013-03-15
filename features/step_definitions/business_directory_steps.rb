@@ -57,6 +57,10 @@ Then /^I leave my organization (.*?) blank$/ do |field|
   fill_in("member_organization_attributes_#{field}", :with => nil)
 end
 
+Then /^I enter the organization name '(.*?)'$/ do |org_name|
+  fill_in("member_organization_attributes_name", :with => org_name)
+end
+
 When /^I click submit$/ do
   fill_in("member_current_password", :with => 'p4ssw0rd')
   click_button('Save')
@@ -64,10 +68,6 @@ end
 
 Then /^I should see a notice that my details were saved successfully$/ do
   page.should have_content 'You updated your account successfully.'
-end
-
-Then /^I should be able to edit my details$/ do
-  page.should have_content 'Edit your organisation profile'
 end
 
 Then /^I edit my details$/ do
