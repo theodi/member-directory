@@ -7,7 +7,7 @@ Given /^that I want to sign up$/ do
 end
 
 When /^I visit the signup page$/ do
-  visit("/members/sign_up?level=#{@product_name}")
+  visit("/members/new?level=#{@product_name}")
   page.should have_content 'Sign up'  
   @field_prefix = 'member'
 end
