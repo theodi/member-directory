@@ -29,7 +29,7 @@ Feature: Add new signups to queue
 
     Examples:
 			| field 								| text             |
-			| contact_name 					| Your Name     |
+			| contact_name 					| Your Name        |
 			| street_address 				| Address          |
 			| address_locality 			| City             |
 			| address_country 			| Country          |
@@ -54,3 +54,14 @@ Feature: Add new signups to queue
     Then my details should not be queued
     When I click sign up
     And I should get an error telling my passwords don't match
+
+  Scenario: Member tries to sign up, but enters an organization name that already exists
+  
+    Given that I want to sign up
+    But there is already an organization with the name I want to use
+    When I visit the signup page
+    And I enter my details
+    But I don't agree to the terms
+    Then my details should not be queued
+    When I click sign up
+    And I should see an error relating to Organisation Name
