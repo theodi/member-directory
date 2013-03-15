@@ -9,6 +9,7 @@ en:
       organization: Organisation
     attributes:
       member:
+        membership_number: "Member ID"
         product_name: "Membership Level"
         email: "Email Address"
         contact_name: "Your Name"
