@@ -3,10 +3,33 @@ require 'spec_helper'
 describe MembersController do
 
   describe "GET 'index'" do
-    it "returns http success" do
+
+    before :all do
+      @member    = FactoryGirl.create :member, :cached_active => true, :product_name => 'member'
+      @supporter = FactoryGirl.create :member, :cached_active => true, :product_name => 'supporter'
+      @inactive  = FactoryGirl.create :member, :cached_active => false, :product_name => 'member'
+    end
+
+    it "shows only members with active flag set" do
       get 'index'
       response.should be_success
+      assigns(:organizations).should_not include(@inactive.organization)
     end
+
+    it "shows all levels without filter" do
+      get 'index'
+      response.should be_success
+      assigns(:organizations).should include(@member.organization)
+      assigns(:organizations).should include(@supporter.organization)
+    end
+
+    it "shows only requested levels" do
+      get 'index', :level => 'member'
+      response.should be_success
+      assigns(:organizations).should include(@member.organization)
+      assigns(:organizations).should_not include(@supporter.organization)
+    end
+
   end
 
   describe "GET 'show'" do
