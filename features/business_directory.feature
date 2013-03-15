@@ -20,8 +20,8 @@ Feature: Adding details to the organization directory
     Then I should see a notice that my details were saved successfully
     And I should see my changed details when I revisit the edit page
     And the fullsize logo should be available at the correct URL
-    And the scaled logo should be available at the correct URL
-    And the cutout logo should be available at the correct URL
+    And the rectangular logo should be available at the correct URL
+    And the square logo should be available at the correct URL
     			
 	Scenario Outline: User tries to submit their details, but misses a mandatory field
 		

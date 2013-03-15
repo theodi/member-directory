@@ -100,10 +100,10 @@ Then /^the fullsize logo should be available at the correct URL$/ do
   @member.organization.logo.url.should eq "http://3c15e477272a919c85ab-3fbe4c8744736fb7318f7d4ea2dff54a.r10.cf3.rackcdn.com/logos/#{@member.membership_number}/original.png"
 end
 
-Then /^the scaled logo should be available at the correct URL$/ do
-  @member.organization.logo.logo_scaled.url.should eq "http://3c15e477272a919c85ab-3fbe4c8744736fb7318f7d4ea2dff54a.r10.cf3.rackcdn.com/logos/#{@member.membership_number}/scaled.png"
+Then /^the rectangular logo should be available at the correct URL$/ do
+  @member.organization.logo.rectangular.url.should eq "http://3c15e477272a919c85ab-3fbe4c8744736fb7318f7d4ea2dff54a.r10.cf3.rackcdn.com/logos/#{@member.membership_number}/rectangular.png"
 end
 
-Then /^the cutout logo should be available at the correct URL$/ do
-  @member.organization.logo.logo_cutout.url.should eq "http://3c15e477272a919c85ab-3fbe4c8744736fb7318f7d4ea2dff54a.r10.cf3.rackcdn.com/logos/#{@member.membership_number}/cutout.png"
+Then /^the square logo should be available at the correct URL$/ do
+  @member.organization.logo.square.url.should eq "http://3c15e477272a919c85ab-3fbe4c8744736fb7318f7d4ea2dff54a.r10.cf3.rackcdn.com/logos/#{@member.membership_number}/square.png"
 end
