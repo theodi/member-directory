@@ -10,9 +10,19 @@ describe RegistrationsController do
     get :new, :level => 'supporter'
     response.should be_success
   end
-
+  
   it 'should show form for member level signups' do
     get :new, :level => 'member'
+    response.should be_success
+  end
+  
+  it 'should show form for partner level signups' do
+    get :new, :level => 'partner'
+    response.should be_success
+  end
+  
+  it 'should show form for sponsor level signups' do
+    get :new, :level => 'sponsor'
     response.should be_success
   end
 

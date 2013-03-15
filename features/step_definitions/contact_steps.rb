@@ -1,5 +1,5 @@
 When /^I visit the contact page$/ do
-  visit("/contact_requests/new?level=#{@product_name}")
+  visit("/members/new?level=#{@product_name}")
   page.should have_content /Partner with us|Sponsor us/
   @field_prefix = 'contact_request'
 end
