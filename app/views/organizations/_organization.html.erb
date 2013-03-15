@@ -3,7 +3,7 @@
   <h2<% if @preview %> data-bind="text: name"<% end %>><%= organization.name %></h2>
 
   <div class='organization-logo pull-right' 
-       style='background-image: url(<%= organization.logo %>)'
+       style='background-image: url(<%= organization.logo.rectangular.url %>)'
        <% if @preview %> data-bind='style: {backgroundImage: imageSrc}'<% end %> >
   </div>
 
@@ -23,7 +23,7 @@
             this.name        = ko.observable("<%= organization.name %>");
             this.description = ko.observable("<%= escape_javascript(organization.description) %>");
             this.url         = ko.observable("<%= organization.url %>");
-            this.imageSrc    = ko.observable("url(<%= organization.logo %>)");
+            this.imageSrc    = ko.observable("url(<%= organization.logo.rectangular.url %>)");
             this.formattedDescription = ko.computed(function() {
               str = this.description().replace(/\r\n?/, "\n");
               str = $.trim(str);
