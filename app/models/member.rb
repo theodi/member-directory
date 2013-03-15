@@ -31,6 +31,16 @@ class Member < ActiveRecord::Base
 	validates :postal_code, :presence => true, :on => :create
 	validates_acceptance_of :agreed_to_terms, :on => :create
 	
+  validate :check_organization_names
+  
+  def check_organization_names
+    if new_record? # Only validate on create
+      unless Organization.where(:name => organization_name).empty?
+        errors.add(:organization_name, "is already taken")
+      end
+    end
+  end
+  
   def to_param
     membership_number
   end
