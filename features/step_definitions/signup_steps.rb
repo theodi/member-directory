@@ -6,6 +6,14 @@ Given /^that I want to sign up$/ do
   @product_name = 'supporter'
 end
 
+Given /^there is already an organization with the name I want to use$/ do
+  FactoryGirl.create :member, :organization_name => 'FooBar Inc'
+end
+
+Given /^there is already an organization with the name '(.*?)'$/ do |org_name|
+  FactoryGirl.create :member, :organization_name => org_name
+end
+
 When /^I visit the signup page$/ do
   visit("/members/new?level=#{@product_name}")
   page.should have_content 'Sign up'  
@@ -16,26 +24,27 @@ When /^I enter my details$/ do
   # Store for later
   @contact_name          = 'Ian McIain'
   @email                 = 'iain@foobar.com'
-  @organisation_name     = 'FooBar Inc'
-  @telephone                 = '0121 123 446'
-  @street_address         = '123 Fake Street'
-  @address_locality          = 'Faketown'
+  @organization_name     = 'FooBar Inc'
+  @telephone             = '0121 123 446'
+  @street_address        = '123 Fake Street'
+  @address_locality      = 'Faketown'
   @address_region        = 'Fakeshire'
   @address_country       = 'UK'
-  @postal_code      = 'FAKE 123'
-  @organisation_vat_id            = '213244343'
+  @postal_code           = 'FAKE 123'
+  @organization_vat_id   = '213244343'
   @purchase_order_number = 'PO-43243242342'  
+
   # Fill in form
   fill_in('member_contact_name',          :with => @contact_name)
   fill_in('member_email',                 :with => @email)
-  fill_in('member_organisation_name',     :with => @organisation_name)
-  fill_in('member_telephone',                 :with => @telephone)
-  fill_in('member_street_address',         :with => @street_address)
-  fill_in('member_address_locality',          :with => @address_locality)
+  fill_in('member_organization_name',     :with => @organization_name)
+  fill_in('member_telephone',             :with => @telephone)
+  fill_in('member_street_address',        :with => @street_address)
+  fill_in('member_address_locality',      :with => @address_locality)
   fill_in('member_address_region',        :with => @address_region)
   fill_in('member_address_country',       :with => @address_country)
-  fill_in('member_postal_code',      :with => @postal_code)
-  fill_in('member_organisation_vat_id',            :with => @organisation_vat_id)
+  fill_in('member_postal_code',           :with => @postal_code)
+  fill_in('member_organization_vat_id',   :with => @organization_vat_id)
   fill_in('member_purchase_order_number', :with => @purchase_order_number)
   fill_in('member_password',              :with => 'p4ssw0rd')
   fill_in('member_password_confirmation', :with => 'p4ssw0rd')
@@ -58,7 +67,7 @@ end
 
 Then /^my details should be queued for further processing$/ do
       
-  organization    = {'name' => @organisation_name, 'vat_id' => @organisation_vat_id}
+  organization    = {'name' => @organization_name, 'vat_id' => @organization_vat_id}
   contact_person  = {'name' => @contact_name, 'email' => @email, 'telephone' => @telephone}
   billing         = {
                       'name' => @contact_name,
