@@ -60,10 +60,6 @@ Then /^I should see a notice that my details were saved successfully$/ do
   page.should have_content 'You updated your account successfully.'
 end
 
-Then /^I should be able to edit my details$/ do
-  page.should have_content 'Edit your organisation profile'
-end
-
 Then /^I edit my details$/ do
   @changed_organization_name = "FooBar Incorporated"
   @changed_organization_description = "We really are the best!"
