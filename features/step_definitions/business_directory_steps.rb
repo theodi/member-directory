@@ -40,6 +40,12 @@ Then /^I enter my organization details$/ do
   fill_in('member_organization_attributes_name',         :with => @organization_name)
   fill_in('member_organization_attributes_description',  :with => @organization_description)
   fill_in('member_organization_attributes_url',          :with => @organization_url)
+  
+end
+
+Then /^I attach an image$/ do
+  @organization_logo = File.join(::Rails.root, "fixtures/image_object_uploader/acme-logo.png")
+  attach_file('member_organization_attributes_logo', @organization_logo)
 end
 
 Then /^I enter the URL (.*?)$/ do |url|
@@ -87,4 +93,17 @@ end
 
 When /^I should see an error telling me that my description should not be longer than (\d+) characters$/ do |characters|
   page.should have_content "Your description cannot be longer than #{characters} characters"
+end
+
+Then /^the fullsize logo should be available at the correct URL$/ do
+  @member = Member.find_by_email(@email)
+  @member.organization.logo.url.should eq "#{ENV['RACKSPACE_ASSET_HOST']}/logos/#{@member.membership_number}/original.png"
+end
+
+Then /^the rectangular logo should be available at the correct URL$/ do
+  @member.organization.logo.rectangular.url.should eq "#{ENV['RACKSPACE_ASSET_HOST']}/logos/#{@member.membership_number}/rectangular.png"
+end
+
+Then /^the square logo should be available at the correct URL$/ do
+  @member.organization.logo.square.url.should eq "#{ENV['RACKSPACE_ASSET_HOST']}/logos/#{@member.membership_number}/square.png"
 end

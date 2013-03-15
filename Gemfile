@@ -5,7 +5,9 @@ gem 'rails', '3.2.12'
 gem 'sqlite3'
 gem 'devise'
 gem 'dotenv'
+gem 'fog', '~> 1.3.1'
 gem 'carrierwave'
+gem 'mini_magick'
 gem 'rabl'
 
 # We use this version as the original gem only allows Rails up to 3.0.11

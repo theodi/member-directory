@@ -10,6 +10,18 @@ Feature: Adding details to the organization directory
     And I click submit
     Then I should see a notice that my details were saved successfully
     And I should see my changed details when I revisit the edit page
+    
+  Scenario: Successful image upload
+		Given that I have signed up as a member
+		Then I am redirected to submit my organization details
+		And I enter my organization details
+    And I attach an image
+    And I click submit
+    Then I should see a notice that my details were saved successfully
+    And I should see my changed details when I revisit the edit page
+    And the fullsize logo should be available at the correct URL
+    And the rectangular logo should be available at the correct URL
+    And the square logo should be available at the correct URL
     			
 	Scenario Outline: User tries to submit their details, but misses a mandatory field
 		
