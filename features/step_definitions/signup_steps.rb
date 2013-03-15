@@ -10,6 +10,10 @@ Given /^there is already an organization with the name I want to use$/ do
   FactoryGirl.create :member, :organization_name => 'FooBar Inc'
 end
 
+Given /^there is already an organization with the name '(.*?)'$/ do |org_name|
+  FactoryGirl.create :member, :organization_name => org_name
+end
+
 When /^I visit the signup page$/ do
   visit("/members/new?level=#{@product_name}")
   page.should have_content 'Sign up'  

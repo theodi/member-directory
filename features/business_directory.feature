@@ -48,6 +48,16 @@ Feature: Adding details to the organization directory
       | data://example.com     | see an error relating to Homepage |
       | javascript:alert('no') | see an error relating to Homepage |
     
+
+  Scenario: User submits a duplicate organization name
+  
+		Given that I have signed up as a supporter
+		Then I am redirected to submit my organization details
+		And I enter my organization details
+		But I enter the organization name 'ACME Explosives Ltd'
+    But there is already an organization with the name 'ACME Explosives Ltd'
+		When I click submit
+		Then I should see an error relating to Organisation Name
 				
 	Scenario: Supporter cannot upload images
 		
