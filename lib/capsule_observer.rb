@@ -17,11 +17,28 @@ class CapsuleObserver
   #
   def self.update(data)
     # Is there a membership ID?
-    # If so, update the data in the appropriate member
-    # If not, create a new member with the synced data
-    # When we are creating a new member, we need to look at what it queues up; we don't want
-    # to send an invoice, for instance. We will probably have to rewrite some of the member#after_create 
-    # stuff.
+    if data['membership_id']
+      # If so, update the data in the appropriate member
+      member = Member.where(:membership_number => membership_id).first
+      if member
+        # Member data
+        member.cached_active = (data['active'] == "true")
+        member.product_name  = data['product_name']
+        # member.save TODO we need a way of saving without callbacks happening
+        # Update organization data
+        if org = member.organization
+          org.name        = data['name']
+          org.description = data['description']
+          org.url         = data['url']
+          # org.save TODO we need a way of saving without callbacks happening
+        end
+      end
+    else
+      # If not, create a new member with the synced data
+      # When we are creating a new member, we need to look at what it queues up; we don't want
+      # to send an invoice, for instance. We will probably have to rewrite some of the member#after_create 
+      # stuff.
+    end
   end
   
 end
