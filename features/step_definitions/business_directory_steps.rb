@@ -68,6 +68,7 @@ Then /^I enter the organization name '(.*?)'$/ do |org_name|
 end
 
 When /^I click submit$/ do
+  Timecop.freeze
   fill_in("member_current_password", :with => 'p4ssw0rd')
   click_button('Save')
 end

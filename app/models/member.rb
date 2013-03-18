@@ -17,10 +17,12 @@ class Member < ActiveRecord::Base
   attr_accessible :email, :password, :password_confirmation, :remember_me, :product_name
   attr_accessible :organization_name, :contact_name, :telephone, :street_address,
 									:address_locality, :address_region, :address_country,
-									:postal_code, :organization_vat_id, :purchase_order_number, :agreed_to_terms
+									:postal_code, :organization_vat_id, :purchase_order_number, :agreed_to_terms,
+                  :remote
   attr_accessor   :organization_name, :contact_name, :telephone, :street_address,
 									:address_locality, :address_region, :address_country,
 									:postal_code, :organization_vat_id, :purchase_order_number, :agreed_to_terms
+  attr_writer     :remote
 
 	# validations
 	validates :product_name, :presence => true, :inclusion => %w{supporter member partner sponsor}, :on => :create
@@ -32,6 +34,10 @@ class Member < ActiveRecord::Base
 	validates_acceptance_of :agreed_to_terms, :on => :create
 	
   validate :check_organization_names
+  
+  def remote
+    @remote || false
+  end
   
   def check_organization_names
     if new_record? # Only validate on create
@@ -63,6 +69,8 @@ class Member < ActiveRecord::Base
   end
 
   after_create :add_to_queue, :setup_organization
+  
+  skip_callback :create, :after, :add_to_queue, :if => lambda { self.remote === true }
   
   def add_to_queue
     
