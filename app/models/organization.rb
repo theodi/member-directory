@@ -32,19 +32,21 @@ class Organization < ActiveRecord::Base
   end
     
   def send_to_capsule
-    organization = {
-      :name => name
-    }
+    if valid?
+      organization = {
+        :name => name
+      }
   
-    directory_entry = {
-      :description => description,
-      :homepage => url,
-      :logo => logo.url,
-      :thumbnail => logo.square.url
-    }
+      directory_entry = {
+        :description => description,
+        :homepage => url,
+        :logo => logo.url,
+        :thumbnail => logo.square.url
+      }
   
-    date = updated_at.to_s
+      date = updated_at.to_s
     
-    Resque.enqueue(SendDirectoryEntryToCapsule, organization, directory_entry, date)
+      Resque.enqueue(SendDirectoryEntryToCapsule, organization, directory_entry, date)
+    end
   end
 end
