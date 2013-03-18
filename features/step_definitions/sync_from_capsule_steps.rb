@@ -40,6 +40,8 @@ end
 Then /^a membership should be created for me$/ do
   @membership = Member.first
   @membership.should be_present
+  @membership_id = @membership.membership_number
+  @membership_id.should be_present
 end
 
 Then /^my details should be cached correctly$/ do
