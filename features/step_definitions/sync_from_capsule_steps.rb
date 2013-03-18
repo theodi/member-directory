@@ -1,6 +1,4 @@
 Given /^I am not currently a member$/ do
-  Member.count.should == 0
-  Organization.count.should == 0
 end
 
 Given /^I am already signed up$/ do
@@ -38,7 +36,7 @@ When /^the sync task runs$/ do
 end
 
 Then /^a membership should be created for me$/ do
-  @membership = Member.first
+  @membership = Member.where(:email => @email).first
   @membership.should be_present
   @membership_id = @membership.membership_number
   @membership_id.should be_present
