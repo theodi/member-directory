@@ -9,6 +9,7 @@ Feature: Sync from capsule
     When I am set as a member in CapsuleCRM
     And the sync task runs
     Then a membership should be created for me
+    And that membership should not be shown in the directory
     And my details should be cached correctly
 
   Scenario: Update existing memberships

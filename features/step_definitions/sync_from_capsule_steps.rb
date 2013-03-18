@@ -44,9 +44,14 @@ Then /^a membership should be created for me$/ do
   @membership_id.should be_present
 end
 
+Then(/^that membership should not be shown in the directory$/) do
+  @active = false
+  @membership.cached_active.should == @active
+end
+
 Then /^my details should be cached correctly$/ do
   @membership = Member.where(:membership_number => @membership_id).first
-  @membership.cached_active.to_s.should       == @active
+  @membership.cached_active.should            == (@active == "true")
   @membership.organization.name.should        == @organization_name
   @membership.organization.description.should == @description
   @membership.organization.url.should         == @url
