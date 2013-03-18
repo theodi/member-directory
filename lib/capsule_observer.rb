@@ -31,6 +31,7 @@ class CapsuleObserver
           org.name        = data['name']
           org.description = data['description']
           org.url         = data['url']
+          org.remote      = true # Disable callbacks
           org.save!
         end
       end
