@@ -16,7 +16,8 @@ GIT
 
 GIT
   remote: https://github.com/theodi/open-orgn-services.git
-  revision: bece3a8a98a860562e09a2f616024c2f504359a5
+  revision: c342e19425eddbe78e7a65580471168be0bad1fe
+  branch: feature-168-sync-from-capsule
   specs:
     open-orgn-services (0.0.0)
       activemodel (~> 3.2, >= 3.2.12)
