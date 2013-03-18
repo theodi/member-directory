@@ -1,3 +1,4 @@
+@timecop
 Feature: Adding details to the organization directory
 
 	As a member, I want my details to be listed on the organization directory and stored in capsule
@@ -7,8 +8,9 @@ Feature: Adding details to the organization directory
 		Given that I have signed up
 		Then I am redirected to submit my organization details
 		And I enter my organization details
-    And I click submit
-    Then I should see a notice that my details were saved successfully
+    Then my organisation details should be queued for further processing 
+    When I click submit
+    And I should see a notice that my details were saved successfully
     And I should see my changed details when I revisit the edit page
     
   Scenario: Successful image upload
@@ -16,8 +18,9 @@ Feature: Adding details to the organization directory
 		Then I am redirected to submit my organization details
 		And I enter my organization details
     And I attach an image
-    And I click submit
-    Then I should see a notice that my details were saved successfully
+    Then my organisation details should be queued for further processing 
+    When I click submit
+    And I should see a notice that my details were saved successfully
     And I should see my changed details when I revisit the edit page
     And the fullsize logo should be available at the correct URL
     And the rectangular logo should be available at the correct URL
@@ -29,8 +32,9 @@ Feature: Adding details to the organization directory
 		Then I am redirected to submit my organization details
 		And I enter my organization details
 		But I leave my organization <field> blank
-		And I click submit
-		Then I should see an error relating to <text>
+    Then my organisation details should not be queued for further processing 
+		When I click submit
+		And I should see an error relating to <text>
 			
 		Examples:
 			| field       | text         |
@@ -47,7 +51,7 @@ Feature: Adding details to the organization directory
 		Then I am redirected to submit my organization details
 		And I enter my organization details
 		But I enter the URL <url>
-		When I click submit
+		And I click submit
 		Then I should <outcome>
 			
 		Examples:
@@ -68,8 +72,9 @@ Feature: Adding details to the organization directory
 		And I enter my organization details
 		But I enter the organization name 'ACME Explosives Ltd'
     But there is already an organization with the name 'ACME Explosives Ltd'
+    Then my organisation details should not be queued for further processing 
 		When I click submit
-		Then I should see an error relating to Organisation Name
+		And I should see an error relating to Organisation Name
 				
 	Scenario: Supporter cannot upload images
 		
@@ -91,8 +96,9 @@ Feature: Adding details to the organization directory
 		Then I am redirected to submit my organization details
 		And I enter my organization details
 		And my description is 525 characters long
-		And I click submit
-		Then I should see an error telling me that my description should not be longer than 500 characters
+    Then my organisation details should not be queued for further processing 
+		When I click submit
+		And I should see an error telling me that my description should not be longer than 500 characters
 
 	Scenario: Member tries to enter more than 1000 characters
 		
@@ -100,5 +106,6 @@ Feature: Adding details to the organization directory
 		Then I am redirected to submit my organization details
 		And I enter my organization details
 		And my description is 1035 characters long
-    And I click submit
-		Then I should see an error telling me that my description should not be longer than 1000 characters
+    Then my organisation details should not be queued for further processing 
+    When I click submit
+		And I should see an error telling me that my description should not be longer than 1000 characters
