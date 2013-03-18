@@ -19,7 +19,7 @@ gem 'validate_url'
 gem 'xeroizer', :git => 'https://github.com/theodi/xeroizer.git'
 gem 'capsulecrm', :git => 'https://github.com/theodi/capsulecrm.git'
 
-gem 'open-orgn-services', :git =>  'https://github.com/theodi/open-orgn-services.git', :branch => 'feature-168-sync-from-capsule'
+gem 'open-orgn-services', :git =>  'https://github.com/theodi/open-orgn-services.git'
 
 gem 'rack-google-analytics'
 
