@@ -4,16 +4,16 @@ Feature: Sync from capsule
   I want changes made in CapsuleCRM to propogate to the public directory
   
   Scenario: Create new memberships
-    Given my organization name is "ACME Inc"
-    And I am not currently a member
+    Given I am not currently a member
+    Then nothing should be placed on the queue
     When I am set as a member in CapsuleCRM
     And the sync task runs
     Then a membership should be created for me
     And my details should be cached correctly
-    
+
   Scenario: Update existing memberships
-    Given my organization name is "ACME Inc"
-    And I am already signed up
-    When my information is changed from CapsuleCRM
+    Given I am already signed up
+    Then nothing should be placed on the queue
+    When my information is changed in CapsuleCRM
     And the sync task runs
     Then my details should be cached correctly
