@@ -31,7 +31,7 @@ class CapsuleObserver
           org.name        = data['name']
           org.description = data['description']
           org.url         = data['url']
-          org.remote      = true # Disable callbacks
+          org.remote      = true
           org.save!
         end
       end
@@ -41,10 +41,10 @@ class CapsuleObserver
         :email             => data['email'],
         :organization_name => data['organization_name'],
         :product_name      => data['product_name'],
+        :remote            => true # Disable callbacks
       )
       member.cached_active = false # We always set this false on create so that
                                    # incomplete entries don't go immediately live
-                                   # TODO there is a problem here with imdepotency
       # Save without validation
       member.save(:validate => false)
       # When we are creating a new member, we need to look at what it queues up; we don't want

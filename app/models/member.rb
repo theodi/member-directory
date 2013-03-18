@@ -100,7 +100,7 @@ class Member < ActiveRecord::Base
   end
 
   def setup_organization
-    self.create_organization(:name => organization_name)
+    self.create_organization(:name => organization_name, :remote => remote)
   end
 
 end
