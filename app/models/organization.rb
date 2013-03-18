@@ -5,6 +5,9 @@ class Organization < ActiveRecord::Base
   
   attr_accessible :name, :description, :url, :logo, :logo_cache
   
+  # Using after_save here so we get the right image urls
+  after_save :send_to_capsule
+  
   validates :name, :presence => true, :on => :update
   validates :name, :uniqueness => true
   validates :description, :presence => true, :on => :update
@@ -26,5 +29,22 @@ class Organization < ActiveRecord::Base
   
   def character_limit
     supporter? ? 500 : 1000 
+  end
+    
+  def send_to_capsule
+    organization = {
+      :name => name
+    }
+  
+    directory_entry = {
+      :description => description,
+      :homepage => url,
+      :logo => logo.url,
+      :thumbnail => logo.square.url
+    }
+  
+    date = updated_at.to_s
+    
+    Resque.enqueue(SendDirectoryEntryToCapsule, organization, directory_entry, date)
   end
 end
