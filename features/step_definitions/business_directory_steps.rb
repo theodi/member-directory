@@ -45,6 +45,12 @@ end
 
 Then /^I attach an image$/ do
   @organization_logo = File.join(::Rails.root, "fixtures/image_object_uploader/acme-logo.png")
+  
+  # Store the urls for access earlier in the steps
+  @fullsize_url = "#{ENV['RACKSPACE_ASSET_HOST']}/logos/<MEMBERSHIP_NUMBER>/original.png"
+  @rectangular_url = "#{ENV['RACKSPACE_ASSET_HOST']}/logos/<MEMBERSHIP_NUMBER>/rectangular.png"
+  @square_url = "#{ENV['RACKSPACE_ASSET_HOST']}/logos/<MEMBERSHIP_NUMBER>/square.png"
+  
   attach_file('member_organization_attributes_logo', @organization_logo)
 end
 
@@ -96,14 +102,40 @@ When /^I should see an error telling me that my description should not be longer
 end
 
 Then /^the fullsize logo should be available at the correct URL$/ do
-  @member = Member.find_by_email(@email)
-  @member.organization.logo.url.should eq "#{ENV['RACKSPACE_ASSET_HOST']}/logos/#{@member.membership_number}/original.png"
+  @member = Member.find_by_email(@email)  
+  @member.organization.logo.url.should eq @fullsize_url.gsub(/<MEMBERSHIP_NUMBER>/, @member.membership_number)
 end
 
 Then /^the rectangular logo should be available at the correct URL$/ do
-  @member.organization.logo.rectangular.url.should eq "#{ENV['RACKSPACE_ASSET_HOST']}/logos/#{@member.membership_number}/rectangular.png"
+  @member.organization.logo.rectangular.url.should eq @rectangular_url.gsub(/<MEMBERSHIP_NUMBER>/, @member.membership_number)
 end
 
 Then /^the square logo should be available at the correct URL$/ do
-  @member.organization.logo.square.url.should eq "#{ENV['RACKSPACE_ASSET_HOST']}/logos/#{@member.membership_number}/square.png"
+  @member.organization.logo.square.url.should eq @square_url.gsub(/<MEMBERSHIP_NUMBER>/, @member.membership_number)
+end
+
+Then /^my organisation details should be queued for further processing$/ do
+  @member = Member.find_by_email(@email)
+  
+  logo = @fullsize_url.gsub(/<MEMBERSHIP_NUMBER>/, @member.membership_number) rescue nil
+  thumbnail = @square_url.gsub(/<MEMBERSHIP_NUMBER>/, @member.membership_number) rescue nil
+  
+  organization = {
+    :name => @organization_name
+  }
+  
+  directory_entry = {
+    :description => @organization_description,
+    :homepage => @organization_url,
+    :logo => logo,
+    :thumbnail => thumbnail
+  }
+  
+  date = @member.organization.updated_at.to_s
+  
+  Resque.should_receive(:enqueue).with(SendDirectoryEntryToCapsule, organization, directory_entry, date)
+end
+
+Then /^my organisation details should not be queued for further processing$/ do
+  Resque.should_not_receive(:enqueue)
 end
