@@ -19,18 +19,19 @@ class CapsuleObserver
     # Is there a membership ID?
     if data['membership_id']
       # If so, update the data in the appropriate member
-      member = Member.where(:membership_number => membership_id).first
+      member = Member.where(:membership_number => data['membership_id']).first
       if member
         # Member data
         member.cached_active = (data['active'] == "true")
         member.product_name  = data['product_name']
-        # member.save TODO we need a way of saving without callbacks happening
+        # We don't store email here, that's only for new accounts
+        member.save!
         # Update organization data
         if org = member.organization
           org.name        = data['name']
           org.description = data['description']
           org.url         = data['url']
-          # org.save TODO we need a way of saving without callbacks happening
+          org.save!
         end
       end
     else
