@@ -1,6 +1,4 @@
 Given /^that I have a membership number and password$/ do
-  # We don't care about queueing here - we will have a separate expectation if we do, anyway.
-  Resque.should_receive(:enqueue).once
   # Create a new member
   member = Member.create(
     :product_name                 => 'supporter',
@@ -17,7 +15,9 @@ Given /^that I have a membership number and password$/ do
     :purchase_order_number => 'PO-43243242342',
     :password              => 'p4ssw0rd',
     :password_confirmation => 'p4ssw0rd',
-    :agreed_to_terms       => '1'
+    :agreed_to_terms       => '1',
+    # Skip Capsule and Xero Callback
+    :remote                => true
   )
   
   member.confirm!
