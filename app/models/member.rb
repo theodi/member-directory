@@ -56,10 +56,6 @@ class Member < ActiveRecord::Base
   end
 
 	private
-  
-  def confirmation_required?
-    false
-  end
 	
   def generate_membership_number
     chars = ('A'..'Z').to_a
