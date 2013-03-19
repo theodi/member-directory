@@ -51,6 +51,10 @@ class Member < ActiveRecord::Base
     membership_number
   end
 
+  def supporter?
+    product_name == "supporter"
+  end
+
 	private
   
   def confirmation_required?

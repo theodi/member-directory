@@ -3,11 +3,19 @@
   <div class='organization-logo pull-right'
        style='background-image: url(<%= organization.logo.rectangular.url %>)'>
   </div>
+  <div class='organization-content'>
+    <h2 property="name"><%= link_to organization.name, organization.member %></h2>
 
-  <h2 property="name"><%= link_to organization.name, organization.member %></h2>
+    <i class='icon icon-home'></i> <%= link_to organization.url, organization.url, :property => "url"%></a>
 
-  <i class='icon icon-home'></i> <%= link_to organization.url, organization.url, :property => "url"%></a>
-
-  <div class='organization-description' property="description"><%= organization_description(organization) %></div>
+    <div class='organization-description clearfix'>
+      <p property="description"><%= organization_description(organization) %></p>
+      <% if organization.member == current_member %>
+        <%= link_to "Edit information &raquo;".html_safe, organization.member, :class=>'btn btn-mini btn-primary pull-right' %>
+      <% else %>
+        <%= link_to "More information &raquo;".html_safe, organization.member, :class=>'btn btn-mini btn-primary pull-right' %>
+      <% end %>
+    </div>
+  </div>
 
 </div>
