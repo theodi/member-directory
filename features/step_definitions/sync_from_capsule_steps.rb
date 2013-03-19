@@ -3,7 +3,6 @@ end
 
 Given /^I am already signed up$/ do
   @membership = FactoryGirl.create :member
-  STDOUT.puts @membership.email
 end
 
 When /^I am set as a member in CapsuleCRM$/ do
