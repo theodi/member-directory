@@ -1,6 +1,11 @@
 member-directory
 ================
 
+[![Build Status](http://jenkins.theodi.org/job/member-directory-build-master/badge/icon)](http://jenkins.theodi.org/job/member-directory-build-master/)
+[![Dependency Status](https://gemnasium.com/theodi/member-directory.png)](https://gemnasium.com/theodi/member-directory)
+[![Code Climate](https://codeclimate.com/github/theodi/member-directory.png)](https://codeclimate.com/github/theodi/member-directory)
+
+
 The ODI's member directory frontend application
 
 Setup
