@@ -61,5 +61,5 @@ Then /^nothing should be placed on the queue$/ do
 end
 
 Then /^my membership number should be stored in CapsuleCRM$/ do
-  pending # express the regexp above with the code you wish you had
+  Resque.should_receive(:enqueue).with(SaveMembershipIdInCapsule, @organization_name, @membership_id)
 end
