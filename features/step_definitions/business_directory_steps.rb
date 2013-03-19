@@ -33,14 +33,25 @@ Then /^I can see a logo upload$/ do
 end
 
 Then /^I enter my organization details$/ do
-  @organization_name = "FooBar Inc"
-  @organization_description = "We're the best!"
-  @organization_url = "http://www.foo.bar"
+  @organization_name        = Faker::Company.name
+  @organization_description = Faker::Company.bs
+  @organization_url         = Faker::Internet.url
+  @organization_contact     = Faker::Name.name
+  @organization_phone       = Faker::PhoneNumber.phone_number
+  @organization_email       = Faker::Internet.email
+  @organization_twitter     = Faker::Internet.user_name
+  @organization_linkedin    = Faker::Internet.url
+  @organization_facebook    = Faker::Internet.url
   
   fill_in('member_organization_attributes_name',         :with => @organization_name)
   fill_in('member_organization_attributes_description',  :with => @organization_description)
   fill_in('member_organization_attributes_url',          :with => @organization_url)
-  
+  fill_in('member_organization_attributes_contact',      :with => @organization_contact)
+  fill_in('member_organization_attributes_phone',        :with => @organization_phone)
+  fill_in('member_organization_attributes_email',        :with => @organization_email)
+  fill_in('member_organization_attributes_twitter',      :with => @organization_twitter)
+  fill_in('member_organization_attributes_linkedin',     :with => @organization_linkedin)
+  fill_in('member_organization_attributes_facebook',     :with => @organization_facebook)
 end
 
 Then /^I attach an image$/ do
@@ -78,13 +89,25 @@ Then /^I should see a notice that my details were saved successfully$/ do
 end
 
 Then /^I edit my details$/ do
-  @changed_organization_name = "FooBar Incorporated"
-  @changed_organization_description = "We really are the best!"
-  @changed_organization_url = "http://www.foo.bar/contact"  
+  @changed_organization_name        = Faker::Company.name
+  @changed_organization_description = Faker::Company.bs
+  @changed_organization_url         = Faker::Internet.url
+  @changed_organization_contact     = Faker::Name.name
+  @changed_organization_phone       = Faker::PhoneNumber.phone_number
+  @changed_organization_email       = Faker::Internet.email
+  @changed_organization_twitter     = Faker::Internet.user_name
+  @changed_organization_linkedin    = Faker::Internet.url
+  @changed_organization_facebook    = Faker::Internet.url
 
   fill_in('member_organization_attributes_name',         :with => @changed_organization_name)
   fill_in('member_organization_attributes_description',  :with => @changed_organization_description)
   fill_in('member_organization_attributes_url',          :with => @changed_organization_url)
+  fill_in('member_organization_attributes_contact',      :with => @changed_organization_contact)
+  fill_in('member_organization_attributes_phone',        :with => @changed_organization_phone)
+  fill_in('member_organization_attributes_email',        :with => @changed_organization_email)
+  fill_in('member_organization_attributes_twitter',      :with => @changed_organization_twitter)
+  fill_in('member_organization_attributes_linkedin',     :with => @changed_organization_linkedin)
+  fill_in('member_organization_attributes_facebook',     :with => @changed_organization_facebook)
 end
 
 Then /^I should see my changed details when I revisit the edit page$/ do
@@ -92,6 +115,12 @@ Then /^I should see my changed details when I revisit the edit page$/ do
   page.should have_content @changed_organization_name
   page.should have_content @changed_organization_description
   page.should have_content @changed_organization_url
+  page.should have_content @changed_organization_contact
+  page.should have_content @changed_organization_phone
+  page.should have_content @changed_organization_email
+  page.should have_content @changed_organization_twitter
+  page.should have_content @changed_organization_linkedin
+  page.should have_content @changed_organization_facebook
 end
 
 Then /^my description is (\d+) characters long$/ do |length|
@@ -127,9 +156,15 @@ Then /^my organisation details should be queued for further processing$/ do
   
   directory_entry = {
     :description => @organization_description,
-    :homepage => @organization_url,
-    :logo => logo,
-    :thumbnail => thumbnail
+    :homepage    => @organization_url,
+    :logo        => logo,
+    :thumbnail   => thumbnail,
+    :contact     => @organization_contact,
+    :phone       => @organization_phone,
+    :email       => @organization_email,
+    :twitter     => @organization_twitter,
+    :linkedin    => @organization_linkedin,
+    :facebook    => @organization_facebook,    
   }
   
   date = @member.organization.updated_at.to_s
