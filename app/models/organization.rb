@@ -3,10 +3,12 @@ class Organization < ActiveRecord::Base
   
   mount_uploader :logo, ImageObjectUploader
   
-  attr_accessible :name, :description, :url, :logo, :logo_cache
+  attr_accessible :name, :description, :url, :logo, :logo_cache, :remote
+  attr_writer     :remote
   
   # Using after_save here so we get the right image urls
   after_save :send_to_capsule
+  skip_callback :save, :after, :send_to_capsule, :if => lambda { self.remote === true }
   
   validates :name, :presence => true, :on => :update
   validates :name, :uniqueness => true
@@ -19,6 +21,10 @@ class Organization < ActiveRecord::Base
   # but undesirable
   validates :url, :url => {:allow_nil => true}, :format => {:with => /^https?:\/\/([^\.\/]+?)\.([^\.\/]+?)/, :allow_nil => true}
   
+  def remote
+    @remote || false
+  end
+
   def member?
     self.member.product_name == "member"
   end
