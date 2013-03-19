@@ -10,11 +10,7 @@
 
     <div class='organization-description clearfix'>
       <p property="description"><%= organization_description(organization) %></p>
-      <% if organization.member == current_member %>
-        <%= link_to "Edit information &raquo;".html_safe, organization.member, :class=>'btn btn-mini btn-primary pull-right' %>
-      <% else %>
-        <%= link_to "More information &raquo;".html_safe, organization.member, :class=>'btn btn-mini btn-primary pull-right' %>
-      <% end %>
+      <%= link_to "#{organization.member == current_member ? "Edit" : "More"} information &raquo;".html_safe, organization.member, :class=>'btn btn-small btn-primary pull-right' %>
     </div>
   </div>
 
