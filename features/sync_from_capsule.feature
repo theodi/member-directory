@@ -5,13 +5,13 @@ Feature: Sync from capsule
   
   Scenario: Create new memberships
     Given I am not currently a member
-    Then nothing should be placed on the queue
+    Then nothing should be placed on the signup queue
+    But my membership number should be stored in CapsuleCRM
     When I am set as a member in CapsuleCRM
     And the sync task runs
     Then a membership should be created for me
     And that membership should not be shown in the directory
     And my details should be cached correctly
-    And my membership number should be stored in CapsuleCRM
 
   Scenario: Update existing memberships
     Given I am already signed up

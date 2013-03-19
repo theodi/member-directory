@@ -47,9 +47,6 @@ class CapsuleObserver
                                    # incomplete entries don't go immediately live
       # Save without validation
       member.save(:validate => false)
-      # When we are creating a new member, we need to look at what it queues up; we don't want
-      # to send an invoice, for instance. We will probably have to rewrite some of the member#after_create 
-      # stuff.
     end
   end
   
