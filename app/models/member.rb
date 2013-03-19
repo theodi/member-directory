@@ -68,9 +68,10 @@ class Member < ActiveRecord::Base
     end while self.class.exists?(:membership_number => membership_number)
   end
 
-  after_create :add_to_queue, :setup_organization
+  after_create :add_to_queue, :setup_organization, :save_membership_id_in_capsule
   
   skip_callback :create, :after, :add_to_queue, :if => lambda { self.remote === true }
+  skip_callback :create, :after, :save_membership_id_in_capsule, :unless => lambda { self.remote === true }
   
   def add_to_queue
     
@@ -99,8 +100,12 @@ class Member < ActiveRecord::Base
     Resque.enqueue(SignupProcessor, organization, contact_person, billing, purchase)
   end
 
+  def save_membership_id_in_capsule
+    Resque.enqueue(SaveMembershipIdInCapsule, organization_name, membership_number)
+  end
+
   def setup_organization
-    self.create_organization(:name => organization_name)
+    self.create_organization(:name => organization_name, :remote => remote)
   end
 
 end
