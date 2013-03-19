@@ -11,6 +11,7 @@ Feature: Sync from capsule
     Then a membership should be created for me
     And that membership should not be shown in the directory
     And my details should be cached correctly
+    And my membership number should be stored in CapsuleCRM
 
   Scenario: Update existing memberships
     Given I am already signed up

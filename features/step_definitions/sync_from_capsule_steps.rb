@@ -60,3 +60,7 @@ end
 Then /^nothing should be placed on the queue$/ do
   Resque.should_not_receive(:enqueue)
 end
+
+Then /^my membership number should be stored in CapsuleCRM$/ do
+  pending # express the regexp above with the code you wish you had
+end
