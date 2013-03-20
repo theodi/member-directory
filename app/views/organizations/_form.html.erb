@@ -1,55 +1,42 @@
-<div class='control-group'>
-	<%= f.label :name, :class => 'control-label' %>
-	<div class='controls'>
-		<%= f.text_field :name, :class => 'input-xlarge', :required => 'required', 
-                     :'data-bind' => "value: name, valueUpdate: 'afterkeydown'" %>
-	</div>
-</div>
+<%= form_field f, :name do %>
+  <%= f.text_field :name, :class => 'input-xlarge', :required => 'required', 
+                   :'data-bind' => "value: name, valueUpdate: 'afterkeydown'" %>
+<% end %>
 
-<div class='control-group'>
-	<%= f.label :description, 
-              :class => 'control-label' %>
-	<div class='controls'>
-		<%= f.text_area :description, 
-                    :class => 'input-xlarge', 
-                    :rows => '8', 
-                    :maxlength => @member.organization.character_limit, 
-                    :required => 'required', 
-                    :'data-bind' => "value: description, valueUpdate: 'afterkeydown'" %>                    
-		<span class="help-block"><small>Plain text only, but you can use paragraphs</small></span>
-		<span class="help-block" id="limit"><%= "Limit of #{@member.organization.character_limit} characters" %></span>
-		<script>
-		$(document).ready(function() {
-      var max = <%= "#{@member.organization.character_limit}" %> - $('#member_organization_attributes_description').val().replace(/(\r\n|\n|\r)/g,"  ").length
-			$('#limit').html('<span id="remaining">'+ max +'</span> characters remaining');
-			$('#member_organization_attributes_description').keyup(function() {
-        var max = <%= "#{@member.organization.character_limit}" %>
-				var len = $(this).val().replace(/(\r\n|\n|\r)/g,"  ").length;
-				var rem = max - len
-				$('#remaining').html(rem);
-			});
+<%= form_field f, :description do %>
+	<%= f.text_area :description, 
+                  :class => 'input-xlarge', 
+                  :rows => '8', 
+                  :maxlength => @member.organization.character_limit, 
+                  :required => 'required', 
+                  :'data-bind' => "value: description, valueUpdate: 'afterkeydown'" %>
+	<span class="help-block"><small>Plain text only, but you can use paragraphs</small></span>
+	<span class="help-block" id="limit"><%= "Limit of #{@member.organization.character_limit} characters" %></span>
+	<script>
+	$(document).ready(function() {
+    var max = <%= "#{@member.organization.character_limit}" %> - $('#member_organization_attributes_description').val().replace(/(\r\n|\n|\r)/g,"  ").length
+		$('#limit').html('<span id="remaining">'+ max +'</span> characters remaining');
+		$('#member_organization_attributes_description').keyup(function() {
+      var max = <%= "#{@member.organization.character_limit}" %>
+			var len = $(this).val().replace(/(\r\n|\n|\r)/g,"  ").length;
+			var rem = max - len
+			$('#remaining').html(rem);
 		});
-		</script>
-	</div>
-</div>
+	});
+	</script>
+<% end %>
   
-<div class='control-group'>
-	<%= f.label :url, :class => 'control-label' %>
-	<div class='controls'>
-		<%= f.url_field :url, :class => 'input-xlarge', 
-                    :'data-bind' => "value: url, valueUpdate: 'afterkeydown'" %>
-	</div>
-</div>
+<%= form_field f, :url do %>
+	<%= f.url_field :url, :class => 'input-xlarge', 
+                  :'data-bind' => "value: url, valueUpdate: 'afterkeydown'" %>
+<% end %>
 	
 <% unless @member.product_name == "supporter" %>
 
-	<div class='control-group'>
-		<%= f.label :logo, :class => 'control-label' %>
-		<div class='controls'>
-			<%= f.file_field :logo, :accept => "image/*", 
-                       :'data-bind' => "event: {change: updateImage}" %>
-			<%= f.hidden_field :logo_cache %>
-		</div>
-	</div>
+  <%= form_field f, :logo do %>
+		<%= f.file_field :logo, :accept => "image/*", 
+                     :'data-bind' => "event: {change: updateImage}" %>
+		<%= f.hidden_field :logo_cache %>
+  <% end %>
 	
 <% end %>
