@@ -33,8 +33,8 @@ en:
         cached_contact_phone: "Contact Telephone"
         cached_contact_email: "Contact Email"
         cached_twitter: "Twitter"
-        cached_facebook: "Facebook Page"
-        cached_linkedin: "LinkedIn Page"
+        cached_facebook: "Facebook"
+        cached_linkedin: "LinkedIn"
   activemodel:
     models:
       contact_request: Contact Request
