@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130313142246) do
+ActiveRecord::Schema.define(:version => 20130320084829) do
 
   create_table "data_migrations", :id => false, :force => true do |t|
     t.string "version", :null => false
@@ -46,12 +46,18 @@ ActiveRecord::Schema.define(:version => 20130313142246) do
 
   create_table "organizations", :force => true do |t|
     t.string   "name"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at",           :null => false
+    t.datetime "updated_at",           :null => false
     t.integer  "member_id"
     t.string   "logo"
     t.text     "description"
     t.string   "url"
+    t.string   "cached_contact_name"
+    t.string   "cached_contact_phone"
+    t.string   "cached_contact_email"
+    t.string   "cached_twitter"
+    t.string   "cached_facebook"
+    t.string   "cached_linkedin"
   end
 
 end

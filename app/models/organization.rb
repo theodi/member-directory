@@ -3,7 +3,10 @@ class Organization < ActiveRecord::Base
   
   mount_uploader :logo, ImageObjectUploader
   
-  attr_accessible :name, :description, :url, :logo, :logo_cache, :remote
+  attr_accessible :name, :description, :url, :logo, :logo_cache, :remote,
+                  :cached_contact_name, :cached_contact_phone, :cached_contact_email,
+                  :cached_twitter, :cached_linkedin, :cached_facebook
+  
   attr_writer     :remote
   
   # Using after_save here so we get the right image urls
