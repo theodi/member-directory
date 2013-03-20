@@ -3,6 +3,21 @@
                    :'data-bind' => "value: name, valueUpdate: 'afterkeydown'" %>
 <% end %>
 
+<%= form_field f, :cached_contact_name do %>
+  <%= f.text_field :cached_contact_name, :class => 'input-xlarge',
+                   :'data-bind' => "value: contactName, valueUpdate: 'afterkeydown'" %>
+<% end %>
+
+<%= form_field f, :cached_contact_phone do %>
+  <%= f.text_field :cached_contact_phone, :class => 'input-xlarge', :type => 'tel',
+                   :'data-bind' => "value: contactPhone, valueUpdate: 'afterkeydown'" %>
+<% end %>
+
+<%= form_field f, :cached_contact_email do %>
+  <%= f.email_field :cached_contact_email, :class => 'input-xlarge',
+                   :'data-bind' => "value: contactEmail, valueUpdate: 'afterkeydown'" %>
+<% end %>
+
 <%= form_field f, :description do %>
 	<%= f.text_area :description, 
                   :class => 'input-xlarge', 
@@ -26,11 +41,6 @@
 	</script>
 <% end %>
   
-<%= form_field f, :url do %>
-	<%= f.url_field :url, :class => 'input-xlarge', 
-                  :'data-bind' => "value: url, valueUpdate: 'afterkeydown'" %>
-<% end %>
-	
 <% unless @member.product_name == "supporter" %>
 
   <%= form_field f, :logo do %>
@@ -39,4 +49,24 @@
 		<%= f.hidden_field :logo_cache %>
   <% end %>
 	
+<% end %>
+
+<%= form_field f, :url do %>
+	<%= f.url_field :url, :class => 'input-xlarge', :placeholder => 'http://your-homepage.com',
+                  :'data-bind' => "value: url, valueUpdate: 'afterkeydown'" %>
+<% end %>
+	
+<%= form_field f, :cached_twitter do %>
+  <%= f.text_field :cached_twitter, :class => 'input-xlarge', :placeholder => '@username',
+                   :'data-bind' => "value: twitter, valueUpdate: 'afterkeydown'" %>
+<% end %>
+
+<%= form_field f, :cached_facebook do %>
+	<%= f.url_field :cached_facebook, :class => 'input-xlarge', :placeholder => 'http://facebook.com/pages/your-page',
+                  :'data-bind' => "value: facebook, valueUpdate: 'afterkeydown'" %>
+<% end %>
+
+<%= form_field f, :cached_linkedin do %>
+	<%= f.url_field :cached_linkedin, :class => 'input-xlarge', :placeholder => 'http://linkedin.com/company/your-org',
+                  :'data-bind' => "value: linkedin, valueUpdate: 'afterkeydown'" %>
 <% end %>

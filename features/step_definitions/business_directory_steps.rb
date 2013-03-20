@@ -43,15 +43,15 @@ Then /^I enter my organization details$/ do
   @organization_linkedin    = Faker::Internet.url
   @organization_facebook    = Faker::Internet.url
   
-  fill_in('member_organization_attributes_name',         :with => @organization_name)
-  fill_in('member_organization_attributes_description',  :with => @organization_description)
-  fill_in('member_organization_attributes_url',          :with => @organization_url)
-  fill_in('member_organization_attributes_contact',      :with => @organization_contact)
-  fill_in('member_organization_attributes_phone',        :with => @organization_phone)
-  fill_in('member_organization_attributes_email',        :with => @organization_email)
-  fill_in('member_organization_attributes_twitter',      :with => @organization_twitter)
-  fill_in('member_organization_attributes_linkedin',     :with => @organization_linkedin)
-  fill_in('member_organization_attributes_facebook',     :with => @organization_facebook)
+  fill_in('member_organization_attributes_name',                 :with => @organization_name)
+  fill_in('member_organization_attributes_description',          :with => @organization_description)
+  fill_in('member_organization_attributes_url',                  :with => @organization_url)
+  fill_in('member_organization_attributes_cached_contact_name',  :with => @organization_contact)
+  fill_in('member_organization_attributes_cached_contact_phone', :with => @organization_phone)
+  fill_in('member_organization_attributes_cached_contact_email', :with => @organization_email)
+  fill_in('member_organization_attributes_cached_twitter',       :with => @organization_twitter)
+  fill_in('member_organization_attributes_cached_linkedin',      :with => @organization_linkedin)
+  fill_in('member_organization_attributes_cached_facebook',      :with => @organization_facebook)
 end
 
 Then /^I attach an image$/ do
@@ -99,15 +99,15 @@ Then /^I edit my details$/ do
   @changed_organization_linkedin    = Faker::Internet.url
   @changed_organization_facebook    = Faker::Internet.url
 
-  fill_in('member_organization_attributes_name',         :with => @changed_organization_name)
-  fill_in('member_organization_attributes_description',  :with => @changed_organization_description)
-  fill_in('member_organization_attributes_url',          :with => @changed_organization_url)
-  fill_in('member_organization_attributes_contact',      :with => @changed_organization_contact)
-  fill_in('member_organization_attributes_phone',        :with => @changed_organization_phone)
-  fill_in('member_organization_attributes_email',        :with => @changed_organization_email)
-  fill_in('member_organization_attributes_twitter',      :with => @changed_organization_twitter)
-  fill_in('member_organization_attributes_linkedin',     :with => @changed_organization_linkedin)
-  fill_in('member_organization_attributes_facebook',     :with => @changed_organization_facebook)
+  fill_in('member_organization_attributes_name',                 :with => @changed_organization_name)
+  fill_in('member_organization_attributes_description',          :with => @changed_organization_description)
+  fill_in('member_organization_attributes_url',                  :with => @changed_organization_url)
+  fill_in('member_organization_attributes_cached_contact_name',  :with => @changed_organization_contact)
+  fill_in('member_organization_attributes_cached_contact_phone', :with => @changed_organization_phone)
+  fill_in('member_organization_attributes_cached_contact_email', :with => @changed_organization_email)
+  fill_in('member_organization_attributes_cached_twitter',       :with => @changed_organization_twitter)
+  fill_in('member_organization_attributes_cached_linkedin',      :with => @changed_organization_linkedin)
+  fill_in('member_organization_attributes_cached_facebook',      :with => @changed_organization_facebook)
 end
 
 Then /^I should see my changed details when I revisit the edit page$/ do

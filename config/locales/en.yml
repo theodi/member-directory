@@ -29,6 +29,12 @@ en:
         url: "Homepage"
         description: "Description"
         logo: "Logo"
+        cached_contact_name: "Contact Person"
+        cached_contact_phone: "Contact Telephone"
+        cached_contact_email: "Contact Email"
+        cached_twitter: "Twitter"
+        cached_facebook: "Facebook Page"
+        cached_linkedin: "LinkedIn Page"
   activemodel:
     models:
       contact_request: Contact Request
