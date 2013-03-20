@@ -1,72 +1,82 @@
-<%= form_field f, :name do %>
-  <%= f.text_field :name, :class => 'input-xlarge', :required => 'required', 
-                   :'data-bind' => "value: name, valueUpdate: 'afterkeydown'" %>
-<% end %>
-
-<%= form_field f, :cached_contact_name do %>
-  <%= f.text_field :cached_contact_name, :class => 'input-xlarge',
-                   :'data-bind' => "value: contactName, valueUpdate: 'afterkeydown'" %>
-<% end %>
-
-<%= form_field f, :cached_contact_phone do %>
-  <%= f.text_field :cached_contact_phone, :class => 'input-xlarge', :type => 'tel',
-                   :'data-bind' => "value: contactPhone, valueUpdate: 'afterkeydown'" %>
-<% end %>
-
-<%= form_field f, :cached_contact_email do %>
-  <%= f.email_field :cached_contact_email, :class => 'input-xlarge',
-                   :'data-bind' => "value: contactEmail, valueUpdate: 'afterkeydown'" %>
-<% end %>
-
-<%= form_field f, :description do %>
-	<%= f.text_area :description, 
-                  :class => 'input-xlarge', 
-                  :rows => '8', 
-                  :maxlength => @member.organization.character_limit, 
-                  :required => 'required', 
-                  :'data-bind' => "value: description, valueUpdate: 'afterkeydown'" %>
-	<span class="help-block"><small>Plain text only, but you can use paragraphs</small></span>
-	<span class="help-block" id="limit"><%= "Limit of #{@member.organization.character_limit} characters" %></span>
-	<script>
-	$(document).ready(function() {
-    var max = <%= "#{@member.organization.character_limit}" %> - $('#member_organization_attributes_description').val().replace(/(\r\n|\n|\r)/g,"  ").length
-		$('#limit').html('<span id="remaining">'+ max +'</span> characters remaining');
-		$('#member_organization_attributes_description').keyup(function() {
-      var max = <%= "#{@member.organization.character_limit}" %>
-			var len = $(this).val().replace(/(\r\n|\n|\r)/g,"  ").length;
-			var rem = max - len
-			$('#remaining').html(rem);
-		});
-	});
-	</script>
-<% end %>
+<div class='row-fluid'>
   
-<% unless @member.product_name == "supporter" %>
+  <div class='span6'>
+    <%= form_field f, :name do %>
+      <%= f.text_field :name, :class => 'input-xlarge', :required => 'required', 
+                       :'data-bind' => "value: name, valueUpdate: 'afterkeydown'" %>
+    <% end %>
 
-  <%= form_field f, :logo do %>
-		<%= f.file_field :logo, :accept => "image/*", 
-                     :'data-bind' => "event: {change: updateImage}" %>
-		<%= f.hidden_field :logo_cache %>
-  <% end %>
+    <%= form_field f, :url do %>
+    	<%= f.url_field :url, :class => 'input-xlarge', :placeholder => 'http://your-homepage.com',
+                      :'data-bind' => "value: url, valueUpdate: 'afterkeydown'" %>
+    <% end %>
+
+    <%= form_field f, :description do %>
+    	<%= f.text_area :description, 
+                      :class => 'input-xlarge', 
+                      :rows => '8', 
+                      :maxlength => @member.organization.character_limit, 
+                      :required => 'required', 
+                      :'data-bind' => "value: description, valueUpdate: 'afterkeydown'" %>
+    	<span class="help-block"><small>Plain text only, but you can use paragraphs</small></span>
+    	<span class="help-block" id="limit"><%= "Limit of #{@member.organization.character_limit} characters" %></span>
+    	<script>
+    	$(document).ready(function() {
+        var max = <%= "#{@member.organization.character_limit}" %> - $('#member_organization_attributes_description').val().replace(/(\r\n|\n|\r)/g,"  ").length
+    		$('#limit').html('<span id="remaining">'+ max +'</span> characters remaining');
+    		$('#member_organization_attributes_description').keyup(function() {
+          var max = <%= "#{@member.organization.character_limit}" %>
+    			var len = $(this).val().replace(/(\r\n|\n|\r)/g,"  ").length;
+    			var rem = max - len
+    			$('#remaining').html(rem);
+    		});
+    	});
+    	</script>
+    <% end %>
+  
+    <% unless @member.product_name == "supporter" %>
+
+      <%= form_field f, :logo do %>
+    		<%= f.file_field :logo, :accept => "image/*", 
+                         :'data-bind' => "event: {change: updateImage}" %>
+    		<%= f.hidden_field :logo_cache %>
+      <% end %>
 	
-<% end %>
+    <% end %>
 
-<%= form_field f, :url do %>
-	<%= f.url_field :url, :class => 'input-xlarge', :placeholder => 'http://your-homepage.com',
-                  :'data-bind' => "value: url, valueUpdate: 'afterkeydown'" %>
-<% end %>
+  </div>
+  
+  <div class='span6'>
+
+    <%= form_field f, :cached_contact_name do %>
+      <%= f.text_field :cached_contact_name, :class => 'input-large',
+                       :'data-bind' => "value: contactName, valueUpdate: 'afterkeydown'" %>
+    <% end %>
+
+    <%= form_field f, :cached_contact_phone do %>
+      <%= f.text_field :cached_contact_phone, :class => 'input-large', :type => 'tel',
+                       :'data-bind' => "value: contactPhone, valueUpdate: 'afterkeydown'" %>
+    <% end %>
+
+    <%= form_field f, :cached_contact_email do %>
+      <%= f.email_field :cached_contact_email, :class => 'input-large',
+                       :'data-bind' => "value: contactEmail, valueUpdate: 'afterkeydown'" %>
+    <% end %>
 	
-<%= form_field f, :cached_twitter do %>
-  <%= f.text_field :cached_twitter, :class => 'input-xlarge', :placeholder => '@username',
-                   :'data-bind' => "value: twitter, valueUpdate: 'afterkeydown'" %>
-<% end %>
+    <%= form_field f, :cached_twitter do %>
+      <%= f.text_field :cached_twitter, :class => 'input-large', :placeholder => '@username',
+                       :'data-bind' => "value: twitter, valueUpdate: 'afterkeydown'" %>
+    <% end %>
 
-<%= form_field f, :cached_facebook do %>
-	<%= f.url_field :cached_facebook, :class => 'input-xlarge', :placeholder => 'http://facebook.com/pages/your-page',
-                  :'data-bind' => "value: facebook, valueUpdate: 'afterkeydown'" %>
-<% end %>
+    <%= form_field f, :cached_facebook do %>
+    	<%= f.url_field :cached_facebook, :class => 'input-large', :placeholder => 'http://facebook.com/pages/your-page',
+                      :'data-bind' => "value: facebook, valueUpdate: 'afterkeydown'" %>
+    <% end %>
 
-<%= form_field f, :cached_linkedin do %>
-	<%= f.url_field :cached_linkedin, :class => 'input-xlarge', :placeholder => 'http://linkedin.com/company/your-org',
-                  :'data-bind' => "value: linkedin, valueUpdate: 'afterkeydown'" %>
-<% end %>
+    <%= form_field f, :cached_linkedin do %>
+    	<%= f.url_field :cached_linkedin, :class => 'input-large', :placeholder => 'http://linkedin.com/company/your-org',
+                      :'data-bind' => "value: linkedin, valueUpdate: 'afterkeydown'" %>
+    <% end %>
+  </div>
+  
+</div>

@@ -5,3 +5,24 @@
 .icon-white {
   background-image: image-url("glyphicons-halflings-white.png");
 }
+
+/* Two-column responsive forms */
+/* from https://gist.github.com/OpenGrid/3170621 */
+@media (max-width: 980px) {
+    .form-horizontal .control-group > label {
+        float: none;
+        width: auto;
+        padding-top: 0;
+        text-align: left;
+    }
+    .form-horizontal .controls {
+        margin-left: 0;
+    }
+    .form-horizontal .control-list {
+        padding-top: 0;
+    }
+    .form-horizontal .form-actions {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+}
