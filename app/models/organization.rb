@@ -48,9 +48,15 @@ class Organization < ActiveRecord::Base
   
       directory_entry = {
         :description => description,
-        :homepage => url,
-        :logo => logo.url,
-        :thumbnail => logo.square.url
+        :homepage    => url,
+        :logo        => logo.url,
+        :thumbnail   => logo.square.url,
+        :contact     => cached_contact_name,
+        :phone       => cached_contact_phone,
+        :email       => cached_contact_email,
+        :twitter     => cached_twitter,
+        :linkedin    => cached_linkedin,
+        :facebook    => cached_facebook,
       }
   
       date = updated_at.to_s
