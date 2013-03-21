@@ -16,19 +16,19 @@
         <i class='icon icon-home'></i> <a property="url" data-bind="text: url, attr: {href: url}" href='<%= organization.url %>'><%= organization.url%></a>
       </div>
 
-      <% if @preview || @organization.cached_contact_name %>
+      <% if @preview || organization.cached_contact_name.present? %>
         <div data-bind="visible: contactName().length > 0" class='contact-detail'>
           <i class='icon-user'></i> <span property="contactPoint" data-bind="text: contactName"><%= organization.cached_contact_name %></span>
         </div>
       <% end %>
     
-      <% if @preview || @organization.cached_contact_email %>
+      <% if @preview || organization.cached_contact_email.present? %>
         <div data-bind="visible: contactEmail().length > 0" class='contact-detail'>
           <i class='icon-envelope-alt'></i> <a property="email" data-bind="text: contactEmail, attr: {href: mailto}" href='mailto:<%= organization.cached_contact_email %>'><%= organization.cached_contact_email %></a>
         </div>
       <% end %>
     
-      <% if @preview || @organization.cached_contact_phone %>
+      <% if @preview || organization.cached_contact_phone.present? %>
         <div data-bind="visible: contactPhone().length > 0" class='contact-detail'>
           <i class='icon-phone-sign'></i> <span property="telephone" data-bind="text: contactPhone"><%= organization.cached_contact_phone %></span>
         </div>
@@ -44,21 +44,21 @@
     </div>
     
     <div>
-      <% if @preview || @organization.cached_twitter %>
+      <% if @preview || organization.cached_twitter.present? %>
         <div data-bind="visible: twitter().length > 0" class='contact-detail'>
           <i class='icon-twitter'></i> <a data-bind="text: twitter, attr: {href: twitterUrl}" href='http://twitter.com/<%= organization.cached_twitter %>'><%= organization.cached_twitter %></a>
         </div>
       <% end %>
 
-      <% if @preview || @organization.cached_facebook %>
+      <% if @preview || organization.cached_facebook.present? %>
         <div data-bind="visible: facebook().length > 0" class='contact-detail'>
-          <i class='icon-facebook'></i> <a data-bind="text: facebookLabel, attr: {href: facebook}" href='<%= organization.cached_facebook %>'><%= organization.cached_facebook.split('/').last %></a>
+          <i class='icon-facebook'></i> <a data-bind="text: facebookLabel, attr: {href: facebook}" href='<%= organization.cached_facebook %>'><%= organization.cached_facebook.try(:split, '/').try(:last) %></a>
         </div>
       <% end %>
 
-      <% if @preview || @organization.cached_linkedin %>
+      <% if @preview || organization.cached_linkedin.present? %>
         <div data-bind="visible: linkedin().length > 0" class='contact-detail'>
-          <i class='icon-linkedin-sign'></i> <a data-bind="text: linkedinLabel, attr: {href: linkedin}" href='<%= organization.cached_linkedin %>'><%= organization.cached_linkedin.split('/').last %></a>
+          <i class='icon-linkedin-sign'></i> <a data-bind="text: linkedinLabel, attr: {href: linkedin}" href='<%= organization.cached_linkedin %>'><%= organization.cached_linkedin.try(:split, '/').try(:last) %></a>
         </div>
       <% end %>
     </div>
