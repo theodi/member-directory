@@ -9,12 +9,21 @@ if root_object.member.product_name
   end
 end
 node :member do |org|
+  # Basics
   member = {
     :type         => "http://schema.org/Organization",
     :name         => org.name,
     :description  => org.description,
     :url          => org.url
   }
+  # Contact point
+  member[:contactPoint] = {
+    :type         => "http://schema.org/ContactPoint",
+    :name         => org.cached_contact_name,
+    :email        => org.cached_contact_email,
+    :telephone    => org.cached_contact_phone
+  }.compact
+  # Logo
   if root_object.logo.url
     member[:logo] = [
       {
