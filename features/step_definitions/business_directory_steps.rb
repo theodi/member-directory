@@ -1,3 +1,7 @@
+Given(/^time is frozen$/) do
+  Timecop.freeze
+end
+
 Given /^that I have signed up$/ do
   steps %Q{
     Given that I want to sign up
@@ -79,7 +83,6 @@ Then /^I enter the organization name '(.*?)'$/ do |org_name|
 end
 
 When /^I click submit$/ do
-  Timecop.freeze
   fill_in("member_current_password", :with => 'p4ssw0rd')
   click_button('Save')
 end
