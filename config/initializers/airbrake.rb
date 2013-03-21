@@ -1,5 +1,5 @@
-if ENV['AIRBRAKE_API_KEY']
+if ENV['AIRBRAKE_DIRECTORY_KEY']
   Airbrake.configure do |config|
-    config.api_key = ENV['AIRBRAKE_API_KEY']
+    config.api_key = ENV['AIRBRAKE_DIRECTORY_KEY']
   end
 end
