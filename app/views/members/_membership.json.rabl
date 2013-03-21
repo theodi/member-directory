@@ -14,7 +14,12 @@ node :member do |org|
     :type         => "http://schema.org/Organization",
     :name         => org.name,
     :description  => org.description,
-    :url          => org.url
+    :url          => [
+      org.url,
+      org.cached_facebook,
+      org.cached_linkedin,
+      org.twitter_url
+    ].compact
   }
   # Contact point
   member[:contactPoint] = {

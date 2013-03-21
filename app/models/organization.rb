@@ -64,4 +64,9 @@ class Organization < ActiveRecord::Base
       Resque.enqueue(SendDirectoryEntryToCapsule, organization, directory_entry, date)
     end
   end
+
+  def twitter_url
+    cached_twitter ? "http://twitter.com/#{cached_twitter}" : nil
+  end
+  
 end
