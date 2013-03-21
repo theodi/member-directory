@@ -1,7 +1,3 @@
-Given(/^time is frozen$/) do
-  Timecop.freeze
-end
-
 Given /^that I have signed up$/ do
   steps %Q{
     Given that I want to sign up
