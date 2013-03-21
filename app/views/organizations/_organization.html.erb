@@ -15,6 +15,18 @@
       <i class='icon icon-home'></i> <a property="url" data-bind="text: url, attr: {href: url}" href='<%= organization.url %>'><%= organization.url%></a>
     </span>
 
+    <% if @preview || @organization.cached_contact_email %>
+      <span data-bind="visible: contactEmail().length > 0">
+        <i class='icon-envelope-alt'></i> <a property="email" data-bind="text: contactEmail, attr: {href: mailto}" href='mailto:<%= organization.cached_contact_email %>'><%= organization.cached_contact_email %></a>
+      </span>
+    <% end %>
+    
+    <% if @preview || @organization.cached_contact_phone %>
+      <span data-bind="visible: contactPhone().length > 0">
+        <i class='icon-phone-sign'></i> <span property="telephone" data-bind="text: contactPhone"><%= organization.cached_contact_phone %></span>
+      </span>
+    <% end %>
+
     <div class='organization-description' property="description" datatype="rdf:HTML">
       <% if @preview %>
         <div data-bind="html: formattedDescription"></div>
@@ -38,6 +50,9 @@
             this.twitter      = ko.observable("<%= organization.cached_twitter %>");
             this.facebook     = ko.observable("<%= organization.cached_facebook %>");
             this.linkedin     = ko.observable("<%= organization.cached_linkedin %>");
+            this.mailto       = ko.computed(function() {
+              return 'mailto:' + this.contactEmail();
+            }, this);
             this.formattedDescription = ko.computed(function() {
               str = this.description().replace(/\r\n?/, "\n");
               str = $.trim(str);
