@@ -10,6 +10,7 @@ class Organization < ActiveRecord::Base
   attr_writer     :remote
   
   # Using after_save here so we get the right image urls
+  before_save :strip_twitter_prefix
   after_save :send_to_capsule
   skip_callback :save, :after, :send_to_capsule, :if => lambda { self.remote === true }
   
@@ -38,6 +39,10 @@ class Organization < ActiveRecord::Base
   
   def character_limit
     supporter? ? 500 : 1000 
+  end
+    
+  def strip_twitter_prefix
+    self.cached_twitter = self.cached_twitter.last(-1) if self.cached_twitter.try(:starts_with?, '@')
   end
     
   def send_to_capsule
