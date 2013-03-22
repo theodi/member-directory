@@ -67,7 +67,7 @@ class Organization < ActiveRecord::Base
   
       date = updated_at.to_s
     
-      Resque.enqueue(SendDirectoryEntryToCapsule, organization, directory_entry, date)
+      Resque.enqueue(SendDirectoryEntryToCapsule, member.membership_number, organization, directory_entry, date)
     end
   end
 

@@ -174,7 +174,7 @@ Then /^my organisation details should be queued for further processing$/ do
   
   date = @member.organization.updated_at.to_s
   
-  Resque.should_receive(:enqueue).with(SendDirectoryEntryToCapsule, organization, directory_entry, date)
+  Resque.should_receive(:enqueue).with(SendDirectoryEntryToCapsule, @member.membership_number, organization, directory_entry, date)
 end
 
 Then /^my organisation details should not be queued for further processing$/ do
