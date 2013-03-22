@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130320084829) do
+ActiveRecord::Schema.define(:version => 20130322135327) do
 
   create_table "data_migrations", :id => false, :force => true do |t|
     t.string "version", :null => false
@@ -58,6 +58,7 @@ ActiveRecord::Schema.define(:version => 20130320084829) do
     t.string   "cached_twitter"
     t.string   "cached_facebook"
     t.string   "cached_linkedin"
+    t.string   "cached_tagline"
   end
 
 end

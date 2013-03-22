@@ -11,6 +11,11 @@
                       :'data-bind' => "value: url, valueUpdate: 'afterkeydown'" %>
     <% end %>
 
+    <%= form_field f, :cached_tagline do %>
+      <%= f.text_field :cached_tagline, :class => 'input-large',
+                       :'data-bind' => "value: tagline, valueUpdate: 'afterkeydown'" %>
+    <% end %>
+
     <%= form_field f, :description do %>
     	<%= f.text_area :description, 
                       :class => 'input-xlarge', 

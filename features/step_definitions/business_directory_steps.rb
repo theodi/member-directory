@@ -42,6 +42,7 @@ Then /^I enter my organization details$/ do
   @organization_twitter     = Faker::Internet.user_name
   @organization_linkedin    = Faker::Internet.url
   @organization_facebook    = Faker::Internet.url
+  @organization_tagline     = Faker::Company.bs
   
   fill_in('member_organization_attributes_name',                 :with => @organization_name)
   fill_in('member_organization_attributes_description',          :with => @organization_description)
@@ -52,6 +53,7 @@ Then /^I enter my organization details$/ do
   fill_in('member_organization_attributes_cached_twitter',       :with => @organization_twitter)
   fill_in('member_organization_attributes_cached_linkedin',      :with => @organization_linkedin)
   fill_in('member_organization_attributes_cached_facebook',      :with => @organization_facebook)
+  fill_in('member_organization_attributes_cached_tagline',       :with => @organization_tagline)
 end
 
 Then /^I attach an image$/ do
@@ -97,6 +99,7 @@ Then /^I edit my details$/ do
   @changed_organization_twitter     = Faker::Internet.user_name
   @changed_organization_linkedin    = Faker::Internet.url
   @changed_organization_facebook    = Faker::Internet.url
+  @changed_organization_tagline     = Faker::Company.bs
 
   fill_in('member_organization_attributes_name',                 :with => @changed_organization_name)
   fill_in('member_organization_attributes_description',          :with => @changed_organization_description)
@@ -107,6 +110,7 @@ Then /^I edit my details$/ do
   fill_in('member_organization_attributes_cached_twitter',       :with => @changed_organization_twitter)
   fill_in('member_organization_attributes_cached_linkedin',      :with => @changed_organization_linkedin)
   fill_in('member_organization_attributes_cached_facebook',      :with => @changed_organization_facebook)
+  fill_in('member_organization_attributes_cached_tagline',       :with => @changed_organization_tagline)
 end
 
 Then /^I should see my changed details when I revisit the edit page$/ do
@@ -120,6 +124,7 @@ Then /^I should see my changed details when I revisit the edit page$/ do
   page.should have_content @changed_organization_twitter
   page.should have_content @changed_organization_linkedin
   page.should have_content @changed_organization_facebook
+  page.should have_content @changed_organization_tagline
 end
 
 Then /^my description is (\d+) characters long$/ do |length|
@@ -164,6 +169,7 @@ Then /^my organisation details should be queued for further processing$/ do
     :twitter     => @organization_twitter,
     :linkedin    => @organization_linkedin,
     :facebook    => @organization_facebook,    
+    :tagline     => @organization_tagline,    
   }
   
   date = @member.organization.updated_at.to_s

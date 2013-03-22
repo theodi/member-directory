@@ -61,6 +61,11 @@
   <h2 property="name"<% if @preview %> data-bind="text: name"<% end %>><%= organization.name %></h2>
 
   <div class='<%= @member.supporter? ? '' : 'organization-content' %>'>
+
+    <% if @preview || organization.cached_tagline.present? %>
+      <p data-bind="visible: tagline().length > 0"><strong data-bind="text: tagline"><%= organization.cached_tagline %></strong></p>
+    <% end %>
+
     <div class='organization-description' property="description" datatype="rdf:HTML">
       <% if @preview %>
         <div data-bind="html: formattedDescription"></div>
@@ -88,6 +93,7 @@
             this.twitter      = ko.observable("<%= organization.cached_twitter %>");
             this.facebook     = ko.observable("<%= organization.cached_facebook %>");
             this.linkedin     = ko.observable("<%= organization.cached_linkedin %>");
+            this.tagline      = ko.observable("<%= organization.cached_tagline %>");
             this.mailto       = ko.computed(function() {
               return 'mailto:' + this.contactEmail();
             }, this);

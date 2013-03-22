@@ -5,7 +5,7 @@ class Organization < ActiveRecord::Base
   
   attr_accessible :name, :description, :url, :logo, :logo_cache, :remote,
                   :cached_contact_name, :cached_contact_phone, :cached_contact_email,
-                  :cached_twitter, :cached_linkedin, :cached_facebook
+                  :cached_twitter, :cached_linkedin, :cached_facebook, :cached_tagline
   
   attr_writer     :remote
   
@@ -62,6 +62,7 @@ class Organization < ActiveRecord::Base
         :twitter     => cached_twitter,
         :linkedin    => cached_linkedin,
         :facebook    => cached_facebook,
+        :tagline     => cached_tagline,
       }
   
       date = updated_at.to_s

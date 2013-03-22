@@ -35,6 +35,7 @@ en:
         cached_twitter: "Twitter"
         cached_facebook: "Facebook"
         cached_linkedin: "LinkedIn"
+        cached_tagline: "Tagline"
   activemodel:
     models:
       contact_request: Contact Request

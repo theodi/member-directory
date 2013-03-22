@@ -25,6 +25,7 @@ When /^my information is changed in CapsuleCRM$/ do
   @twitter           = Faker::Internet.url
   @linkedin          = Faker::Internet.url
   @facebook          = Faker::Internet.url
+  @tagline           = Faker::Company.bs
 end
 
 When /^the sync task runs$/ do
@@ -44,6 +45,7 @@ When /^the sync task runs$/ do
     'twitter'       => @twitter,
     'linkedin'      => @linkedin,
     'facebook'      => @facebook,
+    'tagline'       => @tagline,
   }.compact
   CapsuleObserver.update(membership, directory_entry)
 end
@@ -73,6 +75,7 @@ Then /^my details should be cached correctly$/ do
   @membership.organization.cached_twitter.should       == @twitter
   @membership.organization.cached_linkedin.should      == @linkedin
   @membership.organization.cached_facebook.should      == @facebook
+  @membership.organization.cached_tagline.should       == @tagline
 end
 
 Then /^nothing should be placed on the queue$/ do

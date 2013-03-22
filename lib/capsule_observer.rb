@@ -21,6 +21,7 @@ class CapsuleObserver
   #                 twitter       => Twitter account
   #                 linkedin      => Linkedin URL
   #                 facebook      => Facebook URL
+  #                 tagline       => Tagline
   #
   def self.update(membership, directory_entry)
     # Is there a membership ID?
@@ -45,6 +46,7 @@ class CapsuleObserver
           org.cached_twitter       = directory_entry['twitter']
           org.cached_linkedin      = directory_entry['linkedin']
           org.cached_facebook      = directory_entry['facebook']
+          org.cached_tagline       = directory_entry['tagline']
           org.save!
         end
       end
