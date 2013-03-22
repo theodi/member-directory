@@ -29,21 +29,21 @@ node :member do |org|
   # Social media URLs
   if org.cached_twitter.present?
     member[:contactPoint] << {
-      :description  => "Twitter",
+      :name         => "Twitter",
       :type         => "http://schema.org/ContactPoint",
       :url          => org.twitter_url
     }
   end
   if org.cached_facebook.present?
     member[:contactPoint] << {
-      :description  => "Facebook",
+      :name         => "Facebook",
       :type         => "http://schema.org/ContactPoint",
       :url          => org.cached_facebook
     }
   end
   if org.cached_linkedin.present?
     member[:contactPoint] << {
-      :description  => "Linkedin",
+      :name         => "Linkedin",
       :type         => "http://schema.org/ContactPoint",
       :url          => org.cached_linkedin
     }
