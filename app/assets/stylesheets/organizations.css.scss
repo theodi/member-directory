@@ -32,7 +32,11 @@ div.organization-summary div.organization-description {
   min-height: auto;
 }
 
-div.contact-detail {
+span.contact-detail {
   margin-right: 20px;
   display: inline-block;
+}
+
+span.contact-point-description {
+  display: none;
 }
