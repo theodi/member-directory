@@ -14,20 +14,40 @@ node :member do |org|
     :type         => "http://schema.org/Organization",
     :name         => org.name,
     :description  => org.description,
-    :url          => [
-      org.url,
-      org.cached_facebook,
-      org.cached_linkedin,
-      org.twitter_url
-    ].compact
+    :url          => org.url
   }
   # Contact point
-  member[:contactPoint] = {
-    :type         => "http://schema.org/ContactPoint",
-    :name         => org.cached_contact_name,
-    :email        => org.cached_contact_email,
-    :telephone    => org.cached_contact_phone
-  }.compact
+  member[:contactPoint] = [
+    {
+      :description  => "Sales contact",
+      :type         => "http://schema.org/ContactPoint",
+      :name         => org.cached_contact_name,
+      :email        => org.cached_contact_email,
+      :telephone    => org.cached_contact_phone
+    }.compact,
+  ]
+  # Social media URLs
+  if org.cached_twitter.present?
+    member[:contactPoint] << {
+      :description  => "Twitter",
+      :type         => "http://schema.org/ContactPoint",
+      :url          => org.twitter_url
+    }
+  end
+  if org.cached_facebook.present?
+    member[:contactPoint] << {
+      :description  => "Facebook",
+      :type         => "http://schema.org/ContactPoint",
+      :url          => org.cached_facebook
+    }
+  end
+  if org.cached_linkedin.present?
+    member[:contactPoint] << {
+      :description  => "Linkedin",
+      :type         => "http://schema.org/ContactPoint",
+      :url          => org.cached_linkedin
+    }
+  end
   # Logo
   if root_object.logo.url
     member[:logo] = [
