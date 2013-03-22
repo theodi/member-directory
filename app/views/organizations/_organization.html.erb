@@ -11,7 +11,7 @@
 
   <div class='<%= @member.supporter? ? '' : 'organization-content' %>'>
   
-    <div>
+    <p>
       <div class='contact-detail'>
         <i class='icon icon-home'></i> <a property="url" data-bind="text: url, attr: {href: url}" href='<%= organization.url %>'><%= organization.url%></a>
       </div>
@@ -33,7 +33,7 @@
           <i class='icon-phone-sign'></i> <span property="telephone" data-bind="text: contactPhone"><%= organization.cached_contact_phone %></span>
         </div>
       <% end %>
-    </div>
+    </p>
 
     <div class='organization-description' property="description" datatype="rdf:HTML">
       <% if @preview %>
