@@ -33,3 +33,4 @@ Colophon
 --------
 
 Social Media icons courtesy of https://github.com/paulrobertlloyd/socialmediaicons/.
+Other icons use FontAwesome: http://fortawesome.github.com/Font-Awesome/
