@@ -23,6 +23,8 @@ gem 'open-orgn-services', :git =>  'https://github.com/theodi/open-orgn-services
 
 gem 'rack-google-analytics'
 
+gem 'airbrake'
+
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do

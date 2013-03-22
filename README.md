@@ -6,7 +6,7 @@ member-directory
 [![Code Climate](https://codeclimate.com/github/theodi/member-directory.png)](https://codeclimate.com/github/theodi/member-directory)
 
 
-The ODI's member directory frontend application
+The ODI's member directory frontend application.
 
 Setup
 -----
@@ -27,7 +27,7 @@ In order to run this in a production-alike Vagrant instance, you will first need
 
 then point your browser at [http://33.33.33.33:3000/]()
 
-This all presumes you have VirtualBox installed, of course
+This all presumes you have VirtualBox installed, of course.
 
 Colophon
 --------
