@@ -33,7 +33,7 @@ class CapsuleObserver
         member.cached_active = (directory_entry['active'] == "true")
         member.product_name  = membership['product_name']
         # We don't store email here, that's only for new accounts
-        member.save!
+        member.save(:validate => false)
         # Update organization data
         if org = member.organization
           org.name                 = directory_entry['name']
@@ -47,7 +47,7 @@ class CapsuleObserver
           org.cached_linkedin      = directory_entry['linkedin']
           org.cached_facebook      = directory_entry['facebook']
           org.cached_tagline       = directory_entry['tagline']
-          org.save!
+          org.save(:validate => false)
         end
       end
     else
