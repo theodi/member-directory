@@ -1,48 +1,21 @@
 <div class='organization' vocab="http://schema.org/" typeOf="Organization">
 
-  <h2 property="name"<% if @preview %> data-bind="text: name"<% end %>><%= organization.name %></h2>
+  <div class="organization-sidebar pull-right">
+    <% unless @member.supporter? %>
+      <div class='organization-logo' 
+           style='background-image: url(<%= organization.logo.rectangular.url %>)'
+           data-bind='style: {backgroundImage: imageSrc}' >
+      </div>
+    <% end %>
 
-  <% unless @member.supporter? %>
-    <div class='organization-logo pull-right' 
-         style='background-image: url(<%= organization.logo.rectangular.url %>)'
-         data-bind='style: {backgroundImage: imageSrc}' >
-    </div>
-  <% end %>
-
-  <div class='<%= @member.supporter? ? '' : 'organization-content' %>'>
-  
     <p>
       <span class='contact-detail'>
         <i class='icon icon-home'></i> <a property="url" data-bind="text: url, attr: {href: url}" href='<%= organization.url %>'><%= organization.url%></a>
       </span>
-
-      <% if @preview || organization.cached_twitter.present? %>
-        <span data-bind="visible: twitter().length > 0" class='contact-detail' property='contactPoint' typeof='ContactPoint'>
-          <span property='description' class='contact-point-description'>Twitter</span>
-          <%= image_tag 'twitter-16x16.png', :alt => "Twitter" %>
-          <a property='url' data-bind="text: twitter, attr: {href: twitterUrl}" href='http://twitter.com/<%= organization.cached_twitter %>'><%= organization.cached_twitter %></a>
-        </span>
-      <% end %>
-
-      <% if @preview || organization.cached_facebook.present? %>
-        <span data-bind="visible: facebook().length > 0" class='contact-detail' property='contactPoint' typeof='ContactPoint'>
-          <span property='description' class='contact-point-description'>Facebook</span>
-          <%= image_tag 'facebook-16x16.png', :alt => "Facebook" %>
-          <a property='url' data-bind="text: facebookLabel, attr: {href: facebook}" href='<%= organization.cached_facebook %>'><%= organization.cached_facebook.try(:split, '/').try(:last) %></a>
-        </span>
-      <% end %>
-
-      <% if @preview || organization.cached_linkedin.present? %>
-        <span data-bind="visible: linkedin().length > 0" class='contact-detail' property='contactPoint' typeof='ContactPoint'>
-          <span property='description' class='contact-point-description'>Linkedin</span>
-          <%= image_tag 'linkedin-16x16.png', :alt => "Linkedin" %>
-          <a property='url' data-bind="text: linkedinLabel, attr: {href: linkedin}" href='<%= organization.cached_linkedin %>'><%= organization.cached_linkedin.try(:split, '/').try(:last) %></a>
-        </span>
-      <% end %>
     </p>
 
     <p property='contactPoint' typeOf="ContactPoint">
-      
+    
       <span property='description' class='contact-point-description'>Sales contact</span>
 
       <% if @preview || organization.cached_contact_name.present? %>
@@ -56,7 +29,7 @@
           <i class='icon-envelope-alt'></i> <a property="email" data-bind="text: contactEmail, attr: {href: mailto}" href='mailto:<%= organization.cached_contact_email %>'><%= organization.cached_contact_email %></a>
         </span>
       <% end %>
-    
+      
       <% if @preview || organization.cached_contact_phone.present? %>
         <span data-bind="visible: contactPhone().length > 0" class='contact-detail'>
           <i class='icon-phone-sign'></i> <span property="telephone" data-bind="text: contactPhone"><%= organization.cached_contact_phone %></span>
@@ -64,6 +37,30 @@
       <% end %>
     </p>
 
+    <p>
+      <% if @preview || organization.cached_twitter.present? %>
+        <span data-bind="visible: twitter().length > 0" property='contactPoint' typeof='ContactPoint'>          
+          <a property='url' data-bind="text: twitter, attr: {href: twitterUrl}" href='http://twitter.com/<%= organization.cached_twitter %>'><%= image_tag 'twitter-16x16.png', :alt => "Twitter" %><span property='description' class='contact-point-description'>Twitter</span></a>
+        </span>
+      <% end %>
+
+      <% if @preview || organization.cached_facebook.present? %>
+        <span data-bind="visible: facebook().length > 0" property='contactPoint' typeof='ContactPoint'>
+          <a property='url' data-bind="text: facebookLabel, attr: {href: facebook}" href='<%= organization.cached_facebook %>'><%= image_tag 'facebook-16x16.png', :alt => "Facebook" %><span property='description' class='contact-point-description'>Facebook</span></a>
+        </span>
+      <% end %>
+
+      <% if @preview || organization.cached_linkedin.present? %>
+        <span data-bind="visible: linkedin().length > 0" property='contactPoint' typeof='ContactPoint'>
+          <a property='url' data-bind="text: linkedinLabel, attr: {href: linkedin}" href='<%= organization.cached_linkedin %>'><%= image_tag 'linkedin-16x16.png', :alt => "Linkedin" %><span property='description' class='contact-point-description'>Linkedin</span></a>
+        </span>
+      <% end %>
+    </p>
+  </div>
+
+  <h2 property="name"<% if @preview %> data-bind="text: name"<% end %>><%= organization.name %></h2>
+
+  <div class='<%= @member.supporter? ? '' : 'organization-content' %>'>
     <div class='organization-description' property="description" datatype="rdf:HTML">
       <% if @preview %>
         <div data-bind="html: formattedDescription"></div>
