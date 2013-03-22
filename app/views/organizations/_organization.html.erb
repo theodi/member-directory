@@ -46,19 +46,19 @@
     <div>
       <% if @preview || organization.cached_twitter.present? %>
         <div data-bind="visible: twitter().length > 0" class='contact-detail'>
-          <i class='icon-twitter'></i> <a data-bind="text: twitter, attr: {href: twitterUrl}" href='http://twitter.com/<%= organization.cached_twitter %>'><%= organization.cached_twitter %></a>
+          <%= image_tag 'twitter-16x16.png' %> <a data-bind="text: twitter, attr: {href: twitterUrl}" href='http://twitter.com/<%= organization.cached_twitter %>'><%= organization.cached_twitter %></a>
         </div>
       <% end %>
 
       <% if @preview || organization.cached_facebook.present? %>
         <div data-bind="visible: facebook().length > 0" class='contact-detail'>
-          <i class='icon-facebook'></i> <a data-bind="text: facebookLabel, attr: {href: facebook}" href='<%= organization.cached_facebook %>'><%= organization.cached_facebook.try(:split, '/').try(:last) %></a>
+          <%= image_tag 'facebook-16x16.png' %> <a data-bind="text: facebookLabel, attr: {href: facebook}" href='<%= organization.cached_facebook %>'><%= organization.cached_facebook.try(:split, '/').try(:last) %></a>
         </div>
       <% end %>
 
       <% if @preview || organization.cached_linkedin.present? %>
         <div data-bind="visible: linkedin().length > 0" class='contact-detail'>
-          <i class='icon-linkedin-sign'></i> <a data-bind="text: linkedinLabel, attr: {href: linkedin}" href='<%= organization.cached_linkedin %>'><%= organization.cached_linkedin.try(:split, '/').try(:last) %></a>
+          <%= image_tag 'linkedin-16x16.png' %> <a data-bind="text: linkedinLabel, attr: {href: linkedin}" href='<%= organization.cached_linkedin %>'><%= organization.cached_linkedin.try(:split, '/').try(:last) %></a>
         </div>
       <% end %>
     </div>
