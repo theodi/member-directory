@@ -35,15 +35,7 @@
       <% end %>
     </p>
 
-    <div class='organization-description' property="description" datatype="rdf:HTML">
-      <% if @preview %>
-        <div data-bind="html: formattedDescription"></div>
-      <% else %>
-        <%= simple_format(organization.description) %>
-      <% end %>
-    </div>
-    
-    <div>
+    <p>
       <% if @preview || organization.cached_twitter.present? %>
         <div data-bind="visible: twitter().length > 0" class='contact-detail'>
           <%= image_tag 'twitter-16x16.png' %> <a data-bind="text: twitter, attr: {href: twitterUrl}" href='http://twitter.com/<%= organization.cached_twitter %>'><%= organization.cached_twitter %></a>
@@ -60,6 +52,14 @@
         <div data-bind="visible: linkedin().length > 0" class='contact-detail'>
           <%= image_tag 'linkedin-16x16.png' %> <a data-bind="text: linkedinLabel, attr: {href: linkedin}" href='<%= organization.cached_linkedin %>'><%= organization.cached_linkedin.try(:split, '/').try(:last) %></a>
         </div>
+      <% end %>
+    </p>
+
+    <div class='organization-description' property="description" datatype="rdf:HTML">
+      <% if @preview %>
+        <div data-bind="html: formattedDescription"></div>
+      <% else %>
+        <%= simple_format(organization.description) %>
       <% end %>
     </div>
 
