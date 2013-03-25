@@ -46,7 +46,7 @@ class Organization < ActiveRecord::Base
   end
     
   def send_to_capsule
-    if valid?
+    if valid? && changed?
       organization = {
         :name => name
       }

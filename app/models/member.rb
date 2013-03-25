@@ -108,4 +108,15 @@ class Member < ActiveRecord::Base
     self.create_organization(:name => organization_name, :remote => remote)
   end
 
+  after_update :save_to_capsule
+  
+  def save_to_capsule
+    if unconfirmed_email_changed? || cached_newsletter_changed?
+      Resque.enqueue(SaveMembershipDetailsToCapsule, membership_number, {
+        'email'      => unconfirmed_email || email,
+        'newsletter' => cached_newsletter
+      })
+    end
+  end
+
 end
