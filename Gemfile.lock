@@ -16,7 +16,7 @@ GIT
 
 GIT
   remote: https://github.com/theodi/open-orgn-services.git
-  revision: 79dfac0e159923936e882e7711f336412981de29
+  revision: b05fe4f6777cc6c394d78302ecea7eca1e25ea68
   specs:
     open-orgn-services (0.0.0)
       activemodel (~> 3.2, >= 3.2.12)
@@ -27,6 +27,7 @@ GIT
       leftronicapi (~> 1.2, >= 1.2.0)
       rake (~> 10.0, >= 10.0.3)
       resque (~> 1.23, >= 1.23.0)
+      resque-scheduler (~> 2.0, >= 2.0.0)
       ruby-trello (~> 0.5, >= 0.5.1)
       xeroizer (~> 2.15, >= 2.15.3)
 
@@ -208,6 +209,7 @@ GEM
     mime-types (1.21)
     mini_magick (3.5.0)
       subexec (~> 0.2.1)
+    mono_logger (1.0.0)
     multi_json (1.7.0)
     multi_xml (0.5.3)
     multipart-post (1.2.0)
@@ -266,11 +268,16 @@ GEM
     redis (3.0.3)
     redis-namespace (1.2.1)
       redis (~> 3.0.0)
-    resque (1.23.1)
+    resque (1.24.1)
+      mono_logger (~> 1.0)
       multi_json (~> 1.0)
-      redis-namespace (~> 1.0)
+      redis-namespace (~> 1.2)
       sinatra (>= 0.9.2)
       vegas (~> 0.1.2)
+    resque-scheduler (2.0.1)
+      redis (>= 2.0.1)
+      resque (>= 1.20.0)
+      rufus-scheduler
     rest-client (1.6.7)
       mime-types (>= 1.16)
     rspec-core (2.13.1)
@@ -292,6 +299,8 @@ GEM
       oauth (~> 0.4.5)
       rest-client (~> 1.6.7)
     rubyzip (0.9.9)
+    rufus-scheduler (2.0.18)
+      tzinfo (>= 0.3.23)
     sass (3.2.7)
     sass-rails (3.2.6)
       railties (~> 3.2.0)
