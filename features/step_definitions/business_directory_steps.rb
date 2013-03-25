@@ -125,6 +125,7 @@ Then /^I should see my changed details when I revisit the edit page$/ do
   page.should have_content @changed_organization_linkedin
   page.should have_content @changed_organization_facebook
   page.should have_content @changed_organization_tagline
+  page.find('#member_cached_newsletter').checked?.should == @newsletter
 end
 
 Then /^my description is (\d+) characters long$/ do |length|
@@ -179,4 +180,29 @@ end
 
 Then /^my organisation details should not be queued for further processing$/ do
   Resque.should_not_receive(:enqueue)
+end
+
+Then(/^I update my membership details$/) do
+  @changed_email      = Faker::Internet.email
+  @changed_newsletter = true
+
+  fill_in('member_email', :with => @changed_email)
+  if @changed_newsletter
+    check('member_cached_newsletter')
+  else
+    uncheck('member_cached_newsletter')
+  end
+end
+
+Then(/^my membership details should be queued for updating in CapsuleCRM$/) do
+  @member = Member.find_by_email(@email)
+  Resque.should_receive(:enqueue).with(SaveMembershipDetailsToCapsule, @member.membership_number, {
+    'email'      => @changed_email,
+    'newsletter' => @changed_newsletter
+  })
+end
+
+When(/^I should see my changed membership details when I revisit the edit page$/) do
+  page.should have_content(@changed_email)
+  (page.find('#member_cached_newsletter').checked? == 'checked').should == @changed_newsletter
 end
