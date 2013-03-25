@@ -9,11 +9,13 @@ When /^I am set as a member in CapsuleCRM$/ do
   @active            = "true"
   @email             = Faker::Internet.email
   @product_name      = 'partner'
+  @newsletter        = false
 end
 
 When /^my information is changed in CapsuleCRM$/ do
   @active            = "true"
   @email             = Faker::Internet.email
+  @newsletter        = true
   @organization_name = Faker::Company.name
   @description       = Faker::Company.bs
   @url               = Faker::Internet.url
@@ -33,6 +35,7 @@ When /^the sync task runs$/ do
     'email'         => @email,
     'product_name'  => @product_name,
     'id'            => @membership_id,
+    'newsletter'    => @newsletter,
   }.compact
   directory_entry = {
     'active'        => @active,
@@ -65,10 +68,11 @@ end
 Then /^my details should be cached correctly$/ do
   @membership = Member.where(:membership_number => @membership_id).first
   @membership.cached_active.should                     == (@active == "true")
+  @membership.product_name.should                      == @product_name
+  @membership.cached_newsletter.should                 == @newsletter
   @membership.organization.name.should                 == @organization_name
   @membership.organization.description.should          == @description
   @membership.organization.url.should                  == @url
-  @membership.product_name.should                      == @product_name
   @membership.organization.cached_contact_name.should  == @contact_name
   @membership.organization.cached_contact_phone.should == @contact_phone
   @membership.organization.cached_contact_email.should == @contact_email

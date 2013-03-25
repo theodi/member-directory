@@ -30,8 +30,10 @@ class CapsuleObserver
       member = Member.where(:membership_number => membership['id']).first
       if member
         # Member data
-        member.cached_active = (directory_entry['active'] == "true")
-        member.product_name  = membership['product_name']
+        member.cached_active     = (directory_entry['active'] == "true")
+        member.product_name      = membership['product_name']
+        member.cached_newsletter = membership['newsletter']
+        member.remote            = true
         # We don't store email here, that's only for new accounts
         member.save(:validate => false)
         # Update organization data
