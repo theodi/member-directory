@@ -14,7 +14,7 @@ class Member < ActiveRecord::Base
          :confirmable
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me, :product_name
+  attr_accessible :email, :password, :password_confirmation, :remember_me, :product_name, :cached_newsletter
   attr_accessible :organization_name, :contact_name, :telephone, :street_address,
 									:address_locality, :address_region, :address_country,
 									:postal_code, :organization_vat_id, :purchase_order_number, :agreed_to_terms,

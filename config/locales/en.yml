@@ -24,6 +24,7 @@ en:
         purchase_order_number: "Purchase Order Number"
         password: "Password"
         password_confirmation: "Confirm Password"
+        cached_newsletter: "Send me the newsletter"
       organization:
         name: "Organisation Name"
         url: "Homepage"
