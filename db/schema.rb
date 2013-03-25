@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130322135327) do
+ActiveRecord::Schema.define(:version => 20130325144718) do
 
   create_table "data_migrations", :id => false, :force => true do |t|
     t.string "version", :null => false
@@ -39,6 +39,7 @@ ActiveRecord::Schema.define(:version => 20130322135327) do
     t.string   "membership_number",      :limit => 8
     t.string   "product_name"
     t.boolean  "cached_active",                       :default => false
+    t.boolean  "cached_newsletter",                   :default => false
   end
 
   add_index "members", ["email"], :name => "index_members_on_email", :unique => true
