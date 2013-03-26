@@ -1,7 +1,3 @@
-Given(/^time is frozen$/) do
-  Timecop.freeze
-end
-
 Given /^that I have signed up$/ do
   steps %Q{
     Given that I want to sign up
@@ -37,14 +33,27 @@ Then /^I can see a logo upload$/ do
 end
 
 Then /^I enter my organization details$/ do
-  @organization_name = "FooBar Inc"
-  @organization_description = "We're the best!"
-  @organization_url = "http://www.foo.bar"
+  @organization_name        = Faker::Company.name
+  @organization_description = Faker::Company.bs
+  @organization_url         = Faker::Internet.url
+  @organization_contact     = Faker::Name.name
+  @organization_phone       = Faker::PhoneNumber.phone_number
+  @organization_email       = Faker::Internet.email
+  @organization_twitter     = Faker::Internet.user_name
+  @organization_linkedin    = Faker::Internet.url
+  @organization_facebook    = Faker::Internet.url
+  @organization_tagline     = Faker::Company.bs
   
-  fill_in('member_organization_attributes_name',         :with => @organization_name)
-  fill_in('member_organization_attributes_description',  :with => @organization_description)
-  fill_in('member_organization_attributes_url',          :with => @organization_url)
-  
+  fill_in('member_organization_attributes_name',                 :with => @organization_name)
+  fill_in('member_organization_attributes_description',          :with => @organization_description)
+  fill_in('member_organization_attributes_url',                  :with => @organization_url)
+  fill_in('member_organization_attributes_cached_contact_name',  :with => @organization_contact)
+  fill_in('member_organization_attributes_cached_contact_phone', :with => @organization_phone)
+  fill_in('member_organization_attributes_cached_contact_email', :with => @organization_email)
+  fill_in('member_organization_attributes_cached_twitter',       :with => @organization_twitter)
+  fill_in('member_organization_attributes_cached_linkedin',      :with => @organization_linkedin)
+  fill_in('member_organization_attributes_cached_facebook',      :with => @organization_facebook)
+  fill_in('member_organization_attributes_cached_tagline',       :with => @organization_tagline)
 end
 
 Then /^I attach an image$/ do
@@ -81,13 +90,27 @@ Then /^I should see a notice that my details were saved successfully$/ do
 end
 
 Then /^I edit my details$/ do
-  @changed_organization_name = "FooBar Incorporated"
-  @changed_organization_description = "We really are the best!"
-  @changed_organization_url = "http://www.foo.bar/contact"  
+  @changed_organization_name        = Faker::Company.name
+  @changed_organization_description = Faker::Company.bs
+  @changed_organization_url         = Faker::Internet.url
+  @changed_organization_contact     = Faker::Name.name
+  @changed_organization_phone       = Faker::PhoneNumber.phone_number
+  @changed_organization_email       = Faker::Internet.email
+  @changed_organization_twitter     = Faker::Internet.user_name
+  @changed_organization_linkedin    = Faker::Internet.url
+  @changed_organization_facebook    = Faker::Internet.url
+  @changed_organization_tagline     = Faker::Company.bs
 
-  fill_in('member_organization_attributes_name',         :with => @changed_organization_name)
-  fill_in('member_organization_attributes_description',  :with => @changed_organization_description)
-  fill_in('member_organization_attributes_url',          :with => @changed_organization_url)
+  fill_in('member_organization_attributes_name',                 :with => @changed_organization_name)
+  fill_in('member_organization_attributes_description',          :with => @changed_organization_description)
+  fill_in('member_organization_attributes_url',                  :with => @changed_organization_url)
+  fill_in('member_organization_attributes_cached_contact_name',  :with => @changed_organization_contact)
+  fill_in('member_organization_attributes_cached_contact_phone', :with => @changed_organization_phone)
+  fill_in('member_organization_attributes_cached_contact_email', :with => @changed_organization_email)
+  fill_in('member_organization_attributes_cached_twitter',       :with => @changed_organization_twitter)
+  fill_in('member_organization_attributes_cached_linkedin',      :with => @changed_organization_linkedin)
+  fill_in('member_organization_attributes_cached_facebook',      :with => @changed_organization_facebook)
+  fill_in('member_organization_attributes_cached_tagline',       :with => @changed_organization_tagline)
 end
 
 Then /^I should see my changed details when I revisit the edit page$/ do
@@ -95,6 +118,14 @@ Then /^I should see my changed details when I revisit the edit page$/ do
   page.should have_content @changed_organization_name
   page.should have_content @changed_organization_description
   page.should have_content @changed_organization_url
+  page.should have_content @changed_organization_contact
+  page.should have_content @changed_organization_phone
+  page.should have_content @changed_organization_email
+  page.should have_content @changed_organization_twitter
+  page.should have_content @changed_organization_linkedin
+  page.should have_content @changed_organization_facebook
+  page.should have_content @changed_organization_tagline
+  page.find('#member_cached_newsletter').checked?.should == @newsletter
 end
 
 Then /^my description is (\d+) characters long$/ do |length|
@@ -130,16 +161,48 @@ Then /^my organisation details should be queued for further processing$/ do
   
   directory_entry = {
     :description => @organization_description,
-    :homepage => @organization_url,
-    :logo => logo,
-    :thumbnail => thumbnail
+    :homepage    => @organization_url,
+    :logo        => logo,
+    :thumbnail   => thumbnail,
+    :contact     => @organization_contact,
+    :phone       => @organization_phone,
+    :email       => @organization_email,
+    :twitter     => @organization_twitter,
+    :linkedin    => @organization_linkedin,
+    :facebook    => @organization_facebook,    
+    :tagline     => @organization_tagline,    
   }
   
   date = @member.organization.updated_at.to_s
   
-  Resque.should_receive(:enqueue).with(SendDirectoryEntryToCapsule, organization, directory_entry, date)
+  Resque.should_receive(:enqueue).with(SendDirectoryEntryToCapsule, @member.membership_number, organization, directory_entry, date)
 end
 
 Then /^my organisation details should not be queued for further processing$/ do
   Resque.should_not_receive(:enqueue)
+end
+
+Then(/^I update my membership details$/) do
+  @changed_email      = Faker::Internet.email
+  @changed_newsletter = true
+
+  fill_in('member_email', :with => @changed_email)
+  if @changed_newsletter
+    check('member_cached_newsletter')
+  else
+    uncheck('member_cached_newsletter')
+  end
+end
+
+Then(/^my membership details should be queued for updating in CapsuleCRM$/) do
+  @member = Member.find_by_email(@email)
+  Resque.should_receive(:enqueue).with(SaveMembershipDetailsToCapsule, @member.membership_number, {
+    'email'      => @changed_email,
+    'newsletter' => @changed_newsletter
+  })
+end
+
+When(/^I should see my changed membership details when I revisit the edit page$/) do
+  page.should have_content(@changed_email)
+  (page.find('#member_cached_newsletter').checked? == 'checked').should == @changed_newsletter
 end

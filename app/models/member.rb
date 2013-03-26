@@ -14,7 +14,7 @@ class Member < ActiveRecord::Base
          :confirmable
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me, :product_name
+  attr_accessible :email, :password, :password_confirmation, :remember_me, :product_name, :cached_newsletter
   attr_accessible :organization_name, :contact_name, :telephone, :street_address,
 									:address_locality, :address_region, :address_country,
 									:postal_code, :organization_vat_id, :purchase_order_number, :agreed_to_terms,
@@ -106,6 +106,18 @@ class Member < ActiveRecord::Base
 
   def setup_organization
     self.create_organization(:name => organization_name, :remote => remote)
+  end
+
+  after_update :save_to_capsule
+  skip_callback :update, :after, :save_to_capsule, :if => lambda { self.remote === true }
+  
+  def save_to_capsule
+    if unconfirmed_email_changed? || cached_newsletter_changed?
+      Resque.enqueue(SaveMembershipDetailsToCapsule, membership_number, {
+        'email'      => unconfirmed_email || email,
+        'newsletter' => cached_newsletter
+      })
+    end
   end
 
 end

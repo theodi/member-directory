@@ -28,3 +28,9 @@ In order to run this in a production-alike Vagrant instance, you will first need
 then point your browser at [http://33.33.33.33:3000/]()
 
 This all presumes you have VirtualBox installed, of course.
+
+Colophon
+--------
+
+Social Media icons courtesy of https://github.com/paulrobertlloyd/socialmediaicons/.
+Other icons use FontAwesome: http://fortawesome.github.com/Font-Awesome/

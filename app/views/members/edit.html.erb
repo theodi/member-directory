@@ -23,7 +23,11 @@
   	</div>
   
     <% if @member.pending_reconfirmation? %>
-      <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+      <div>Currently waiting confirmation for: <%= @member.unconfirmed_email %></div>
+    <% end %>
+  
+    <%= form_field f, :cached_newsletter do %>
+      <%= f.check_box :cached_newsletter %>
     <% end %>
   
   <fieldset>   

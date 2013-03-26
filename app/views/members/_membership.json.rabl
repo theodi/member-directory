@@ -9,12 +9,46 @@ if root_object.member.product_name
   end
 end
 node :member do |org|
+  # Basics
   member = {
     :type         => "http://schema.org/Organization",
     :name         => org.name,
     :description  => org.description,
     :url          => org.url
   }
+  # Contact point
+  member[:contactPoint] = [
+    {
+      :description  => "Sales contact",
+      :type         => "http://schema.org/ContactPoint",
+      :name         => org.cached_contact_name,
+      :email        => org.cached_contact_email,
+      :telephone    => org.cached_contact_phone
+    }.compact,
+  ]
+  # Social media URLs
+  if org.cached_twitter.present?
+    member[:contactPoint] << {
+      :name         => "Twitter",
+      :type         => "http://schema.org/ContactPoint",
+      :url          => org.twitter_url
+    }
+  end
+  if org.cached_facebook.present?
+    member[:contactPoint] << {
+      :name         => "Facebook",
+      :type         => "http://schema.org/ContactPoint",
+      :url          => org.cached_facebook
+    }
+  end
+  if org.cached_linkedin.present?
+    member[:contactPoint] << {
+      :name         => "Linkedin",
+      :type         => "http://schema.org/ContactPoint",
+      :url          => org.cached_linkedin
+    }
+  end
+  # Logo
   if root_object.logo.url
     member[:logo] = [
       {

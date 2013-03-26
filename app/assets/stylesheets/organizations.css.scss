@@ -1,3 +1,8 @@
+div.organization-sidebar {
+  width: 200px;
+  margin-left: 20px;
+}
+
 div.organization-logo {
   width: 200px;
   height: 100px;
@@ -13,7 +18,7 @@ div.organization {
   
 @media screen and (min-width: 768px) {
   div.organization-content {
-    padding-right: 200px;
+    margin-right: 220px;
   }
 }
 
@@ -30,4 +35,13 @@ div.organization-summary div.organization-logo {
 
 div.organization-summary div.organization-description {
   min-height: auto;
+}
+
+span.contact-detail {
+  margin-right: 20px;
+  display: block;
+}
+
+span.contact-point-description {
+  display: none;
 }
