@@ -65,6 +65,7 @@ group :development, :test do
   gem 'factory_girl_rails'
   gem 'faker'
   gem 'timecop'
+  gem 'chef'
 end
 
 group :production do
