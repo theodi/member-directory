@@ -9,29 +9,48 @@ When /^I am set as a member in CapsuleCRM$/ do
   @active            = "true"
   @email             = Faker::Internet.email
   @product_name      = 'partner'
+  @newsletter        = false
 end
 
 When /^my information is changed in CapsuleCRM$/ do
   @active            = "true"
   @email             = Faker::Internet.email
+  @newsletter        = true
   @organization_name = Faker::Company.name
   @description       = Faker::Company.bs
   @url               = Faker::Internet.url
   @product_name      = 'sponsor'
   @membership_id     = @membership.membership_number
+  @contact_name      = Faker::Name.name
+  @contact_phone     = Faker::PhoneNumber.phone_number
+  @contact_email     = Faker::Internet.email
+  @twitter           = Faker::Internet.url
+  @linkedin          = Faker::Internet.url
+  @facebook          = Faker::Internet.url
+  @tagline           = Faker::Company.bs
 end
 
 When /^the sync task runs$/ do
-  syncdata = {
-    'active'        => @active,
+  membership = {
     'email'         => @email,
+    'product_name'  => @product_name,
+    'id'            => @membership_id,
+    'newsletter'    => @newsletter,
+  }.compact
+  directory_entry = {
+    'active'        => @active,
     'name'          => @organization_name,
     'description'   => @description,
     'url'           => @url,
-    'product_name'  => @product_name,
-    'membership_id' => @membership_id,
+    'contact'       => @contact_name,
+    'phone'         => @contact_phone,
+    'email'         => @contact_email,
+    'twitter'       => @twitter,
+    'linkedin'      => @linkedin,
+    'facebook'      => @facebook,
+    'tagline'       => @tagline,
   }.compact
-  CapsuleObserver.update(syncdata)
+  CapsuleObserver.update(membership, directory_entry)
 end
 
 Then /^a membership should be created for me$/ do
@@ -48,12 +67,19 @@ end
 
 Then /^my details should be cached correctly$/ do
   @membership = Member.where(:membership_number => @membership_id).first
-  @membership.cached_active.should            == (@active == "true")
-  @membership.organization.name.should        == @organization_name
-  @membership.organization.description.should == @description
-  @membership.organization.url.should         == @url
-  @membership.product_name.should             == @product_name
-
+  @membership.cached_active.should                     == (@active == "true")
+  @membership.product_name.should                      == @product_name
+  @membership.cached_newsletter.should                 == @newsletter
+  @membership.organization.name.should                 == @organization_name
+  @membership.organization.description.should          == @description
+  @membership.organization.url.should                  == @url
+  @membership.organization.cached_contact_name.should  == @contact_name
+  @membership.organization.cached_contact_phone.should == @contact_phone
+  @membership.organization.cached_contact_email.should == @contact_email
+  @membership.organization.cached_twitter.should       == @twitter
+  @membership.organization.cached_linkedin.should      == @linkedin
+  @membership.organization.cached_facebook.should      == @facebook
+  @membership.organization.cached_tagline.should       == @tagline
 end
 
 Then /^nothing should be placed on the queue$/ do

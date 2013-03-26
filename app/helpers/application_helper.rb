@@ -14,4 +14,10 @@ module ApplicationHelper
     end
   end
 
+  def form_field(f, field, &block)
+    content_tag :div, :class => 'control-group' do
+      f.label(field, :class => 'control-label') + content_tag(:div, :class => 'controls', &block)
+    end
+  end
+
 end

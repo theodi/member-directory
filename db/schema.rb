@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130313142246) do
+ActiveRecord::Schema.define(:version => 20130325144718) do
 
   create_table "data_migrations", :id => false, :force => true do |t|
     t.string "version", :null => false
@@ -39,6 +39,7 @@ ActiveRecord::Schema.define(:version => 20130313142246) do
     t.string   "membership_number",      :limit => 8
     t.string   "product_name"
     t.boolean  "cached_active",                       :default => false
+    t.boolean  "cached_newsletter",                   :default => false
   end
 
   add_index "members", ["email"], :name => "index_members_on_email", :unique => true
@@ -46,12 +47,19 @@ ActiveRecord::Schema.define(:version => 20130313142246) do
 
   create_table "organizations", :force => true do |t|
     t.string   "name"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at",           :null => false
+    t.datetime "updated_at",           :null => false
     t.integer  "member_id"
     t.string   "logo"
     t.text     "description"
     t.string   "url"
+    t.string   "cached_contact_name"
+    t.string   "cached_contact_phone"
+    t.string   "cached_contact_email"
+    t.string   "cached_twitter"
+    t.string   "cached_facebook"
+    t.string   "cached_linkedin"
+    t.string   "cached_tagline"
   end
 
 end

@@ -24,11 +24,19 @@ en:
         purchase_order_number: "Purchase Order Number"
         password: "Password"
         password_confirmation: "Confirm Password"
+        cached_newsletter: "Send me the newsletter"
       organization:
         name: "Organisation Name"
         url: "Homepage"
         description: "Description"
         logo: "Logo"
+        cached_contact_name: "Contact Person"
+        cached_contact_phone: "Contact Telephone"
+        cached_contact_email: "Contact Email"
+        cached_twitter: "Twitter"
+        cached_facebook: "Facebook"
+        cached_linkedin: "LinkedIn"
+        cached_tagline: "Tagline"
   activemodel:
     models:
       contact_request: Contact Request

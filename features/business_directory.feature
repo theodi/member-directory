@@ -3,9 +3,6 @@ Feature: Adding details to the organization directory
 
 	As a member, I want my details to be listed on the organization directory and stored in capsule
 
-  Background:
-    Given time is frozen
-
 	Scenario: Sucessful organization directory upload
 			
 		Given that I have signed up
@@ -112,3 +109,15 @@ Feature: Adding details to the organization directory
     Then my organisation details should not be queued for further processing 
     When I click submit
 		And I should see an error telling me that my description should not be longer than 1000 characters
+
+  Scenario: Member updates their contact details
+  
+    Given that I have signed up as a member
+		Then I am redirected to submit my organization details
+		And I enter my organization details
+		And I update my membership details
+    Then my membership details should be queued for updating in CapsuleCRM
+    And my organisation details should be queued for further processing 
+    When I click submit
+    And I should see a notice that my details were saved successfully
+    And I should see my changed membership details when I revisit the edit page
