@@ -1,29 +1,40 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
-Vagrant::Config.run do |config|
+require "yaml"
 
-  config.vm.host_name = "members-vagrant"
-  config.vm.box       = "precise64"
-  config.vm.network :hostonly, "33.33.33.33"
+y = YAML.load File.open ".chef/rackspace_secrets.yaml"
 
-  config.vm.share_folder("members", "/home/vagrant/members", ".")
+Vagrant.configure("2") do |config|
 
-  config.vm.provision :chef_client do |chef|
-    chef.node_name              = "vagrant-%s" % [
-        ENV["USER"]
-    ]
-    chef.environment            = "vagrant"
-    chef.chef_server_url        = "https://chef.theodi.org"
-    chef.validation_client_name = "chef-validator"
-    chef.validation_key_path    = ".chef/chef-validator.pem"
-    chef.run_list               = chef.run_list = [
-        "role[members]"
-    ]
-    config.vm.provision :shell do |shell|
-      shell.inline = "echo -e \"$1='$2'\n$3='$4'\" > $5"
-      shell.args   = "RESQUE_REDIS_HOST localhost RESQUE_REDIS_PORT 6379 /home/vagrant/members/.env"
+  config.vm.define :directory_theodi_org_01 do |dto_01_config|
+    dto_01_config.vm.box      = "dummy"
+    dto_01_config.vm.hostname = "directory-01"
+
+    dto_01_config.ssh.private_key_path = "./.chef/id_rsa"
+    dto_01_config.ssh.username         = "root"
+
+    dto_01_config.vm.provider :rackspace do |rs|
+      rs.username        = y["username"]
+      rs.api_key         = y["api_key"]
+      rs.flavor          = /1GB/
+      rs.image           = /Precise/
+      rs.public_key_path = "./.chef/id_rsa.pub"
+      rs.endpoint        = "https://lon.servers.api.rackspacecloud.com/v2"
+      rs.auth_url        = "lon.identity.api.rackspacecloud.com"
+    end
+
+    dto_01_config.vm.provision :shell, :inline => "curl -L https://www.opscode.com/chef/install.sh | bash"
+
+    dto_01_config.vm.provision :chef_client do |chef|
+      chef.node_name              = "directory-01"
+      chef.environment            = "production"
+      chef.chef_server_url        = "https://chef.theodi.org"
+      chef.validation_client_name = "chef-validator"
+      chef.validation_key_path    = ".chef/chef-validator.pem"
+      chef.run_list               = chef.run_list = [
+          "role[directory]"
+      ]
     end
   end
-
 end
