@@ -21,6 +21,7 @@
 .DS_Store
 .chef/*.pem
 .chef/id_*
+.chef/*secrets*
 .vagrant
 /public/uploads/
 /.env.development
