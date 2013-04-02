@@ -17,9 +17,11 @@
 /.env
 /.powrc
 .idea/
+.generators
 .DS_Store
-.chef/chef-validator.pem
-.chef/knife.rb
+.chef/*.pem
+.chef/id_*
+.chef/*secrets*
 .vagrant
 /public/uploads/
 /.env.development
