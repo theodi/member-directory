@@ -6,6 +6,10 @@
   <div class='organization-content'>
     <h2 property="name"><%= link_to organization.name, organization.member %></h2>
 
+    <% if organization.cached_tagline.present? %>
+      <p><strong><%= organization.cached_tagline %></strong></p>
+    <% end %>
+
     <i class='icon icon-home'></i> <%= link_to organization.url, organization.url, :property => "url"%></a>
 
     <div class='organization-description clearfix'>

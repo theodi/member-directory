@@ -1,6 +1,9 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.12'
+#ruby=ruby-1.9.3-p374
+#ruby-gemset=member-directory
+
+gem 'rails', '~> 3.2.12'
 
 gem 'sqlite3'
 gem 'devise'
