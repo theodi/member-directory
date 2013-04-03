@@ -34,6 +34,12 @@ you can get from Sam. (I think they might belong in the password file, opinions 
     
 to generate a keypair which will be used to login to this box and configure the chef-client - seeing as these things are now in the hands of Chef, we should only ever need to connect to them once (and this will be even more true when we've got Logstash running).
 
+## Install the box
+
+Add the dummy vagrant box if you haven't already:
+
+    vagrant box add dummy https://github.com/mitchellh/vagrant-rackspace/raw/master/dummy.box
+
 ## Punch it, Chewie
 We're now in a position to fire up a node!
 
