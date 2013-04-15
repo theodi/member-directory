@@ -1,4 +1,6 @@
 require 'resque/tasks'
+require 'resque/failure/multiple'
+require 'resque/failure/redis'
 require 'resque/failure/airbrake'
 
 namespace :resque do
