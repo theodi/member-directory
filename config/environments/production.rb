@@ -70,6 +70,7 @@ MemberDirectory::Application.configure do
     :address => "localhost",
     :port => 25,
     :domain => "theodi.org",
-    :openssl_verify_mode => 'none'
+    :enable_starttls_auto => false,
+    #:openssl_verify_mode => 'none'
   }
 end
