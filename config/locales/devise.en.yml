@@ -18,11 +18,11 @@ en:
       unconfirmed: "You have to confirm your account before continuing."
     mailer:
       confirmation_instructions:
-        subject: "Confirmation instructions"
+        subject: "Your ODI membership account details"
       reset_password_instructions:
-        subject: "Reset password instructions"
+        subject: "Open Data Institute: Password reset instructions"
       unlock_instructions:
-        subject: "Unlock Instructions"
+        subject: "Open Data Institute: Account unlock Instructions"
     omniauth_callbacks:
       failure: "Could not authenticate you from %{kind} because \"%{reason}\"."
       success: "Successfully authenticated from %{kind} account."
