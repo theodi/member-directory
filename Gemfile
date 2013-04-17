@@ -70,6 +70,7 @@ group :development, :test do
   gem 'timecop'
   gem 'chef'
   gem 'email_spec'
+  gem 'webmock'
 end
 
 group :production do
