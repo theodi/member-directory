@@ -62,6 +62,8 @@ class CapsuleObserver
       )
       member.cached_active = false # We always set this false on create so that
                                    # incomplete entries don't go immediately live
+      # Skip email confirmation
+      member.skip_confirmation! 
       # Save without validation
       member.save(:validate => false)
     end

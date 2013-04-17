@@ -60,6 +60,10 @@ Then /^a membership should be created for me$/ do
   @membership_id.should be_present
 end
 
+Then(/^that membership should have a confirmed email address$/) do
+  @membership.should be_confirmed
+end
+
 Then(/^that membership should not be shown in the directory$/) do
   @active = false
   @membership.cached_active.should == @active
