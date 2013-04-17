@@ -13,6 +13,11 @@ Setup
 
 You need to set various environment variables to tell the app where to post jobs for background queueing. Copy env.example to .env and edit to fit your purposes.
 
+Testing Emails
+--------------
+
+If you want to test email, you can run ```mailcatcher``` before you start the app in development mode. Mail will then be delivered to a preview window running at http://localhost:1080.
+
 Vagrant
 -------
 

@@ -1,0 +1,25 @@
+<p>
+  <% if @member.contact_name %>
+    Dear <%= @member.contact_name %>,
+  <% else %>
+    Good <%= time_of_day %>,
+  <% end %>  
+</p>
+
+<p>We are delighted to have you join us at the Open Data Institute.</p>
+
+<p>We run a free to attend lecture series every Friday highlighting some of the awe inspiring work going on using Open Data - everything from data as art, through to the CTO of the World Bank giving a 'fireside chat' about his experience at the White House. You can register for upcoming talks here: <a href="http://www.theodi.org/lunchtime-lectures">http://www.theodi.org/lunchtime-lectures</a></p>
+
+<p>Your membership number is <strong><%= @member.membership_number %></strong>. You will need this to log in.</p>
+
+<p>You can set up your account password and change your details through the link below:</p>
+
+<p><%= link_to 'My account', edit_password_url(@member, :reset_password_token => @member.reset_password_token) %></p>
+
+<p>Welcome again to the ODI community!</p>
+
+<p>Regards</p>
+
+<img src="http://directory.theodi.org/assets/signature.png" alt="" />
+
+<p>Richard</p>

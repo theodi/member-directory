@@ -69,6 +69,8 @@ group :development, :test do
   gem 'faker'
   gem 'timecop'
   gem 'chef'
+  gem 'email_spec'
+  gem 'mailcatcher'
 end
 
 group :production do

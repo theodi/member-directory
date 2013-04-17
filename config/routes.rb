@@ -3,8 +3,9 @@ MemberDirectory::Application.routes.draw do
   devise_for :members, :skip => [:sessions, :registrations]
   # Manually create session paths
   devise_scope :member do
-    resource :session,
+    resource :member_session,
       only: [:new, :create, :destroy],
+      path: 'session',
       controller: 'devise/sessions'
     resource :registration,
       only: [:new, :create, :destroy],
