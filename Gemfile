@@ -71,6 +71,7 @@ group :development, :test do
   gem 'chef'
   gem 'email_spec'
   gem 'webmock'
+  gem 'mailcatcher'
 end
 
 group :production do
