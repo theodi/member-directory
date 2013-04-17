@@ -13,7 +13,7 @@
     <header id="header">
     	<div class="container">
     		<div class="branding">
-    	  	<a id="logo" rel="home" title="Home" href="/"><img width="131" height="54" class="b_png" alt="Home" src="http://theodi.org/sites/default/files/logo.png"></a>
+    	  	<a id="logo" rel="home" title="Home" href="http://theodi.org"><img width="131" height="54" class="b_png" alt="Home" src="http://theodi.org/sites/default/files/logo.png"></a>
     			<hgroup id="name-and-slogan">
     				<h1 id="site-name">
     					<a rel="home" title="Open Data Institute" href="http://theodi.org/">
@@ -32,9 +32,9 @@
     					<ul class="nav pull-right">
                 <% if signed_in? %>
                   <li><%= link_to "My Account", member_path(current_member) %></li>
-                  <li><%= link_to "Sign out", session_path, :method => :delete %></li>
+                  <li><%= link_to "Sign out", member_session_path, :method => :delete %></li>
                 <% else %>
-                  <li><%= link_to "Sign in", new_session_path %></li>
+                  <li><%= link_to "Sign in", new_member_session_path %></li>
                 <% end %>
     					</ul>
     				</div>

@@ -20,4 +20,15 @@ module ApplicationHelper
     end
   end
 
+  def time_of_day
+    case Time.now.localtime.hour
+    when 0..11
+      "morning"
+    when 18..23
+      "evening"
+    else
+      "afternoon"
+    end
+  end
+
 end
