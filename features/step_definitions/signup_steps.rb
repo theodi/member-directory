@@ -129,7 +129,7 @@ Then /^a welcome email should be sent to me$/ do
     Then "#{@email}" should receive an email
     When they open the email
     And they should see "Your ODI membership account details" in the email subject
-    And they should see "Your membership number is #{@membership_id}" in the email body
+    And they should see "Your membership number is <strong>#{@membership_id}</strong>" in the email body
     And they should see "My account" in the email body
   }
 end
