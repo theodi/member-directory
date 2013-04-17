@@ -68,6 +68,8 @@ class CapsuleObserver
       member.send :generate_reset_password_token
       # Save without validation
       member.save(:validate => false)
+      # Send welcome email
+      CapsuleSignupMailer.confirmation(member).deliver
     end
   end
   

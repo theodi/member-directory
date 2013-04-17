@@ -95,8 +95,9 @@ end
 
 And /^I should have a membership number generated$/ do
   member = Member.find_by_email(@email)
-  member.membership_number.should_not be_nil
-  member.membership_number.should match(/[A-Z]{2}[0-9]{4}[A-Z]{2}/)
+  @membership_id = member.membership_number
+  @membership_id.should_not be_nil
+  @membership_id.should match(/[A-Z]{2}[0-9]{4}[A-Z]{2}/)
 end
 
 Then /^I should see an error relating to (.*)$/ do |text|
@@ -121,4 +122,14 @@ end
 
 Then /^my details should not be queued$/ do
   Resque.should_not_receive(:enqueue)
+end
+
+Then /^a welcome email should be sent to me$/ do
+  steps %Q{ 
+    Then "#{@email}" should receive an email
+    When they open the email
+    And they should see "Your ODI membership account details" in the email subject
+    And they should see "Your membership number is #{@membership_id}" in the email body
+    And they should see "My account" in the email body
+  }
 end

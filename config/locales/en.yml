@@ -49,3 +49,6 @@ en:
         person_job_title: "Job Title"
         product_name: "Membership Level"
         comment_text: "Your Interest"
+  capsule_signup_mailer:
+    confirmation:
+      subject: "Your ODI membership account details"
