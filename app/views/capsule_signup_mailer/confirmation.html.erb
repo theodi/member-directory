@@ -1,4 +1,14 @@
-<p>Dear <%= @member.contact_name || "member" %>,</p>
+<p>
+  <% if @member.contact_name %>
+    Dear <%= @member.contact_name %>,
+  <% else %>
+    <% if Time.now.localtime.hour <= 12 %>
+      Good morning,
+    <% else %>
+      Good afternoon,
+    <% end %>
+  <% end %>  
+</p>
 
 <p>We are delighted to have you join us at the Open Data Institute.</p>
 
