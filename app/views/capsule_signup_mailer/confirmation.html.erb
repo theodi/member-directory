@@ -2,11 +2,7 @@
   <% if @member.contact_name %>
     Dear <%= @member.contact_name %>,
   <% else %>
-    <% if Time.now.localtime.hour <= 12 %>
-      Good morning,
-    <% else %>
-      Good afternoon,
-    <% end %>
+    Good <%= time_of_day %>,
   <% end %>  
 </p>
 
