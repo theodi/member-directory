@@ -8,6 +8,12 @@ member-directory
 
 The ODI's member directory frontend application.
 
+License
+-------
+
+This code is open source under the MIT license. See the LICENSE.md file for 
+full details.
+
 Setup
 -----
 
