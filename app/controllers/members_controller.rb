@@ -27,7 +27,7 @@ class MembersController < ApplicationController
   
   def update
     # Prepend http to URL if not present
-    if params[:member].try(:[], :organization_attributes).try(:[], :url)
+    if params[:member] && params[:member][:organization_attributes] && params[:member][:organization_attributes][:url]
       unless params[:member][:organization_attributes][:url] =~ /^([a-z]+):\/\//
         params[:member][:organization_attributes][:url] = "http://#{params[:member][:organization_attributes][:url]}"
       end
