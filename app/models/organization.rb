@@ -15,7 +15,7 @@ class Organization < ActiveRecord::Base
   skip_callback :save, :after, :send_to_capsule, :if => lambda { self.remote === true }
   
   validates :name, :presence => true, :on => :update
-  validates :name, :uniqueness => true
+  validates :name, :uniqueness => true, :allow_nil => true
   validates :description, :presence => true, :on => :update
   validates :description, :length => { :maximum  => 500, :too_long => "Your description cannot be longer than %{count} characters"}, :if => :supporter?
   validates :description, :length => { :maximum  => 1000, :too_long => "Your description cannot be longer than %{count} characters"}, :if => :member?
