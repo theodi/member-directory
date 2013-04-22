@@ -23,7 +23,7 @@ class Organization < ActiveRecord::Base
   # We use both a URL-parsing validator, and a simple regexp here
   # so that we exclude things like http://localhost, which are valid
   # but undesirable
-  validates :url, :url => {:allow_nil => true}, :format => {:with => /^https?:\/\/([^\.\/]+?)\.([^\.\/]+?)/, :allow_nil => true}
+  validates :url, :url => {:allow_nil => true}, :format => {:with => /\Ahttps?:\/\/([^\.\/]+?)\.([^\.\/]+?)/, :allow_nil => true}
   
   def remote
     @remote || false
