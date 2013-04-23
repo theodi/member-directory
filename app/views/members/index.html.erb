@@ -1,3 +1,9 @@
+<div class="btn-toolbar">
+  <div class="btn-group">
+    <a href="/members.json" class="btn" title="Get this data in JSON format"><i class="icon-list"></i> JSON</a>
+  </div>
+</div>
+
 <% @organizations.each do |organization| %>
   <%= render :partial => 'organizations/summary', :locals => {:organization => organization}%>
 <% end %>
