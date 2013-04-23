@@ -13,7 +13,7 @@ class MembersController < ApplicationController
 
   def show
     # Get organization
-    if current_member == @member
+    if current_member == @member && request.format.html?
       @preview = true
       render 'edit'      
     else
