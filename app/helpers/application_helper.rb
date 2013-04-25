@@ -40,7 +40,6 @@ module ApplicationHelper
       json: 'icon-list'
     }
     format_translation = t("formats.#{format}")
-    #.lookup(format.to_s).ref.inspect
     link_to "<i class='#{icons[format]}'></i> #{format_translation}".html_safe, 
         alternate_url(:format => format), 
         :rel => 'alternate', 
