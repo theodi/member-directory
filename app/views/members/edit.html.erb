@@ -95,6 +95,13 @@
     </div>
   </fieldset>
 
+
+  <% unless @member.cached_active %>
+    <p class='alert alert-info'>
+      After you save, the ODI will review your listing and enable it for display in the public directory.
+    </p>
+  <% end %>
+
   <div class="form-actions">
     <%= f.submit "Save", :id => 'save', :class => 'btn btn-primary' %>
   </div>
