@@ -48,4 +48,15 @@ module ApplicationHelper
         :title => "Get this in #{format_translation} format"
   end
   
+  def alternate_auto_discovery_link_tag(format)
+    auto_discovery_link_tag(
+      :rel, 
+      alternate_url(:format => format), 
+      { 
+        :title => t("formats.#{format}"),
+        :type => Mime::EXTENSION_LOOKUP[format.to_s].to_s 
+      }
+    )
+  end
+  
 end
