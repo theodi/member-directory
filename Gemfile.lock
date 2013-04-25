@@ -6,6 +6,13 @@ GIT
       rails (>= 3.0.0, < 3.3)
 
 GIT
+  remote: https://github.com/theodi/alternate-rails.git
+  revision: 3e18a0187aaac65de542ec0a72c51b1037fad550
+  specs:
+    alternate_rails (0.0.1)
+      rails (~> 3.2.13)
+
+GIT
   remote: https://github.com/theodi/capsulecrm.git
   revision: b0cb7a9f167d8cd7bd7f79fd3d7bb4f7363a8391
   specs:
@@ -397,6 +404,7 @@ PLATFORMS
 
 DEPENDENCIES
   airbrake
+  alternate_rails!
   capsulecrm!
   carrierwave
   chef

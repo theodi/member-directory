@@ -1,7 +1,0 @@
-<% unless @alternate_formats.nil? || @alternate_formats.empty? %>
-
-  <% @alternate_formats.each do |format| %>
-    <%= alternate_auto_discovery_link_tag(format) %> 
-  <% end %>
-
-<% end %>
