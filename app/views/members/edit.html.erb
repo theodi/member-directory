@@ -38,6 +38,12 @@
     
     <legend>Organisation Details</legend>
     
+    <p class='alert alert-info'>
+      The ODI membership directory is a space that allows open data companies to 
+      network, find each other, and work together. This section allows you to specify 
+      the details that are shown in the directory.
+    </p>
+    
     <%= f.fields_for :organization do |builder| %>
       <%= render :partial => 'organizations/form', :locals => { :f => builder } %>
     <% end %>
