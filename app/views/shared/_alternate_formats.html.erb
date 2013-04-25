@@ -1,0 +1,14 @@
+<% unless @alternate_formats.nil? || @alternate_formats.empty? %>
+
+  <div class="btn-toolbar pull-right">
+    <div class="btn-group">
+      <% @alternate_formats.each do |format| %>
+        <%= alternate_button(format) %> 
+      <% end %>
+    </div>
+  </div>
+
+  <div style='clear:right'>
+  </div>
+  
+<% end %>
