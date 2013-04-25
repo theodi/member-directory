@@ -3,6 +3,8 @@ class MembersController < ApplicationController
 
   before_filter :get_member, :except => [:index]
 
+  before_filter :set_alternate_formats, :only => [:index, :show]
+
   def index
     @organizations = Organization.includes(:member).where(:'members.cached_active' => true).order(:name)
     if params[:level]
