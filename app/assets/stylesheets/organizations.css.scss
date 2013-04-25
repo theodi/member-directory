@@ -45,3 +45,7 @@ span.contact-detail {
 span.contact-point-description {
   display: none;
 }
+
+#organization-details input:required, #organization-details textarea:required {
+	background-color: #FFC;
+}
