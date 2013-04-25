@@ -31,4 +31,8 @@ module ApplicationHelper
     end
   end
 
+  def alternate_url(new_params)
+    url_for params.merge(new_params)
+  end
+  
 end

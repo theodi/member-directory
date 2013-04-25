@@ -4,7 +4,12 @@
 
 <div class="btn-toolbar pull-right">
   <div class="btn-group">
-    <a href="/members.json" class="btn" title="Get this data in JSON format" rel="alternate" type="application/json"><i class="icon-list"></i> JSON</a>
+    <%= link_to "<i class='icon-list'></i> JSON".html_safe, 
+        alternate_url(:format => :json), 
+        :rel => 'alternate', 
+        :type => 'application/json',
+        :class => "btn",
+        :title => "Get this data in JSON format" %>
   </div>
 </div>
 
