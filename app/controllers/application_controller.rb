@@ -16,8 +16,4 @@ class ApplicationController < ActionController::Base
     member_path(resource)
   end
 
-  def set_alternate_formats
-    @alternate_formats = [:json]
-  end
-
 end

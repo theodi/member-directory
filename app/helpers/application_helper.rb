@@ -30,33 +30,5 @@ module ApplicationHelper
       "afternoon"
     end
   end
-
-  def alternate_url(new_params)
-    url_for params.merge(new_params)
-  end
-  
-  def alternate_button(format)
-    icons = {
-      json: 'icon-list'
-    }
-    format_translation = t("formats.#{format}")
-    link_to "<i class='#{icons[format]}'></i> #{format_translation}".html_safe, 
-        alternate_url(:format => format), 
-        :rel => 'alternate', 
-        :type => Mime::EXTENSION_LOOKUP[format.to_s].to_s,
-        :class => "btn",
-        :title => "Get this in #{format_translation} format"
-  end
-  
-  def alternate_auto_discovery_link_tag(format)
-    auto_discovery_link_tag(
-      :rel, 
-      alternate_url(:format => format), 
-      { 
-        :title => t("formats.#{format}"),
-        :type => Mime::EXTENSION_LOOKUP[format.to_s].to_s 
-      }
-    )
-  end
   
 end
