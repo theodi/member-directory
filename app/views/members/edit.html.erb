@@ -34,9 +34,15 @@
     <% render :partial => 'devise/registrations/member_details', :locals => { :f => f } %>
   </fieldset>
   
-  <fieldset>   
+  <fieldset id='organization-details'>   
     
     <legend>Organisation Details</legend>
+    
+    <p class='alert alert-info'>
+      The ODI membership directory is a space that allows open data companies to 
+      network, find each other, and work together. This section allows you to specify 
+      the details that are shown in the directory.
+    </p>
     
     <%= f.fields_for :organization do |builder| %>
       <%= render :partial => 'organizations/form', :locals => { :f => builder } %>
@@ -88,6 +94,13 @@
       </div>
     </div>
   </fieldset>
+
+
+  <% unless @member.cached_active %>
+    <p class='alert alert-info'>
+      After you save, the ODI will review your listing and enable it for display in the public directory.
+    </p>
+  <% end %>
 
   <div class="form-actions">
     <%= f.submit "Save", :id => 'save', :class => 'btn btn-primary' %>
