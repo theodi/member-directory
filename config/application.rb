@@ -78,6 +78,9 @@ module MemberDirectory
     config.generators do |g|
       g.fixture_replacement :factory_girl
     end
+   
+    # Render better error pages. See https://makandracards.com/makandra/12807-custom-error-pages-in-rails-3-2
+    config.exceptions_app = self.routes
     
   end
 end
