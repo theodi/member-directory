@@ -20,8 +20,14 @@ class MembersController < ApplicationController
       render 'edit'      
     else
       @organization = @member.organization
-      if @organization.nil? || @member.cached_active == false
-        raise ActiveRecord::RecordNotFound and return 
+      raise ActiveRecord::RecordNotFound and return if @organization.nil? 
+      if @member.cached_active == false
+        if signed_in?
+          raise ActiveResource::UnauthorizedAccess.new(request.fullpath) and return
+        else
+          session[:previous_url] = request.fullpath
+          redirect_to new_member_session_path and return
+        end
       end
       respond_with(@organization)
     end
