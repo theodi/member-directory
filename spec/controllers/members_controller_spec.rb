@@ -40,11 +40,10 @@ describe MembersController do
       response.should be_success
     end
 
-    it "returns 404 if member is not active" do
+    it "redirects to login if member is not active" do
       member = FactoryGirl.create :member, :cached_active => false
-      expect {
-        get 'show', :id => member.membership_number
-      }.to raise_error(ActiveRecord::RecordNotFound)
+      get 'show', :id => member.membership_number
+      response.should be_redirect
     end
 
   end
