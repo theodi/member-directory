@@ -24,6 +24,7 @@ MemberDirectory::Application.routes.draw do
   
   root :to => "home#index"
 
+  match '/401', :to => 'errors#unauthorized'
   match '/404', :to => 'errors#not_found'
   match '/500', :to => 'errors#server_error'
 
