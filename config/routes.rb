@@ -22,7 +22,7 @@ MemberDirectory::Application.routes.draw do
   
   resources :members, :only => [:index, :show, :update]
   
-  root :to => "home#index"
+  root :to => redirect("/members")
 
   match '/401', :to => 'errors#unauthorized'
   match '/404', :to => 'errors#not_found'
