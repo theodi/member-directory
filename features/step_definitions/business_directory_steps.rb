@@ -60,9 +60,9 @@ Then /^I attach an image$/ do
   @organization_logo = File.join(::Rails.root, "fixtures/image_object_uploader/acme-logo.png")
   
   # Store the urls for access earlier in the steps
-  @fullsize_url = "#{ENV['RACKSPACE_ASSET_HOST']}/logos/<MEMBERSHIP_NUMBER>/original.png"
-  @rectangular_url = "#{ENV['RACKSPACE_ASSET_HOST']}/logos/<MEMBERSHIP_NUMBER>/rectangular.png"
-  @square_url = "#{ENV['RACKSPACE_ASSET_HOST']}/logos/<MEMBERSHIP_NUMBER>/square.png"
+  @fullsize_url = "#{ENV['RACKSPACE_DIRECTORY_ASSET_HOST']}/logos/<MEMBERSHIP_NUMBER>/original.png"
+  @rectangular_url = "#{ENV['RACKSPACE_DIRECTORY_ASSET_HOST']}/logos/<MEMBERSHIP_NUMBER>/rectangular.png"
+  @square_url = "#{ENV['RACKSPACE_DIRECTORY_ASSET_HOST']}/logos/<MEMBERSHIP_NUMBER>/square.png"
   
   attach_file('member_organization_attributes_logo', @organization_logo)
 end
