@@ -69,7 +69,6 @@ group :development, :test do
   gem 'factory_girl_rails'
   gem 'faker'
   gem 'timecop'
-  gem 'chef'
   gem 'email_spec'
   gem 'mailcatcher'
 end
