@@ -87,7 +87,6 @@ GEM
     arel (3.0.2)
     bcrypt-ruby (3.0.1)
     builder (3.0.4)
-    bunny (0.8.0)
     capybara (2.1.0)
       mime-types (>= 1.16)
       nokogiri (>= 1.3.3)
@@ -97,17 +96,6 @@ GEM
     carrierwave (0.8.0)
       activemodel (>= 3.2.0)
       activesupport (>= 3.2.0)
-    chef (0.8.10)
-      bunny (>= 0.6.0)
-      erubis
-      extlib
-      json
-      mixlib-authentication (>= 1.1.0)
-      mixlib-cli (>= 1.1.0)
-      mixlib-config (>= 1.1.0)
-      mixlib-log (>= 1.1.0)
-      moneta
-      ohai (>= 0.5.0)
     coderay (1.0.9)
     coffee-rails (3.2.2)
       coffee-script (>= 2.2.0)
@@ -147,7 +135,6 @@ GEM
     excon (0.13.4)
     execjs (1.4.0)
       multi_json (~> 1.0)
-    extlib (0.9.16)
     factory_girl (4.2.0)
       activesupport (>= 3.0.0)
     factory_girl_rails (4.2.1)
@@ -198,7 +185,6 @@ GEM
       multi_xml
     httpauth (0.2.0)
     i18n (0.6.1)
-    ipaddress (0.8.0)
     jenkins-remote-api (0.0.4)
       libxml-ruby (~> 2.2.2)
       mechanize (~> 2.0.1)
@@ -244,13 +230,6 @@ GEM
     mime-types (1.23)
     mini_magick (3.5.0)
       subexec (~> 0.2.1)
-    mixlib-authentication (1.3.0)
-      mixlib-log
-    mixlib-cli (1.3.0)
-    mixlib-config (1.1.2)
-    mixlib-log (1.6.0)
-    mixlib-shellout (1.1.0)
-    moneta (0.7.15)
     mono_logger (1.0.1)
     multi_json (1.7.3)
     multi_xml (0.5.3)
@@ -270,14 +249,6 @@ GEM
       multi_json (~> 1.0)
       multi_xml (~> 0.5)
       rack (~> 1.2)
-    ohai (6.16.0)
-      ipaddress
-      mixlib-cli
-      mixlib-config
-      mixlib-log
-      mixlib-shellout
-      systemu
-      yajl-ruby
     orm_adapter (0.4.0)
     polyglot (0.3.3)
     pry (0.9.12.2)
@@ -374,7 +345,6 @@ GEM
       tilt (~> 1.1, != 1.3.0)
     sqlite3 (1.3.7)
     subexec (0.2.3)
-    systemu (2.5.2)
     terminal-table (1.4.5)
     thin (1.5.1)
       daemons (>= 1.0.9)
@@ -399,7 +369,6 @@ GEM
     webrobots (0.1.1)
     xpath (2.0.0)
       nokogiri (~> 1.3)
-    yajl-ruby (1.1.0)
 
 PLATFORMS
   ruby
@@ -409,7 +378,6 @@ DEPENDENCIES
   alternate_rails!
   capsulecrm!
   carrierwave
-  chef
   coffee-rails (~> 3.2.1)
   cucumber-rails
   data_migrate!
