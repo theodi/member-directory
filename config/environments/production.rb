@@ -67,10 +67,12 @@ MemberDirectory::Application.configure do
   # config.active_record.auto_explain_threshold_in_seconds = 0.5
   
   config.action_mailer.smtp_settings = {
-    :address => "localhost",
-    :port => 25,
+    :user_name => ENV["MANDRILL_USERNAME"],
+    :password => ENV["MANDRILL_PASSWORD"],
     :domain => "theodi.org",
-    :enable_starttls_auto => false,
-    #:openssl_verify_mode => 'none'
+    :address => "smtp.mandrillapp.com",
+    :port => 587,
+    :authentication => :plain,
+    :enable_starttls_auto => true
   }
 end
