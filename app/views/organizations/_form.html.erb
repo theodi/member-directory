@@ -65,7 +65,9 @@
 
     <%= form_field f, :cached_contact_email do %>
       <%= f.email_field :cached_contact_email, :class => 'input-large',
-                       :'data-bind' => "value: contactEmail, valueUpdate: 'afterkeydown'" %>
+                       :'data-bind' => "value: contactEmail, valueUpdate: 'afterkeydown'",
+                       :pattern => "[a-zA-Z0-9._%+-]+@[a-zA-Z0-9-]+\\.[a-zA-Z.]+",
+                       :title => "Please enter a valid email address" %>
     <% end %>
 	
     <%= form_field f, :cached_twitter do %>
