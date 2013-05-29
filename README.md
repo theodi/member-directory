@@ -1,4 +1,4 @@
-member-directory
+Member Directory
 ================
 
 [![Build Status](http://jenkins.theodi.org/job/member-directory-build-master/badge/icon)](http://jenkins.theodi.org/job/member-directory-build-master/)
