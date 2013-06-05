@@ -6,7 +6,12 @@ class MembersController < ApplicationController
   before_filter(:only => [:index, :show]) {set_alternate_formats [:json]}
 
   def index
-    @organizations = Organization.includes(:member).where(:'members.cached_active' => true).order(:name)
+    @organizations = []
+    ['partner','sponsor','member','supporter'].each do |level|
+      @organizations << Organization.includes(:member).where(:'members.cached_active' => true, :'members.product_name' => level).order(:name)
+    end
+    @organizations.flatten!
+    
     if params[:level]
       @organizations = @organizations.where(:'members.product_name' => params[:level].downcase)
     end
