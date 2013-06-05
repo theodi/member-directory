@@ -7,6 +7,10 @@
            data-bind='style: {backgroundImage: imageSrc}' >
       </div>
     <% end %>
+    
+    <p>
+      <span class="label <%= organization.member.product_name %>"><%= organization.member.product_name.capitalize %></span>
+    </p>
 
     <p>
       <span class='contact-detail'>
@@ -59,7 +63,7 @@
   </div>
 
   <h2 property="name"<% if @preview %> data-bind="text: name"<% end %>><%= organization.name %></h2>
-
+  
   <div class='<%= @member.supporter? ? '' : 'organization-content' %>'>
 
     <% if @preview || organization.cached_tagline.present? %>
