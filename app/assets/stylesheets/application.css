@@ -67,3 +67,19 @@
       -moz-border-radius: 4px 0 4px 0;
            border-radius: 4px 0 4px 0;
  }
+ 
+.label.supporter {
+ background-color: #05d3ab;
+}
+
+.label.member {
+ background-color: #2254f4;
+}
+
+.label.sponsor {
+ background-color: #ef3aab;
+}
+
+.label.partner {
+ background-color: #0dbc37;
+}
