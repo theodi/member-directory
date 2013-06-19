@@ -23,7 +23,7 @@ GIT
 
 GIT
   remote: https://github.com/theodi/open-orgn-services.git
-  revision: 3ae9b1d0163b7b96e78d64eb17f11303504d5acd
+  revision: 6aa443a4efb3c6a8707021b55e5d2cd6e41dfea5
   specs:
     open-orgn-services (0.0.0)
       activemodel (~> 3.2, >= 3.2.12)
@@ -123,7 +123,7 @@ GEM
       railties (~> 3.1)
       warden (~> 1.2.1)
     diff-lcs (1.2.4)
-    dotenv (0.7.0)
+    dotenv (0.8.0)
     email_spec (1.4.0)
       launchy (~> 2.1)
       mail (~> 2.2)
@@ -168,7 +168,7 @@ GEM
       multi_json (~> 1.4)
       nokogiri (~> 1.5.2)
       oauth2
-    guard (1.8.0)
+    guard (1.8.1)
       formatador (>= 0.2.4)
       listen (>= 1.0.0)
       lumberjack (>= 1.0.2)
@@ -205,7 +205,7 @@ GEM
       json
       rake
     libxml-ruby (2.2.2)
-    listen (1.2.0)
+    listen (1.2.2)
       rb-fsevent (>= 0.9.3)
       rb-inotify (>= 0.9)
       rb-kqueue (>= 0.2)
@@ -232,7 +232,7 @@ GEM
     mini_magick (3.6.0)
       subexec (~> 0.2.1)
     mono_logger (1.1.0)
-    multi_json (1.7.6)
+    multi_json (1.7.7)
     multi_xml (0.5.4)
     multipart-post (1.2.0)
     mysql2 (0.3.11)
