@@ -5,6 +5,7 @@
     <title>ODI Member Directory</title>
     <%= alternate_auto_discovery_link_tags %>
     <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+		<link href="http://assets.theodi.org/css/odi-bootstrap-orange.css" rel="stylesheet" />
     <%= stylesheet_link_tag    "application", :media => "all" %>
     <%= javascript_include_tag "application" %>
     <%= csrf_meta_tags %>
@@ -12,65 +13,74 @@
   </head>
   <body data-spy="scroll" data-target="#mainnav">
 
-    <header id="header">
-    	<div class="container">
-    		<div class="branding">
-    	  	<a id="logo" rel="home" title="Home" href="http://theodi.org"><img width="207" height="48" alt="Home" src="http://theodi.org/sites/default/files/odi_header_logo.svg"></a>
-    			<hgroup id="name-and-slogan" class="hidden-phone">
-    	      <h2 id="site-slogan">Knowledge for everyone</h2>
-    			</hgroup>
-    		</div>
-    		<nav>
-    			<div id="mainnav" class="navbar navbar-inverse">
-    				<div class="navbar-inner">
-  						<a class="brand" href="/members">Members</a>
-    					<ul class="nav">
-              </ul>
-    					<ul class="nav pull-right">
-                <% if signed_in? %>
-                  <li><%= link_to "My Account", member_path(current_member) %></li>
-                  <li><%= link_to "Sign out", member_session_path, :method => :delete %></li>
-                <% else %>
-                  <li><%= link_to "Sign in", new_member_session_path %></li>
-                <% end %>
-    					</ul>
-    				</div>
-    			</div>
-    	  </nav>
-    	</div>
-    </header>
+		<nav>
+			<div class='navbar navbar-inverse navbar-static-top' id='topbar'>
+				<div class='container'>
+					<div class='navbar-inner'>
+						<h1>member directory</h1>
+						<a class='brand' href='/'>
+							<img alt="Logo" src="http://assets.theodi.org/img/logo-footer.png" />
+						</a>
+					</div>
+				</div>
+			</div>
+			
 
-    <div class="container">
-
-      <% if notice %><div class="alert alert-info"><%= notice %></div><% end %>
-      <% if alert %><div class="alert alert-error"><%= alert %></div><% end %>
-	  <section>
-      	<%= yield %>
-  	  </section>
-    </div>
-
-    <footer id="footer">
-    	<div class="container">
-      	<nav>
-    			<ul>
-    				<li><a href="http://theodi.org/privacy-policy">Privacy Policy</a></li>
-    				<li><a href="http://theodi.org/terms-of-use">Terms of Use</a></li>
-    				<li><a href="http://theodi.org/cookie-policy">Cookie Policy</a></li>
-    				<li><a href="http://theodi.org/feedback">Feedback</a></li>
+    <div class="navbar navbar-static-top" id="mainnav">
+				<div class="container">
+					<div class="navbar-inner">
+						<ul class="nav pull-right">
+							<% if signed_in? %>
+                <li><%= link_to "My Account", member_path(current_member) %></li>
+                <li><%= link_to "Sign out", member_session_path, :method => :delete %></li>
+              <% else %>
+                <li><%= link_to "Sign in", new_member_session_path %></li>
+              <% end %>
     			</ul>
-    		</nav>
-    		<p>
-    			<a rel="license" href="http://creativecommons.org/licenses/by/2.0/uk/deed.en_GB">
-    				<img style="border-width:0" src="http://i.creativecommons.org/l/by/2.0/uk/80x15.png" alt="Creative Commons Licence">
-    			</a>
-    			<a href="http://www.theodi.org">Open Data Institute</a> · 
-    			<a href="http://www.openstreetmap.org/?lat=51.522205&amp;lon=-0.08176500000001852&amp;zoom=16&amp;layers=T&amp;mlat=51.52210&amp;mlon=-0.08343">65 Clifton Street, London EC2A 4JE</a> · 
-    			<a href="mailto:info@theodi.org">info@theodi.org</a> · 
-    			Company <a href="http://opencorporates.com/companies/gb/08030289">08030289</a> · 
-    			VAT 143 7796 80
-    		</p>
-    	</div>
-    </footer>
+				</div>
+			</div>
+		</div>
+    </nav>
 
-  </body>
-</html>
+	<div class="whiteout">
+	<section>
+		<header>
+				<div class="container">
+					<h1><%= @title || "Members"%></h1>
+				</div>
+		</header>
+
+		<div class='container main-default' id='main'>
+			
+			<% if notice %><div class="alert alert-info"><%= notice %></div><% end %>
+	    <% if alert %><div class="alert alert-error"><%= alert %></div><% end %>
+
+     <%= yield %>
+		</div>
+  </section>
+	</div>
+
+
+			<footer id='footer'>
+				<div class='container'>
+					<div class='span8 footer-content'>
+						<h1><a href='http://www.theodi.org'>Open Data Institute</a></h1>
+						<p> <a href='http://www.openstreetmap.org/?lat=51.522205&amp;lon=-0.08176500000001852&amp;zoom=16&amp;layers=T&amp;mlat=51.52210&amp;mlon=-0.08343'>Open Data Institute</a><span>, 65 Clifton Street, London EC2A 4JE</span></p>
+						<p><a href='mailto:info@theodi.org'>info@theodi.org</a> · Company <a href='http://opencorporates.com/companies/gb/08030289'>08030289</a>	· <span>VAT</span> <span>143 7796 80</span></p>
+						<p class='license'><a href='http://creativecommons.org/licenses/by-sa/2.0/uk/deed.en_GB' rel='license'><img alt="Creative Commons Licence" height="15" src="http://theodi.github.io/p2p/img/logo_cc_80x15.png" width="80" /></a></p>
+					</div>
+					<div class='span4 footer-nav'>
+						<nav>
+							<ul class='pull-right'>
+		    				<li><a href="http://theodi.org/privacy-policy">Privacy Policy</a></li>
+		    				<li><a href="http://theodi.org/terms-of-use">Terms of Use</a></li>
+		    				<li><a href="http://theodi.org/cookie-policy">Cookie Policy</a></li>
+		    				<li><a href="http://theodi.org/feedback">Feedback</a></li>
+							</ul>
+						</nav>
+					</div>
+				</div>
+			</footer>
+
+	  </body>
+	</html>

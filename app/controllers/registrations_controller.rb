@@ -7,6 +7,7 @@ class RegistrationsController < Devise::RegistrationsController
       @product_name == "sponsor" ? @title = "Sponsor us" : @title = "Partner with us"
       render 'contact_requests/new'
     else
+      @title = "Sign up"
       super
     end
   end

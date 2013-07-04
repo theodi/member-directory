@@ -9,11 +9,13 @@
  * compiled file, but it's generally better to create a new file per style scope.
  *
  *= require_self
- *= require bootstrap.min
- *= require bootstrap-responsive.min
  *= require font-awesome.min
  *= require_tree .
  */
+
+.organization h2 {
+	display: none;
+}
  
  #terms {
 	 height: 200px;
@@ -73,7 +75,7 @@
 }
 
 .label.member {
- background-color: #2254f4;
+ background-color: #00b7ff;
 }
 
 .label.sponsor {
@@ -82,4 +84,8 @@
 
 .label.partner {
  background-color: #0dbc37;
+}
+
+.main-default i {
+	display: inline;
 }
