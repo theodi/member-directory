@@ -1,4 +1,4 @@
-<h2>Forgot your password?</h2>
+<% @title = "Forgot your password?" %>
 
 <%= form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :post, :class => 'form-horizontal' }) do |f| %>
   <%= devise_error_messages! %>
@@ -11,6 +11,6 @@
   </div>
 
   <div class='form-actions'>
-    <%= f.submit "Send me reset password instructions", :class => 'btn btn-primary' %>
+    <%= f.submit "Send me reset password instructions", :class => 'btn btn-primary btn-large' %>
   </div>
 <% end %>

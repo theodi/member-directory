@@ -1,4 +1,4 @@
-<h2 style='margin-bottom: 30px'>Sign in to edit your profile</h2>
+<% @title = "Sign in to edit your profile" %>
 
 <%= form_for(resource, :as => resource_name, :url => member_session_path, :html => {:class => 'form-horizontal'}) do |f| %>
 
@@ -26,7 +26,7 @@
   <% end -%>
 
   <div class="form-actions">
-    <%= f.submit "Sign in", :id => 'submit', :class => 'btn btn-primary' %> 
+    <%= f.submit "Sign in", :id => 'submit', :class => 'btn btn-primary btn-large' %> 
     or <%= link_to "Become an ODI member", 'http://theodi.org/join-us' %>
   </div>
 
