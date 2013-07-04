@@ -13,10 +13,10 @@
  *= require_tree .
  */
 
-.organization h2 {
+#singleview .organization h2 {
 	display: none;
 }
- 
+
  #terms {
 	 height: 200px;
 	 overflow-y: scroll;
