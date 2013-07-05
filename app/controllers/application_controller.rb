@@ -23,7 +23,7 @@ class ApplicationController < ActionController::Base
   end
 
   def editable?(organization)
-    (organization.member == current_member)# || current_admin
+    (organization.member == current_member) || current_admin
   end
   helper_method :editable?
 
