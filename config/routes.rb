@@ -1,5 +1,7 @@
 MemberDirectory::Application.routes.draw do
 
+  devise_for :admins, :controllers => { :omniauth_callbacks => "admins/omniauth_callbacks" }
+
   get "errors/not_found"
 
   get "errors/server_error"
