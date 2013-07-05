@@ -1,7 +1,7 @@
 <div class='organization' vocab="http://schema.org/" typeOf="Organization">
 
   <div class="organization-sidebar pull-right">
-    <% unless @member.supporter? %>
+    <% unless @member.supporter? || organization.logo.blank? %>
       <div class='organization-logo' 
            style='background-image: url(<%= organization.logo.rectangular.url %>)'
            data-bind='style: {backgroundImage: imageSrc}' >

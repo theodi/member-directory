@@ -23,6 +23,7 @@ class MembersController < ApplicationController
     # Get organization
     if current_member == @member && request.format.html?
       @preview = true
+      @title = "Edit your details"
       render 'edit'      
     else
       @organization = @member.organization
@@ -35,6 +36,7 @@ class MembersController < ApplicationController
           redirect_to new_member_session_path and return
         end
       end
+      @title = @organization.name
       respond_with(@organization)
     end
   end
