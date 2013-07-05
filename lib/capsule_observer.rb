@@ -39,7 +39,8 @@ class CapsuleObserver
         # Update organization data
         if org = member.organization
           org.name                 = directory_entry['name']
-          org.description          = directory_entry['description']
+          # We don't update the description, as capsuleCRM breaks it currently
+          #org.description          = directory_entry['description']
           org.url                  = directory_entry['url']
           org.remote               = true
           org.cached_contact_name  = directory_entry['contact']

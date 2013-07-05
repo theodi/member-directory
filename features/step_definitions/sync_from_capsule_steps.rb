@@ -3,6 +3,7 @@ end
 
 Given /^I am already signed up$/ do
   @membership = FactoryGirl.create :member
+  @old_description = @membership.organization.description
 end
 
 When /^I am set as a member in CapsuleCRM$/ do
@@ -58,6 +59,7 @@ Then /^a membership should be created for me$/ do
   @membership.should be_present
   @membership_id = @membership.membership_number
   @membership_id.should be_present
+  @old_description = @membership.organization.description
 end
 
 Then(/^that membership should have a confirmed email address$/) do
@@ -75,7 +77,7 @@ Then /^my details should be cached correctly$/ do
   @membership.product_name.should                      == @product_name
   @membership.cached_newsletter.should                 == @newsletter
   @membership.organization.name.should                 == @organization_name
-  @membership.organization.description.should          == @description
+  @membership.organization.description.should          == @old_description # description should not change when synced
   @membership.organization.url.should                  == @url
   @membership.organization.cached_contact_name.should  == @contact_name
   @membership.organization.cached_contact_phone.should == @contact_phone
