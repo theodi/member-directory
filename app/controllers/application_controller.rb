@@ -15,7 +15,7 @@ class ApplicationController < ActionController::Base
   private
 
   def after_sign_in_path_for(resource)
-    member_path(resource)
+    resource.is_a?(Member) ? member_path(resource) : members_path
   end
 
   def after_sign_out_path_for(resource_or_scope)
