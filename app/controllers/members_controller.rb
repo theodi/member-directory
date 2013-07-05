@@ -21,7 +21,7 @@ class MembersController < ApplicationController
 
   def show
     # Get organization
-    if current_member == @member && request.format.html?
+    if editable?(@member.organization) && request.format.html?
       @preview = true
       @title = "Edit your details"
       render 'edit'      

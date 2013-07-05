@@ -22,4 +22,9 @@ class ApplicationController < ActionController::Base
     request.referrer || root_path
   end
 
+  def editable?(organization)
+    (organization.member == current_member)# || current_admin
+  end
+  helper_method :editable?
+
 end
