@@ -13,6 +13,8 @@ gem 'carrierwave'
 gem 'mini_magick'
 gem 'rabl'
 gem 'alternate_rails', :git => 'https://github.com/theodi/alternate-rails.git'
+gem 'omniauth-google-apps'
+gem 'rails_admin'
 
 # We use this version as the original gem only allows Rails up to 3.0.11
 gem 'data_migrate', :git => 'https://github.com/doublewide/data-migrate.git'

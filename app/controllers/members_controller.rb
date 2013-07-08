@@ -21,9 +21,13 @@ class MembersController < ApplicationController
 
   def show
     # Get organization
-    if current_member == @member && request.format.html?
+    if editable?(@member.organization) && request.format.html?
       @preview = true
-      @title = "Edit your details"
+      if current_member == @member
+        @title = "Edit your details"
+      else
+        @title = "Edit member"
+      end
       render 'edit'      
     else
       @organization = @member.organization
@@ -49,8 +53,14 @@ class MembersController < ApplicationController
       end
     end
     # Update
-    if @member.update_with_password params[:member]
-      flash[:notice] = "You updated your account successfully."
+    if current_admin
+      if @member.update_attributes params[:member]
+        flash[:notice] = "Account updated successfully."
+      end
+    elsif @member == current_member
+      if @member.update_with_password params[:member]
+        flash[:notice] = "You updated your account successfully."
+      end
     end
     respond_with(@member)
   end
