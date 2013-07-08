@@ -23,7 +23,11 @@ class MembersController < ApplicationController
     # Get organization
     if editable?(@member.organization) && request.format.html?
       @preview = true
-      @title = "Edit your details"
+      if current_member == @member
+        @title = "Edit your details"
+      else
+        @title = "Edit member"
+      end
       render 'edit'      
     else
       @organization = @member.organization
