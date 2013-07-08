@@ -14,7 +14,7 @@
     
     <div class='organization-description clearfix'>
       <p property="description"><%= organization_description(organization) %></p>
-      <%= link_to "#{organization.member == current_member ? "Edit" : "More"} information &raquo;".html_safe, organization.member, :class=>'btn pull-right' %>
+      <%= link_to "#{editable?(organization) ? "Edit" : "More"} information &raquo;".html_safe, organization.member, :class=>'btn pull-right' %>
     </div>
   </div>
 
