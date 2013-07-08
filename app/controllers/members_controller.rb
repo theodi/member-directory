@@ -57,7 +57,7 @@ class MembersController < ApplicationController
       if @member.update_attributes params[:member]
         flash[:notice] = "Account updated successfully."
       end
-    else
+    elsif @member == current_member
       if @member.update_with_password params[:member]
         flash[:notice] = "You updated your account successfully."
       end
