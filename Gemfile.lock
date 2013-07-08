@@ -1,4 +1,11 @@
 GIT
+  remote: git://github.com/kendagriff/ruby-openid.git
+  revision: 79beaa419d4754e787757f2545331509419e222e
+  ref: 79beaa419d4754e787757f2545331509419e222e
+  specs:
+    ruby-openid (2.2.3)
+
+GIT
   remote: https://github.com/doublewide/data-migrate.git
   revision: 972cedae91e035578b0141b1ac28c2730b07fcdc
   specs:
@@ -361,7 +368,6 @@ GEM
       rspec-expectations (~> 2.13.0)
       rspec-mocks (~> 2.13.0)
     ruby-hmac (0.4.0)
-    ruby-openid (2.2.3)
     ruby-openid-apps-discovery (1.2.0)
       ruby-openid (>= 2.1.7)
     ruby-trello (0.6.0)
@@ -451,6 +457,7 @@ DEPENDENCIES
   rails_admin
   rb-fsevent (~> 0.9)
   rspec-rails
+  ruby-openid!
   sass-rails (~> 3.2.3)
   sqlite3
   thin
