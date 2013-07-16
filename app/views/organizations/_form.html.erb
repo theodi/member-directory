@@ -2,23 +2,23 @@
   
   <div class='span6'>
     <%= form_field f, :name do %>
-      <%= f.text_field :name, :class => 'input-xlarge', :required => 'required', 
+      <%= f.text_field :name, :class => 'input', :required => 'required', 
                        :'data-bind' => "value: name, valueUpdate: 'afterkeydown'" %>
     <% end %>
 
     <%= form_field f, :url do %>
-    	<%= f.url_field :url, :class => 'input-xlarge', :placeholder => 'http://your-homepage.com',
+    	<%= f.url_field :url, :class => 'input', :placeholder => 'http://your-homepage.com',
                       :'data-bind' => "value: url, valueUpdate: 'afterkeydown'" %>
     <% end %>
 
     <%= form_field f, :cached_tagline do %>
-      <%= f.text_field :cached_tagline, :class => 'input-large',
+      <%= f.text_field :cached_tagline, :class => 'input',
                        :'data-bind' => "value: tagline, valueUpdate: 'afterkeydown'" %>
     <% end %>
 
     <%= form_field f, :description do %>
     	<%= f.text_area :description, 
-                      :class => 'input-xlarge', 
+                      :class => 'input', 
                       :rows => '8', 
                       :maxlength => @member.organization.character_limit, 
                       :required => 'required', 
