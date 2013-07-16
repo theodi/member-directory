@@ -11,9 +11,19 @@ When /^I am set as a member in CapsuleCRM$/ do
   @email             = Faker::Internet.email
   @product_name      = 'partner'
   @newsletter        = false
+  @capsule_id        = 1234
+end
+
+When /^I am set as a member in CapsuleCRM without an email address$/ do
+  @active            = "true"
+  @email             = nil
+  @product_name      = 'partner'
+  @newsletter        = false
+  @capsule_id        = 1234
 end
 
 When /^my information is changed in CapsuleCRM$/ do
+  @capsule_id        = 1234
   @active            = "true"
   @email             = Faker::Internet.email
   @newsletter        = true
@@ -51,7 +61,7 @@ When /^the sync task runs$/ do
     'facebook'      => @facebook,
     'tagline'       => @tagline,
   }.compact
-  CapsuleObserver.update(membership, directory_entry)
+  CapsuleObserver.update(membership, directory_entry, @capsule_id)
 end
 
 Then /^a membership should be created for me$/ do
@@ -104,4 +114,14 @@ Then /^my membership number should be stored in CapsuleCRM$/ do
     args[1].should == @organization_name
     args[2].should == Member.where(:email => @email).first.membership_number
   end.once
+end
+
+Then /^a warning email should be sent to the commercial team$/ do
+  steps %Q{ 
+    Then "members@theodi.org" should receive an email
+    When they open the email
+    And they should see "Membership Number Error" in the email subject
+    And they should see "A membership contact email was not set for a party in CapsuleCRM." in the email body
+    And they should see "http://ukoditech.capsulecrm.com/party/#{@capsule_id}" in the email body
+  }
 end

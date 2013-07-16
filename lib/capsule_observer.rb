@@ -22,8 +22,9 @@ class CapsuleObserver
   #                 linkedin      => Linkedin URL
   #                 facebook      => Facebook URL
   #                 tagline       => Tagline
+  # capsule_id      - the identifier of the organisation in CapsuleCRM
   #
-  def self.update(membership, directory_entry)
+  def self.update(membership, directory_entry, capsule_id)
     # Is there a membership ID?
     if membership['id']
       # If so, update the data in the appropriate member
@@ -68,9 +69,14 @@ class CapsuleObserver
       # Generate a password reset token but don't sent straight away
       member.send :generate_reset_password_token
       # Save without validation
-      member.save(:validate => false)
-      # Send welcome email
-      CapsuleSignupMailer.confirmation(member).deliver
+      begin
+        member.save(:validate => false)
+        # Send welcome email
+        CapsuleSignupMailer.confirmation(member).deliver
+      rescue ActiveRecord::StatementInvalid
+        # Send error email
+        ErrorMailer.membership_number_generation_failed(capsule_id).deliver
+      end
     end
   end
   
