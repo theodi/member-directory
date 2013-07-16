@@ -11,9 +11,11 @@ When /^I am set as a member in CapsuleCRM$/ do
   @email             = Faker::Internet.email
   @product_name      = 'partner'
   @newsletter        = false
+  @capsule_id        = 1234
 end
 
 When /^my information is changed in CapsuleCRM$/ do
+  @capsule_id        = 1234
   @active            = "true"
   @email             = Faker::Internet.email
   @newsletter        = true
@@ -51,7 +53,7 @@ When /^the sync task runs$/ do
     'facebook'      => @facebook,
     'tagline'       => @tagline,
   }.compact
-  CapsuleObserver.update(membership, directory_entry)
+  CapsuleObserver.update(membership, directory_entry, @capsule_id)
 end
 
 Then /^a membership should be created for me$/ do

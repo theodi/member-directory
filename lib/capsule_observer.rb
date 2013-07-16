@@ -22,8 +22,9 @@ class CapsuleObserver
   #                 linkedin      => Linkedin URL
   #                 facebook      => Facebook URL
   #                 tagline       => Tagline
+  # capsule_id      - the identifier of the organisation in CapsuleCRM
   #
-  def self.update(membership, directory_entry)
+  def self.update(membership, directory_entry, capsule_id)
     # Is there a membership ID?
     if membership['id']
       # If so, update the data in the appropriate member
