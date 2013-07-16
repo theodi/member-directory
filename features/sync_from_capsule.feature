@@ -17,6 +17,13 @@ Feature: Sync from capsule
     When I follow "My account" in the email
     Then I should see "Set your password"
 
+  Scenario: Notify if membership creation fails
+    Given I am not currently a member
+    Then nothing should be placed on the signup queue
+    When I am set as a member in CapsuleCRM without an email address
+    And the sync task runs
+    Then a warning email should be sent to the commercial team
+
   Scenario: Update existing memberships
     Given I am already signed up
     Then nothing should be placed on the queue
