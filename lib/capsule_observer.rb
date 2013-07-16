@@ -69,9 +69,14 @@ class CapsuleObserver
       # Generate a password reset token but don't sent straight away
       member.send :generate_reset_password_token
       # Save without validation
-      member.save(:validate => false)
-      # Send welcome email
-      CapsuleSignupMailer.confirmation(member).deliver
+      begin
+        member.save(:validate => false)
+        # Send welcome email
+        CapsuleSignupMailer.confirmation(member).deliver
+      rescue ActiveRecord::StatementInvalid
+        # Send error email
+        ErrorMailer.membership_number_generation_failed(capsule_id).deliver
+      end
     end
   end
   
