@@ -6,7 +6,7 @@ source 'https://rubygems.org'
 gem 'rails', '~> 3.2.12'
 
 gem 'sqlite3'
-gem 'devise'
+gem 'devise', '~> 2.2.4'
 gem 'dotenv'
 gem 'fog', '~> 1.12.1'
 gem 'carrierwave'
