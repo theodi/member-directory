@@ -78,6 +78,7 @@ group :development, :test do
   gem 'timecop'
   gem 'email_spec'
   gem 'mailcatcher'
+  gem 'simplecov-rcov'
 end
 
 group :production do
