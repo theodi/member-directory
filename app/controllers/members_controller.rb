@@ -3,7 +3,7 @@ class MembersController < ApplicationController
 
   before_filter :get_member, :except => [:index]
 
-  before_filter(:only => [:index, :show]) {set_alternate_formats [:json]}
+  before_filter(:only => [:index, :show]) {alternate_formats [:json]}
 
   def index
     if params[:level]

@@ -76,7 +76,7 @@ describe MembersController do
       @request.accept = 'application/json'
       get 'show', :id => member.membership_number
       response.headers['Content-Type'].should include('application/json')
-      response.headers['Content-Location'].should == "http://test.host/members/#{member.membership_number}.json"
+      response.headers['Content-Location'].should == "/members/#{member.membership_number}.json"
     end
 
   end
