@@ -89,3 +89,7 @@
 .main-default i {
 	display: inline;
 }
+
+.honeypot {
+	display: none;
+}

@@ -36,4 +36,13 @@ Feature: Send a contact request
     | person_telephone      | Telephone Number |
     | person_job_title      | Job Title        |
     | comment_text          | Your Interest    |
-      
+    
+  Scenario: Enquirer tries to get in touch, but ticks the honeypot box
+  
+    Given that I want to sign up as a partner
+    When I visit the contact page
+    And I enter my request details
+    But I tick the honeypot box
+    Then my details should not be queued
+    When I click contact me
+    And I should see an error relating to Honeypot    
