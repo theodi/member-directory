@@ -57,6 +57,11 @@
   </div>
   
   <%= f.hidden_field :product_name, :value => @product_name %>
+  
+  <div class="honeypot">
+    <%= f.label "Do not tick this box (anti-spam)" %>
+    <%= f.check_box :honeypot, :value => 1 %>
+  </div>
 
   <div class="form-actions">
     <%= f.submit 'Contact me', :class => 'btn btn-primary btn-large' %>
