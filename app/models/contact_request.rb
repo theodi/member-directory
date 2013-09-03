@@ -13,6 +13,7 @@ class ContactRequest
   validates :person_job_title  , :presence => true
   validates :product_name      , :presence => true, :inclusion => %w{supporter member partner sponsor}
   validates :comment_text      , :presence => true
+  validates :honeypot          , :presence => true, :inclusion => { in: ["0"], message: "must not be ticked" }
 
   def initialize(attributes = {})
     attributes.each do |name, value|
