@@ -4,7 +4,7 @@ class ContactRequest
   extend ActiveModel::Translation
   extend ActiveModel::Naming
   
-  attr_accessor :person_name, :person_affiliation, :person_email, :person_telephone, :person_job_title, :product_name, :comment_text
+  attr_accessor :person_name, :person_affiliation, :person_email, :person_telephone, :person_job_title, :product_name, :comment_text, :honeypot
 
   validates :person_name       , :presence => true
   validates :person_affiliation, :presence => true
