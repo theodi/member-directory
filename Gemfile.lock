@@ -30,7 +30,7 @@ GIT
 
 GIT
   remote: https://github.com/theodi/open-orgn-services.git
-  revision: 20c65fe8b42ef47101ab1f3a65517355423eb561
+  revision: 8563e5b6b59b4fdc04843663d3e814064c008a56
   specs:
     open-orgn-services (0.0.0)
       activemodel (~> 3.2, >= 3.2.12)
@@ -360,7 +360,7 @@ GEM
     rest-client (1.6.7)
       mime-types (>= 1.16)
     rspec-core (2.14.5)
-    rspec-expectations (2.14.2)
+    rspec-expectations (2.14.3)
       diff-lcs (>= 1.1.3, < 2.0)
     rspec-mocks (2.14.3)
     rspec-rails (2.14.0)
