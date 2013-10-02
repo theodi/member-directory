@@ -30,7 +30,7 @@ GIT
 
 GIT
   remote: https://github.com/theodi/open-orgn-services.git
-  revision: 8563e5b6b59b4fdc04843663d3e814064c008a56
+  revision: 8a4fe6fd7c80b464e8caa6b4c1d6b56e16eee1dc
   specs:
     open-orgn-services (0.0.0)
       activemodel (~> 3.2, >= 3.2.12)
@@ -145,7 +145,7 @@ GEM
       tzinfo (~> 0.3.22)
     eventmachine (1.0.3)
     excon (0.23.0)
-    execjs (2.0.1)
+    execjs (2.0.2)
     factory_girl (4.2.0)
       activesupport (>= 3.0.0)
     factory_girl_rails (4.2.1)
@@ -347,7 +347,7 @@ GEM
     redis-namespace (1.3.1)
       redis (~> 3.0.0)
     remotipart (1.2.1)
-    resque (1.25.0)
+    resque (1.25.1)
       mono_logger (~> 1.0)
       multi_json (~> 1.0)
       redis-namespace (~> 1.2)
@@ -379,10 +379,10 @@ GEM
       json
       oauth (~> 0.4.5)
       rest-client (~> 1.6.7)
-    rufus-scheduler (2.0.24)
-      tzinfo (>= 0.3.22)
+    rufus-scheduler (3.0.0)
+      tzinfo
     safe_yaml (0.9.7)
-    sass (3.2.10)
+    sass (3.2.11)
     sass-rails (3.2.6)
       railties (~> 3.2.0)
       sass (>= 3.1.10)
