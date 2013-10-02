@@ -379,8 +379,8 @@ GEM
       json
       oauth (~> 0.4.5)
       rest-client (~> 1.6.7)
-    rufus-scheduler (3.0.0)
-      tzinfo
+    rufus-scheduler (2.0.24)
+      tzinfo (>= 0.3.22)
     safe_yaml (0.9.7)
     sass (3.2.11)
     sass-rails (3.2.6)
@@ -467,6 +467,7 @@ DEPENDENCIES
   rb-fsevent (~> 0.9)
   rspec-rails
   ruby-openid!
+  rufus-scheduler (< 3.0.0)
   sass-rails (~> 3.2.3)
   simplecov-rcov
   sqlite3
