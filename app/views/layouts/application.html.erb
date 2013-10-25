@@ -4,140 +4,147 @@
     <meta charset="utf-8">
     <title>ODI Member Directory</title>
     <%= alternate_auto_discovery_link_tags %>
-		  <link type="text/css" rel="stylesheet" href="http://theodi.org/sites/default/files/css/css_791YXBaKKm1ORM_7huSKEsIV9tSWq6wmRkERhuXpN6w.css" media="all" />
-		<link type="text/css" rel="stylesheet" href="http://theodi.org/sites/default/files/css/css_rSzZhtMhI5j0TwAO43SEtBTqkBprOiBJo8muqPQ0dI0.css" media="all" />
-		<link type="text/css" rel="stylesheet" href="http://theodi.org/sites/default/files/css/css_kKWVoh6LKHSOxBh_dVKdRCBpUARTX9RZG8ojal_Kyck.css" media="all" />
-		<link type="text/css" rel="stylesheet" href="http://theodi.org/sites/default/files/css/css_exNz2S0eQmB6-a8NARedhLvut3aLpX5EOPeJmTvLlQI.css" media="all" />
-		<%= stylesheet_link_tag    "application", :media => "all" %>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+		<link href="http://assets.theodi.org/css/odi-bootstrap.css" rel="stylesheet" />
+    <%= stylesheet_link_tag    "application", :media => "all" %>
     <%= javascript_include_tag "application" %>
     <%= csrf_meta_tags %>
     <%= favicon_link_tag 'favicon.ico' %>
   </head>
-	<body class="html not-front not-logged-in no-sidebars page-node page-node- page-node-306 node-type-page section-join-us" >
-				<div class="header-bg"></div>
-				<div id="page" class="container">
+  <body data-spy="scroll" data-target="#mainnav">
 
-				  <header id="header" role="banner">
-				    <div class="branding">
-				              <a href="http://theodi.org/" title="Home" rel="home" id="logo">
-
-				          <img src="http://theodi.org/sites/default/files/odi_header_logo.svg" alt="Home" class="b_svg" width="204" height ="48">
-				          <img src="http://theodi.org/sites/default/files/odi_header_logo.png" alt="Home" class="b_png" width="204" height ="48">        </a>
-
-				              <hgroup id="name-and-slogan">
-													<h2 id="site-slogan">Knowledge for everyone</h2>
-													<div class="btn-group" style="
-											    position: absolute;
-											    right: 5px;
-											    top: 67px;
-											    z-index: 500;">
-														<% if current_member %>
-							                <%= link_to "My Account", member_path(current_member), :class => 'btn btn-small btn-link' %>
-							                <%= link_to "Sign out", member_session_path, :method => :delete, :class => 'btn btn-small btn-link' %>
-														<% elsif current_admin %>
-							                <%= link_to "ADMIN MODE: Sign out", member_session_path, :method => :delete, :class => 'btn btn-small btn-link' %>
-							              <% else %>
-							                <%= link_to "Member sign in", new_member_session_path, :class => 'btn btn-small btn-link' %>
-							              <% end %>
-													</div>
-				              </hgroup>
-				          </div>
-
-				    <div id="main-menu-navbar" class="navbar navbar-inverse">
-				      <div class="navbar-inner">
-				                  <nav id="main-menu" role="navigation" class="container">
-				            <h2 class="element-invisible">Main menu</h2><ul class="links inline clearfix nav"><li class="menu-357 first"><a href="http://theodi.org/about">About</a></li>
-				<li class="menu-904 active-trail active"><a href="http://theodi.org/join-us" title="" class="active-trail active">Our Community</a></li>
-				<li class="menu-536"><a href="http://theodi.org/training" title="">Training</a></li>
-				<li class="menu-850"><a href="http://theodi.org/library" title="">Library</a></li>
-				<li class="menu-726"><a href="http://theodi.org/culture">Culture</a></li>
-				<li class="menu-502"><a href="http://theodi.org/news" title="">News</a></li>
-				<li class="menu-356 last"><a href="http://theodi.org/contact">Contact</a></li>
-				</ul>          </nav>
-				          <div id="main-menu-pointer" class="to-subnav"></div>
-				              </div>
-				    </div>
-				          <div id="secondary-menu-navbar" class="navbar">
-				        <div class="navbar-inner">
-				          <nav id="sub-menu" role="navigation" class="container">
-				            <h2 class="element-invisible">Main menu</h2><ul class="links inline clearfix nav nav-pills"><li class="menu-970 first"><a href="http://theodi.org/join-us">Join Us</a></li>
-				<li class="menu-905 active active-trail "><a href="http://directory.theodi.org/members" class="active-trail active" title="">Members</a></li>
-				<li class="menu-906"><a href="http://theodi.org/start-up" title="">Startups</a></li>
-				<li class="menu-914"><a href="http://theodi.org/events/immersion-programme">Immersion Programme</a></li>
-				<li class="menu-644"><a href="http://theodi.org/events" title="">Upcoming Events</a></li>
-				<li class="menu-645"><a href="http://theodi.org/calendar" title="">Calendar</a></li>
-				<li class="menu-854 last"><a href="http://theodi.org/events/gallery" title="">Gallery</a></li>
-				</ul>          </nav>
-				        </div>
-				      </div>
-
-
-				      <div class="region region-header">
-				    <div id="block-system-user-menu" class="block block-system block-menu first last odd" role="navigation">
-
-				        <h2 class="block-title">User menu</h2>
-
-
-				</div><!-- /.block -->
-				  </div><!-- /.region -->
-
-				  </header>
-				
-				
-				  <div id="main" class="row-fluid">
-
-
-
-				    <div id="content" class="column span12" role="main">
-					
-				            <a id="main-content"></a>
-										
-										<h1 class="title" id="page-title"><%= @title || "Members"%></h1>
-										
-										<article>
-											<% if notice %><div class="alert alert-info"><%= notice %></div><% end %>
-	    								<% if alert %><div class="alert alert-error"><%= alert %></div><% end %>
-											
-     												<%= yield %>
-											</div>
-										</article><!-- /.node -->
-										<!-- block__no_wrapper -->
-										<!-- region__no_wrapper -->
-					 </div>
-
-				  <div id="navigation">
-				      </div>
-
-				  <div class="row-fluid footer-container">
-				    <div class="span12">
-				        <footer id="footer" class="region region-footer">
-				    <div id="block-menu-menu-footer-menu" class="block block-menu first odd" role="navigation">
-
-
-				  <ul class="menu"><li class="first leaf"><a href="http://theodi.org/privacy-policy" title="">Privacy Policy</a></li>
-				<li class="leaf"><a href="http://theodi.org/terms-of-use" title="">Terms of Use</a></li>
-				<li class="leaf"><a href="http://theodi.org/cookie-policy" title="">Cookie Policy</a></li>
-				<li class="last leaf"><a href="http://theodi.org/feedback" title="">Feedback</a></li>
-				<% unless current_admin %>
-        <li class="last leaf"><%= link_to 'Administration', admin_omniauth_authorize_path(:google_apps) %></li>
-        <% end %>
-
-				</ul>
-				</div><!-- /.block -->
-				<div id="block-block-2" class="block block-block licence last even">
-
-
-				  <p><a href="http://creativecommons.org/licenses/by/2.0/uk/deed.en_GB" rel="license"><img alt="Creative Commons Licence" src="http://i.creativecommons.org/l/by/2.0/uk/80x15.png" style="border-width:0" /></a> <a href="http://www.theodi.org">Open Data Institute</a><span style="color: rgb(14, 34, 51); font-family: 'Open Sans', arial, sans-serif; font-size: 14px; line-height: 23px;">&trade;</span> &middot; <a href="http://www.openstreetmap.org/?lat=51.522205&amp;lon=-0.08176500000001852&amp;zoom=16&amp;layers=T&amp;mlat=51.52210&amp;mlon=-0.08343">65 Clifton Street, London EC2A 4JE</a> &middot; <a href="mailto:info@theodi.org">info@theodi.org</a> &middot; Company <a href="http://opencorporates.com/companies/gb/08030289">08030289</a> &middot; VAT 143 7796 80</p>
-
-				</div><!-- /.block -->
-				  </footer><!-- region__footer -->
-				    </div>
-				    <!--<div class="qr-code span2 hidden-phone"></div>-->
-				  </div>
+		<nav>
+			<div class='navbar navbar-inverse navbar-static-top' id='topbar'>
+				<div class='container'>
+					<div class='navbar-inner'>
+						<a class='brand' href='http://theodi.org/'>
+							<img alt="Logo" src="http://assets.theodi.org/img/logo-footer.png" />
+						</a>
+							<ul class="nav pull-right">
+							    <li><a href="http://theodi.org/contact">Contact us</a></li>
+  							<% if current_member %>
+                  <li><%= link_to "My Account", member_path(current_member) %></li>
+                  <li><%= link_to "Sign out", member_session_path, :method => :delete %></li>
+  							<% elsif current_admin %>
+                  <li><%= link_to "ADMIN MODE: Sign out", member_session_path, :method => :delete %></li>
+                <% else %>
+                  <li><%= link_to "Sign in", new_member_session_path %></li>
+                <% end %>
+      			</ul>
+					</div>
 				</div>
-				<div class="footer-bg"></div>
+			</div>
+			
+
+    <div class="navbar navbar-static-top" id="mainnav">
+				<div class="container">
+					<div class="navbar-inner">
+					  <ul class="nav navbar-nav main-nav pull-right">
+                  <li class="dropdown">
+                      <a href="http://theodi.org/about">
+                          About
+                           <b class="caret"></b>
+                       </a>
+                          <ul class="dropdown-menu">
+                                  <li><a href="http://theodi.org/about-us">About the ODI</a></li>
+                                  <li><a href="http://theodi.org/team">People</a></li>
+                                  <li><a href="http://theodi.org/jobs">Jobs</a></li>
+                                  <li><a href="http://theodi.org/procurement">Procurement</a></li>
+                                  <li><a href="http://theodi.org/culture">Data as culture</a></li>
+                                  <li><a href="http://theodi.org/space">Space</a></li>
+                                  <li><a href="http://theodi.org/faq">FAQ</a></li>
+                                  <li><a href="http://dashboards.theodi.org/">Dashboards</a></li>
+                          </ul>
+                  </li>
+                  <li class="dropdown">
+                      <a href="http://theodi.org/get-involved">
+                          Get involved
+                           <b class="caret"></b>
+                       </a>
+                          <ul class="dropdown-menu">
+                                  <li><a href="http://theodi.org/join-us">Membership</a></li>
+                                  <li><a href="http://directory.theodi.org/members">Our members</a></li>
+                                  <li><a href="http://theodi.org/start-ups">Start-ups</a></li>
+                                  <li><a href="https://certificates.theodi.org/">Open Data Certificates</a></li>
+                                  <li><a href="http://theodi.org/nodes">Nodes</a></li>
+                                  <li><a href="http://theodi.org/challenge-series">Challenge series</a></li>
+                                  <li><a href="http://theodi.org/consultation-responses">Consultation responses</a></li>
+                          </ul>
+                  </li>
+                  <li class="dropdown">
+                      <a href="http://theodi.org/learning">
+                          Learning
+                           <b class="caret"></b>
+                       </a>
+                          <ul class="dropdown-menu">
+                                  <li><a href="http://theodi.org/courses">Courses</a></li>
+                                  <li><a href="http://theodi.org/lunchtime-lectures">Friday lunchtime lectures</a></li>
+                                  <li><a href="http://theodi.org/guides">Guides</a></li>
+                                  <li><a href="http://theodi.org/case-studies">Case studies</a></li>
+                          </ul>
+                  </li>
+                  <li class="dropdown">
+                      <a href="http://theodi.org/events">
+                          What's happening
+                       </a>
+                  </li>
+                  <li class="dropdown last">
+                      <a href="http://theodi.org/news">
+                          News
+                           <b class="caret"></b>
+                       </a>
+                          <ul class="dropdown-menu">
+                                  <li><a href="http://theodi.org/newsroom">Newsroom</a></li>
+                          </ul>
+                  </li>
+            </ul>
 				</div>
-				<!-- ie fix https://github.com/empowering-communities/Bootstrap-IE6 -->
-				<script type="text/javascript"> jQuery(function($){if($.browser.msie&&parseInt($.browser.version,10)===6){$('.row div[class^="span"]:last-child').addClass("last-child");$('[class="span"]').addClass("margin-left-20");$(':button[class="btn"], :reset[class="btn"], :submit[class="btn"], input[type="button"]').addClass("button-reset");$(":checkbox").addClass("input-checkbox");$('[class^="icon-"], [class=" icon-"]').addClass("icon-sprite");$(".pagination li:first-child a").addClass("pagination-first-child")}}) </script>
-</body>
-</html>
+			</div>
+		</div>
+    </nav>
+
+	<div class="whiteout">
+	<section>
+		<header>
+				<div class="container">
+					<h1><%= @title || "Members"%></h1>
+				</div>
+		</header>
+
+		<div class='container main-default' id='main'>
+			
+			<% if notice %><div class="alert alert-info"><%= notice %></div><% end %>
+	    <% if alert %><div class="alert alert-error"><%= alert %></div><% end %>
+
+     <%= yield %>
+		</div>
+  </section>
+	</div>
+
+
+			<footer id='footer'>
+				<div class='container'>
+					<div class='span8 footer-content'>
+						<h1><a href='http://www.theodi.org'>Open Data Institute</a></h1>
+						<p> <a href='http://www.openstreetmap.org/?lat=51.522205&amp;lon=-0.08176500000001852&amp;zoom=16&amp;layers=T&amp;mlat=51.52210&amp;mlon=-0.08343'>Open Data Institute</a><span>, 65 Clifton Street, London EC2A 4JE</span></p>
+						<p><a href='mailto:info@theodi.org'>info@theodi.org</a> · Company <a href='http://opencorporates.com/companies/gb/08030289'>08030289</a>	· <span>VAT</span> <span>143 7796 80</span></p>
+						<p class='license'><a href='http://creativecommons.org/licenses/by-sa/2.0/uk/deed.en_GB' rel='license'><img alt="Creative Commons Licence" height="15" src="http://theodi.github.io/p2p/img/logo_cc_80x15.png" width="80" /></a></p>
+					</div>
+					<div class='span4 footer-nav'>
+						<nav>
+							<ul class='pull-right'>
+		    				<li><a href="http://theodi.org/terms-of-use">Terms of Use</a></li>
+		    				<li><a href="http://theodi.org/privacy-policy">Privacy Policy</a></li>
+		    				<li><a href="http://theodi.org/cookie-policy">Cookie Policy</a></li>
+                <% unless current_admin %>
+                  <li><%= link_to 'Administration', admin_omniauth_authorize_path(:google_apps) %></li>
+                <% end %>
+
+							</ul>
+						</nav>
+					</div>
+				</div>
+			</footer>
+
+	  </body>
+	</html>
