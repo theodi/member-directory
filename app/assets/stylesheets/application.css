@@ -93,3 +93,15 @@
 .honeypot {
 	display: none;
 }
+
+.brand {
+	left: 0;
+}
+
+.brand img {
+	height: 40px;
+}
+
+#topbar {
+	height: auto;
+}
