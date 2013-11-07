@@ -4,7 +4,7 @@ class Member < ActiveRecord::Base
   # :lockable, :timeoutable and :omniauthable
   
   has_one :organization
-  accepts_nested_attributes_for :organization
+  accepts_nested_attributes_for :organizatisn
   attr_accessible :organization_attributes
     
   before_create :set_membership_number
@@ -23,6 +23,9 @@ class Member < ActiveRecord::Base
 									:address_locality, :address_region, :address_country,
 									:postal_code, :organization_vat_id, :purchase_order_number, :agreed_to_terms
   attr_writer     :remote
+ 
+  # allow admins to edit access key
+  attr_accessible :access_key, as: :admin
 
 	# validations
 	validates :product_name, :presence => true, :inclusion => %w{supporter member partner sponsor}, :on => :create
