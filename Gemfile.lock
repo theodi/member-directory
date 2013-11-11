@@ -469,6 +469,7 @@ DEPENDENCIES
   rb-fsevent (~> 0.9)
   rspec-rails
   ruby-openid!
+  rufus-scheduler (< 3.0.0)
   sass-rails (~> 3.2.3)
   simplecov-rcov
   sqlite3
