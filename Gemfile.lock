@@ -30,7 +30,7 @@ GIT
 
 GIT
   remote: https://github.com/theodi/open-orgn-services.git
-  revision: 6c33a33950912283479d1422c4755b7608af252c
+  revision: 0cfd3c4ec563277ee953f515fbb8752909853955
   specs:
     open-orgn-services (0.0.0)
       activemodel (~> 3.2, >= 3.2.12)
@@ -346,7 +346,7 @@ GEM
     rdoc (3.12.2)
       json (~> 1.4)
     redis (3.0.6)
-    redis-namespace (1.3.2)
+    redis-namespace (1.4.1)
       redis (~> 3.0.4)
     remotipart (1.2.1)
     resque (1.25.1)
