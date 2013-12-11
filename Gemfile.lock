@@ -21,7 +21,7 @@ GIT
 
 GIT
   remote: https://github.com/theodi/capsulecrm.git
-  revision: b0cb7a9f167d8cd7bd7f79fd3d7bb4f7363a8391
+  revision: ac8548b3e659dd5f6c32455229c5c3ce8f7e40c9
   specs:
     capsulecrm (0.0.4)
       activemodel (>= 3.0.5)
@@ -30,7 +30,7 @@ GIT
 
 GIT
   remote: https://github.com/theodi/open-orgn-services.git
-  revision: 0cfd3c4ec563277ee953f515fbb8752909853955
+  revision: 3858c4a8dc63100ca23a5b420d5f62e6918aa803
   specs:
     open-orgn-services (0.0.0)
       activemodel (~> 3.2, >= 3.2.12)
@@ -228,7 +228,7 @@ GEM
       json
       rake
     libxml-ruby (2.2.2)
-    listen (2.3.1)
+    listen (2.4.0)
       celluloid (>= 0.15.2)
       rb-fsevent (>= 0.9.3)
       rb-inotify (>= 0.9)
@@ -291,7 +291,7 @@ GEM
       coderay (~> 1.0)
       method_source (~> 0.8)
       slop (~> 3.4)
-    rabl (0.9.2)
+    rabl (0.9.3)
       activesupport (>= 2.3.14)
     rack (1.4.5)
     rack-cache (1.2)
