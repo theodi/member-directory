@@ -65,3 +65,14 @@ Feature: Add new signups to queue
     Then my details should not be queued
     When I click sign up
     And I should see an error relating to Organisation Name
+
+  Scenario: Strip spaces from organisation names
+
+    Given that I want to sign up as a supporter
+    When I visit the signup page
+    And I enter my details
+    And my organisation name is "Doge Enterprises Inc. "
+    Then my details should be queued for further processing
+    When I click sign up
+    And I should have a membership number generated
+    And my organisation name should be "Doge Enterprises Inc."
