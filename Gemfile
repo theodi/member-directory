@@ -76,7 +76,7 @@ group :development, :test do
   gem 'factory_girl_rails'
   gem 'faker'
   gem 'timecop'
-  gem 'email_spec'
+  gem 'email_spec', require: false
   gem 'mailcatcher'
   gem 'simplecov-rcov'
 end
