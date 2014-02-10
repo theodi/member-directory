@@ -79,6 +79,7 @@ group :development, :test do
   gem 'email_spec', require: false
   gem 'mailcatcher'
   gem 'simplecov-rcov'
+  gem 'travis'
 end
 
 group :production do
