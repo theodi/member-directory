@@ -14,8 +14,8 @@ Feature: Adding details to the organization directory
     And I should see my changed details when I revisit the edit page
     
   Scenario: Successful image upload
-		Given that I have signed up as a member
-		Then I am redirected to submit my organization details
+		Given I have a sponsor account
+		And I visit my account page
 		And I enter my organization details
     And I attach an image
     Then my organisation details should be queued for further processing 
@@ -83,10 +83,10 @@ Feature: Adding details to the organization directory
 		And I cannot see a logo upload
 		And the description field is limited to 500 characters
 
-	Scenario: Member can upload images
+	Scenario: Sponsor can upload images
 		
-		Given that I have signed up as a member
-		Then I am redirected to submit my organization details
+		Given I have a sponsor account
+		And I visit my account page
 		And I can see a logo upload
 		And the description field is limited to 1000 characters
 	
@@ -100,19 +100,19 @@ Feature: Adding details to the organization directory
 		When I click submit
 		And I should see an error telling me that my description should not be longer than 500 characters
 
-	Scenario: Member tries to enter more than 1000 characters
+	Scenario: Sponsor tries to enter more than 1000 characters
 		
-		Given that I have signed up as a member
-		Then I am redirected to submit my organization details
+		Given I have a sponsor account
+		And I visit my account page
 		And I enter my organization details
 		And my description is 1035 characters long
     Then my organisation details should not be queued for further processing 
     When I click submit
 		And I should see an error telling me that my description should not be longer than 1000 characters
 
-  Scenario: Member updates their contact details
+  Scenario: Supporter updates their contact details
   
-    Given that I have signed up as a member
+    Given that I have signed up as a supporter
 		Then I am redirected to submit my organization details
 		And I enter my organization details
 		And I update my membership details

@@ -15,7 +15,6 @@ Feature: Add new signups to queue
     Examples:
       | product_name |
       | supporter    |
-      | member       |
 
 	Scenario Outline: Member tries to sign up, but misses a mandatory field
 

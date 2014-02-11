@@ -11,9 +11,7 @@ module DeviseHelper
   def annual_product_price
     case product_name
     when 'supporter'
-      "&pound;540".html_safe
-    when 'member'
-      "&pound;4,800".html_safe
+      "&pound;720".html_safe
     when 'sponsor'
       "&pound;25,000".html_safe      
     when 'partner'
