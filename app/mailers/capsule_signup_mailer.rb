@@ -1,5 +1,4 @@
 class CapsuleSignupMailer < ActionMailer::Base
-  default from: "richard.stirling@theodi.org"
   default bcc: "members@theodi.org"
 
   add_template_helper(ApplicationHelper)
