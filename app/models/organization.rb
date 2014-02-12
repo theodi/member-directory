@@ -29,10 +29,6 @@ class Organization < ActiveRecord::Base
     @remote || false
   end
 
-  def member?
-    self.member.product_name == "member"
-  end
-
   def supporter?
     self.member.product_name == "supporter"
   end
