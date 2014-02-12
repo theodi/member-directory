@@ -81,7 +81,7 @@ Then /^I enter the organization name '(.*?)'$/ do |org_name|
 end
 
 When /^I click submit$/ do
-  fill_in("member_current_password", :with => 'p4ssw0rd')
+  fill_in("member_current_password", :with => @password || 'p4ssw0rd')
   click_button('Save')
 end
 

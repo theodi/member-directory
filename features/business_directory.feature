@@ -112,8 +112,8 @@ Feature: Adding details to the organization directory
 
   Scenario: Supporter updates their contact details
   
-    Given that I have signed up as a supporter
-		Then I am redirected to submit my organization details
+		Given I have a sponsor account
+		And I visit my account page
 		And I enter my organization details
 		And I update my membership details
     Then my membership details should be queued for updating in CapsuleCRM
