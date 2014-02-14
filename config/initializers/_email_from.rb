@@ -1,2 +1,2 @@
-DEFAULT_SEND_EMAIL = 'georgia.phillips@theodi.org'
+DEFAULT_SEND_EMAIL = 'members@theodi.org'
 ActionMailer::Base.default :from => DEFAULT_SEND_EMAIL
