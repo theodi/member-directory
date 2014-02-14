@@ -54,7 +54,7 @@ en:
         comment_text: "Your Interest"
   capsule_signup_mailer:
     confirmation:
-      subject: "Your ODI membership account details"
+      subject: "Welcome to the ODI community!"
   error_mailer:
     membership_number_generation_failed:
       subject: "Membership Number Error"
