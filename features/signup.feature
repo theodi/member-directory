@@ -11,6 +11,7 @@ Feature: Add new signups to queue
     Then my details should be queued for further processing
     When I click sign up
     And I should have a membership number generated
+    And a welcome email should be sent to me
 
     Examples:
       | product_name |
