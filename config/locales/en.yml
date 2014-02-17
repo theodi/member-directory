@@ -3,7 +3,6 @@
 
 en:
   agreed_to_terms: I have read and agree to the terms and conditions of membership
-  email_signoff: Georgia
   formats:
     json: JSON
   activerecord:
