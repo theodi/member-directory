@@ -13,8 +13,9 @@ Feature: Sync from capsule
     And that membership should have a confirmed email address
     And that membership should not be shown in the directory
     And a welcome email should be sent to me
+    And I should not see "Welcome Pack" in the email body
     And my details should be cached correctly
-    When I follow "My account" in the email
+    When I follow "here" in the email
     Then I should see "Set your password"
 
   Scenario: Notify if membership creation fails

@@ -12,6 +12,7 @@ Feature: Add new signups to queue
     When I click sign up
     And I should have a membership number generated
     And a welcome email should be sent to me
+    And I should see "Welcome Pack" in the email body
 
     Examples:
       | product_name |
