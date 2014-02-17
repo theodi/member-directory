@@ -1,19 +1,31 @@
 <p><%= greeting(@member) %>,</p>
 
-<p>We are delighted to have you join us at the Open Data Institute.</p>
+<p>We are delighted to have you join the Open Data Institute membership community. Thank you for supporting us!</p>
 
-<p>We run a free to attend lecture series every Friday highlighting some of the awe inspiring work going on using Open Data - everything from data as art, through to the CTO of the World Bank giving a 'fireside chat' about his experience at the White House. You can register for upcoming talks here: <a href="http://www.theodi.org/lunchtime-lectures">http://www.theodi.org/lunchtime-lectures</a></p>
+<p>- Your membership number is <strong><%= @member.membership_number %></strong>.</p>
 
-<p>Your membership number is <strong><%= @member.membership_number %></strong>. You will need this to log in.</p>
+<p>- To activate your account click <%= link_to 'here', edit_password_url(@member, :reset_password_token => @member.reset_password_token) %> and enter your company profile for the Member Directory.</p>
 
-<p>You can set up your account password and change your details through the link below:</p>
+<p>- We are drawing up your invoice and it will be sent to you shortly.</p>
 
-<p><%= link_to 'My account', edit_password_url(@member, :reset_password_token => @member.reset_password_token) %></p>
+<p>- You will receive our monthly membership newsletter (let us know if you want to add any colleagues to the mailing list) and invites to the bi-annual ODI Connect member networking events and the annual Summit.</p>
 
-<p>Welcome again to the ODI community!</p>
+<p>We also run a free to attend lecture series every Friday highlighting some of the awe inspiring work going on using Open Data - everything from data as art, through to the CTO of the World Bank giving a 'fireside chat' about his experience at the White House. You can register for upcoming talks <a href="http://www.theodi.org/lunchtime-lectures">here</a>.</p>
 
-<p>Regards</p>
+<p>Please do get in touch with the team (details below) if you have any questions or suggestions.</p>
 
-<img src="http://directory.theodi.org/assets/signature.png" alt="" />
+<p>Best wishes,</p>
 
-<p>Richard</p>
+<p>
+  Stuart, Georgia, Carl and Andrea
+  <br/>
+  The ODI Membership team
+</p>
+
+<p>
+  <%= mail_to 'stuart.coleman@theodi.org', 'Stuart Coleman' %> Commercial Director<br/>
+  <%= mail_to 'georgia.phillips@theodi.org', 'Georgia Phillips' %> For Partner / Sponsor queries<br/>
+  <%= mail_to 'carl.rodrigues@theodi.org', 'Carl Rodrigues' %> For new Supporter queries<br/>
+  <%= mail_to 'andrea.cox@theodi.org', 'Andrea Cox' %> For membership community, events and newsletter<br/>
+  <%= mail_to 'members@theodi.org', 'Membership' %> For general queries<br/>
+</p>
