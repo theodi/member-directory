@@ -14,7 +14,7 @@ GIT
 
 GIT
   remote: https://github.com/theodi/alternate-rails.git
-  revision: b5e1fcc893c39b4dc8f6aeaea98215cc8928fd9a
+  revision: 188889d66c5df1d7d13f7c6e53e8088e3503dea1
   specs:
     alternate_rails (0.0.1)
       rails (~> 3.2.13)
@@ -30,7 +30,7 @@ GIT
 
 GIT
   remote: https://github.com/theodi/open-orgn-services.git
-  revision: ba7371c3a4fd70c9b27880c411fe33d7b97205c9
+  revision: d7eb9ae1adea23238c03bbd5218d7836e0cf40d1
   specs:
     open-orgn-services (0.0.0)
       activemodel (~> 3.2, >= 3.2.12)
