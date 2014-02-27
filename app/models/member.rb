@@ -17,11 +17,11 @@ class Member < ActiveRecord::Base
   attr_accessible :email, :password, :password_confirmation, :remember_me, :product_name, :cached_newsletter
   attr_accessible :organization_name, :contact_name, :telephone, :street_address,
 									:address_locality, :address_region, :address_country,
-									:postal_code, :organization_vat_id, :purchase_order_number, :agreed_to_terms,
+									:postal_code, :organization_vat_id, :organization_company_number, :purchase_order_number, :agreed_to_terms,
                   :remote
   attr_accessor   :organization_name, :contact_name, :telephone, :street_address,
 									:address_locality, :address_region, :address_country,
-									:postal_code, :organization_vat_id, :purchase_order_number, :agreed_to_terms
+									:postal_code, :organization_vat_id, :organization_company_number, :purchase_order_number, :agreed_to_terms
   attr_writer     :remote
  
   # allow admins to edit access key
@@ -80,7 +80,7 @@ class Member < ActiveRecord::Base
     
     # construct hashes for signup processor
     # some of the naming of purchase order and membership id needs updating for consistency
-    organization    = {'name' => organization_name, 'vat_id' => organization_vat_id}
+    organization    = {'name' => organization_name, 'vat_id' => organization_vat_id, 'company_number' => organization_company_number}
     contact_person  = {'name' => contact_name, 'email' => email, 'telephone' => telephone}
     billing         = {
                         'name' => contact_name,
