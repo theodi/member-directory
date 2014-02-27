@@ -362,6 +362,7 @@ GEM
     rb-fsevent (0.9.4)
     rb-inotify (0.9.3)
       ffi (>= 0.5.0)
+    rdiscount (2.1.7)
     rdoc (3.12.2)
       json (~> 1.4)
     redis (3.0.7)
@@ -501,6 +502,7 @@ DEPENDENCIES
   rails (~> 3.2.12)
   rails_admin
   rb-fsevent (~> 0.9)
+  rdiscount
   rspec-rails
   ruby-openid!
   sass-rails (~> 3.2.3)
