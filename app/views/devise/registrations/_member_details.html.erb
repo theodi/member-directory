@@ -83,6 +83,13 @@
   <legend>Financial information</legend>
     
   <div class="control-group">
+  	<%= f.label :organization_company_number, :class => 'control-label' %>
+  	<div class="controls">
+  		<%= f.text_field :organization_company_number %>
+  	</div>
+  </div>
+
+  <div class="control-group">
   	<%= f.label :organization_vat_id, :class => 'control-label' %>
   	<div class="controls">
   		<%= f.text_field :organization_vat_id %>
