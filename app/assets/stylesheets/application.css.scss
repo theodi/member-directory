@@ -23,11 +23,9 @@
  }
 
  #terms ol li ol li {
-   list-style-type: lower-alpha;
  }
  
  #terms ol li ol li ol li {
-   list-style-type: lower-roman;
  }
  
  #terms h5 {
@@ -104,4 +102,56 @@
 
 #topbar {
 	height: auto;
+}
+
+#terms {
+  
+  /* Copy of bootstrap .table & .table-striped styles. Would love a better way to do this. */
+  table {
+    tbody tr:nth-child(odd) > td,
+    tbody tr:nth-child(odd) > th {
+      background-color: #f9f9f9;
+    }
+
+    width: 90%;
+    margin-bottom: 20px;
+    margin-left: 50px;
+    border: 1px solid #dddddd;
+
+    th,
+    td {
+      padding: 8px;
+      line-height: 20px;
+      text-align: left;
+      vertical-align: top;
+      border-top: 1px solid #dddddd;
+    }
+
+    th {
+      font-weight: bold;
+    }
+
+    thead th {
+      vertical-align: bottom;
+    }
+  
+  }
+
+  ol {
+    counter-reset: section;
+    list-style-type: none;
+    
+    li { 
+      counter-increment: section; 
+      
+      p {
+        display: inline-block;
+      }
+    }
+    
+    li:before  { 
+      content: counters(section, ".") ". "; 
+    }  
+  }
+		  
 }

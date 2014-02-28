@@ -146,3 +146,7 @@ end
 Then (/^my organisation name should be "(.*?)"$/) do |org_name|
   @member.organization.name.should == org_name
 end
+
+Then(/^I should see today's date$/) do
+  page.body.should include(Date.today.to_formatted_s(:long_ordinal))
+end
