@@ -103,3 +103,24 @@
 #topbar {
 	height: auto;
 }
+
+#terms {
+  
+  ol {
+    counter-reset: section;
+    list-style-type: none;
+    
+    li { 
+      counter-increment: section; 
+      
+      p {
+        display: inline-block;
+      }
+    }
+    
+    li:before  { 
+      content: counters(section, ".") ". "; 
+    }  
+  }
+		  
+}
