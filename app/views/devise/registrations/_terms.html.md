@@ -1,5 +1,5 @@
 1. Introduction
-    1. This Agreement is made between <span id='legal-name'>(name)</span> (“You” or “Your”) and the ODI and will govern the ODI’s relationship with you whilst you are a <%= @product_name.capitalize %> of the ODI. 
+    1. This Agreement is made between <span class='legal-name'>(name)</span> (“You” or “Your”) and the ODI and will govern the ODI’s relationship with you whilst you are a <%= @product_name %> of the ODI. 
 
 
 2. Definitions
@@ -12,9 +12,9 @@
 	| Confidential Information | means all information marked as confidential, however recorded or preserved, disclosed by a party or its employees, officers, representatives or advisors, to the other party during the Term |
 	| ODI | means the Open Data Institute, a company registered in England and Wales with company number 08030289 and whose registered office is First Floor, St James’ House, St James’ Square, Cheltenham, GL50 3PR |
 	| Subscription Fee | <%= annual_product_price %> |
-	| <%= @product_name.capitalize %> | means a category of membership to the ODI |
+	| <%= @product_name %> | means a category of membership to the ODI |
 	| Term | means the term of this Agreement, commencing on the Effective Date and expiring on the End Date (inclusive) |
-	| You/Your | means <span id='legal-name'>(name)</span> <span id='company-details'>being a company registered in England and Wales with company number <span id='company-number'>(company number)</span> and whose registered office is <span id='address'>(address)</span></span><span id='individual-details'> of <span id='address'>(address)</span> |
+	| You/Your | means <span class='legal-name'>(name)</span> <span id='company-details' style='display:none'>being a company registered in England and Wales with company number <span id='company-number'>(company number)</span> and whose registered office is <span class='legal-address'>(address)</span></span><span id='individual-details'> of <span class='legal-address'>(address)</span> |
     | VAT | means value added tax chargeable under the Value Added Tax Act 1994 |
 	
 
@@ -23,15 +23,15 @@
 
 
 4. Membership Fee
-    1. You shall pay the Subscription Fee to the ODI for each year you are a <%= @product_name.capitalize %>.  VAT will be added to the Subscription Fee, where appropriate.
+    1. You shall pay the Subscription Fee to the ODI for each year you are a <%= @product_name %>.  VAT will be added to the Subscription Fee, where appropriate.
     2. You may pay the Subscription Fee annually in advance or in equal monthly instalments.  The ODI will invoice you the Subscription Fee within 5 days of the Effective Date and each anniversary thereafter.  In the event you pay the Subscription Fee in advance, you will pay the Subscription Fee within 14 days of the date of invoice.  In the event you pay the Subscription Fee in monthly instalments, you will pay the first instalment within 14 days of the date of invoice and, thereafter, within 14 days  of the date of subsequent invoices.
-    3. The ODI reserves the right to increase the Subscription Fee.  In the event of an increase, you are under no obligation to continue being a <%= @product_name.capitalize %> of the ODI.  Upon receipt of notice from the ODI regarding any increase in the Subscription Fee, you may terminate this Agreement within 30 days of the date of that notice.  In the event of termination under this clause, you shall be liable for the payment of the Subscription Fee, on a proportionate basis, up to the End Date, being the date written notice to terminate is received by the ODI from you. 
+    3. The ODI reserves the right to increase the Subscription Fee.  In the event of an increase, you are under no obligation to continue being a <%= @product_name %> of the ODI.  Upon receipt of notice from the ODI regarding any increase in the Subscription Fee, you may terminate this Agreement within 30 days of the date of that notice.  In the event of termination under this clause, you shall be liable for the payment of the Subscription Fee, on a proportionate basis, up to the End Date, being the date written notice to terminate is received by the ODI from you. 
 
 
 5. Your Entitlements
     1.  During the Term, You will be entitled to:
-        1. send 1 attendee to the ODI’s “Annual Summit” conference for free, provided that such an attendee is a member of your board of directors or is your employee or sub-contractor.  If you are an individual <%= @product_name.capitalize %> (as opposed to a company), you may attend the Annual Summit in person but are not allowed to send a representative on your behalf. 
-        2. send 2 attendees and 1 guest (the guest being from another organisation) to the ODI’s “ODI Connect Member Networking Event” provided that your attendees be a member of your board of directors or is your employee or sub-contractor. If you are an individual <%= @product_name.capitalize %> (as opposed to a company), you may attend the ODI Connect Member Networking Event with 2 guests.
+        1. send 1 attendee to the ODI’s “Annual Summit” conference for free, provided that such an attendee is a member of your board of directors or is your employee or sub-contractor.  If you are an individual <%= @product_name %> (as opposed to a company), you may attend the Annual Summit in person but are not allowed to send a representative on your behalf. 
+        2. send 2 attendees and 1 guest (the guest being from another organisation) to the ODI’s “ODI Connect Member Networking Event” provided that your attendees be a member of your board of directors or is your employee or sub-contractor. If you are an individual <%= @product_name %> (as opposed to a company), you may attend the ODI Connect Member Networking Event with 2 guests.
         3. provided that all necessary details are provided to the ODI, have your name and details displayed as text on the ODI’s website and in the text of its annual report;
         4.  receive the ODI’s communications and newsletters; and
         5. subject to availability and fees, have access to the ODI’s innovation space and offices provided that appropriate arrangements are made in advance with the ODI, consistent with the fee schedule at [http://theodi.org/space](http://theodi.org/space).  
@@ -76,14 +76,14 @@
 
 11.   Limitation of Liability
     1. Except in respect of death or personal injury caused by a party’s negligence (or the party’s employees, agents, consultants and sub-contractors), neither party shall be liable to the other for any direct or indirect loss (including loss of profit and/or special or consequential loss), damage, costs or expenses including by reason of any representation, misrepresentation (unless fraudulent), any implied warranty, condition or other term, any duty at common law, any corruption of data or information, and/or other claims which arise out of in connection with this Agreement. 
-    2. In any event, each party’s total liability to the other is limited to one year’s Subscription Fee.  In the event the Subscription Fee has increased during the Term, such limitation being the value of the Subscription Fee the <%= @product_name.capitalize %> is paying in the year to which any claim relates.
+    2. In any event, each party’s total liability to the other is limited to one year’s Subscription Fee.  In the event the Subscription Fee has increased during the Term, such limitation being the value of the Subscription Fee the <%= @product_name %> is paying in the year to which any claim relates.
     3. The ODI does not guarantee or make any warranty that its website, or any content on it, will always be available or be uninterrupted or will be free from bugs, viruses, or errors.  The ODI may suspend, withdraw, discontinue or change all or any part of its site without notice and without any liability to you. 
 
 
 12.   Notices
     1. All notices or other communications given under this Agreement shall be in email and writing and served to:
         1. ODI: 3rd Floor, 65 Clifton Street, London, EX2A 4JE; and [members@theodi.org](mailto:members@theodi.org);
-        2. You: your address and email address given when you registered as a <%= @product_name.capitalize %>; or such other address as you confirm to the ODI in writing.
+        2. You: your address and email address given when you registered as a <%= @product_name %>; or such other address as you confirm to the ODI in writing.
 
 
 13.   Waiver
