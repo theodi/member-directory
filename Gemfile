@@ -82,6 +82,7 @@ group :development, :test do
   gem 'mailcatcher'
   gem 'simplecov-rcov'
   gem 'travis'
+  gem 'poltergeist'  
 end
 
 group :production do
