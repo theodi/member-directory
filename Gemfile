@@ -36,6 +36,8 @@ gem 'rack-google-analytics'
 
 gem 'airbrake'
 
+gem 'rdiscount'
+
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
@@ -80,6 +82,7 @@ group :development, :test do
   gem 'mailcatcher'
   gem 'simplecov-rcov'
   gem 'travis'
+  gem 'poltergeist'  
 end
 
 group :production do

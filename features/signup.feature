@@ -11,6 +11,8 @@ Feature: Add new signups to queue
     Then my details should be queued for further processing
     When I click sign up
     And I should have a membership number generated
+    And a welcome email should be sent to me
+    And I should see "Welcome Pack" in the email body
 
     Examples:
       | product_name |
@@ -75,3 +77,18 @@ Feature: Add new signups to queue
     When I click sign up
     And I should have a membership number generated
     And my organisation name should be "Doge Enterprises Inc."
+
+  @javascript
+  Scenario: Auto-update terms based on user input
+
+    Given that I want to sign up as a supporter
+    When I visit the signup page
+    When I enter my details
+    Then I should see "means FooBar Inc being"
+    And I should see "with company number 012345678"
+    And I should see "whose registered office is 123 Fake Street, Faketown, Fakeshire, UK, FAKE 123"
+    And I should see "between FooBar Inc (“You” or “Your”)"
+    And I should see today's date
+  
+  
+  

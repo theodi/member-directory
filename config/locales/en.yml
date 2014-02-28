@@ -22,6 +22,7 @@ en:
         address_region: "Region"
         address_country: "Country"
         postal_code: "Postcode"
+        organization_company_number: "Company Number"
         organization_vat_id: "VAT Number (if not UK)"
         purchase_order_number: "Purchase Order Number"
         password: "Password"
@@ -53,7 +54,7 @@ en:
         comment_text: "Your Interest"
   capsule_signup_mailer:
     confirmation:
-      subject: "Your ODI membership account details"
+      subject: "Welcome to the ODI community!"
   error_mailer:
     membership_number_generation_failed:
       subject: "Membership Number Error"

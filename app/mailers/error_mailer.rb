@@ -1,5 +1,4 @@
 class ErrorMailer < ActionMailer::Base
-  default from: "richard.stirling@theodi.org"
   default to: "members@theodi.org"
 
   add_template_helper(ApplicationHelper)
