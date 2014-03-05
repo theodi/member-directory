@@ -30,16 +30,16 @@
 
 5. Your Entitlements
     1.  During the Term, You will be entitled to:
-        1. send 1 attendee to the ODI’s “Annual Summit” conference for free, provided that such an attendee is a member of your board of directors or is your employee or sub-contractor.  If you are an individual <%= @product_name %> (as opposed to a company), you may attend the Annual Summit in person but are not allowed to send a representative on your behalf. 
+        1. receive a discount on the price of the ODI’s “Annual Summit” conference tickets for an attendee who is a member of your board of directors or is your employee or sub-contractor. If you are an individual <%= @product_name %> (as opposed to a company), you may receive a discount on the ticket price for yourself.  
         2. send 2 attendees and 1 guest (the guest being from another organisation) to the ODI’s “ODI Connect Member Networking Event” provided that your attendees be a member of your board of directors or is your employee or sub-contractor. If you are an individual <%= @product_name %> (as opposed to a company), you may attend the ODI Connect Member Networking Event with 2 guests.
         3. provided that all necessary details are provided to the ODI, have your name and details displayed as text on the ODI’s website and in the text of its annual report;
-        4.  receive the ODI’s communications and newsletters; and
-        5. subject to availability and fees, have access to the ODI’s innovation space and offices provided that appropriate arrangements are made in advance with the ODI, consistent with the fee schedule at [http://theodi.org/space](http://theodi.org/space).  
+        4. receive the ODI’s member newsletter and related communications; and
+        5. subject to availability and fees, have access to the ODI’s innovation space and offices provided that appropriate arrangements are made in advance with the ODI, consistent with the terms and conditions at [http://theodi.org/space](http://theodi.org/space).  
 
 
 6. Publicity and Branding
-    1. During the Term, subject to its availability and the ODI’s [Brand Guidelines](https://www.dropbox.com/s/qmujkz0pryv634y/ODI%20-%20Brand%20-%20External.zip), you may display the ODI’s member badge and include reference to the ODI on your website and in your collateral. 
-    2. Publications or other communications regarding the ODI, its business, your membership to the ODI or membership to the ODI generally must be agreed in writing in advance by the ODI. 
+    1. During the Term, subject to its availability and the ODI’s [Brand Guidelines](https://docs.google.com/a/theodi.org/file/d/0B4rriq9nxtslY1dfazhCNUFkMTQ/edit), you may display the ODI’s member badge and include reference to the ODI on your website and in your collateral. 
+    2. Publications or other communications regarding the ODI’s business, your membership to the ODI or membership to the ODI generally must be agreed in writing in advance by the ODI. 
     3. Further to clause 5.1.3, you are responsible for ensuring that the details which you provide to the ODI to be displayed upon its website and within its annual report are correct.  The ODI accepts no responsibility for details which are incorrect whether or not due to your fault or omission. 
 
 
@@ -49,7 +49,8 @@
 
 
 8. Personal Data
-    1. You consent to the ODI, and those who provide services to the ODI, processing personal data relating to you, your employees and contractors for legal, personnel, administrative and management purposes and further consent that the ODI transferring such personal data, where necessary to satisfy its reporting requirements to regulatory and governmental authorities.  Details of our privacy policy can be found at [http://theodi.org/privacy-policy](http://theodi.org/privacy-policy).
+    1. You consent to the ODI, and those who provide services to the ODI, processing personal data relating to you, your employees and contractors for legal, personnel, administrative and management purposes and further consent that the ODI transferring such personal data, where necessary to satisfy its reporting requirements to regulatory and governmental authorities.  Details of our privacy policy can be found here [http://theodi.org/privacy-policy](http://theodi.org/privacy-policy).
+    2. In the event you receive personal data whereby the ODI is data controller, then you will act as data processor and shall process such personal data in accordance with the ODI’s instructions and shall promptly comply with all requests given. 
 
 
 9. Termination of Membership
