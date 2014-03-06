@@ -34,7 +34,7 @@ class RegistrationsController < Devise::RegistrationsController
 
   def check_product_name
     @product_name = params[:level].to_s
-    redirect_to 'http://www.theodi.org/join-us' unless %w{supporter member partner sponsor}.include?(@product_name)
+    redirect_to 'http://www.theodi.org/join-us' unless %w{supporter partner sponsor}.include?(@product_name)
   end
 
 end

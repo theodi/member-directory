@@ -17,7 +17,6 @@ Feature: Add new signups to queue
     Examples:
       | product_name |
       | supporter    |
-      | member       |
 
 	Scenario Outline: Member tries to sign up, but misses a mandatory field
 
@@ -78,3 +77,18 @@ Feature: Add new signups to queue
     When I click sign up
     And I should have a membership number generated
     And my organisation name should be "Doge Enterprises Inc."
+
+  @javascript
+  Scenario: Auto-update terms based on user input
+
+    Given that I want to sign up as a supporter
+    When I visit the signup page
+    When I enter my details
+    Then I should see "means FooBar Inc being"
+    And I should see "with company number 012345678"
+    And I should see "whose registered office is 123 Fake Street, Faketown, Fakeshire, UK, FAKE 123"
+    And I should see "between FooBar Inc (“You” or “Your”)"
+    And I should see today's date
+  
+  
+  

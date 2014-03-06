@@ -39,7 +39,47 @@
   	
 <div id="terms" class="well">
 	<%= render :partial => 'terms' %>
+  <script>
+    function update_name() {
+      if ($('#member_organization_name')[0].value) {
+        $('.legal-name').text($('#member_organization_name')[0].value);
+        $('#company-details').show();
+        $('#individual-details').hide();
+      }
+      else {
+        $('.legal-name').text($('#member_contact_name')[0].value);
+        $('#company-details').hide();
+        $('#individual-details').show();
+      }
+    }
+    function update_address() {
+      arr = [
+        $('#member_street_address')[0].value,
+        $('#member_address_locality')[0].value,
+        $('#member_address_region')[0].value,
+        $('#member_address_country')[0].value,
+        $('#member_postal_code')[0].value
+      ];
+      str = arr.filter(function(e){return e}).join(", ");
+      $('.legal-address').text(str);
+    }
+    $(document).ready(function(){
+      $('#member_organization_name').change(update_name);
+      $('#member_contact_name').change(update_name);
+      $('#member_street_address').change(update_address);
+      $('#member_address_locality').change(update_address);
+      $('#member_address_region').change(update_address);
+      $('#member_address_country').change(update_address);
+      $('#member_postal_code').change(update_address);
+      $('#member_organization_company_number').change(function(e){
+        $('#company-number').text(e.target.value);
+      });  
+      update_name();
+      update_address();
+    });
+  </script>
 </div>
+
 
   
     <div class="control-group">

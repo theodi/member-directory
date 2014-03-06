@@ -18,7 +18,7 @@ class Organization < ActiveRecord::Base
   validates :name, :uniqueness => true, :allow_nil => true
   validates :description, :presence => true, :on => :update
   validates :description, :length => { :maximum  => 500, :too_long => "Your description cannot be longer than %{count} characters"}, :if => :supporter?
-  validates :description, :length => { :maximum  => 1000, :too_long => "Your description cannot be longer than %{count} characters"}, :if => :member?
+  validates :description, :length => { :maximum  => 1000, :too_long => "Your description cannot be longer than %{count} characters"}, :unless => :supporter?
 
   # We use both a URL-parsing validator, and a simple regexp here
   # so that we exclude things like http://localhost, which are valid
@@ -27,10 +27,6 @@ class Organization < ActiveRecord::Base
   
   def remote
     @remote || false
-  end
-
-  def member?
-    self.member.product_name == "member"
   end
 
   def supporter?

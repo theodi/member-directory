@@ -14,6 +14,26 @@ Given /^there is already an organization with the name '(.*?)'$/ do |org_name|
   FactoryGirl.create :member, :organization_name => org_name
 end
 
+Given(/^I have a sponsor account$/) do
+  
+  @password = 'password'
+  @email = Faker::Internet.email
+  @member = FactoryGirl.create :member, :product_name => 'sponsor', :organization_name => Faker::Company.name, 
+                         :password => @password, :password_confirmation => @password, :email => @email
+  @member.confirm!
+  @membership_number = @member.membership_number
+  steps %{
+    When I visit the sign in page
+    And I enter my membership number and password
+    And the password is correct
+    And I click sign in
+  }
+end
+
+Given(/^I visit my account page$/) do
+  visit member_path(@member)
+end
+
 When /^I visit the signup page$/ do
   visit("/members/new?level=#{@product_name}")
   page.should have_content 'Sign up'
@@ -145,4 +165,8 @@ end
 
 Then (/^my organisation name should be "(.*?)"$/) do |org_name|
   @member.organization.name.should == org_name
+end
+
+Then(/^I should see today's date$/) do
+  page.body.should include(Date.today.to_formatted_s(:long_ordinal))
 end

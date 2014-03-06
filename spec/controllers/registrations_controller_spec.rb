@@ -11,9 +11,10 @@ describe RegistrationsController do
     response.should be_success
   end
   
-  it 'should show form for member level signups' do
+  it 'should no longer show form for member level signups' do
     get :new, :level => 'member'
-    response.should be_success
+    response.should be_redirect
+    response.should redirect_to('http://www.theodi.org/join-us')
   end
   
   it 'should show form for partner level signups' do

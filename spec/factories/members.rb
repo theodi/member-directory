@@ -3,7 +3,7 @@
 FactoryGirl.define do
   factory :member do
     email             { Faker::Internet.email }
-    product_name      'member'
+    product_name      'supporter'
     organization_name { Faker::Company.name }
     contact_name      { Faker::Name.name }
     street_address    { Faker::Address.street_address }
