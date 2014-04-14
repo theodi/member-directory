@@ -76,8 +76,8 @@
 
 
 11.   Limitation of Liability
-    1. Except in respect of death or personal injury caused by a party’s negligence (or the party’s employees, agents, consultants and sub-contractors), neither party shall be liable to the other for any direct or indirect loss (including loss of profit and/or special or consequential loss), damage, costs or expenses including by reason of any representation, misrepresentation (unless fraudulent), any implied warranty, condition or other term, any duty at common law, any corruption of data or information, and/or other claims which arise out of in connection with this Agreement. 
-    2. In any event, each party’s total liability to the other is limited to one year’s Subscription Fee.  In the event the Subscription Fee has increased during the Term, such limitation being the value of the Subscription Fee the <%= @product_name %> is paying in the year to which any claim relates.
+    1. Except in respect of death or personal injury caused by a party’s negligence (or the party’s employees, agents, consultants and sub-contractors), neither party shall be liable to the other for any indirect loss including loss of profit and/or special or consequential loss, damage, costs or expenses including by reason of any representation, misrepresentation (unless fraudulent), any implied warranty, condition or other term, any duty at common law and any corruption of data or information.
+    2. Subject to clause 11.1, each party’s total liability to the other is limited to one year’s Subscription Fee.  In the event the Subscription Fee has increased during the Term, such limitation being the value of the Subscription Fee the Supporter is paying in the year to which any claim relates.
     3. The ODI does not guarantee or make any warranty that its website, or any content on it, will always be available or be uninterrupted or will be free from bugs, viruses, or errors.  The ODI may suspend, withdraw, discontinue or change all or any part of its site without notice and without any liability to you. 
 
 
