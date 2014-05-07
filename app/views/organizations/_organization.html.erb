@@ -88,7 +88,7 @@
     <script type="text/javascript">
         function OrganisationViewModel() {
             this.name         = ko.observable("<%= organization.name %>");
-            this.description  = ko.observable("<%= escape_javascript(organization.description) %>");
+            this.description  = ko.observable("<%= escape_javascript(strip_tags(organization.description).html_safe) rescue nil %>");
             this.url          = ko.observable("<%= organization.url %>");
             this.imageSrc     = ko.observable("url(<%= organization.logo.rectangular.url %>)");
             this.contactName  = ko.observable("<%= organization.cached_contact_name %>");
@@ -97,7 +97,7 @@
             this.twitter      = ko.observable("<%= organization.cached_twitter %>");
             this.facebook     = ko.observable("<%= organization.cached_facebook %>");
             this.linkedin     = ko.observable("<%= organization.cached_linkedin %>");
-            this.tagline      = ko.observable("<%= organization.cached_tagline %>");
+            this.tagline      = ko.observable("<%= escape_javascript(strip_tags(organization.cached_tagline).html_safe) rescue nil %>");
             this.mailto       = ko.computed(function() {
               return 'mailto:' + this.contactEmail();
             }, this);
