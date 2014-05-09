@@ -10,7 +10,7 @@
     | Effective Date | means <%= Date.today.to_formatted_s(:long_ordinal) %> |
     | End Date | means the date that this Agreement ends |
 	| Confidential Information | means all information marked as confidential, however recorded or preserved, disclosed by a party or its employees, officers, representatives or advisors, to the other party during the Term |
-	| ODI | means the Open Data Institute, a company registered in England and Wales with company number 08030289 and whose registered office is First Floor, St James’ House, St James’ Square, Cheltenham, GL50 3PR |
+	| ODI | means the Open Data Institute, a company registered in England and Wales with company number 08030289 and whose registered office is 3rd Floor, 65 Clifton Street, London, EC2A 4JE |
 	| Subscription Fee | <%= annual_product_price %> |
 	| <%= @product_name %> | means a category of membership to the ODI |
 	| Term | means the term of this Agreement, commencing on the Effective Date and expiring on the End Date (inclusive) |
