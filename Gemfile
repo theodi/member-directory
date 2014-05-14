@@ -15,7 +15,7 @@ gem 'rabl'
 gem 'alternate_rails', :git => 'https://github.com/theodi/alternate-rails.git'
 gem 'rails_admin'
 
-# Lock ruby-openid to a particular version to resolve login problems. 
+# Lock ruby-openid to a particular version to resolve login problems.
 # Reasons described in https://github.com/sishen/omniauth-google-apps/issues/6.
 # We need ruby-openid to fix https://github.com/openid/ruby-openid/issues/51 before we can go back on the mainline.
 gem "ruby-openid", :git => "git://github.com/kendagriff/ruby-openid.git", :ref => "79beaa419d4754e787757f2545331509419e222e"
@@ -37,6 +37,8 @@ gem 'rack-google-analytics'
 gem 'airbrake'
 
 gem 'rdiscount'
+
+gem 'slimmer'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -68,7 +70,7 @@ gem 'jquery-rails'
 # gem 'debugger'
 
 
-group :development, :test do 
+group :development, :test do
   gem 'cucumber-rails', :require => false
   gem 'database_cleaner'
   gem 'rspec-rails'
@@ -82,7 +84,7 @@ group :development, :test do
   gem 'mailcatcher'
   gem 'simplecov-rcov'
   gem 'travis'
-  gem 'poltergeist'  
+  gem 'poltergeist'
 end
 
 group :production do
