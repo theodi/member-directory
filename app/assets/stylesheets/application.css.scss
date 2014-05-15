@@ -153,5 +153,11 @@
       content: counters(section, ".") ". "; 
     }  
   }
-		  
+
+}
+
+#footer .footer-content h1 {
+  background-image: image_url('logo-header.png');
+  width: 202px;
+  height: 49px;
 }
