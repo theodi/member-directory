@@ -24,21 +24,21 @@
 
  #terms ol li ol li {
  }
- 
+
  #terms ol li ol li ol li {
  }
- 
+
  #terms h5 {
    font-style: italic;
  }
- 
+
  .field_with_errors {
      display:inline;
      margin:0px;
      padding:0px;
  }
- 
- 
+
+
  /* Preview area */
  .preview {
    position: relative;
@@ -67,7 +67,7 @@
       -moz-border-radius: 4px 0 4px 0;
            border-radius: 4px 0 4px 0;
  }
- 
+
 .label.supporter {
  background-color: #05d3ab;
 }
@@ -97,15 +97,24 @@
 }
 
 .brand img {
-	height: 40px;
+	height: 48px;
 }
 
 #topbar {
 	height: auto;
+
+  ul li {
+    height: 68px;
+
+    a {
+      padding-top: 24px;
+      padding-bottom: 24px;
+    }
+  }
 }
 
 #terms {
-  
+
   /* Copy of bootstrap .table & .table-striped styles. Would love a better way to do this. */
   table {
     tbody tr:nth-child(odd) > td,
@@ -134,24 +143,24 @@
     thead th {
       vertical-align: bottom;
     }
-  
+
   }
 
   ol {
     counter-reset: section;
     list-style-type: none;
-    
-    li { 
-      counter-increment: section; 
-      
+
+    li {
+      counter-increment: section;
+
       p {
         display: inline-block;
       }
     }
-    
-    li:before  { 
-      content: counters(section, ".") ". "; 
-    }  
+
+    li:before  {
+      content: counters(section, ".") ". ";
+    }
   }
 
 }
