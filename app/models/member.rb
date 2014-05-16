@@ -31,8 +31,8 @@ class Member < ActiveRecord::Base
 	# validations
 	validates :product_name, :presence => true, :inclusion => %w{supporter member partner sponsor}, :on => :create
 	validates :contact_name, :presence => true, :on => :create
-  validates :organization_size, :presence => true, :on => :create
-  validates :organization_type, :presence => true, :on => :create
+  validates :organization_size, :presence => true, :inclusion => %w{small large}, :on => :create
+  validates :organization_type, :presence => true, :inclusion => %w{commercial non_commercial}, :on => :create
 	validates :street_address, :presence => true, :on => :create
 	validates :address_locality, :presence => true, :on => :create
 	validates :address_country, :presence => true, :on => :create
