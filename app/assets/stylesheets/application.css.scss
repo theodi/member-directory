@@ -97,11 +97,20 @@
 }
 
 .brand img {
-	height: 40px;
+	height: 48px;
 }
 
 #topbar {
 	height: auto;
+
+  ul li {
+    height: 68px;
+
+    a {
+      padding-top: 24px;
+      padding-bottom: 24px;
+    }
+  }
 }
 
 .controls {
@@ -160,4 +169,10 @@
     }
   }
 
+}
+
+#footer .footer-content h1 {
+  background-image: image_url('logo-header.png');
+  width: 202px;
+  height: 49px;
 }
