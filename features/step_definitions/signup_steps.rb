@@ -15,10 +15,10 @@ Given /^there is already an organization with the name '(.*?)'$/ do |org_name|
 end
 
 Given(/^I have a sponsor account$/) do
-  
+
   @password = 'password'
   @email = Faker::Internet.email
-  @member = FactoryGirl.create :member, :product_name => 'sponsor', :organization_name => Faker::Company.name, 
+  @member = FactoryGirl.create :member, :product_name => 'sponsor', :organization_name => Faker::Company.name,
                          :password => @password, :password_confirmation => @password, :email => @email
   @member.confirm!
   @membership_number = @member.membership_number
@@ -45,6 +45,8 @@ When /^I enter my details$/ do
   @contact_name                = 'Ian McIain'
   @email                       = 'iain@foobar.com'
   @organization_name           = 'FooBar Inc'
+  @organization_size           = '250 or more employees'
+  @organization_type           = 'Commercial'
   @telephone                   = '0121 123 446'
   @street_address              = '123 Fake Street'
   @address_locality            = 'Faketown'
@@ -59,6 +61,8 @@ When /^I enter my details$/ do
   fill_in('member_contact_name', :with => @contact_name)
   fill_in('member_email', :with => @email)
   fill_in('member_organization_name', :with => @organization_name)
+  select(@organization_size, :from => 'member_organization_size')
+  select(@organization_type, :from => 'member_organization_type')
   fill_in('member_telephone', :with => @telephone)
   fill_in('member_street_address', :with => @street_address)
   fill_in('member_address_locality', :with => @address_locality)
@@ -147,7 +151,7 @@ Then /^my details should not be queued$/ do
 end
 
 Then /^a welcome email should be sent to me$/ do
-  steps %Q{ 
+  steps %Q{
     Then "#{@email}" should receive an email
     When they open the email
     And they should see the email delivered from "members@theodi.org"
