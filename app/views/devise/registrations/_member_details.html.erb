@@ -1,14 +1,14 @@
 <fieldset>
-  
+
   <legend>Your details</legend>
-  
+
   <div class="control-group">
   	<%= f.label :contact_name, :class => 'control-label' %>
   	<div class="controls">
   		<%= f.text_field :contact_name , :autofocus => true, :required => 'required' %> <span class="help-inline">(required)</span>
   	</div>
   </div>
-    
+
   <div class="control-group">
   	<%= f.label :email, :class => 'control-label' %>
   	<div class="controls">
@@ -25,6 +25,30 @@
   </div>
 
   <div class="control-group">
+    <%= f.label :organization_size, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.select(:organization_size, {
+          "Please select"           => nil,
+          "Less than 250 employees" => "small",
+          "250 or more employees"   => "large"
+        }) %>
+      <span class="help-inline">(required)</span>
+    </div>
+  </div>
+
+  <div class="control-group">
+    <%= f.label :organization_type, :class => 'control-label'  %>
+    <div class="controls">
+      <%= f.select(:organization_type, {
+          "Please select"           => nil,
+          "Commercial"       => "commercial",
+          "Non-commercial"   => "non_commercial"
+        }) %>
+      <span class="help-inline">(required)</span>
+    </div>
+  </div>
+
+  <div class="control-group">
   	<%= f.label :telephone, :class => 'control-label' %>
   	<div class="controls">
   		<%= f.text_field :telephone %>
@@ -34,9 +58,9 @@
 </fieldset>
 
 <fieldset>
-  
+
   <legend>Billing Address</legend>
-    
+
   <div class="control-group">
   	<%= f.label :street_address, :class => 'control-label' %>
   	<div class="controls">
@@ -79,9 +103,9 @@
 </fieldset>
 
 <fieldset>
-  
+
   <legend>Financial information</legend>
-    
+
   <div class="control-group">
   	<%= f.label :organization_company_number, :class => 'control-label' %>
   	<div class="controls">

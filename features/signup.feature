@@ -35,9 +35,11 @@ Feature: Add new signups to queue
 			| address_locality 			| City             |
 			| address_country 			| Country          |
 			| postal_code 			    | Postcode         |
-			
+      | organization_size     | Organization size |
+      | organization_type     | Organization type |
+
   Scenario: Member tries to sign up, but doesn't agree to the terms
-  
+
     Given that I want to sign up
     When I visit the signup page
     And I enter my details
@@ -45,9 +47,9 @@ Feature: Add new signups to queue
     Then my details should not be queued
     When I click sign up
     And I should get an error telling me to accept the terms
-    
+
   Scenario: Member tries to sign up, but their password doesn't match
-  
+
     Given that I want to sign up
     When I visit the signup page
     And I enter my details
@@ -57,7 +59,7 @@ Feature: Add new signups to queue
     And I should get an error telling my passwords don't match
 
   Scenario: Member tries to sign up, but enters an organization name that already exists
-  
+
     Given that I want to sign up
     But there is already an organization with the name I want to use
     When I visit the signup page
@@ -89,6 +91,3 @@ Feature: Add new signups to queue
     And I should see "whose registered office is 123 Fake Street, Faketown, Fakeshire, UK, FAKE 123"
     And I should see "between FooBar Inc (“You” or “Your”)"
     And I should see today's date
-  
-  
-  

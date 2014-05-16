@@ -113,6 +113,12 @@
   }
 }
 
+.controls {
+  select {
+    width: 370px;
+  }
+}
+
 #terms {
 
   /* Copy of bootstrap .table & .table-striped styles. Would love a better way to do this. */
