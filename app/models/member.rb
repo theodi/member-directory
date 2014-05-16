@@ -83,7 +83,13 @@ class Member < ActiveRecord::Base
 
     # construct hashes for signup processor
     # some of the naming of purchase order and membership id needs updating for consistency
-    organization    = {'name' => organization_name, 'vat_id' => organization_vat_id, 'company_number' => organization_company_number}
+    organization    = {
+                        'name' => organization_name,
+                        'vat_id' => organization_vat_id,
+                        'company_number' => organization_company_number,
+                        'size' => organization_size,
+                        'type' => organization_type
+                      }
     contact_person  = {'name' => contact_name, 'email' => email, 'telephone' => telephone}
     billing         = {
                         'name' => contact_name,

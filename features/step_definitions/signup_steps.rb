@@ -45,8 +45,8 @@ When /^I enter my details$/ do
   @contact_name                = 'Ian McIain'
   @email                       = 'iain@foobar.com'
   @organization_name           = 'FooBar Inc'
-  @organization_size           = '250 or more employees'
-  @organization_type           = 'Commercial'
+  @organization_size           = 'large'
+  @organization_type           = 'commercial'
   @telephone                   = '0121 123 446'
   @street_address              = '123 Fake Street'
   @address_locality            = 'Faketown'
@@ -61,8 +61,8 @@ When /^I enter my details$/ do
   fill_in('member_contact_name', :with => @contact_name)
   fill_in('member_email', :with => @email)
   fill_in('member_organization_name', :with => @organization_name)
-  select(@organization_size, :from => 'member_organization_size')
-  select(@organization_type, :from => 'member_organization_type')
+  select(find_by_id('member_organization_size').find("option[value='#{@organization_size}']").text, :from => 'member_organization_size')
+  select(find_by_id('member_organization_type').find("option[value='#{@organization_type}']").text, :from => 'member_organization_type')
   fill_in('member_telephone', :with => @telephone)
   fill_in('member_street_address', :with => @street_address)
   fill_in('member_address_locality', :with => @address_locality)
@@ -93,7 +93,13 @@ end
 
 Then /^my details should be queued for further processing$/ do
 
-  organization   = { 'name' => @organization_name, 'vat_id' => @organization_vat_id, 'company_number' => @organization_company_number }
+  organization   = {
+                     'name' => @organization_name,
+                     'vat_id' => @organization_vat_id,
+                     'company_number' => @organization_company_number,
+                     'size' => @organization_size,
+                     'type' => @organization_type
+                   }
   contact_person = { 'name' => @contact_name, 'email' => @email, 'telephone' => @telephone }
   billing        = {
       'name'      => @contact_name,
