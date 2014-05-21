@@ -90,4 +90,6 @@ Feature: Add new signups to queue
     And I should see "with company number 012345678"
     And I should see "whose registered office is 123 Fake Street, Faketown, Fakeshire, UK, FAKE 123"
     And I should see "between FooBar Inc (“You” or “Your”)"
+    And I should see "£720 per annum for commercial organisations with 249 employees or fewer"
+    And I should see "or £1,440 per annum for commercial organisations with 250 employees or more"
     And I should see today's date
