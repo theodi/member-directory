@@ -35,8 +35,8 @@ Feature: Add new signups to queue
 			| address_locality 			| City             |
 			| address_country 			| Country          |
 			| postal_code 			    | Postcode         |
-      | organization_size     | Organization size |
-      | organization_type     | Organization type |
+      | organization_size     | Organisation size |
+      | organization_type     | Organisation type |
 
   Scenario: Member tries to sign up, but doesn't agree to the terms
 
