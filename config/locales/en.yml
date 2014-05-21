@@ -16,6 +16,8 @@ en:
         email: "Email Address"
         contact_name: "Your Name"
         organization_name: "Organisation Name"
+        organization_size: "Organisation size"
+        organization_type: "Organisation type"
         telephone: "Contact Number"
         street_address: "Address"
         address_locality: "City"
