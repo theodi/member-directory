@@ -2,12 +2,12 @@
 
   <div class="organization-sidebar pull-right">
     <% unless @member.supporter? || organization.logo.blank? %>
-      <div class='organization-logo' 
+      <div class='organization-logo'
            style='background-image: url(<%= organization.logo.rectangular.url %>)'
            data-bind='style: {backgroundImage: imageSrc}' >
       </div>
     <% end %>
-    
+
     <p>
       <span class="label <%= organization.member.product_name %>"><%= organization.member.product_name.capitalize %></span>
     </p>
@@ -19,7 +19,7 @@
     </p>
 
     <p property='contactPoint' typeOf="ContactPoint">
-    
+
       <span property='description' class='contact-point-description'>Sales contact</span>
 
       <% if @preview || organization.cached_contact_name.present? %>
@@ -27,13 +27,13 @@
           <i class='icon-user'></i> <span property="name" data-bind="text: contactName"><%= organization.cached_contact_name %></span>
         </span>
       <% end %>
-    
+
       <% if @preview || organization.cached_contact_email.present? %>
         <span data-bind="visible: contactEmail().length > 0" class='contact-detail'>
           <i class='icon-envelope-alt'></i> <a property="email" data-bind="text: contactEmail, attr: {href: mailto}" href='mailto:<%= organization.cached_contact_email %>'><%= organization.cached_contact_email %></a>
         </span>
       <% end %>
-      
+
       <% if @preview || organization.cached_contact_phone.present? %>
         <span data-bind="visible: contactPhone().length > 0" class='contact-detail'>
           <i class='icon-phone-sign'></i> <span property="telephone" data-bind="text: contactPhone"><%= organization.cached_contact_phone %></span>
@@ -43,7 +43,7 @@
 
     <p>
       <% if @preview || organization.cached_twitter.present? %>
-        <span data-bind="visible: twitter().length > 0" property='contactPoint' typeof='ContactPoint'>          
+        <span data-bind="visible: twitter().length > 0" property='contactPoint' typeof='ContactPoint'>
           <a property='url' data-bind="text: twitter, attr: {href: twitterUrl}" href='http://twitter.com/<%= organization.cached_twitter %>'><%= image_tag 'twitter-16x16.png', :alt => "Twitter" %><span property='name' class='contact-point-description'>Twitter</span></a>
         </span>
       <% end %>
@@ -62,8 +62,8 @@
     </p>
   </div>
 
-  <h2 property="name"<% if @preview %> data-bind="text: name"<% end %>><%= organization.name %></h2>
-  
+  <h2 property="name"<% if @preview %> data-bind="html: name"<% end %>><%= organization.name %></h2>
+
   <div class='<%= @member.supporter? ? '' : 'organization-content' %>'>
 
     <% if @preview || organization.cached_tagline.present? %>
@@ -135,11 +135,5 @@
         ko.applyBindings(window.organizationPreview);
     </script>
   <% end %>
-  
+
 </div>
-
-
-
-
-
-
