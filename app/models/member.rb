@@ -173,6 +173,8 @@ class Member < ActiveRecord::Base
     case err[:code]
     when 'incorrect_number'
       errors.add(:card_number, "is incorrect")
+    when 'incorrect_cvc'
+      errors.add(:card_validation_code, "is incorrect")
     end
   end
 end

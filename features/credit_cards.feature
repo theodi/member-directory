@@ -34,5 +34,6 @@ Feature: Accept credit card payments during signup
     And I should see an error relating to <error>
 
     Examples:
-      | card_number      | cvc | month | year | error       |
-      | 4242424242424241 | 123 | 12    | 2014 | Card number |
+      | card_number      | cvc | month | year | error                |
+      | 4242424242424241 | 123 | 12    | 2014 | Card number          |
+      | 4000000000000127 | 123 | 12    | 2014 | Card validation code |
