@@ -159,9 +159,15 @@ class Member < ActiveRecord::Base
         self.stripe_customer_id = customer.id
       rescue Stripe::CardError => e
         body = e.json_body
-        err = body[:error]
-        errors.add(nil, err[:message])
+        payment_errors(body[:error][:type])
       end
+    end
+  end
+
+  def payment_errors(err)
+    case err
+    when /card number/
+      errors.add(:card_number, "is incorrect")
     end
   end
 end
