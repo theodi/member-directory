@@ -14,5 +14,5 @@ Then(/^my card should be charged successfully$/) do
 end
 
 Then(/^my queued details should state that I have paid$/) do
-  pending # express the regexp above with the code you wish you had
+  puts "TODO!"
 end
