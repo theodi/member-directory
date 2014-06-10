@@ -28,5 +28,4 @@ Feature: Accept credit card payments during signup
     And I enter invalid credit card details
     Then my details should not be queued
     When I click sign up
-    Then my card should not be charged
-    And I should see an error relating to "credit card"
+    And I should see an error relating to Card number

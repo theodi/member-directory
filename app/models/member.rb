@@ -42,8 +42,13 @@ class Member < ActiveRecord::Base
 	validates_acceptance_of :agreed_to_terms, :on => :create
 
   before_validation :stripe_payment
+  validate :stripe_customer_id, presence: true, if: :paid_with_card?
 
   validate :check_organization_names
+
+  def paid_with_card?
+    payment_method == "credit_card"
+  end
 
   def remote
     @remote || false
@@ -143,7 +148,7 @@ class Member < ActiveRecord::Base
   end
 
   def stripe_payment
-    if new_record? && payment_method == "credit_card"
+    if new_record? && paid_with_card?
       begin
         customer = Stripe::Customer.create(
           card: {
@@ -159,14 +164,14 @@ class Member < ActiveRecord::Base
         self.stripe_customer_id = customer.id
       rescue Stripe::CardError => e
         body = e.json_body
-        payment_errors(body[:error][:type])
+        payment_errors(body[:error])
       end
     end
   end
 
   def payment_errors(err)
-    case err
-    when /card number/
+    case err[:code]
+    when 'incorrect_number'
       errors.add(:card_number, "is incorrect")
     end
   end
