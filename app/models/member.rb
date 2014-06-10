@@ -157,7 +157,7 @@ class Member < ActiveRecord::Base
             number:    card_number,
             cvc:       card_validation_code
           },
-          plan:        "sme_supporter",
+          plan:        get_plan,
           description: "Membership for #{membership_number}",
           email:       email
         )
@@ -166,6 +166,14 @@ class Member < ActiveRecord::Base
         body = e.json_body
         payment_errors(body[:error])
       end
+    end
+  end
+
+  def get_plan
+    if organization_size == "large" && organization_type == "commercial"
+      "corporate_supporter"
+    else
+      "sme_supporter"
     end
   end
 

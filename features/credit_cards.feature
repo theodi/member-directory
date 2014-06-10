@@ -19,6 +19,25 @@ Feature: Accept credit card payments during signup
     And a welcome email should be sent to me
     And I should see "Welcome Pack" in the email body
 
+  Scenario Outline: Correct amount should be charged
+
+    Given that I want to sign up as a supporter
+    When I visit the signup page
+    And I enter my details
+    And I enter an organisation size of <size>
+    And I enter an organisation type of <type>
+    And I choose to pay by credit card
+    And I enter valid credit card details
+    And I click sign up
+    Then I should be signed up to the <plan> plan
+
+      Examples:
+        | size  | type            | plan                |
+        | small | non_commercial  | sme_supporter       |
+        | large | non_commercial  | sme_supporter       |
+        | small | commercial      | sme_supporter       |
+        | large | commercial      | corporate_supporter |
+
   Scenario Outline: Bad credit card details
 
     Given that I want to sign up as a supporter

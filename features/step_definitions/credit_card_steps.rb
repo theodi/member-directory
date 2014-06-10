@@ -36,3 +36,19 @@ Then(/^my card should not be charged$/) do
   member = Member.find_by_email(@email)
   member.stripe_customer_id.should be_nil
 end
+
+When(/^I enter an organisation size of (.+)$/) do |size|
+  @organization_size = size
+  select(find_by_id('member_organization_size').find("option[value='#{@organization_size}']").text, :from => 'member_organization_size')
+end
+
+When(/^I enter an organisation type of (.+)$/) do |type|
+  @organization_type = type
+  select(find_by_id('member_organization_type').find("option[value='#{@organization_type}']").text, :from => 'member_organization_type')
+end
+
+Then(/^I should be signed up to the (.+) plan$/) do |plan|
+  member = Member.find_by_email(@email)
+  member.stripe_customer.subscriptions.total_count.should == 1
+  member.stripe_customer.subscriptions["data"][0]["plan"].id.should == plan
+end

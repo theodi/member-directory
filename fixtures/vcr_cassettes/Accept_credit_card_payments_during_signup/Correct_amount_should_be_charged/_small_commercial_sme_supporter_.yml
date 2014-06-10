@@ -1,0 +1,645 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.stripe.com/v1/customers/cus_4CFr2a3Hzhs9Hi
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - ! '*/*; q=0.5, application/xml'
+      Accept-Encoding:
+      - gzip, deflate
+      User-Agent:
+      - Stripe/v1 RubyBindings/1.13.0
+      Authorization:
+      - Bearer <STRIPE_API_KEY>
+      Content-Type:
+      - application/x-www-form-urlencoded
+      X-Stripe-Client-User-Agent:
+      - ! '{"bindings_version":"1.13.0","lang":"ruby","lang_version":"1.9.3 p545 (2014-02-24)","platform":"x86_64-darwin13.1.0","publisher":"stripe","uname":"Darwin
+        stuarts-mbp-3.home 13.1.0 Darwin Kernel Version 13.1.0: Wed Apr  2 23:52:02
+        PDT 2014; root:xnu-2422.92.1~2/RELEASE_X86_64 x86_64"}'
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx
+      Date:
+      - Tue, 10 Jun 2014 15:39:48 GMT
+      Content-Type:
+      - application/json;charset=utf-8
+      Content-Length:
+      - '2230'
+      Cache-Control:
+      - no-cache, no-store
+      Stripe-Version:
+      - '2014-05-19'
+      Access-Control-Max-Age:
+      - '300'
+      Access-Control-Allow-Methods:
+      - GET, POST, HEAD, OPTIONS, DELETE
+      Access-Control-Allow-Credentials:
+      - 'true'
+      Strict-Transport-Security:
+      - max-age=31556926; includeSubDomains
+    body:
+      encoding: US-ASCII
+      string: ! "{\n  \"object\": \"customer\",\n  \"created\": 1402414786,\n  \"id\":
+        \"cus_4CFr2a3Hzhs9Hi\",\n  \"livemode\": false,\n  \"description\": \"Membership
+        for \",\n  \"email\": \"iain@foobar.com\",\n  \"delinquent\": false,\n  \"metadata\":
+        {},\n  \"subscriptions\": {\n    \"object\": \"list\",\n    \"total_count\":
+        1,\n    \"has_more\": false,\n    \"url\": \"/v1/customers/cus_4CFr2a3Hzhs9Hi/subscriptions\",\n
+        \   \"data\": [\n      {\n        \"id\": \"sub_4CFrOZdz5UbpFI\",\n        \"plan\":
+        {\n          \"interval\": \"month\",\n          \"name\": \"SME \\u0026 Nonprofit
+        Supporter\",\n          \"created\": 1402405731,\n          \"amount\": 7200,\n
+        \         \"currency\": \"gbp\",\n          \"id\": \"sme_supporter\",\n          \"object\":
+        \"plan\",\n          \"livemode\": false,\n          \"interval_count\": 1,\n
+        \         \"trial_period_days\": null,\n          \"metadata\": {},\n          \"statement_description\":
+        \"Membership\"\n        },\n        \"object\": \"subscription\",\n        \"start\":
+        1402414786,\n        \"status\": \"active\",\n        \"customer\": \"cus_4CFr2a3Hzhs9Hi\",\n
+        \       \"cancel_at_period_end\": false,\n        \"current_period_start\":
+        1402414786,\n        \"current_period_end\": 1405006786,\n        \"ended_at\":
+        null,\n        \"trial_start\": null,\n        \"trial_end\": null,\n        \"canceled_at\":
+        null,\n        \"quantity\": 1,\n        \"application_fee_percent\": null,\n
+        \       \"discount\": null,\n        \"metadata\": {}\n      }\n    ]\n  },\n
+        \ \"discount\": null,\n  \"account_balance\": 0,\n  \"currency\": \"gbp\",\n
+        \ \"cards\": {\n    \"object\": \"list\",\n    \"total_count\": 1,\n    \"has_more\":
+        false,\n    \"url\": \"/v1/customers/cus_4CFr2a3Hzhs9Hi/cards\",\n    \"data\":
+        [\n      {\n        \"id\": \"card_104CFr4oB0YITArS2AoKkCK8\",\n        \"object\":
+        \"card\",\n        \"last4\": \"4242\",\n        \"type\": \"Visa\",\n        \"exp_month\":
+        12,\n        \"exp_year\": 2016,\n        \"fingerprint\": \"qBYthW9tt9MyrCdj\",\n
+        \       \"country\": \"US\",\n        \"name\": null,\n        \"address_line1\":
+        null,\n        \"address_line2\": null,\n        \"address_city\": null,\n
+        \       \"address_state\": null,\n        \"address_zip\": null,\n        \"address_country\":
+        null,\n        \"cvc_check\": \"pass\",\n        \"address_line1_check\":
+        null,\n        \"address_zip_check\": null,\n        \"customer\": \"cus_4CFr2a3Hzhs9Hi\"\n
+        \     }\n    ]\n  },\n  \"default_card\": \"card_104CFr4oB0YITArS2AoKkCK8\"\n}\n"
+    http_version: 
+  recorded_at: Tue, 10 Jun 2014 15:39:56 GMT
+- request:
+    method: get
+    uri: https://api.stripe.com/v1/customers/cus_4CFu5sbBRvtwKW
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - ! '*/*; q=0.5, application/xml'
+      Accept-Encoding:
+      - gzip, deflate
+      User-Agent:
+      - Stripe/v1 RubyBindings/1.13.0
+      Authorization:
+      - Bearer <STRIPE_API_KEY>
+      Content-Type:
+      - application/x-www-form-urlencoded
+      X-Stripe-Client-User-Agent:
+      - ! '{"bindings_version":"1.13.0","lang":"ruby","lang_version":"1.9.3 p545 (2014-02-24)","platform":"x86_64-darwin13.1.0","publisher":"stripe","uname":"Darwin
+        stuarts-mbp-3.home 13.1.0 Darwin Kernel Version 13.1.0: Wed Apr  2 23:52:02
+        PDT 2014; root:xnu-2422.92.1~2/RELEASE_X86_64 x86_64"}'
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx
+      Date:
+      - Tue, 10 Jun 2014 15:42:43 GMT
+      Content-Type:
+      - application/json;charset=utf-8
+      Content-Length:
+      - '2230'
+      Cache-Control:
+      - no-cache, no-store
+      Stripe-Version:
+      - '2014-05-19'
+      Access-Control-Max-Age:
+      - '300'
+      Access-Control-Allow-Methods:
+      - GET, POST, HEAD, OPTIONS, DELETE
+      Access-Control-Allow-Credentials:
+      - 'true'
+      Strict-Transport-Security:
+      - max-age=31556926; includeSubDomains
+    body:
+      encoding: US-ASCII
+      string: ! "{\n  \"object\": \"customer\",\n  \"created\": 1402414961,\n  \"id\":
+        \"cus_4CFu5sbBRvtwKW\",\n  \"livemode\": false,\n  \"description\": \"Membership
+        for \",\n  \"email\": \"iain@foobar.com\",\n  \"delinquent\": false,\n  \"metadata\":
+        {},\n  \"subscriptions\": {\n    \"object\": \"list\",\n    \"total_count\":
+        1,\n    \"has_more\": false,\n    \"url\": \"/v1/customers/cus_4CFu5sbBRvtwKW/subscriptions\",\n
+        \   \"data\": [\n      {\n        \"id\": \"sub_4CFuMMmJ9FCCvy\",\n        \"plan\":
+        {\n          \"interval\": \"month\",\n          \"name\": \"SME \\u0026 Nonprofit
+        Supporter\",\n          \"created\": 1402405731,\n          \"amount\": 7200,\n
+        \         \"currency\": \"gbp\",\n          \"id\": \"sme_supporter\",\n          \"object\":
+        \"plan\",\n          \"livemode\": false,\n          \"interval_count\": 1,\n
+        \         \"trial_period_days\": null,\n          \"metadata\": {},\n          \"statement_description\":
+        \"Membership\"\n        },\n        \"object\": \"subscription\",\n        \"start\":
+        1402414962,\n        \"status\": \"active\",\n        \"customer\": \"cus_4CFu5sbBRvtwKW\",\n
+        \       \"cancel_at_period_end\": false,\n        \"current_period_start\":
+        1402414962,\n        \"current_period_end\": 1405006962,\n        \"ended_at\":
+        null,\n        \"trial_start\": null,\n        \"trial_end\": null,\n        \"canceled_at\":
+        null,\n        \"quantity\": 1,\n        \"application_fee_percent\": null,\n
+        \       \"discount\": null,\n        \"metadata\": {}\n      }\n    ]\n  },\n
+        \ \"discount\": null,\n  \"account_balance\": 0,\n  \"currency\": \"gbp\",\n
+        \ \"cards\": {\n    \"object\": \"list\",\n    \"total_count\": 1,\n    \"has_more\":
+        false,\n    \"url\": \"/v1/customers/cus_4CFu5sbBRvtwKW/cards\",\n    \"data\":
+        [\n      {\n        \"id\": \"card_104CFu4oB0YITArSggNBwH2h\",\n        \"object\":
+        \"card\",\n        \"last4\": \"4242\",\n        \"type\": \"Visa\",\n        \"exp_month\":
+        12,\n        \"exp_year\": 2016,\n        \"fingerprint\": \"qBYthW9tt9MyrCdj\",\n
+        \       \"country\": \"US\",\n        \"name\": null,\n        \"address_line1\":
+        null,\n        \"address_line2\": null,\n        \"address_city\": null,\n
+        \       \"address_state\": null,\n        \"address_zip\": null,\n        \"address_country\":
+        null,\n        \"cvc_check\": \"pass\",\n        \"address_line1_check\":
+        null,\n        \"address_zip_check\": null,\n        \"customer\": \"cus_4CFu5sbBRvtwKW\"\n
+        \     }\n    ]\n  },\n  \"default_card\": \"card_104CFu4oB0YITArSggNBwH2h\"\n}\n"
+    http_version: 
+  recorded_at: Tue, 10 Jun 2014 15:42:51 GMT
+- request:
+    method: get
+    uri: https://api.stripe.com/v1/customers/cus_4CFu5sbBRvtwKW
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - ! '*/*; q=0.5, application/xml'
+      Accept-Encoding:
+      - gzip, deflate
+      User-Agent:
+      - Stripe/v1 RubyBindings/1.13.0
+      Authorization:
+      - Bearer <STRIPE_API_KEY>
+      Content-Type:
+      - application/x-www-form-urlencoded
+      X-Stripe-Client-User-Agent:
+      - ! '{"bindings_version":"1.13.0","lang":"ruby","lang_version":"1.9.3 p545 (2014-02-24)","platform":"x86_64-darwin13.1.0","publisher":"stripe","uname":"Darwin
+        stuarts-mbp-3.home 13.1.0 Darwin Kernel Version 13.1.0: Wed Apr  2 23:52:02
+        PDT 2014; root:xnu-2422.92.1~2/RELEASE_X86_64 x86_64"}'
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx
+      Date:
+      - Tue, 10 Jun 2014 15:42:45 GMT
+      Content-Type:
+      - application/json;charset=utf-8
+      Content-Length:
+      - '2230'
+      Cache-Control:
+      - no-cache, no-store
+      Stripe-Version:
+      - '2014-05-19'
+      Access-Control-Max-Age:
+      - '300'
+      Access-Control-Allow-Methods:
+      - GET, POST, HEAD, OPTIONS, DELETE
+      Access-Control-Allow-Credentials:
+      - 'true'
+      Strict-Transport-Security:
+      - max-age=31556926; includeSubDomains
+    body:
+      encoding: US-ASCII
+      string: ! "{\n  \"object\": \"customer\",\n  \"created\": 1402414961,\n  \"id\":
+        \"cus_4CFu5sbBRvtwKW\",\n  \"livemode\": false,\n  \"description\": \"Membership
+        for \",\n  \"email\": \"iain@foobar.com\",\n  \"delinquent\": false,\n  \"metadata\":
+        {},\n  \"subscriptions\": {\n    \"object\": \"list\",\n    \"total_count\":
+        1,\n    \"has_more\": false,\n    \"url\": \"/v1/customers/cus_4CFu5sbBRvtwKW/subscriptions\",\n
+        \   \"data\": [\n      {\n        \"id\": \"sub_4CFuMMmJ9FCCvy\",\n        \"plan\":
+        {\n          \"interval\": \"month\",\n          \"name\": \"SME \\u0026 Nonprofit
+        Supporter\",\n          \"created\": 1402405731,\n          \"amount\": 7200,\n
+        \         \"currency\": \"gbp\",\n          \"id\": \"sme_supporter\",\n          \"object\":
+        \"plan\",\n          \"livemode\": false,\n          \"interval_count\": 1,\n
+        \         \"trial_period_days\": null,\n          \"metadata\": {},\n          \"statement_description\":
+        \"Membership\"\n        },\n        \"object\": \"subscription\",\n        \"start\":
+        1402414962,\n        \"status\": \"active\",\n        \"customer\": \"cus_4CFu5sbBRvtwKW\",\n
+        \       \"cancel_at_period_end\": false,\n        \"current_period_start\":
+        1402414962,\n        \"current_period_end\": 1405006962,\n        \"ended_at\":
+        null,\n        \"trial_start\": null,\n        \"trial_end\": null,\n        \"canceled_at\":
+        null,\n        \"quantity\": 1,\n        \"application_fee_percent\": null,\n
+        \       \"discount\": null,\n        \"metadata\": {}\n      }\n    ]\n  },\n
+        \ \"discount\": null,\n  \"account_balance\": 0,\n  \"currency\": \"gbp\",\n
+        \ \"cards\": {\n    \"object\": \"list\",\n    \"total_count\": 1,\n    \"has_more\":
+        false,\n    \"url\": \"/v1/customers/cus_4CFu5sbBRvtwKW/cards\",\n    \"data\":
+        [\n      {\n        \"id\": \"card_104CFu4oB0YITArSggNBwH2h\",\n        \"object\":
+        \"card\",\n        \"last4\": \"4242\",\n        \"type\": \"Visa\",\n        \"exp_month\":
+        12,\n        \"exp_year\": 2016,\n        \"fingerprint\": \"qBYthW9tt9MyrCdj\",\n
+        \       \"country\": \"US\",\n        \"name\": null,\n        \"address_line1\":
+        null,\n        \"address_line2\": null,\n        \"address_city\": null,\n
+        \       \"address_state\": null,\n        \"address_zip\": null,\n        \"address_country\":
+        null,\n        \"cvc_check\": \"pass\",\n        \"address_line1_check\":
+        null,\n        \"address_zip_check\": null,\n        \"customer\": \"cus_4CFu5sbBRvtwKW\"\n
+        \     }\n    ]\n  },\n  \"default_card\": \"card_104CFu4oB0YITArSggNBwH2h\"\n}\n"
+    http_version: 
+  recorded_at: Tue, 10 Jun 2014 15:42:54 GMT
+- request:
+    method: get
+    uri: https://api.stripe.com/v1/customers/cus_4CFxYA7HJZMnZ0
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - ! '*/*; q=0.5, application/xml'
+      Accept-Encoding:
+      - gzip, deflate
+      User-Agent:
+      - Stripe/v1 RubyBindings/1.13.0
+      Authorization:
+      - Bearer <STRIPE_API_KEY>
+      Content-Type:
+      - application/x-www-form-urlencoded
+      X-Stripe-Client-User-Agent:
+      - ! '{"bindings_version":"1.13.0","lang":"ruby","lang_version":"1.9.3 p545 (2014-02-24)","platform":"x86_64-darwin13.1.0","publisher":"stripe","uname":"Darwin
+        stuarts-mbp-3.home 13.1.0 Darwin Kernel Version 13.1.0: Wed Apr  2 23:52:02
+        PDT 2014; root:xnu-2422.92.1~2/RELEASE_X86_64 x86_64"}'
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx
+      Date:
+      - Tue, 10 Jun 2014 15:45:34 GMT
+      Content-Type:
+      - application/json;charset=utf-8
+      Content-Length:
+      - '2230'
+      Access-Control-Allow-Methods:
+      - GET, POST, HEAD, OPTIONS, DELETE
+      Access-Control-Max-Age:
+      - '300'
+      Cache-Control:
+      - no-cache, no-store
+      Access-Control-Allow-Credentials:
+      - 'true'
+      Stripe-Version:
+      - '2014-05-19'
+      Strict-Transport-Security:
+      - max-age=31556926; includeSubDomains
+    body:
+      encoding: US-ASCII
+      string: ! "{\n  \"object\": \"customer\",\n  \"created\": 1402415133,\n  \"id\":
+        \"cus_4CFxYA7HJZMnZ0\",\n  \"livemode\": false,\n  \"description\": \"Membership
+        for \",\n  \"email\": \"iain@foobar.com\",\n  \"delinquent\": false,\n  \"metadata\":
+        {},\n  \"subscriptions\": {\n    \"object\": \"list\",\n    \"total_count\":
+        1,\n    \"has_more\": false,\n    \"url\": \"/v1/customers/cus_4CFxYA7HJZMnZ0/subscriptions\",\n
+        \   \"data\": [\n      {\n        \"id\": \"sub_4CFxUX6dyTPShu\",\n        \"plan\":
+        {\n          \"interval\": \"month\",\n          \"name\": \"SME \\u0026 Nonprofit
+        Supporter\",\n          \"created\": 1402405731,\n          \"amount\": 7200,\n
+        \         \"currency\": \"gbp\",\n          \"id\": \"sme_supporter\",\n          \"object\":
+        \"plan\",\n          \"livemode\": false,\n          \"interval_count\": 1,\n
+        \         \"trial_period_days\": null,\n          \"metadata\": {},\n          \"statement_description\":
+        \"Membership\"\n        },\n        \"object\": \"subscription\",\n        \"start\":
+        1402415133,\n        \"status\": \"active\",\n        \"customer\": \"cus_4CFxYA7HJZMnZ0\",\n
+        \       \"cancel_at_period_end\": false,\n        \"current_period_start\":
+        1402415133,\n        \"current_period_end\": 1405007133,\n        \"ended_at\":
+        null,\n        \"trial_start\": null,\n        \"trial_end\": null,\n        \"canceled_at\":
+        null,\n        \"quantity\": 1,\n        \"application_fee_percent\": null,\n
+        \       \"discount\": null,\n        \"metadata\": {}\n      }\n    ]\n  },\n
+        \ \"discount\": null,\n  \"account_balance\": 0,\n  \"currency\": \"gbp\",\n
+        \ \"cards\": {\n    \"object\": \"list\",\n    \"total_count\": 1,\n    \"has_more\":
+        false,\n    \"url\": \"/v1/customers/cus_4CFxYA7HJZMnZ0/cards\",\n    \"data\":
+        [\n      {\n        \"id\": \"card_104CFx4oB0YITArSbyWqD4MO\",\n        \"object\":
+        \"card\",\n        \"last4\": \"4242\",\n        \"type\": \"Visa\",\n        \"exp_month\":
+        12,\n        \"exp_year\": 2016,\n        \"fingerprint\": \"qBYthW9tt9MyrCdj\",\n
+        \       \"country\": \"US\",\n        \"name\": null,\n        \"address_line1\":
+        null,\n        \"address_line2\": null,\n        \"address_city\": null,\n
+        \       \"address_state\": null,\n        \"address_zip\": null,\n        \"address_country\":
+        null,\n        \"cvc_check\": \"pass\",\n        \"address_line1_check\":
+        null,\n        \"address_zip_check\": null,\n        \"customer\": \"cus_4CFxYA7HJZMnZ0\"\n
+        \     }\n    ]\n  },\n  \"default_card\": \"card_104CFx4oB0YITArSbyWqD4MO\"\n}\n"
+    http_version: 
+  recorded_at: Tue, 10 Jun 2014 15:45:43 GMT
+- request:
+    method: get
+    uri: https://api.stripe.com/v1/customers/cus_4CFxYA7HJZMnZ0
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - ! '*/*; q=0.5, application/xml'
+      Accept-Encoding:
+      - gzip, deflate
+      User-Agent:
+      - Stripe/v1 RubyBindings/1.13.0
+      Authorization:
+      - Bearer <STRIPE_API_KEY>
+      Content-Type:
+      - application/x-www-form-urlencoded
+      X-Stripe-Client-User-Agent:
+      - ! '{"bindings_version":"1.13.0","lang":"ruby","lang_version":"1.9.3 p545 (2014-02-24)","platform":"x86_64-darwin13.1.0","publisher":"stripe","uname":"Darwin
+        stuarts-mbp-3.home 13.1.0 Darwin Kernel Version 13.1.0: Wed Apr  2 23:52:02
+        PDT 2014; root:xnu-2422.92.1~2/RELEASE_X86_64 x86_64"}'
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx
+      Date:
+      - Tue, 10 Jun 2014 15:45:35 GMT
+      Content-Type:
+      - application/json;charset=utf-8
+      Content-Length:
+      - '2230'
+      Access-Control-Allow-Methods:
+      - GET, POST, HEAD, OPTIONS, DELETE
+      Access-Control-Max-Age:
+      - '300'
+      Cache-Control:
+      - no-cache, no-store
+      Access-Control-Allow-Credentials:
+      - 'true'
+      Stripe-Version:
+      - '2014-05-19'
+      Strict-Transport-Security:
+      - max-age=31556926; includeSubDomains
+    body:
+      encoding: US-ASCII
+      string: ! "{\n  \"object\": \"customer\",\n  \"created\": 1402415133,\n  \"id\":
+        \"cus_4CFxYA7HJZMnZ0\",\n  \"livemode\": false,\n  \"description\": \"Membership
+        for \",\n  \"email\": \"iain@foobar.com\",\n  \"delinquent\": false,\n  \"metadata\":
+        {},\n  \"subscriptions\": {\n    \"object\": \"list\",\n    \"total_count\":
+        1,\n    \"has_more\": false,\n    \"url\": \"/v1/customers/cus_4CFxYA7HJZMnZ0/subscriptions\",\n
+        \   \"data\": [\n      {\n        \"id\": \"sub_4CFxUX6dyTPShu\",\n        \"plan\":
+        {\n          \"interval\": \"month\",\n          \"name\": \"SME \\u0026 Nonprofit
+        Supporter\",\n          \"created\": 1402405731,\n          \"amount\": 7200,\n
+        \         \"currency\": \"gbp\",\n          \"id\": \"sme_supporter\",\n          \"object\":
+        \"plan\",\n          \"livemode\": false,\n          \"interval_count\": 1,\n
+        \         \"trial_period_days\": null,\n          \"metadata\": {},\n          \"statement_description\":
+        \"Membership\"\n        },\n        \"object\": \"subscription\",\n        \"start\":
+        1402415133,\n        \"status\": \"active\",\n        \"customer\": \"cus_4CFxYA7HJZMnZ0\",\n
+        \       \"cancel_at_period_end\": false,\n        \"current_period_start\":
+        1402415133,\n        \"current_period_end\": 1405007133,\n        \"ended_at\":
+        null,\n        \"trial_start\": null,\n        \"trial_end\": null,\n        \"canceled_at\":
+        null,\n        \"quantity\": 1,\n        \"application_fee_percent\": null,\n
+        \       \"discount\": null,\n        \"metadata\": {}\n      }\n    ]\n  },\n
+        \ \"discount\": null,\n  \"account_balance\": 0,\n  \"currency\": \"gbp\",\n
+        \ \"cards\": {\n    \"object\": \"list\",\n    \"total_count\": 1,\n    \"has_more\":
+        false,\n    \"url\": \"/v1/customers/cus_4CFxYA7HJZMnZ0/cards\",\n    \"data\":
+        [\n      {\n        \"id\": \"card_104CFx4oB0YITArSbyWqD4MO\",\n        \"object\":
+        \"card\",\n        \"last4\": \"4242\",\n        \"type\": \"Visa\",\n        \"exp_month\":
+        12,\n        \"exp_year\": 2016,\n        \"fingerprint\": \"qBYthW9tt9MyrCdj\",\n
+        \       \"country\": \"US\",\n        \"name\": null,\n        \"address_line1\":
+        null,\n        \"address_line2\": null,\n        \"address_city\": null,\n
+        \       \"address_state\": null,\n        \"address_zip\": null,\n        \"address_country\":
+        null,\n        \"cvc_check\": \"pass\",\n        \"address_line1_check\":
+        null,\n        \"address_zip_check\": null,\n        \"customer\": \"cus_4CFxYA7HJZMnZ0\"\n
+        \     }\n    ]\n  },\n  \"default_card\": \"card_104CFx4oB0YITArSbyWqD4MO\"\n}\n"
+    http_version: 
+  recorded_at: Tue, 10 Jun 2014 15:45:44 GMT
+- request:
+    method: post
+    uri: https://api.stripe.com/v1/customers
+    body:
+      encoding: US-ASCII
+      string: card[exp_month]=12&card[exp_year]=2016&card[number]=4242424242424242&card[cvc]=123&plan=sme_supporter&description=Membership%20for%20&email=iain%40foobar.com
+    headers:
+      Accept:
+      - ! '*/*; q=0.5, application/xml'
+      Accept-Encoding:
+      - gzip, deflate
+      User-Agent:
+      - Stripe/v1 RubyBindings/1.13.0
+      Authorization:
+      - Bearer <STRIPE_API_KEY>
+      Content-Type:
+      - application/x-www-form-urlencoded
+      X-Stripe-Client-User-Agent:
+      - ! '{"bindings_version":"1.13.0","lang":"ruby","lang_version":"1.9.3 p545 (2014-02-24)","platform":"x86_64-darwin13.1.0","publisher":"stripe","uname":"Darwin
+        stuarts-mbp-3.home 13.1.0 Darwin Kernel Version 13.1.0: Wed Apr  2 23:52:02
+        PDT 2014; root:xnu-2422.92.1~2/RELEASE_X86_64 x86_64"}'
+      Content-Length:
+      - '157'
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx
+      Date:
+      - Tue, 10 Jun 2014 15:46:24 GMT
+      Content-Type:
+      - application/json;charset=utf-8
+      Content-Length:
+      - '2230'
+      Stripe-Version:
+      - '2014-05-19'
+      Cache-Control:
+      - no-cache, no-store
+      Access-Control-Allow-Methods:
+      - GET, POST, HEAD, OPTIONS, DELETE
+      Access-Control-Max-Age:
+      - '300'
+      Access-Control-Allow-Credentials:
+      - 'true'
+      Strict-Transport-Security:
+      - max-age=31556926; includeSubDomains
+    body:
+      encoding: US-ASCII
+      string: ! "{\n  \"object\": \"customer\",\n  \"created\": 1402415183,\n  \"id\":
+        \"cus_4CFy3Kd88gewpL\",\n  \"livemode\": false,\n  \"description\": \"Membership
+        for \",\n  \"email\": \"iain@foobar.com\",\n  \"delinquent\": false,\n  \"metadata\":
+        {},\n  \"subscriptions\": {\n    \"object\": \"list\",\n    \"total_count\":
+        1,\n    \"has_more\": false,\n    \"url\": \"/v1/customers/cus_4CFy3Kd88gewpL/subscriptions\",\n
+        \   \"data\": [\n      {\n        \"id\": \"sub_4CFywRYAfD9GlB\",\n        \"plan\":
+        {\n          \"interval\": \"month\",\n          \"name\": \"SME \\u0026 Nonprofit
+        Supporter\",\n          \"created\": 1402405731,\n          \"amount\": 7200,\n
+        \         \"currency\": \"gbp\",\n          \"id\": \"sme_supporter\",\n          \"object\":
+        \"plan\",\n          \"livemode\": false,\n          \"interval_count\": 1,\n
+        \         \"trial_period_days\": null,\n          \"metadata\": {},\n          \"statement_description\":
+        \"Membership\"\n        },\n        \"object\": \"subscription\",\n        \"start\":
+        1402415183,\n        \"status\": \"active\",\n        \"customer\": \"cus_4CFy3Kd88gewpL\",\n
+        \       \"cancel_at_period_end\": false,\n        \"current_period_start\":
+        1402415183,\n        \"current_period_end\": 1405007183,\n        \"ended_at\":
+        null,\n        \"trial_start\": null,\n        \"trial_end\": null,\n        \"canceled_at\":
+        null,\n        \"quantity\": 1,\n        \"application_fee_percent\": null,\n
+        \       \"discount\": null,\n        \"metadata\": {}\n      }\n    ]\n  },\n
+        \ \"discount\": null,\n  \"account_balance\": 0,\n  \"currency\": \"gbp\",\n
+        \ \"cards\": {\n    \"object\": \"list\",\n    \"total_count\": 1,\n    \"has_more\":
+        false,\n    \"url\": \"/v1/customers/cus_4CFy3Kd88gewpL/cards\",\n    \"data\":
+        [\n      {\n        \"id\": \"card_104CFy4oB0YITArS5ZOfDDxU\",\n        \"object\":
+        \"card\",\n        \"last4\": \"4242\",\n        \"type\": \"Visa\",\n        \"exp_month\":
+        12,\n        \"exp_year\": 2016,\n        \"fingerprint\": \"qBYthW9tt9MyrCdj\",\n
+        \       \"country\": \"US\",\n        \"name\": null,\n        \"address_line1\":
+        null,\n        \"address_line2\": null,\n        \"address_city\": null,\n
+        \       \"address_state\": null,\n        \"address_zip\": null,\n        \"address_country\":
+        null,\n        \"cvc_check\": \"pass\",\n        \"address_line1_check\":
+        null,\n        \"address_zip_check\": null,\n        \"customer\": \"cus_4CFy3Kd88gewpL\"\n
+        \     }\n    ]\n  },\n  \"default_card\": \"card_104CFy4oB0YITArS5ZOfDDxU\"\n}\n"
+    http_version: 
+  recorded_at: Tue, 10 Jun 2014 15:46:32 GMT
+- request:
+    method: get
+    uri: https://api.stripe.com/v1/customers/cus_4CFy3Kd88gewpL
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - ! '*/*; q=0.5, application/xml'
+      Accept-Encoding:
+      - gzip, deflate
+      User-Agent:
+      - Stripe/v1 RubyBindings/1.13.0
+      Authorization:
+      - Bearer <STRIPE_API_KEY>
+      Content-Type:
+      - application/x-www-form-urlencoded
+      X-Stripe-Client-User-Agent:
+      - ! '{"bindings_version":"1.13.0","lang":"ruby","lang_version":"1.9.3 p545 (2014-02-24)","platform":"x86_64-darwin13.1.0","publisher":"stripe","uname":"Darwin
+        stuarts-mbp-3.home 13.1.0 Darwin Kernel Version 13.1.0: Wed Apr  2 23:52:02
+        PDT 2014; root:xnu-2422.92.1~2/RELEASE_X86_64 x86_64"}'
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx
+      Date:
+      - Tue, 10 Jun 2014 15:46:25 GMT
+      Content-Type:
+      - application/json;charset=utf-8
+      Content-Length:
+      - '2230'
+      Cache-Control:
+      - no-cache, no-store
+      Stripe-Version:
+      - '2014-05-19'
+      Access-Control-Max-Age:
+      - '300'
+      Access-Control-Allow-Methods:
+      - GET, POST, HEAD, OPTIONS, DELETE
+      Access-Control-Allow-Credentials:
+      - 'true'
+      Strict-Transport-Security:
+      - max-age=31556926; includeSubDomains
+    body:
+      encoding: US-ASCII
+      string: ! "{\n  \"object\": \"customer\",\n  \"created\": 1402415183,\n  \"id\":
+        \"cus_4CFy3Kd88gewpL\",\n  \"livemode\": false,\n  \"description\": \"Membership
+        for \",\n  \"email\": \"iain@foobar.com\",\n  \"delinquent\": false,\n  \"metadata\":
+        {},\n  \"subscriptions\": {\n    \"object\": \"list\",\n    \"total_count\":
+        1,\n    \"has_more\": false,\n    \"url\": \"/v1/customers/cus_4CFy3Kd88gewpL/subscriptions\",\n
+        \   \"data\": [\n      {\n        \"id\": \"sub_4CFywRYAfD9GlB\",\n        \"plan\":
+        {\n          \"interval\": \"month\",\n          \"name\": \"SME \\u0026 Nonprofit
+        Supporter\",\n          \"created\": 1402405731,\n          \"amount\": 7200,\n
+        \         \"currency\": \"gbp\",\n          \"id\": \"sme_supporter\",\n          \"object\":
+        \"plan\",\n          \"livemode\": false,\n          \"interval_count\": 1,\n
+        \         \"trial_period_days\": null,\n          \"metadata\": {},\n          \"statement_description\":
+        \"Membership\"\n        },\n        \"object\": \"subscription\",\n        \"start\":
+        1402415183,\n        \"status\": \"active\",\n        \"customer\": \"cus_4CFy3Kd88gewpL\",\n
+        \       \"cancel_at_period_end\": false,\n        \"current_period_start\":
+        1402415183,\n        \"current_period_end\": 1405007183,\n        \"ended_at\":
+        null,\n        \"trial_start\": null,\n        \"trial_end\": null,\n        \"canceled_at\":
+        null,\n        \"quantity\": 1,\n        \"application_fee_percent\": null,\n
+        \       \"discount\": null,\n        \"metadata\": {}\n      }\n    ]\n  },\n
+        \ \"discount\": null,\n  \"account_balance\": 0,\n  \"currency\": \"gbp\",\n
+        \ \"cards\": {\n    \"object\": \"list\",\n    \"total_count\": 1,\n    \"has_more\":
+        false,\n    \"url\": \"/v1/customers/cus_4CFy3Kd88gewpL/cards\",\n    \"data\":
+        [\n      {\n        \"id\": \"card_104CFy4oB0YITArS5ZOfDDxU\",\n        \"object\":
+        \"card\",\n        \"last4\": \"4242\",\n        \"type\": \"Visa\",\n        \"exp_month\":
+        12,\n        \"exp_year\": 2016,\n        \"fingerprint\": \"qBYthW9tt9MyrCdj\",\n
+        \       \"country\": \"US\",\n        \"name\": null,\n        \"address_line1\":
+        null,\n        \"address_line2\": null,\n        \"address_city\": null,\n
+        \       \"address_state\": null,\n        \"address_zip\": null,\n        \"address_country\":
+        null,\n        \"cvc_check\": \"pass\",\n        \"address_line1_check\":
+        null,\n        \"address_zip_check\": null,\n        \"customer\": \"cus_4CFy3Kd88gewpL\"\n
+        \     }\n    ]\n  },\n  \"default_card\": \"card_104CFy4oB0YITArS5ZOfDDxU\"\n}\n"
+    http_version: 
+  recorded_at: Tue, 10 Jun 2014 15:46:33 GMT
+- request:
+    method: get
+    uri: https://api.stripe.com/v1/customers/cus_4CFy3Kd88gewpL
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - ! '*/*; q=0.5, application/xml'
+      Accept-Encoding:
+      - gzip, deflate
+      User-Agent:
+      - Stripe/v1 RubyBindings/1.13.0
+      Authorization:
+      - Bearer <STRIPE_API_KEY>
+      Content-Type:
+      - application/x-www-form-urlencoded
+      X-Stripe-Client-User-Agent:
+      - ! '{"bindings_version":"1.13.0","lang":"ruby","lang_version":"1.9.3 p545 (2014-02-24)","platform":"x86_64-darwin13.1.0","publisher":"stripe","uname":"Darwin
+        stuarts-mbp-3.home 13.1.0 Darwin Kernel Version 13.1.0: Wed Apr  2 23:52:02
+        PDT 2014; root:xnu-2422.92.1~2/RELEASE_X86_64 x86_64"}'
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx
+      Date:
+      - Tue, 10 Jun 2014 15:46:32 GMT
+      Content-Type:
+      - application/json;charset=utf-8
+      Content-Length:
+      - '2230'
+      Access-Control-Allow-Methods:
+      - GET, POST, HEAD, OPTIONS, DELETE
+      Access-Control-Max-Age:
+      - '300'
+      Cache-Control:
+      - no-cache, no-store
+      Access-Control-Allow-Credentials:
+      - 'true'
+      Stripe-Version:
+      - '2014-05-19'
+      Strict-Transport-Security:
+      - max-age=31556926; includeSubDomains
+    body:
+      encoding: US-ASCII
+      string: ! "{\n  \"object\": \"customer\",\n  \"created\": 1402415183,\n  \"id\":
+        \"cus_4CFy3Kd88gewpL\",\n  \"livemode\": false,\n  \"description\": \"Membership
+        for \",\n  \"email\": \"iain@foobar.com\",\n  \"delinquent\": false,\n  \"metadata\":
+        {},\n  \"subscriptions\": {\n    \"object\": \"list\",\n    \"total_count\":
+        1,\n    \"has_more\": false,\n    \"url\": \"/v1/customers/cus_4CFy3Kd88gewpL/subscriptions\",\n
+        \   \"data\": [\n      {\n        \"id\": \"sub_4CFywRYAfD9GlB\",\n        \"plan\":
+        {\n          \"interval\": \"month\",\n          \"name\": \"SME \\u0026 Nonprofit
+        Supporter\",\n          \"created\": 1402405731,\n          \"amount\": 7200,\n
+        \         \"currency\": \"gbp\",\n          \"id\": \"sme_supporter\",\n          \"object\":
+        \"plan\",\n          \"livemode\": false,\n          \"interval_count\": 1,\n
+        \         \"trial_period_days\": null,\n          \"metadata\": {},\n          \"statement_description\":
+        \"Membership\"\n        },\n        \"object\": \"subscription\",\n        \"start\":
+        1402415183,\n        \"status\": \"active\",\n        \"customer\": \"cus_4CFy3Kd88gewpL\",\n
+        \       \"cancel_at_period_end\": false,\n        \"current_period_start\":
+        1402415183,\n        \"current_period_end\": 1405007183,\n        \"ended_at\":
+        null,\n        \"trial_start\": null,\n        \"trial_end\": null,\n        \"canceled_at\":
+        null,\n        \"quantity\": 1,\n        \"application_fee_percent\": null,\n
+        \       \"discount\": null,\n        \"metadata\": {}\n      }\n    ]\n  },\n
+        \ \"discount\": null,\n  \"account_balance\": 0,\n  \"currency\": \"gbp\",\n
+        \ \"cards\": {\n    \"object\": \"list\",\n    \"total_count\": 1,\n    \"has_more\":
+        false,\n    \"url\": \"/v1/customers/cus_4CFy3Kd88gewpL/cards\",\n    \"data\":
+        [\n      {\n        \"id\": \"card_104CFy4oB0YITArS5ZOfDDxU\",\n        \"object\":
+        \"card\",\n        \"last4\": \"4242\",\n        \"type\": \"Visa\",\n        \"exp_month\":
+        12,\n        \"exp_year\": 2016,\n        \"fingerprint\": \"qBYthW9tt9MyrCdj\",\n
+        \       \"country\": \"US\",\n        \"name\": null,\n        \"address_line1\":
+        null,\n        \"address_line2\": null,\n        \"address_city\": null,\n
+        \       \"address_state\": null,\n        \"address_zip\": null,\n        \"address_country\":
+        null,\n        \"cvc_check\": \"pass\",\n        \"address_line1_check\":
+        null,\n        \"address_zip_check\": null,\n        \"customer\": \"cus_4CFy3Kd88gewpL\"\n
+        \     }\n    ]\n  },\n  \"default_card\": \"card_104CFy4oB0YITArS5ZOfDDxU\"\n}\n"
+    http_version: 
+  recorded_at: Tue, 10 Jun 2014 15:46:41 GMT
+recorded_with: VCR 2.9.2
