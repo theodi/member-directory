@@ -175,6 +175,24 @@ class Member < ActiveRecord::Base
       errors.add(:card_number, "is incorrect")
     when 'incorrect_cvc'
       errors.add(:card_validation_code, "is incorrect")
+    when 'invalid_number'
+      errors.add(:card_number, "is incorrect")
+    when 'invalid_expiry_month'
+      errors.add(:card_expiry_month, "is incorrect")
+    when 'invalid_expiry_year'
+      errors.add(:card_expiry_year, "is incorrect")
+    when 'invalid_cvc'
+      errors.add(:card_validation_code, "is incorrect")
+    when 'expired_card'
+      errors.add(:card_number, "has expired")
+    when 'card_declined'
+      errors.add(:card_number, "has been declined")
+    # when 'missing'
+    # 	There is no card on a customer that is being charged.
+    # when 'processing_error'
+    # 	An error occurred while processing the card.
+    # when 'rate_limit'
+    #   Rate limit was hit
     end
   end
 end
