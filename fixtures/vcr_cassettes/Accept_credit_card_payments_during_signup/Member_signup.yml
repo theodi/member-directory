@@ -14,7 +14,7 @@ http_interactions:
       User-Agent:
       - Stripe/v1 RubyBindings/1.13.0
       Authorization:
-      - Bearer sk_<RAILS_ENV>_39F7AAZeF7Kij0yrNOlDznbH
+      - Bearer <STRIPE_API_KEY>
       Content-Type:
       - application/x-www-form-urlencoded
       X-Stripe-Client-User-Agent:
@@ -78,7 +78,7 @@ http_interactions:
         null,\n        \"cvc_check\": \"pass\",\n        \"address_line1_check\":
         null,\n        \"address_zip_check\": null,\n        \"customer\": \"cus_4CDsWCTogIwOIz\"\n
         \     }\n    ]\n  },\n  \"default_card\": \"card_104CDs4oB0YITArSHLaa5DyE\"\n}\n"
-    http_version: 
+    http_version:
   recorded_at: Tue, 10 Jun 2014 13:36:30 GMT
 - request:
     method: get
@@ -94,7 +94,7 @@ http_interactions:
       User-Agent:
       - Stripe/v1 RubyBindings/1.13.0
       Authorization:
-      - Bearer sk_<RAILS_ENV>_39F7AAZeF7Kij0yrNOlDznbH
+      - Bearer <STRIPE_API_KEY>
       Content-Type:
       - application/x-www-form-urlencoded
       X-Stripe-Client-User-Agent:
@@ -158,7 +158,7 @@ http_interactions:
         null,\n        \"cvc_check\": \"pass\",\n        \"address_line1_check\":
         null,\n        \"address_zip_check\": null,\n        \"customer\": \"cus_4CE1m1EFhrFxeW\"\n
         \     }\n    ]\n  },\n  \"default_card\": \"card_104CE14oB0YITArS89QKfQJC\"\n}\n"
-    http_version: 
+    http_version:
   recorded_at: Tue, 10 Jun 2014 13:45:30 GMT
 - request:
     method: get
@@ -174,7 +174,7 @@ http_interactions:
       User-Agent:
       - Stripe/v1 RubyBindings/1.13.0
       Authorization:
-      - Bearer sk_<RAILS_ENV>_39F7AAZeF7Kij0yrNOlDznbH
+      - Bearer <STRIPE_API_KEY>
       Content-Type:
       - application/x-www-form-urlencoded
       X-Stripe-Client-User-Agent:
@@ -238,7 +238,7 @@ http_interactions:
         null,\n        \"cvc_check\": \"pass\",\n        \"address_line1_check\":
         null,\n        \"address_zip_check\": null,\n        \"customer\": \"cus_4CE2ZdreX1vJDi\"\n
         \     }\n    ]\n  },\n  \"default_card\": \"card_104CE24oB0YITArSLhuAXyUu\"\n}\n"
-    http_version: 
+    http_version:
   recorded_at: Tue, 10 Jun 2014 13:47:07 GMT
 - request:
     method: post
@@ -254,7 +254,7 @@ http_interactions:
       User-Agent:
       - Stripe/v1 RubyBindings/1.13.0
       Authorization:
-      - Bearer sk_<RAILS_ENV>_39F7AAZeF7Kij0yrNOlDznbH
+      - Bearer <STRIPE_API_KEY>
       Content-Type:
       - application/x-www-form-urlencoded
       X-Stripe-Client-User-Agent:
@@ -320,7 +320,7 @@ http_interactions:
         null,\n        \"cvc_check\": \"pass\",\n        \"address_line1_check\":
         null,\n        \"address_zip_check\": null,\n        \"customer\": \"cus_4CE3d7hOZxWmCg\"\n
         \     }\n    ]\n  },\n  \"default_card\": \"card_104CE34oB0YITArSEiGN9Csf\"\n}\n"
-    http_version: 
+    http_version:
   recorded_at: Tue, 10 Jun 2014 13:48:26 GMT
 - request:
     method: get
@@ -336,7 +336,7 @@ http_interactions:
       User-Agent:
       - Stripe/v1 RubyBindings/1.13.0
       Authorization:
-      - Bearer sk_<RAILS_ENV>_39F7AAZeF7Kij0yrNOlDznbH
+      - Bearer <STRIPE_API_KEY>
       Content-Type:
       - application/x-www-form-urlencoded
       X-Stripe-Client-User-Agent:
@@ -400,6 +400,6 @@ http_interactions:
         null,\n        \"cvc_check\": \"pass\",\n        \"address_line1_check\":
         null,\n        \"address_zip_check\": null,\n        \"customer\": \"cus_4CE3d7hOZxWmCg\"\n
         \     }\n    ]\n  },\n  \"default_card\": \"card_104CE34oB0YITArSEiGN9Csf\"\n}\n"
-    http_version: 
+    http_version:
   recorded_at: Tue, 10 Jun 2014 13:48:28 GMT
 recorded_with: VCR 2.9.2

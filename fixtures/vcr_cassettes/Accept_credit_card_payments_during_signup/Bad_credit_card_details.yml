@@ -14,7 +14,7 @@ http_interactions:
       User-Agent:
       - Stripe/v1 RubyBindings/1.13.0
       Authorization:
-      - Bearer sk_<RAILS_ENV>_39F7AAZeF7Kij0yrNOlDznbH
+      - Bearer <STRIPE_API_KEY>
       Content-Type:
       - application/x-www-form-urlencoded
       X-Stripe-Client-User-Agent:
@@ -53,7 +53,7 @@ http_interactions:
       string: ! "{\n  \"error\": {\n    \"message\": \"Your card number is incorrect.\",\n
         \   \"type\": \"card_error\",\n    \"param\": \"number\",\n    \"code\": \"incorrect_number\"\n
         \ }\n}\n"
-    http_version: 
+    http_version:
   recorded_at: Tue, 10 Jun 2014 14:02:45 GMT
 - request:
     method: post
@@ -69,7 +69,7 @@ http_interactions:
       User-Agent:
       - Stripe/v1 RubyBindings/1.13.0
       Authorization:
-      - Bearer sk_<RAILS_ENV>_39F7AAZeF7Kij0yrNOlDznbH
+      - Bearer <STRIPE_API_KEY>
       Content-Type:
       - application/x-www-form-urlencoded
       X-Stripe-Client-User-Agent:
@@ -108,6 +108,6 @@ http_interactions:
       string: ! "{\n  \"error\": {\n    \"message\": \"Your card number is incorrect.\",\n
         \   \"type\": \"card_error\",\n    \"param\": \"number\",\n    \"code\": \"incorrect_number\"\n
         \ }\n}\n"
-    http_version: 
+    http_version:
   recorded_at: Tue, 10 Jun 2014 14:03:00 GMT
 recorded_with: VCR 2.9.2
