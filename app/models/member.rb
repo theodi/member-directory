@@ -18,11 +18,13 @@ class Member < ActiveRecord::Base
   attr_accessible :organization_name, :organization_size, :organization_type, :contact_name,
                   :telephone, :street_address, :address_locality, :address_region,
                   :address_country, :postal_code, :organization_vat_id, :organization_company_number,
-                  :purchase_order_number, :agreed_to_terms, :remote
+                  :card_number, :card_validation_code, :card_expiry_month, :card_expiry_year,
+                  :purchase_order_number, :agreed_to_terms, :payment_method, :remote
   attr_accessor   :organization_name, :organization_size, :organization_type, :contact_name,
                   :telephone, :street_address, :address_locality, :address_region,
                   :address_country, :postal_code, :organization_vat_id, :organization_company_number,
-                  :purchase_order_number, :agreed_to_terms
+                  :card_number, :card_validation_code, :card_expiry_month, :card_expiry_year,
+                  :purchase_order_number, :agreed_to_terms, :payment_method
   attr_writer     :remote
 
   # allow admins to edit access key

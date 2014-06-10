@@ -120,11 +120,55 @@
   	</div>
   </div>
 
+</fieldset>
+
+<fieldset>
+
+  <legend>Payment Details</legend>
+
   <div class="control-group">
-  	<%= f.label :purchase_order_number, :class => 'control-label' %>
+  	<%= f.label :payment_method, :class => 'control-label' %>
   	<div class="controls">
-  		<%= f.text_field :purchase_order_number %>
+      <%= f.radio_button :payment_method, :credit_card %>
+      <%= f.label :payment_method, t(:credit_card), :value => :credit_card %>
+      <%= f.radio_button :payment_method, :invoice %>
+      <%= f.label :payment_method, t(:invoice), :value => :invoice %>
   	</div>
+  </div>
+
+  <div class="control-group">
+    <%= f.label :card_number, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :card_number %>
+    </div>
+  </div>
+
+  <div class="control-group">
+    <%= f.label :card_validation_code, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :card_validation_code %>
+    </div>
+  </div>
+
+  <div class="control-group">
+    <%= f.label :card_expiry_month, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :card_expiry_month %>
+    </div>
+  </div>
+
+  <div class="control-group">
+    <%= f.label :card_expiry_year, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :card_expiry_year %>
+    </div>
+  </div>
+
+  <div class="control-group">
+    <%= f.label :purchase_order_number, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :purchase_order_number %>
+    </div>
   </div>
 
 </fieldset>
