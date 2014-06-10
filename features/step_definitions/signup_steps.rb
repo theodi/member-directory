@@ -102,10 +102,12 @@ Then /^my details should be queued for further processing$/ do
                    }
   contact_person = { 'name' => @contact_name, 'email' => @email, 'telephone' => @telephone }
   billing        = {
-      'name'      => @contact_name,
-      'email'     => @email,
-      'telephone' => @telephone,
-      'address'   => {
+      'name'           => @contact_name,
+      'email'          => @email,
+      'telephone'      => @telephone,
+      'payment_method' => @payment_method,
+      'paid'           => @paid,
+      'address'        => {
           'street_address'   => @street_address,
           'address_locality' => @address_locality,
           'address_region'   => @address_region,

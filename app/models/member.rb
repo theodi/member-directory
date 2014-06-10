@@ -41,6 +41,8 @@ class Member < ActiveRecord::Base
 	validates :postal_code, :presence => true, :on => :create
 	validates_acceptance_of :agreed_to_terms, :on => :create
 
+  before_validation :stripe_payment
+
   validate :check_organization_names
 
   def remote
@@ -61,6 +63,10 @@ class Member < ActiveRecord::Base
 
   def supporter?
     product_name == "supporter"
+  end
+
+  def stripe_customer
+    Stripe::Customer.retrieve(stripe_customer_id)
   end
 
 	private
@@ -97,6 +103,8 @@ class Member < ActiveRecord::Base
                         'name' => contact_name,
                         'email' => email,
                         'telephone' => telephone,
+                        'payment_method' => payment_method,
+                        'paid' => (payment_method == "credit_card"),
                         'address' => {
                           'street_address' => street_address,
                           'address_locality' => address_locality,
@@ -134,4 +142,26 @@ class Member < ActiveRecord::Base
     end
   end
 
+  def stripe_payment
+    if new_record? && payment_method == "credit_card"
+      begin
+        customer = Stripe::Customer.create(
+          card: {
+            exp_month: card_expiry_month,
+            exp_year:  card_expiry_year,
+            number:    card_number,
+            cvc:       card_validation_code
+          },
+          plan:        "sme_supporter",
+          description: "Membership for #{membership_number}",
+          email:       email
+        )
+        self.stripe_customer_id = customer.id
+      rescue Stripe::CardError => e
+        body = e.json_body
+        err = body[:error]
+        errors.add(nil, err[:message])
+      end
+    end
+  end
 end
