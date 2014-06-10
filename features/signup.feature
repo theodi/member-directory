@@ -1,4 +1,3 @@
-@vcr
 Feature: Add new signups to queue
 
   As a potential member, when I fill in my details, I want my details to be queued for further processing
