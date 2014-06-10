@@ -83,6 +83,8 @@ group :development, :test do
   gem 'simplecov-rcov'
   gem 'travis'
   gem 'poltergeist'
+  gem 'vcr'
+  gem 'webmock'
 end
 
 group :production do
