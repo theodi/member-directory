@@ -7,6 +7,7 @@ Feature: Add new signups to queue
     Given that I want to sign up as a <product_name>
     When I visit the signup page
     And I enter my details
+    And I choose to pay by invoice
     Then my details should be queued for further processing
     When I click sign up
     And I should have a membership number generated
@@ -22,6 +23,7 @@ Feature: Add new signups to queue
     Given that I want to sign up
     When I visit the signup page
     And I enter my details
+    And I choose to pay by invoice
     But I leave <field> blank
     Then my details should not be queued
     When I click sign up
@@ -42,6 +44,7 @@ Feature: Add new signups to queue
     Given that I want to sign up
     When I visit the signup page
     And I enter my details
+    And I choose to pay by invoice
     But I don't agree to the terms
     Then my details should not be queued
     When I click sign up
@@ -52,6 +55,7 @@ Feature: Add new signups to queue
     Given that I want to sign up
     When I visit the signup page
     And I enter my details
+    And I choose to pay by invoice
     But my passwords don't match
     Then my details should not be queued
     When I click sign up
@@ -63,6 +67,7 @@ Feature: Add new signups to queue
     But there is already an organization with the name I want to use
     When I visit the signup page
     And I enter my details
+    And I choose to pay by invoice
     But I don't agree to the terms
     Then my details should not be queued
     When I click sign up
@@ -73,6 +78,7 @@ Feature: Add new signups to queue
     Given that I want to sign up as a supporter
     When I visit the signup page
     And I enter my details
+    And I choose to pay by invoice
     And my organisation name is "Doge Enterprises Inc. "
     Then my details should be queued for further processing
     When I click sign up
@@ -85,6 +91,7 @@ Feature: Add new signups to queue
     Given that I want to sign up as a supporter
     When I visit the signup page
     When I enter my details
+    And I choose to pay by invoice
     Then I should see "means FooBar Inc being"
     And I should see "with company number 012345678"
     And I should see "whose registered office is 123 Fake Street, Faketown, Fakeshire, UK, FAKE 123"

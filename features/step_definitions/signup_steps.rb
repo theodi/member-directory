@@ -182,3 +182,10 @@ end
 Then(/^I should see today's date$/) do
   page.body.should include(Date.today.to_formatted_s(:long_ordinal))
 end
+
+
+When(/^I choose to pay by invoice$/) do
+  choose("Invoice")
+  @payment_method = "invoice"
+  @paid = false
+end
