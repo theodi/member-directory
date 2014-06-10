@@ -11,9 +11,8 @@ Feature: Accept credit card payments during signup
     When I visit the signup page
     And I enter my details
     And I choose to pay by credit card
-    And I enter my credit card details
+    And I enter valid credit card details
     Then my details should be queued for further processing
-    And my queued details should state that I have paid
     When I click sign up
     Then my card should be charged successfully
     And I should have a membership number generated
