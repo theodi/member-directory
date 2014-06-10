@@ -11,6 +11,10 @@ VCR.configure do |c|
   c.cassette_library_dir = 'fixtures/vcr_cassettes'
   c.hook_into :webmock
   c.ignore_localhost = true
+  c.ignore_hosts 'lon.auth.api.rackspacecloud.com'
+  c.ignore_request do |request|
+    URI(request.uri).host =~ %r{.*\.clouddrive\.com.*}
+  end
 end
 
 VCR.cucumber_tags do |t|
