@@ -19,13 +19,20 @@ Feature: Accept credit card payments during signup
     And a welcome email should be sent to me
     And I should see "Welcome Pack" in the email body
 
-  Scenario: Bad credit card details
+  Scenario Outline: Bad credit card details
 
     Given that I want to sign up as a supporter
     When I visit the signup page
     And I enter my details
     And I choose to pay by credit card
-    And I enter invalid credit card details
+    And I enter my card number <card_number>
+    And I enter my CVC code <cvc>
+    And I enter my expiry month <month>
+    And I enter my expiry year <year>
     Then my details should not be queued
     When I click sign up
-    And I should see an error relating to Card number
+    And I should see an error relating to <error>
+
+    Examples:
+      | card_number      | cvc | month | year | error       |
+      | 4242424242424241 | 123 | 12    | 2014 | Card number |
