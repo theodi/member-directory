@@ -5,7 +5,7 @@ http_interactions:
     uri: https://api.stripe.com/v1/customers
     body:
       encoding: US-ASCII
-      string: card[exp_month]=12&card[exp_year]=2016&card[number]=4000000000000069&card[cvc]=123&plan=sme_supporter&description=Membership%20for%20&email=iain%40foobar.com
+      string: card[exp_month]=12&card[exp_year]=2016&card[number]=4000000000000069&card[cvc]=123&plan=corporate_supporter_monthly&description=Membership%20for%20&email=iain%40foobar.com
     headers:
       Accept:
       - ! '*/*; q=0.5, application/xml'
@@ -22,7 +22,7 @@ http_interactions:
         Agrajag.local 13.2.0 Darwin Kernel Version 13.2.0: Thu Apr 17 23:03:13 PDT
         2014; root:xnu-2422.100.13~1/RELEASE_X86_64 x86_64"}'
       Content-Length:
-      - '157'
+      - '171'
   response:
     status:
       code: 402
@@ -31,7 +31,7 @@ http_interactions:
       Server:
       - nginx
       Date:
-      - Tue, 10 Jun 2014 15:03:13 GMT
+      - Wed, 11 Jun 2014 10:59:00 GMT
       Content-Type:
       - application/json;charset=utf-8
       Content-Length:
@@ -43,7 +43,7 @@ http_interactions:
       Cache-Control:
       - no-cache, no-store
       Access-Control-Allow-Credentials:
-      - 'true'
+      - <SKIP_RAILS_ADMIN_INITIALIZER>
       Stripe-Version:
       - '2014-05-19'
       Strict-Transport-Security:
@@ -54,5 +54,5 @@ http_interactions:
         \   \"type\": \"card_error\",\n    \"param\": \"exp_month\",\n    \"code\":
         \"expired_card\"\n  }\n}\n"
     http_version: 
-  recorded_at: Tue, 10 Jun 2014 15:03:14 GMT
+  recorded_at: Wed, 11 Jun 2014 10:59:00 GMT
 recorded_with: VCR 2.9.2

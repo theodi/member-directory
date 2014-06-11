@@ -32,11 +32,11 @@ Feature: Accept credit card payments during signup
     Then I should be signed up to the <plan> plan
 
       Examples:
-        | size  | type            | plan                |
-        | small | non_commercial  | sme_supporter       |
-        | large | non_commercial  | sme_supporter       |
-        | small | commercial      | sme_supporter       |
-        | large | commercial      | corporate_supporter |
+        | size  | type            | plan                        |
+        | small | non_commercial  | supporter_monthly           |
+        | large | non_commercial  | supporter_monthly           |
+        | small | commercial      | supporter_monthly           |
+        | large | commercial      | corporate_supporter_monthly |
 
   Scenario Outline: Bad credit card details
 

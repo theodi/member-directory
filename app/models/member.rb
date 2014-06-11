@@ -172,9 +172,9 @@ class Member < ActiveRecord::Base
 
   def get_plan
     if organization_size == "large" && organization_type == "commercial"
-      "corporate_supporter"
+      "corporate_supporter_monthly"
     else
-      "sme_supporter"
+      "supporter_monthly"
     end
   end
 
