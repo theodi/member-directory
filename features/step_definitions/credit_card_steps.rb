@@ -29,7 +29,10 @@ end
 
 Then(/^my card should be charged successfully$/) do
   member = Member.find_by_email(@email)
-  member.stripe_customer.subscriptions.total_count.should == 1
+  customer = member.stripe_customer
+  customer.description.should =~ /(#{member.organization.name})/
+  customer.description.should =~ /(#{member.membership_number})/
+  customer.subscriptions.total_count.should == 1
 end
 
 Then(/^my card should not be charged$/) do

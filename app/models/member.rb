@@ -83,9 +83,11 @@ class Member < ActiveRecord::Base
   end
 
   def set_membership_number
-    begin
-      self.membership_number = generate_membership_number
-    end while self.class.exists?(:membership_number => membership_number)
+    unless membership_number
+      begin
+        self.membership_number = generate_membership_number
+      end while self.class.exists?(:membership_number => membership_number)
+    end
   end
 
   after_create :add_to_queue, :setup_organization, :save_membership_id_in_capsule
@@ -151,6 +153,7 @@ class Member < ActiveRecord::Base
   def stripe_payment
     if new_record? && paid_with_card?
       begin
+        set_membership_number
         customer = Stripe::Customer.create(
           card: {
             exp_month: card_expiry_month,
@@ -159,8 +162,7 @@ class Member < ActiveRecord::Base
             cvc:       card_validation_code
           },
           plan:        get_plan,
-          description: "Membership for #{membership_number}",
-          email:       email
+          description: "#{organization_name} #{get_plan_description} membership (#{membership_number})"
         )
         self.stripe_customer_id = customer.id
       rescue Stripe::CardError => e
@@ -176,6 +178,13 @@ class Member < ActiveRecord::Base
     else
       "supporter_monthly"
     end
+  end
+
+  def get_plan_description
+    {
+      "corporate_supporter_monthly" => "corporate supporter",
+      "supporter_monthly" => "supporter"
+    }[get_plan]
   end
 
   def payment_errors(err)

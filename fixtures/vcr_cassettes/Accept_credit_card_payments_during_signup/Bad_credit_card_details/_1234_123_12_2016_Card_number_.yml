@@ -5,7 +5,7 @@ http_interactions:
     uri: https://api.stripe.com/v1/customers
     body:
       encoding: US-ASCII
-      string: card[exp_month]=12&card[exp_year]=2016&card[number]=1234&card[cvc]=123&plan=corporate_supporter_monthly&description=Membership%20for%20&email=iain%40foobar.com
+      string: card[exp_month]=12&card[exp_year]=2016&card[number]=1234&card[cvc]=123&plan=corporate_supporter_monthly&description=FooBar%20Inc%20corporate%20supporter%20membership%20(JW4968DE)
     headers:
       Accept:
       - ! '*/*; q=0.5, application/xml'
@@ -22,7 +22,7 @@ http_interactions:
         Agrajag.local 13.2.0 Darwin Kernel Version 13.2.0: Thu Apr 17 23:03:13 PDT
         2014; root:xnu-2422.100.13~1/RELEASE_X86_64 x86_64"}'
       Content-Length:
-      - '159'
+      - '178'
   response:
     status:
       code: 402
@@ -31,7 +31,7 @@ http_interactions:
       Server:
       - nginx
       Date:
-      - Wed, 11 Jun 2014 10:58:53 GMT
+      - Wed, 11 Jun 2014 14:12:08 GMT
       Content-Type:
       - application/json;charset=utf-8
       Content-Length:
@@ -54,5 +54,5 @@ http_interactions:
         \   \"type\": \"card_error\",\n    \"param\": \"number\",\n    \"code\": \"invalid_number\"\n
         \ }\n}\n"
     http_version: 
-  recorded_at: Wed, 11 Jun 2014 10:58:53 GMT
+  recorded_at: Wed, 11 Jun 2014 14:12:08 GMT
 recorded_with: VCR 2.9.2
