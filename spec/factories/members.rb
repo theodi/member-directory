@@ -13,5 +13,6 @@ FactoryGirl.define do
     address_country   { Faker::Address.country }
     postal_code       { Faker::Address.postcode }
     password          'passw0rd'
+    payment_method    :invoice
   end
 end
