@@ -18,7 +18,16 @@ Feature: Add new signups to queue
       | product_name |
       | supporter    |
 
-	Scenario Outline: Member tries to sign up, but misses a mandatory field
+  Scenario: Member signs up but does not choose a payment method
+
+    Given that I want to sign up
+    When I visit the signup page
+    And I enter my details
+    Then my details should not be queued
+    When I click sign up
+    And I should see an error relating to Payment method
+
+  Scenario Outline: Member tries to sign up, but misses a mandatory field
 
     Given that I want to sign up
     When I visit the signup page

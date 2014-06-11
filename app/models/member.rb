@@ -39,6 +39,7 @@ class Member < ActiveRecord::Base
 	validates :address_locality, :presence => true, :on => :create
 	validates :address_country, :presence => true, :on => :create
 	validates :postal_code, :presence => true, :on => :create
+  validates :payment_method, :presence => true, :on => :create
 	validates_acceptance_of :agreed_to_terms, :on => :create
 
   before_validation :stripe_payment
