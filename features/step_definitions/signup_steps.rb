@@ -77,6 +77,8 @@ When /^I enter my details$/ do
 
   check('member_agreed_to_terms')
 
+  @payment_frequency = 'annual' # default
+
 end
 
 When /^I don't agree to the terms$/ do
@@ -106,6 +108,7 @@ Then /^my details should be queued for further processing$/ do
       'email'          => @email,
       'telephone'      => @telephone,
       'payment_method' => @payment_method,
+      'payment_freq'   => @payment_frequency,
       'paid'           => @paid,
       'address'        => {
           'street_address'   => @street_address,

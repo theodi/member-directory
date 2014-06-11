@@ -137,6 +137,13 @@
   </div>
 
   <div class="control-group">
+    <%= f.label :payment_frequency, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.select :payment_frequency, [["Yearly", :annual],["Monthly", :monthly]] %>
+    </div>
+  </div>
+
+  <div class="control-group">
     <%= f.label :card_number, :class => 'control-label' %>
     <div class="controls">
       <%= f.text_field :card_number %>

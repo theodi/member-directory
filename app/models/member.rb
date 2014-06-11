@@ -19,12 +19,12 @@ class Member < ActiveRecord::Base
                   :telephone, :street_address, :address_locality, :address_region,
                   :address_country, :postal_code, :organization_vat_id, :organization_company_number,
                   :card_number, :card_validation_code, :card_expiry_month, :card_expiry_year,
-                  :purchase_order_number, :agreed_to_terms, :payment_method, :remote
+                  :purchase_order_number, :agreed_to_terms, :payment_method, :payment_frequency, :remote
   attr_accessor   :organization_name, :organization_size, :organization_type, :contact_name,
                   :telephone, :street_address, :address_locality, :address_region,
                   :address_country, :postal_code, :organization_vat_id, :organization_company_number,
                   :card_number, :card_validation_code, :card_expiry_month, :card_expiry_year,
-                  :purchase_order_number, :agreed_to_terms, :payment_method
+                  :purchase_order_number, :agreed_to_terms, :payment_method, :payment_frequency
   attr_writer     :remote
 
   # allow admins to edit access key
@@ -112,6 +112,7 @@ class Member < ActiveRecord::Base
                         'email' => email,
                         'telephone' => telephone,
                         'payment_method' => payment_method,
+                        'payment_freq' => payment_frequency,
                         'paid' => (payment_method == "credit_card"),
                         'address' => {
                           'street_address' => street_address,
@@ -173,11 +174,12 @@ class Member < ActiveRecord::Base
   end
 
   def get_plan
+    plan = ''
     if organization_size == "large" && organization_type == "commercial"
-      "corporate_supporter_monthly"
-    else
-      "supporter_monthly"
+      plan += "corporate_"
     end
+    plan += 'supporter_'
+    plan += payment_frequency
   end
 
   def get_plan_description

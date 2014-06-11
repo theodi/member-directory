@@ -28,15 +28,20 @@ Feature: Accept credit card payments during signup
     And I enter an organisation type of <type>
     And I choose to pay by credit card
     And I enter valid credit card details
+    And I choose to pay on a <frequency> basis
     And I click sign up
     Then I should be signed up to the <plan> plan
 
       Examples:
-        | size  | type            | plan                        |
-        | small | non_commercial  | supporter_monthly           |
-        | large | non_commercial  | supporter_monthly           |
-        | small | commercial      | supporter_monthly           |
-        | large | commercial      | corporate_supporter_monthly |
+        | size  | type            | frequency | plan                        |
+        | small | non_commercial  | monthly   | supporter_monthly           |
+        | large | non_commercial  | monthly   | supporter_monthly           |
+        | small | commercial      | monthly   | supporter_monthly           |
+        | large | commercial      | monthly   | corporate_supporter_monthly |
+        | small | non_commercial  | annual    | supporter_annual            |
+        | large | non_commercial  | annual    | supporter_annual            |
+        | small | commercial      | annual    | supporter_annual            |
+        | large | commercial      | annual    | corporate_supporter_annual  |
 
   Scenario Outline: Bad credit card details
 

@@ -19,6 +19,16 @@ When(/^I enter my expiry year (\d+)$/) do |year|
   fill_in 'Card expiry year', with: year
 end
 
+When(/^I choose to pay on a monthly basis$/) do
+  select "Monthly", from: "Payment frequency"
+  @payment_frequency = :monthly
+end
+
+When(/^I choose to pay on an? annual basis$/) do
+  select "Yearly", from: "Payment frequency"
+  @payment_frequency = :annual
+end
+
 When(/^I enter valid credit card details$/) do
   fill_in 'Card number', with: '4242424242424242'
   fill_in 'Card validation code', with: '123'
