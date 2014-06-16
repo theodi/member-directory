@@ -184,7 +184,9 @@ class Member < ActiveRecord::Base
   def get_plan_description
     {
       "corporate_supporter_monthly" => "corporate supporter",
-      "supporter_monthly" => "supporter"
+      "supporter_monthly"           => "supporter",
+      "corporate_supporter_annual"  => "corporate supporter",
+      "supporter_annual"            => "supporter"
     }[get_plan]
   end
 
