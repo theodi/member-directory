@@ -41,7 +41,7 @@ Then(/^my card should be charged successfully$/) do
   member = Member.find_by_email(@email)
   customer = member.stripe_customer
   customer.description.should =~ /(#{member.organization.name})/
-  customer.description.should =~ /(#{member.membership_number})/
+  customer.description.should =~ /membership \([A-Z]{2}[0-9]{4}[A-Z]{2}\)/
   customer.subscriptions.total_count.should == 1
 end
 
