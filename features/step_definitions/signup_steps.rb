@@ -132,9 +132,9 @@ end
 
 And /^I should have a membership number generated$/ do
   @member         = Member.find_by_email(@email)
-  @membership_id = @member.membership_number
-  @membership_id.should_not be_nil
-  @membership_id.should match(/[A-Z]{2}[0-9]{4}[A-Z]{2}/)
+  @membership_number = @member.membership_number
+  @membership_number.should_not be_nil
+  @membership_number.should match(/[A-Z]{2}[0-9]{4}[A-Z]{2}/)
 end
 
 Then /^I should see an error relating to (.*)$/ do |text|
@@ -167,7 +167,7 @@ Then /^a welcome email should be sent to me$/ do
     When they open the email
     And they should see the email delivered from "members@theodi.org"
     And they should see "Welcome to the ODI community!" in the email subject
-    And they should see "Your membership number is <strong>#{@membership_id}</strong>." in the email body
+    And they should see "Your membership number is <strong>#{@membership_number}</strong>." in the email body
     And they should see "Stuart, Georgia, Carl and Andrea" in the email body
     And they should see "mailto:members@theodi.org" in the email body
   }
