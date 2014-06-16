@@ -42,8 +42,7 @@ class Member < ActiveRecord::Base
   validates :payment_method, :presence => true, :on => :create
 	validates_acceptance_of :agreed_to_terms, :on => :create
 
-  before_validation :stripe_payment
-  validate :stripe_customer_id, presence: true, if: :paid_with_card?
+  after_validation :stripe_payment
 
   validate :check_organization_names
 
@@ -152,7 +151,7 @@ class Member < ActiveRecord::Base
   end
 
   def stripe_payment
-    if new_record? && paid_with_card?
+    if new_record? && paid_with_card? && errors.empty?
       begin
         set_membership_number
         customer = Stripe::Customer.create(

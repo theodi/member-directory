@@ -65,3 +65,7 @@ Then(/^I should be signed up to the (.+) plan$/) do |plan|
   member.stripe_customer.subscriptions.total_count.should == 1
   member.stripe_customer.subscriptions["data"][0]["plan"].id.should == plan
 end
+
+Then(/^credit card payment shouldn't be attempted$/) do
+  Stripe::Customer.should_not receive(:create)
+end

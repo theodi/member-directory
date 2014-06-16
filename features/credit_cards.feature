@@ -19,6 +19,18 @@ Feature: Accept credit card payments during signup
     And a welcome email should be sent to me
     And I should see "Welcome Pack" in the email body
 
+  Scenario: Member signup with bad data
+
+    Given that I want to sign up as a supporter
+    When I visit the signup page
+    And I enter my details
+    And I choose to pay by credit card
+    And I enter valid credit card details
+    But I leave street_address blank
+    Then my details should not be queued
+    And credit card payment shouldn't be attempted
+    When I click sign up
+
   Scenario Outline: Correct amount should be charged
 
     Given that I want to sign up as a supporter
