@@ -34,7 +34,6 @@ When(/^I enter valid credit card details$/) do
   fill_in 'Card validation code', with: '123'
   fill_in 'Card expiry month', with: "12"
   fill_in 'Card expiry year', with: "2016"
-  @paid = true
 end
 
 Then(/^my card should be charged successfully$/) do

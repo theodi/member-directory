@@ -112,7 +112,7 @@ class Member < ActiveRecord::Base
                         'telephone' => telephone,
                         'payment_method' => payment_method,
                         'payment_freq' => payment_frequency,
-                        'paid' => (payment_method == "credit_card"),
+                        'payment_ref' => stripe_customer.try(:id),
                         'address' => {
                           'street_address' => street_address,
                           'address_locality' => address_locality,
