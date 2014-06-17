@@ -99,8 +99,8 @@ Feature: Add new signups to queue
 
     Given that I want to sign up as a supporter
     When I visit the signup page
-    When I enter my details
-    And I choose to pay by invoice
+    When I choose to pay by invoice
+    And I enter my details
     Then I should see "means FooBar Inc being"
     And I should see "with company number 012345678"
     And I should see "whose registered office is 123 Fake Street, Faketown, Fakeshire, UK, FAKE 123"
