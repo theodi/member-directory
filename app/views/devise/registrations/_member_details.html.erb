@@ -129,53 +129,79 @@
   <div class="control-group">
   	<%= f.label :payment_method, :class => 'control-label' %>
   	<div class="controls">
-      <%= f.radio_button :payment_method, :credit_card %>
-      <%= f.label :payment_method, t(:credit_card), :value => :credit_card %>
-      <%= f.radio_button :payment_method, :invoice %>
-      <%= f.label :payment_method, t(:invoice), :value => :invoice %>
+      <%= f.label :payment_method, t(:credit_card), :value => :credit_card do %>
+        <%= f.radio_button :payment_method, :credit_card %>
+        <%= t(:credit_card) %>
+      <% end %>
+      <%= f.label :payment_method, t(:invoice), :value => :invoice do %>
+        <%= f.radio_button :payment_method, :invoice %>
+        <%= t(:invoice) %>
+      <% end %>
   	</div>
   </div>
 
-  <div class="control-group">
-    <%= f.label :payment_frequency, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.select :payment_frequency, [["Yearly", :annual],["Monthly", :monthly]] %>
+  <script>
+    $('input[name="member[payment_method]"]:radio').change(function () {
+      selected = $('input:radio[name="member[payment_method]"]:checked').val();
+      $('#card-details').slideUp();
+      $('#invoice-details').slideUp();
+      if (selected == "invoice") {
+        $('#invoice-details').slideDown();
+      }
+      if (selected == "credit_card") {
+        $('#card-details').slideDown();
+      }
+    });
+  </script>
+
+  <div id='card-details' style='display:none'>
+
+    <div class="control-group">
+      <%= f.label :payment_frequency, :class => 'control-label' %>
+      <div class="controls">
+        <%= f.select :payment_frequency, [["Yearly", :annual],["Monthly", :monthly]] %>
+      </div>
     </div>
+
+    <div class="control-group">
+      <%= f.label :card_number, :class => 'control-label' %>
+      <div class="controls">
+        <%= f.text_field :card_number %>
+      </div>
+    </div>
+
+    <div class="control-group">
+      <%= f.label :card_validation_code, :class => 'control-label' %>
+      <div class="controls">
+        <%= f.text_field :card_validation_code %>
+      </div>
+    </div>
+
+    <div class="control-group">
+      <%= f.label :card_expiry_month, :class => 'control-label' %>
+      <div class="controls">
+        <%= f.text_field :card_expiry_month %>
+      </div>
+    </div>
+
+    <div class="control-group">
+      <%= f.label :card_expiry_year, :class => 'control-label' %>
+      <div class="controls">
+        <%= f.text_field :card_expiry_year %>
+      </div>
+    </div>
+
   </div>
 
-  <div class="control-group">
-    <%= f.label :card_number, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.text_field :card_number %>
-    </div>
-  </div>
+  <div id='invoice-details' style='display:none'>
 
-  <div class="control-group">
-    <%= f.label :card_validation_code, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.text_field :card_validation_code %>
+    <div class="control-group">
+      <%= f.label :purchase_order_number, :class => 'control-label' %>
+      <div class="controls">
+        <%= f.text_field :purchase_order_number %>
+      </div>
     </div>
-  </div>
 
-  <div class="control-group">
-    <%= f.label :card_expiry_month, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.text_field :card_expiry_month %>
-    </div>
-  </div>
-
-  <div class="control-group">
-    <%= f.label :card_expiry_year, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.text_field :card_expiry_year %>
-    </div>
-  </div>
-
-  <div class="control-group">
-    <%= f.label :purchase_order_number, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.text_field :purchase_order_number %>
-    </div>
   </div>
 
 </fieldset>
