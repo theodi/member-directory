@@ -71,7 +71,7 @@ class Member < ActiveRecord::Base
   end
 
   def stripe_customer
-    Stripe::Customer.retrieve(stripe_customer_id)
+    Stripe::Customer.retrieve(stripe_customer_id) if stripe_customer_id
   end
 
 	private
