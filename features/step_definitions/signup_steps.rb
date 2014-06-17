@@ -109,6 +109,7 @@ Then /^my details should be queued for further processing$/ do
       'telephone'      => @telephone,
       'payment_method' => @payment_method,
       'payment_freq'   => @payment_frequency,
+      'payment_ref'    => nil,
       'address'        => {
           'street_address'   => @street_address,
           'address_locality' => @address_locality,
@@ -122,8 +123,10 @@ Then /^my details should be queued for further processing$/ do
     args[0].should == SignupProcessor
     args[1].should == organization
     args[2].should == contact_person
-    args[3]['payment_ref'].should =~ /cus_[0-9A-Za-z]{14}/
-    billing['payment_ref'] = args[3]['payment_ref']
+    if @payment_ref
+      args[3]['payment_ref'].should =~ @payment_ref
+      billing['payment_ref'] = args[3]['payment_ref']
+    end
     args[3].should == billing
     args[4]['offer_category'].should == @product_name
     args[4]['membership_id'].should_not be_nil
