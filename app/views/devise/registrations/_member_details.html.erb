@@ -141,20 +141,25 @@
   </div>
 
   <script>
-    $('input[name="member[payment_method]"]:radio').change(function () {
-      selected = $('input:radio[name="member[payment_method]"]:checked').val();
-      $('#card-details').slideUp();
-      $('#invoice-details').slideUp();
-      if (selected == "invoice") {
-        $('#invoice-details').slideDown();
-      }
-      if (selected == "credit_card") {
-        $('#card-details').slideDown();
-      }
+    $(document).ready(function() {
+      $('#card-details').hide();
+      $('#invoice-details').hide();
+
+      $('input[name="member[payment_method]"]:radio').change(function () {
+        selected = $('input:radio[name="member[payment_method]"]:checked').val();
+        $('#card-details').slideUp();
+        $('#invoice-details').slideUp();
+        if (selected == "invoice") {
+          $('#invoice-details').slideDown();
+        }
+        if (selected == "credit_card") {
+          $('#card-details').slideDown();
+        }
+      });
     });
   </script>
 
-  <div id='card-details' style='display:none'>
+  <div id='card-details'>
 
     <div class="control-group">
       <%= f.label :payment_frequency, :class => 'control-label' %>
@@ -193,7 +198,7 @@
 
   </div>
 
-  <div id='invoice-details' style='display:none'>
+  <div id='invoice-details'>
 
     <div class="control-group">
       <%= f.label :purchase_order_number, :class => 'control-label' %>
