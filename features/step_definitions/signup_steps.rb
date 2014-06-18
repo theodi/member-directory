@@ -63,10 +63,10 @@ When /^I enter my details$/ do
   fill_in('member_organization_name', :with => @organization_name)
   select(find_by_id('member_organization_size').
          find("option[value='#{@organization_size}']").text,
-         :from => 'member_organization_size')
+         from: 'member_organization_size')
   select(find_by_id('member_organization_type').
          find("option[value='#{@organization_type}']").text,
-         :from => 'member_organization_type')
+         from: 'member_organization_type')
   fill_in('member_telephone', :with => @telephone)
   fill_in('member_street_address', :with => @street_address)
   fill_in('member_address_locality', :with => @address_locality)

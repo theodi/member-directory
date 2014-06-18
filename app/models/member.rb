@@ -42,43 +42,43 @@ class Member < ActiveRecord::Base
                   :payment_frequency,
                   :remote
 
-  attr_accessor   :organization_name,
-                  :organization_size,
-                  :organization_type,
-                  :contact_name,
-                  :telephone,
-                  :street_address,
-                  :address_locality,
-                  :address_region,
-                  :address_country,
-                  :postal_code,
-                  :organization_vat_id,
-                  :organization_company_number,
-                  :card_number,
-                  :card_validation_code,
-                  :card_expiry_month,
-                  :card_expiry_year,
-                  :purchase_order_number,
-                  :agreed_to_terms,
-                  :payment_method,
-                  :payment_frequency
+  attr_accessor :organization_name,
+                :organization_size,
+                :organization_type,
+                :contact_name,
+                :telephone,
+                :street_address,
+                :address_locality,
+                :address_region,
+                :address_country,
+                :postal_code,
+                :organization_vat_id,
+                :organization_company_number,
+                :card_number,
+                :card_validation_code,
+                :card_expiry_month,
+                :card_expiry_year,
+                :purchase_order_number,
+                :agreed_to_terms,
+                :payment_method,
+                :payment_frequency
 
-  attr_writer     :remote
+  attr_writer :remote
 
   # allow admins to edit access key
   attr_accessible :access_key, as: :admin
 
 	# validations
-	validates :product_name, presence: true, inclusion: %w{supporter member partner sponsor}, on: :create
-	validates :contact_name, presence: true, on: :create
-  validates :organization_size, presence: true, inclusion: %w{small large}, on: :create
-  validates :organization_type, presence: true, inclusion: %w{commercial non_commercial}, on: :create
-	validates :street_address, presence: true, on: :create
-	validates :address_locality, presence: true, on: :create
-	validates :address_country, presence: true, on: :create
-	validates :postal_code, presence: true, on: :create
+  validates :product_name, presence: true, inclusion: %w(supporter member partner sponsor), on: :create
+  validates :contact_name, presence: true, on: :create
+  validates :organization_size, presence: true, inclusion: %w(small large), on: :create
+  validates :organization_type, presence: true, inclusion: %w(commercial non_commercial), on: :create
+  validates :street_address, presence: true, on: :create
+  validates :address_locality, presence: true, on: :create
+  validates :address_country, presence: true, on: :create
+  validates :postal_code, presence: true, on: :create
   validates :payment_method, presence: true, on: :create
-	validates_acceptance_of :agreed_to_terms, on: :create
+  validates_acceptance_of :agreed_to_terms, on: :create
 
   after_validation :stripe_payment
 
