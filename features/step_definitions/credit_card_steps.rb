@@ -1,6 +1,6 @@
 When(/^I choose to pay by credit card$/) do
-  choose("Credit Card")
-  @payment_method = "credit_card"
+  choose('Credit Card')
+  @payment_method = 'credit_card'
   @payment_ref = /cus_[0-9A-Za-z]{14}/
 end
 
@@ -21,20 +21,20 @@ When(/^I enter my expiry year (\d+)$/) do |year|
 end
 
 When(/^I choose to pay on a monthly basis$/) do
-  select "Monthly", from: "Payment frequency"
+  select 'Monthly', from: 'Payment frequency'
   @payment_frequency = :monthly
 end
 
 When(/^I choose to pay on an? annual basis$/) do
-  select "Yearly", from: "Payment frequency"
+  select 'Yearly', from: 'Payment frequency'
   @payment_frequency = :annual
 end
 
 When(/^I enter valid credit card details$/) do
   fill_in 'Card number', with: '4242424242424242'
   fill_in 'Card validation code', with: '123'
-  fill_in 'Card expiry month', with: "12"
-  fill_in 'Card expiry year', with: "2016"
+  fill_in 'Card expiry month', with: '12'
+  fill_in 'Card expiry year', with: '2016'
 end
 
 Then(/^my card should be charged successfully$/) do
@@ -53,18 +53,22 @@ end
 
 When(/^I enter an organisation size of (.+)$/) do |size|
   @organization_size = size
-  select(find_by_id('member_organization_size').find("option[value='#{@organization_size}']").text, :from => 'member_organization_size')
+  select(find_by_id('member_organization_size').
+         find("option[value='#{@organization_size}']").text,
+         from: 'member_organization_size')
 end
 
 When(/^I enter an organisation type of (.+)$/) do |type|
   @organization_type = type
-  select(find_by_id('member_organization_type').find("option[value='#{@organization_type}']").text, :from => 'member_organization_type')
+  select(find_by_id('member_organization_type').
+         find("option[value='#{@organization_type}']").text,
+         from: 'member_organization_type')
 end
 
 Then(/^I should be signed up to the (.+) plan$/) do |plan|
   member = Member.find_by_email(@email)
   member.stripe_customer.subscriptions.total_count.should == 1
-  member.stripe_customer.subscriptions["data"][0]["plan"].id.should == plan
+  member.stripe_customer.subscriptions['data'][0]['plan'].id.should == plan
 end
 
 Then(/^credit card payment shouldn't be attempted$/) do

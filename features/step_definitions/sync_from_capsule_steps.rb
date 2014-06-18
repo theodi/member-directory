@@ -82,7 +82,7 @@ Then(/^that membership should not be shown in the directory$/) do
 end
 
 Then /^my details should be cached correctly$/ do
-  @membership = Member.where(:membership_number => @membership_number).first
+  @membership = Member.where(membership_number: @membership_number).first
   @membership.cached_active.should                     == (@active == "true")
   @membership.product_name.should                      == @product_name
   @membership.cached_newsletter.should                 == @newsletter
@@ -112,17 +112,17 @@ Then /^my membership number should be stored in CapsuleCRM$/ do
   Resque.should_receive(:enqueue).with do |*args|
     args[0].should == SaveMembershipIdInCapsule
     args[1].should == @organization_name
-    args[2].should == Member.where(:email => @email).first.membership_number
+    args[2].should == Member.where(email: @email).first.membership_number
   end.once
 end
 
 Then /^a warning email should be sent to the commercial team$/ do
-  steps %Q{
+  steps %Q(
     Then "members@theodi.org" should receive an email
     When they open the email
     And they should see "Membership Number Error" in the email subject
     And they should see "A membership contact email was not set for a party in CapsuleCRM." in the email body
     And they should see "http://ukoditech.capsulecrm.com/party/#{@capsule_id}" in the email body
     And they should see the email delivered from "members@theodi.org"
-  }
+  )
 end

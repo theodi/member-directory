@@ -14,40 +14,78 @@ class Member < ActiveRecord::Base
          :confirmable
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me, :product_name, :cached_newsletter
-  attr_accessible :organization_name, :organization_size, :organization_type, :contact_name,
-                  :telephone, :street_address, :address_locality, :address_region,
-                  :address_country, :postal_code, :organization_vat_id, :organization_company_number,
-                  :card_number, :card_validation_code, :card_expiry_month, :card_expiry_year,
-                  :purchase_order_number, :agreed_to_terms, :payment_method, :payment_frequency, :remote
-  attr_accessor   :organization_name, :organization_size, :organization_type, :contact_name,
-                  :telephone, :street_address, :address_locality, :address_region,
-                  :address_country, :postal_code, :organization_vat_id, :organization_company_number,
-                  :card_number, :card_validation_code, :card_expiry_month, :card_expiry_year,
-                  :purchase_order_number, :agreed_to_terms, :payment_method, :payment_frequency
+  attr_accessible :email,
+                  :password,
+                  :password_confirmation,
+                  :remember_me,
+                  :product_name,
+                  :cached_newsletter,
+                  :organization_name,
+                  :organization_size,
+                  :organization_type,
+                  :contact_name,
+                  :telephone,
+                  :street_address,
+                  :address_locality,
+                  :address_region,
+                  :address_country,
+                  :postal_code,
+                  :organization_vat_id,
+                  :organization_company_number,
+                  :card_number,
+                  :card_validation_code,
+                  :card_expiry_month,
+                  :card_expiry_year,
+                  :purchase_order_number,
+                  :agreed_to_terms,
+                  :payment_method,
+                  :payment_frequency,
+                  :remote
+
+  attr_accessor   :organization_name,
+                  :organization_size,
+                  :organization_type,
+                  :contact_name,
+                  :telephone,
+                  :street_address,
+                  :address_locality,
+                  :address_region,
+                  :address_country,
+                  :postal_code,
+                  :organization_vat_id,
+                  :organization_company_number,
+                  :card_number,
+                  :card_validation_code,
+                  :card_expiry_month,
+                  :card_expiry_year,
+                  :purchase_order_number,
+                  :agreed_to_terms,
+                  :payment_method,
+                  :payment_frequency
+
   attr_writer     :remote
 
   # allow admins to edit access key
   attr_accessible :access_key, as: :admin
 
 	# validations
-	validates :product_name, :presence => true, :inclusion => %w{supporter member partner sponsor}, :on => :create
-	validates :contact_name, :presence => true, :on => :create
-  validates :organization_size, :presence => true, :inclusion => %w{small large}, :on => :create
-  validates :organization_type, :presence => true, :inclusion => %w{commercial non_commercial}, :on => :create
-	validates :street_address, :presence => true, :on => :create
-	validates :address_locality, :presence => true, :on => :create
-	validates :address_country, :presence => true, :on => :create
-	validates :postal_code, :presence => true, :on => :create
-  validates :payment_method, :presence => true, :on => :create
-	validates_acceptance_of :agreed_to_terms, :on => :create
+	validates :product_name, presence: true, inclusion: %w{supporter member partner sponsor}, on: :create
+	validates :contact_name, presence: true, on: :create
+  validates :organization_size, presence: true, inclusion: %w{small large}, on: :create
+  validates :organization_type, presence: true, inclusion: %w{commercial non_commercial}, on: :create
+	validates :street_address, presence: true, on: :create
+	validates :address_locality, presence: true, on: :create
+	validates :address_country, presence: true, on: :create
+	validates :postal_code, presence: true, on: :create
+  validates :payment_method, presence: true, on: :create
+	validates_acceptance_of :agreed_to_terms, on: :create
 
   after_validation :stripe_payment
 
   validate :check_organization_names
 
   def paid_with_card?
-    payment_method == "credit_card"
+    payment_method == 'credit_card'
   end
 
   def remote
@@ -85,7 +123,7 @@ class Member < ActiveRecord::Base
     unless membership_number
       begin
         self.membership_number = generate_membership_number
-      end while self.class.exists?(:membership_number => membership_number)
+      end while self.class.exists?(membership_number: membership_number)
     end
   end
 
@@ -174,8 +212,8 @@ class Member < ActiveRecord::Base
 
   def get_plan
     plan = ''
-    if organization_size == "large" && organization_type == "commercial"
-      plan += "corporate_"
+    if organization_size == 'large' && organization_type == 'commercial'
+      plan += 'corporate_'
     end
     plan += 'supporter_'
     plan += payment_frequency
@@ -183,31 +221,31 @@ class Member < ActiveRecord::Base
 
   def get_plan_description
     {
-      "corporate_supporter_monthly" => "corporate supporter",
-      "supporter_monthly"           => "supporter",
-      "corporate_supporter_annual"  => "corporate supporter",
-      "supporter_annual"            => "supporter"
+      'corporate_supporter_monthly' => 'corporate supporter',
+      'supporter_monthly'           => 'supporter',
+      'corporate_supporter_annual'  => 'corporate supporter',
+      'supporter_annual'            => 'supporter'
     }[get_plan]
   end
 
   def payment_errors(err)
     case err[:code]
     when 'incorrect_number'
-      errors.add(:card_number, "is incorrect")
+      errors.add(:card_number, 'is incorrect')
     when 'incorrect_cvc'
-      errors.add(:card_validation_code, "is incorrect")
+      errors.add(:card_validation_code, 'is incorrect')
     when 'invalid_number'
-      errors.add(:card_number, "is incorrect")
+      errors.add(:card_number, 'is incorrect')
     when 'invalid_expiry_month'
-      errors.add(:card_expiry_month, "is incorrect")
+      errors.add(:card_expiry_month, 'is incorrect')
     when 'invalid_expiry_year'
-      errors.add(:card_expiry_year, "is incorrect")
+      errors.add(:card_expiry_year, 'is incorrect')
     when 'invalid_cvc'
-      errors.add(:card_validation_code, "is incorrect")
+      errors.add(:card_validation_code, 'is incorrect')
     when 'expired_card'
-      errors.add(:card_number, "has expired")
+      errors.add(:card_number, 'has expired')
     when 'card_declined'
-      errors.add(:card_number, "has been declined")
+      errors.add(:card_number, 'has been declined')
     # when 'missing'
     # 	There is no card on a customer that is being charged.
     # when 'processing_error'

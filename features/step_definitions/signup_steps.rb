@@ -61,15 +61,20 @@ When /^I enter my details$/ do
   fill_in('member_contact_name', :with => @contact_name)
   fill_in('member_email', :with => @email)
   fill_in('member_organization_name', :with => @organization_name)
-  select(find_by_id('member_organization_size').find("option[value='#{@organization_size}']").text, :from => 'member_organization_size')
-  select(find_by_id('member_organization_type').find("option[value='#{@organization_type}']").text, :from => 'member_organization_type')
+  select(find_by_id('member_organization_size').
+         find("option[value='#{@organization_size}']").text,
+         :from => 'member_organization_size')
+  select(find_by_id('member_organization_type').
+         find("option[value='#{@organization_type}']").text,
+         :from => 'member_organization_type')
   fill_in('member_telephone', :with => @telephone)
   fill_in('member_street_address', :with => @street_address)
   fill_in('member_address_locality', :with => @address_locality)
   fill_in('member_address_region', :with => @address_region)
   fill_in('member_address_country', :with => @address_country)
   fill_in('member_postal_code', :with => @postal_code)
-  fill_in('member_organization_company_number', :with => @organization_company_number)
+  fill_in('member_organization_company_number',
+          with: @organization_company_number)
   fill_in('member_organization_vat_id', :with => @organization_vat_id)
   fill_in('member_purchase_order_number', :with => @purchase_order_number)
   fill_in('member_password', :with => 'p4ssw0rd')
@@ -96,27 +101,31 @@ end
 Then /^my details should be queued for further processing$/ do
 
   organization   = {
-                     'name' => @organization_name,
-                     'vat_id' => @organization_vat_id,
-                     'company_number' => @organization_company_number,
-                     'size' => @organization_size,
-                     'type' => @organization_type
-                   }
-  contact_person = { 'name' => @contact_name, 'email' => @email, 'telephone' => @telephone }
+    'name'           => @organization_name,
+    'vat_id'         => @organization_vat_id,
+    'company_number' => @organization_company_number,
+    'size'           => @organization_size,
+    'type'           => @organization_type
+  }
+  contact_person = {
+    'name'      => @contact_name,
+    'email'     => @email,
+    'telephone' => @telephone
+  }
   billing        = {
-      'name'           => @contact_name,
-      'email'          => @email,
-      'telephone'      => @telephone,
-      'payment_method' => @payment_method,
-      'payment_freq'   => @payment_frequency,
-      'payment_ref'    => nil,
-      'address'        => {
-          'street_address'   => @street_address,
-          'address_locality' => @address_locality,
-          'address_region'   => @address_region,
-          'address_country'  => @address_country,
-          'postal_code'      => @postal_code
-      }
+    'name'           => @contact_name,
+    'email'          => @email,
+    'telephone'      => @telephone,
+    'payment_method' => @payment_method,
+    'payment_freq'   => @payment_frequency,
+    'payment_ref'    => nil,
+    'address'        => {
+      'street_address'   => @street_address,
+      'address_locality' => @address_locality,
+      'address_region'   => @address_region,
+      'address_country'  => @address_country,
+      'postal_code'      => @postal_code
+    }
   }
 
   Resque.should_receive(:enqueue).with do |*args|
@@ -190,8 +199,7 @@ Then(/^I should see today's date$/) do
   page.body.should include(Date.today.to_formatted_s(:long_ordinal))
 end
 
-
 When(/^I choose to pay by invoice$/) do
-  choose("Invoice")
-  @payment_method = "invoice"
+  choose('Invoice')
+  @payment_method = 'invoice'
 end
