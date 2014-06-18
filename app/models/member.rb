@@ -148,9 +148,6 @@ class Member < ActiveRecord::Base
                         'name' => contact_name,
                         'email' => email,
                         'telephone' => telephone,
-                        'payment_method' => payment_method,
-                        'payment_freq' => payment_frequency,
-                        'payment_ref' => stripe_customer.try(:id),
                         'address' => {
                           'street_address' => street_address,
                           'address_locality' => address_locality,
@@ -160,6 +157,9 @@ class Member < ActiveRecord::Base
                         }
                       }
     purchase        = {
+                        'payment_method' => payment_method,
+                        'payment_freq' => payment_frequency,
+                        'payment_ref' => stripe_customer.try(:id),
                         'offer_category' => product_name,
                         'purchase_order_reference' => purchase_order_number,
                         'membership_id' => membership_number
