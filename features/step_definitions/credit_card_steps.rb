@@ -9,15 +9,15 @@ When(/^I enter my card number (\d+)$/) do |number|
 end
 
 When(/^I enter my CVC code (\d+)$/) do |cvc|
-  fill_in 'Card validation code', with: cvc
+  fill_in 'CVC', with: cvc
 end
 
 When(/^I enter my expiry month (\d+)$/) do |month|
-  fill_in 'Card expiry month', with: month
+  fill_in 'Expiry month', with: month
 end
 
 When(/^I enter my expiry year (\d+)$/) do |year|
-  fill_in 'Card expiry year', with: year
+  fill_in 'Expiry year', with: year
 end
 
 When(/^I choose to pay on a monthly basis$/) do
@@ -32,9 +32,9 @@ end
 
 When(/^I enter valid credit card details$/) do
   fill_in 'Card number', with: '4242424242424242'
-  fill_in 'Card validation code', with: '123'
-  fill_in 'Card expiry month', with: '12'
-  fill_in 'Card expiry year', with: '2016'
+  fill_in 'CVC', with: '123'
+  fill_in 'Expiry month', with: '12'
+  fill_in 'Expiry year', with: '2016'
 end
 
 Then(/^my card should be charged successfully$/) do

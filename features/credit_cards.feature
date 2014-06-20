@@ -72,10 +72,10 @@ Feature: Accept credit card payments during signup
     Examples:
       | card_number      | cvc | month | year | error                        |
       | 4242424242424241 | 123 | 12    | 2016 | Card number                  |
-      | 4000000000000127 | 123 | 12    | 2016 | Card validation code         |
+      | 4000000000000127 | 123 | 12    | 2016 | CVC                          |
       | 1234             | 123 | 12    | 2016 | Card number                  |
-      | 4242424242424242 | 123 | 13    | 2016 | Card expiry month            |
-      | 4242424242424242 | 123 | 12    | 1970 | Card expiry year             |
-      | 4242424242424242 | 1   | 12    | 2016 | Card validation code         |
+      | 4242424242424242 | 123 | 13    | 2016 | Expiry month                 |
+      | 4242424242424242 | 123 | 12    | 1970 | Expiry year                  |
+      | 4242424242424242 | 1   | 12    | 2016 | CVC                          |
       | 4000000000000069 | 123 | 12    | 2016 | Card number has expired      |
       | 4000000000000002 | 123 | 12    | 2016 | Card number has been declined|
