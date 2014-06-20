@@ -82,6 +82,9 @@ group :development, :test do
   gem 'mailcatcher'
   gem 'simplecov-rcov'
   gem 'travis'
+end
+
+group :test do
   gem 'poltergeist'
   gem 'vcr'
   gem 'webmock'
