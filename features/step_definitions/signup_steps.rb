@@ -51,7 +51,7 @@ When /^I enter my details$/ do
   @street_address              = '123 Fake Street'
   @address_locality            = 'Faketown'
   @address_region              = 'Fakeshire'
-  @address_country             = 'UK'
+  @address_country             = 'United Kingdom'
   @postal_code                 = 'FAKE 123'
   @organization_vat_id         = '213244343'
   @organization_company_number = '012345678'
@@ -71,7 +71,7 @@ When /^I enter my details$/ do
   fill_in('member_street_address', :with => @street_address)
   fill_in('member_address_locality', :with => @address_locality)
   fill_in('member_address_region', :with => @address_region)
-  fill_in('member_address_country', :with => @address_country)
+  select(@address_country, from: :member_address_country, match: :first)
   fill_in('member_postal_code', :with => @postal_code)
   fill_in('member_organization_company_number',
           with: @organization_company_number)

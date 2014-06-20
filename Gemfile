@@ -37,6 +37,7 @@ gem 'rack-google-analytics'
 gem 'airbrake'
 gem 'rdiscount'
 gem 'stripe'
+gem 'country_select', github: 'stefanpenner/country_select'
 
 # Gems used only for assets and not required
 # in production environments by default.
