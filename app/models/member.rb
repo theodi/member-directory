@@ -99,7 +99,7 @@ class Member < ActiveRecord::Base
                           'street_address' => street_address,
                           'address_locality' => address_locality,
                           'address_region' => address_region,
-                          'address_country' => address_country,
+                          'address_country' => country_name,
                           'postal_code' => postal_code
                         }
                       }
@@ -130,6 +130,12 @@ class Member < ActiveRecord::Base
         'newsletter' => cached_newsletter
       })
     end
+  end
+
+  def country_name
+    country = ISO3166::Country[address_country]
+    return "" if country.nil?
+    country.translations[I18n.locale.to_s] || country.name
   end
 
 end

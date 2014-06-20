@@ -33,10 +33,10 @@ Feature: Add new signups to queue
 			| contact_name 					| Your Name        |
 			| street_address 				| Address          |
 			| address_locality 			| City             |
-			| address_country 			| Country          |
 			| postal_code 			    | Postcode         |
       | organization_size     | Organisation size |
       | organization_type     | Organisation type |
+#			| address_country 			| Country          |
 
   Scenario: Member tries to sign up, but doesn't agree to the terms
 
@@ -88,7 +88,7 @@ Feature: Add new signups to queue
     When I enter my details
     Then I should see "means FooBar Inc being"
     And I should see "with company number 012345678"
-    And I should see "whose registered office is 123 Fake Street, Faketown, Fakeshire, UK, FAKE 123"
+    And I should see "whose registered office is 123 Fake Street, Faketown, Fakeshire, United Kingdom, FAKE 123"
     And I should see "between FooBar Inc (“You” or “Your”)"
     And I should see "£720 per annum for commercial organisations with 249 employees or fewer"
     And I should see "or £1,440 per annum for commercial organisations with 250 employees or more"

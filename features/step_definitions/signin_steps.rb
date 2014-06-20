@@ -9,7 +9,7 @@ Given /^that I have a membership number and password$/ do
     :street_address         => '123 Fake Street',
     :address_locality          => 'Faketown',
     :address_region        => 'Fakeshire',
-    :address_country       => 'UK',
+    :address_country       => 'United Kingdom',
     :postal_code      => 'FAKE 123',
     :organization_vat_id            => '213244343',
     :purchase_order_number => 'PO-43243242342',
