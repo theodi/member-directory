@@ -51,7 +51,7 @@ When /^I enter my details$/ do
   @street_address              = '123 Fake Street'
   @address_locality            = 'Faketown'
   @address_region              = 'Fakeshire'
-  @address_country             = 'UK'
+  @address_country             = 'United Kingdom'
   @postal_code                 = 'FAKE 123'
   @organization_vat_id         = '213244343'
   @organization_company_number = '012345678'
