@@ -141,20 +141,25 @@
   </div>
 
   <script>
+    function show_payment_options() {
+      selected = $('input:radio[name="member[payment_method]"]:checked').val();
+      $('#card-details').slideUp();
+      $('#invoice-details').slideUp();
+      if (selected == "invoice") {
+        $('#invoice-details').slideDown();
+      }
+      if (selected == "credit_card") {
+        $('#card-details').slideDown();
+      }
+    }
+
     $(document).ready(function() {
       $('#card-details').hide();
       $('#invoice-details').hide();
+      show_payment_options();
 
       $('input[name="member[payment_method]"]:radio').change(function () {
-        selected = $('input:radio[name="member[payment_method]"]:checked').val();
-        $('#card-details').slideUp();
-        $('#invoice-details').slideUp();
-        if (selected == "invoice") {
-          $('#invoice-details').slideDown();
-        }
-        if (selected == "credit_card") {
-          $('#card-details').slideDown();
-        }
+        show_payment_options();
       });
     });
   </script>
