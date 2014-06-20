@@ -33,10 +33,10 @@ Feature: Add new signups to queue
 			| contact_name 					| Your Name        |
 			| street_address 				| Address          |
 			| address_locality 			| City             |
-			| address_country 			| Country          |
 			| postal_code 			    | Postcode         |
       | organization_size     | Organisation size |
       | organization_type     | Organisation type |
+#			| address_country 			| Country          |
 
   Scenario: Member tries to sign up, but doesn't agree to the terms
 

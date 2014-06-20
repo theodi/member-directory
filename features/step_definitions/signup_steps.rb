@@ -67,7 +67,7 @@ When /^I enter my details$/ do
   fill_in('member_street_address', :with => @street_address)
   fill_in('member_address_locality', :with => @address_locality)
   fill_in('member_address_region', :with => @address_region)
-  fill_in('member_address_country', :with => @address_country)
+  select(@address_country, from: :member_address_country, match: :first)
   fill_in('member_postal_code', :with => @postal_code)
   fill_in('member_organization_company_number', :with => @organization_company_number)
   fill_in('member_organization_vat_id', :with => @organization_vat_id)
