@@ -30,6 +30,9 @@ en:
         password: "Password"
         password_confirmation: "Confirm Password"
         cached_newsletter: "Send me the newsletter"
+        card_validation_code: CVC
+        card_expiry_month: Expiry month
+        card_expiry_year: Expiry year
       organization:
         name: "Organisation Name"
         url: "Homepage"

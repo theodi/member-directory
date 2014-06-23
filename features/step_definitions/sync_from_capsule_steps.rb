@@ -31,7 +31,7 @@ When /^my information is changed in CapsuleCRM$/ do
   @description       = Faker::Company.bs
   @url               = Faker::Internet.url
   @product_name      = 'sponsor'
-  @membership_id     = @membership.membership_number
+  @membership_number = @membership.membership_number
   @contact_name      = Faker::Name.name
   @contact_phone     = Faker::PhoneNumber.phone_number
   @contact_email     = Faker::Internet.email
@@ -45,7 +45,7 @@ When /^the sync task runs$/ do
   membership = {
     'email'         => @email,
     'product_name'  => @product_name,
-    'id'            => @membership_id,
+    'id'            => @membership_number,
     'newsletter'    => @newsletter,
   }.compact
   directory_entry = {
@@ -67,8 +67,8 @@ end
 Then /^a membership should be created for me$/ do
   @membership = Member.where(:email => @email).first
   @membership.should be_present
-  @membership_id = @membership.membership_number
-  @membership_id.should be_present
+  @membership_number = @membership.membership_number
+  @membership_number.should be_present
   @old_description = @membership.organization.description
 end
 
@@ -82,7 +82,7 @@ Then(/^that membership should not be shown in the directory$/) do
 end
 
 Then /^my details should be cached correctly$/ do
-  @membership = Member.where(:membership_number => @membership_id).first
+  @membership = Member.where(membership_number: @membership_number).first
   @membership.cached_active.should                     == (@active == "true")
   @membership.product_name.should                      == @product_name
   @membership.cached_newsletter.should                 == @newsletter
@@ -103,7 +103,7 @@ Then /^nothing should be placed on the queue$/ do
 end
 
 Then /^nothing should be placed on the signup queue$/ do
-  Resque.should_not_receive(:enqueue).with do |*args| 
+  Resque.should_not_receive(:enqueue).with do |*args|
     args[0] == SignupProcessor
   end
 end
@@ -112,17 +112,17 @@ Then /^my membership number should be stored in CapsuleCRM$/ do
   Resque.should_receive(:enqueue).with do |*args|
     args[0].should == SaveMembershipIdInCapsule
     args[1].should == @organization_name
-    args[2].should == Member.where(:email => @email).first.membership_number
+    args[2].should == Member.where(email: @email).first.membership_number
   end.once
 end
 
 Then /^a warning email should be sent to the commercial team$/ do
-  steps %Q{ 
+  steps %Q(
     Then "members@theodi.org" should receive an email
     When they open the email
     And they should see "Membership Number Error" in the email subject
     And they should see "A membership contact email was not set for a party in CapsuleCRM." in the email body
     And they should see "http://ukoditech.capsulecrm.com/party/#{@capsule_id}" in the email body
     And they should see the email delivered from "members@theodi.org"
-  }
+  )
 end

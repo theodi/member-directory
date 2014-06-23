@@ -28,3 +28,4 @@
 /.env.production
 /.env.test
 /coverage/
+/db/test.sqlite3-journal

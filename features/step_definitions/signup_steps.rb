@@ -61,21 +61,28 @@ When /^I enter my details$/ do
   fill_in('member_contact_name', :with => @contact_name)
   fill_in('member_email', :with => @email)
   fill_in('member_organization_name', :with => @organization_name)
-  select(find_by_id('member_organization_size').find("option[value='#{@organization_size}']").text, :from => 'member_organization_size')
-  select(find_by_id('member_organization_type').find("option[value='#{@organization_type}']").text, :from => 'member_organization_type')
+  select(find_by_id('member_organization_size').
+         find("option[value='#{@organization_size}']").text,
+         from: 'member_organization_size')
+  select(find_by_id('member_organization_type').
+         find("option[value='#{@organization_type}']").text,
+         from: 'member_organization_type')
   fill_in('member_telephone', :with => @telephone)
   fill_in('member_street_address', :with => @street_address)
   fill_in('member_address_locality', :with => @address_locality)
   fill_in('member_address_region', :with => @address_region)
   select(@address_country, from: :member_address_country, match: :first)
   fill_in('member_postal_code', :with => @postal_code)
-  fill_in('member_organization_company_number', :with => @organization_company_number)
+  fill_in('member_organization_company_number',
+          with: @organization_company_number)
   fill_in('member_organization_vat_id', :with => @organization_vat_id)
   fill_in('member_purchase_order_number', :with => @purchase_order_number)
   fill_in('member_password', :with => 'p4ssw0rd')
   fill_in('member_password_confirmation', :with => 'p4ssw0rd')
 
   check('member_agreed_to_terms')
+
+  @payment_frequency = 'annual' # default
 
 end
 
@@ -94,24 +101,28 @@ end
 Then /^my details should be queued for further processing$/ do
 
   organization   = {
-                     'name' => @organization_name,
-                     'vat_id' => @organization_vat_id,
-                     'company_number' => @organization_company_number,
-                     'size' => @organization_size,
-                     'type' => @organization_type
-                   }
-  contact_person = { 'name' => @contact_name, 'email' => @email, 'telephone' => @telephone }
+    'name'           => @organization_name,
+    'vat_id'         => @organization_vat_id,
+    'company_number' => @organization_company_number,
+    'size'           => @organization_size,
+    'type'           => @organization_type
+  }
+  contact_person = {
+    'name'      => @contact_name,
+    'email'     => @email,
+    'telephone' => @telephone
+  }
   billing        = {
-      'name'      => @contact_name,
-      'email'     => @email,
-      'telephone' => @telephone,
-      'address'   => {
-          'street_address'   => @street_address,
-          'address_locality' => @address_locality,
-          'address_region'   => @address_region,
-          'address_country'  => @address_country,
-          'postal_code'      => @postal_code
-      }
+    'name'           => @contact_name,
+    'email'          => @email,
+    'telephone'      => @telephone,
+    'address'        => {
+      'street_address'   => @street_address,
+      'address_locality' => @address_locality,
+      'address_region'   => @address_region,
+      'address_country'  => @address_country,
+      'postal_code'      => @postal_code
+    }
   }
 
   Resque.should_receive(:enqueue).with do |*args|
@@ -119,6 +130,9 @@ Then /^my details should be queued for further processing$/ do
     args[1].should == organization
     args[2].should == contact_person
     args[3].should == billing
+    args[4]['payment_method'].should == @payment_method
+    args[4]['payment_freq'].should == @payment_frequency
+    args[4]['payment_ref'].should =~ @payment_ref if @payment_ref
     args[4]['offer_category'].should == @product_name
     args[4]['membership_id'].should_not be_nil
     args[4]['purchase_order_reference'].should == @purchase_order_number
@@ -127,9 +141,9 @@ end
 
 And /^I should have a membership number generated$/ do
   @member         = Member.find_by_email(@email)
-  @membership_id = @member.membership_number
-  @membership_id.should_not be_nil
-  @membership_id.should match(/[A-Z]{2}[0-9]{4}[A-Z]{2}/)
+  @membership_number = @member.membership_number
+  @membership_number.should_not be_nil
+  @membership_number.should match(/[A-Z]{2}[0-9]{4}[A-Z]{2}/)
 end
 
 Then /^I should see an error relating to (.*)$/ do |text|
@@ -162,7 +176,7 @@ Then /^a welcome email should be sent to me$/ do
     When they open the email
     And they should see the email delivered from "members@theodi.org"
     And they should see "Welcome to the ODI community!" in the email subject
-    And they should see "Your membership number is <strong>#{@membership_id}</strong>." in the email body
+    And they should see "Your membership number is <strong>#{@membership_number}</strong>." in the email body
     And they should see "Stuart, Georgia, Carl and Andrea" in the email body
     And they should see "mailto:members@theodi.org" in the email body
   }
@@ -179,4 +193,9 @@ end
 
 Then(/^I should see today's date$/) do
   page.body.should include(Date.today.to_formatted_s(:long_ordinal))
+end
+
+When(/^I choose to pay by invoice$/) do
+  choose('Invoice')
+  @payment_method = 'invoice'
 end

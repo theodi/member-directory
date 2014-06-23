@@ -3,6 +3,7 @@ Given /^that I have signed up$/ do
     Given that I want to sign up
 		When I visit the signup page
 		And I enter my details
+    And I choose to pay by invoice
 		And I click sign up
   }
 end
@@ -12,16 +13,17 @@ Given /^that I have signed up as a (\w*)$/ do |product_name|
     Given that I want to sign up as a #{product_name}
 		When I visit the signup page
 		And I enter my details
+    And I choose to pay by invoice
 		And I click sign up
   }
 end
 
 Then /^I am redirected to submit my organization details$/ do
-  page.should have_content 'Edit your details' 
+  page.should have_content 'Edit your details'
 end
 
 Then /^I cannot see a logo upload$/ do
-  page.should_not have_content 'Logo' 
+  page.should_not have_content 'Logo'
 end
 
 Then /^the description field is limited to (\d+) characters$/ do |limit|

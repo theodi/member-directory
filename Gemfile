@@ -35,8 +35,8 @@ gem 'open-orgn-services', :git =>  'https://github.com/theodi/open-orgn-services
 gem 'rack-google-analytics'
 
 gem 'airbrake'
-
 gem 'rdiscount'
+gem 'stripe'
 gem 'country_select', github: 'stefanpenner/country_select'
 
 # Gems used only for assets and not required
@@ -83,7 +83,12 @@ group :development, :test do
   gem 'mailcatcher'
   gem 'simplecov-rcov'
   gem 'travis'
+end
+
+group :test do
   gem 'poltergeist'
+  gem 'vcr'
+  gem 'webmock'
 end
 
 group :production do

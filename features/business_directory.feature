@@ -43,11 +43,8 @@ Feature: Adding details to the organization directory
       
       
   Scenario Outline: User submits bad URLs
-  
-		Given that I want to sign up
-		When I visit the signup page
-		And I enter my details
-		And I click sign up
+
+		Given that I have signed up
 		Then I am redirected to submit my organization details
 		And I enter my organization details
 		But I enter the URL <url>
