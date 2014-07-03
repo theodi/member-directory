@@ -46,6 +46,7 @@ class MembersController < ApplicationController
   end
 
   def badge
+    @size = params[:size]
     render action: "badge", layout: nil
   end
 

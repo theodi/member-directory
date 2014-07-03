@@ -9,7 +9,7 @@
   ul.details {
     display: none;
     position: absolute;
-    left: 121px;
+    left: 100px;
     top: 0px;
     z-index: 5000;
     min-width: 200px;
@@ -37,6 +37,12 @@
         color: white;
         padding: 0 2px;
       }
+    }
+  }
+
+  &.large {
+    ul.details {
+      left: 121px;
     }
   }
 

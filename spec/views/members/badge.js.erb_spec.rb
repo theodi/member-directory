@@ -12,7 +12,17 @@ describe "members/badge.js.erb" do
     render
 
     expect(rendered).to match /#{member_url(@member)}/
+    expect(rendered).to match /standard-badge.png/
+  end
+
+  it "shows a large badge if specified" do
+    assign(:member, @member)
+    assign(:size, "large")
+
+    render
+
     expect(rendered).to match /large-badge.png/
+    expect(rendered).to match /odi-member large/
   end
 
 end
