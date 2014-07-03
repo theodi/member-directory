@@ -17,6 +17,9 @@ describe "members/_badge.html.erb" do
                                                 src: "/assets/badge/partner/standard-badge.png",
                                                 alt: "Open Data Institute Partner"
                                               })
+    expect(rendered).to have_tag('li') do
+      with_text /Open Data Institute Partner/
+    end
   end
 
   it "shows a large badge if specified" do
@@ -49,6 +52,9 @@ describe "members/_badge.html.erb" do
                                                 src: "/assets/badge/supporter/standard-badge.png",
                                                 alt: "Open Data Institute Supporter"
                                               })
+    expect(rendered).to have_tag('li') do
+      with_text /Open Data Institute Supporter/
+    end
   end
 
   it "allows alignment to be specified" do
