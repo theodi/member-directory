@@ -25,4 +25,14 @@ describe "members/badge.js.erb" do
     expect(rendered).to match /odi-member large/
   end
 
+  it "shows a mini badge if specified" do
+    assign(:member, @member)
+    assign(:size, "mini")
+
+    render
+
+    expect(rendered).to match /mini-badge.png/
+    expect(rendered).to match /odi-member mini/
+  end
+
 end

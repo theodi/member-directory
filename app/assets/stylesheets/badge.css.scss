@@ -46,6 +46,13 @@
     }
   }
 
+  &.mini {
+    ul.details {
+      left: 0;
+      top: 23px;
+    }
+  }
+
   &:hover ul.details {
     display: block;
   }
