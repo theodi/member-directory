@@ -23,9 +23,13 @@ MemberDirectory::Application.routes.draw do
         get :cancel
       end
   end
-  
-  resources :members, :only => [:index, :show, :update]
-  
+
+  resources :members, :only => [:index, :show, :update] do
+    member do
+      get :badge, constraints: {format: :js}, defaults: {format: :js}
+    end
+  end
+
   root :to => redirect("/members")
 
   match '/401', :to => 'errors#unauthorized'
