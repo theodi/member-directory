@@ -51,4 +51,13 @@ describe "members/_badge.html.erb" do
                                               })
   end
 
+  it "allows alignment to be specified" do
+    assign(:member, @supporter)
+    assign(:align, "left")
+
+    render
+
+    expect(rendered).to have_tag('div', with: { class: "left" })
+  end
+
 end

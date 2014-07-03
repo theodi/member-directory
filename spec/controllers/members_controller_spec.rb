@@ -66,6 +66,18 @@ describe MembersController do
       assigns(:size).should be(nil)
     end
 
+    it "allows specific alignments to be specified" do
+      ['left', 'right', 'top', 'bottom'].each do |align|
+        get 'badge', :id => @member.membership_number, :align => align
+        assigns(:align).should be(align)
+      end
+    end
+
+    it "doesn't allow bad alignments to be specified" do
+      get 'badge', :id => @member.membership_number, :align => 'foobar'
+      assigns(:align).should be(nil)
+    end
+
   end
 
   describe "content locations" do

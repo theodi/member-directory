@@ -26,7 +26,7 @@ MemberDirectory::Application.routes.draw do
 
   resources :members, :only => [:index, :show, :update] do
     member do
-      get :badge, constraints: {format: :js}, defaults: {format: :js}
+      get :badge, defaults: {format: :js}
     end
   end
 
