@@ -1,0 +1,11 @@
+<!-- BEGIN ODI MEMBER BADGE -->
+<div class="odi-member">
+  <%= stylesheet_link_tag "badge.css" %>
+  <%= link_to image_tag("large-badge.png"), member_url(@member) %>
+  <ul class="details">
+    <li>Open Data Institute Partner</li>
+    <li>Active since <%= @member.created_at.to_date %></li>
+    <li>London, UK</li>
+  </ul>
+</div>
+<!-- END ODI MEMBER BADGE -->

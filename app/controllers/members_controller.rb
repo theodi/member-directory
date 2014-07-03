@@ -46,7 +46,7 @@ class MembersController < ApplicationController
   end
 
   def badge
-
+    render action: "badge", layout: nil
   end
 
   def update

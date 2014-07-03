@@ -1,0 +1,47 @@
+.odi-member {
+  position: relative;
+
+  img {
+    position: absolute;
+    left: 0;
+  }
+
+  ul.details {
+    display: none;
+    position: absolute;
+    left: 121px;
+    top: 0px;
+    z-index: 5000;
+    min-width: 200px;
+    text-align: left;
+    padding: 0;
+    margin: 0;
+
+    li {
+      font-family: 'Helvetica Neue', Helvetica, sans-serif;
+      font-size: 12px;
+      line-height: 18px;
+      display: inline-block;
+      float: left;
+      clear: both;
+      margin: 1px 0;
+      padding: 0 2px;
+      white-space: nowrap;
+      overflow: hidden;
+      color: #fff;
+      background-color: #000;
+
+      span {
+        display: inline-block;
+        background-color: black;
+        color: white;
+        padding: 0 2px;
+      }
+    }
+  }
+
+  &:hover ul.details {
+    display: block;
+  }
+
+}
