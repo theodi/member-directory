@@ -208,7 +208,3 @@ When(/^I should see my changed membership details when I revisit the edit page$/
   page.should have_content(@changed_email)
   (page.find('#member_cached_newsletter').checked? == 'checked').should == @changed_newsletter
 end
-
-Given(/^I visit the badge page for my account$/) do
-  visit badge_member_path(@member)
-end
