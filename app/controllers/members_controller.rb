@@ -46,7 +46,7 @@ class MembersController < ApplicationController
   end
 
   def badge
-    @size = params[:size]
+    @size = params[:size] if ['standard', 'large', 'mini'].include?(params[:size])
     render action: "badge", layout: nil
   end
 

@@ -48,6 +48,26 @@ describe MembersController do
 
   end
 
+  describe "GET 'badge'" do
+
+    before :all do
+      @member = FactoryGirl.create :member, :cached_active => true, :product_name => 'member'
+    end
+
+    it "allows specific sizes to be specified" do
+      ['standard', 'large', 'mini'].each do |size|
+        get 'badge', :id => @member.membership_number, :size => size
+        assigns(:size).should be(size)
+      end
+    end
+
+    it "doesn't allow bad sizes to be specified" do
+      get 'badge', :id => @member.membership_number, :size => 'foobar'
+      assigns(:size).should be(nil)
+    end
+
+  end
+
   describe "content locations" do
 
     it "includes query parameters" do
