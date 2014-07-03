@@ -83,6 +83,7 @@ group :development, :test do
   gem 'mailcatcher'
   gem 'simplecov-rcov'
   gem 'travis'
+  gem 'rspec-html-matchers'
 end
 
 group :test do
