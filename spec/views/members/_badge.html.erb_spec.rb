@@ -39,4 +39,16 @@ describe "members/_badge.html.erb" do
     expect(rendered).to have_tag('div', with: { class: "odi-member mini"})
   end
 
+  it "displays supporter information on the badge" do
+    assign(:member, @supporter)
+
+    render
+
+    expect(rendered).to have_tag('a', with: { href: member_url(@supporter) })
+    expect(rendered).to have_tag('img', with: {
+                                                src: "/assets/badge/supporter/standard-badge.png",
+                                                alt: "Open Data Institute Supporter"
+                                              })
+  end
+
 end
