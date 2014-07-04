@@ -1,5 +1,5 @@
 <!-- BEGIN ODI MEMBER BADGE -->
-<div class="odi-badge odi-<%= @member.product_name %> <%= @size || "standard" %> <%= @align %>">
+<div class="odi-badge odi-<%= @member.product_name %> <%= @size || "standard" %> <%= @align %> <%= @colour || "black" %>">
   <%= stylesheet_link_tag "badge.css" %>
   <a href="<%= member_url(@member) %>">
     <ul class="details">

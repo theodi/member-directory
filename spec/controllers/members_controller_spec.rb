@@ -78,6 +78,18 @@ describe MembersController do
       assigns(:align).should be(nil)
     end
 
+    it "allows specific colours to be specified" do
+      ['black', 'blue', 'red', 'crimson', 'orange', 'green', 'pomegranate', 'grey'].each do |colour|
+        get 'badge', :id => @member.membership_number, :colour => colour
+        assigns(:colour).should be(colour)
+      end
+    end
+
+    it "doesn't allow bad colours to be specified" do
+      get 'badge', :id => @member.membership_number, :colours => 'puce'
+      assigns(:align).should be(nil)
+    end
+
   end
 
   describe "content locations" do
