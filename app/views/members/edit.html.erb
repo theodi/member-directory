@@ -107,4 +107,4 @@
   </div>
 <% end %>
 
-<%= render(:partial => 'badge_form') %>
+<%= render(:partial => 'badge_form') if ['partner', 'supporter'].include?(@member.product_name) %>
