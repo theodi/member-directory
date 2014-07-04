@@ -1,9 +1,24 @@
-.odi-member {
+.odi-badge {
   position: relative;
+  background-repeat: no-repeat;
 
-  img {
-    position: absolute;
-    left: 0;
+  $levels: partner, supporter;
+  $sizes: large, mini, standard;
+
+  @for $i from 1 through length($levels) {
+    &.odi-#{nth($levels, $i)} {
+      @for $x from 1 through length($sizes) {
+        &.#{nth($sizes, $x)} {
+          background-image: url("/assets/badge/#{nth($levels, $i)}/#{nth($sizes, $x)}-badge.png");
+        }
+      }
+    }
+  }
+
+  a {
+    display: block;
+    width: 100%;
+    height: 100%;
   }
 
   ul.details {
@@ -19,12 +34,12 @@
 
     li {
       font-family: 'Helvetica Neue', Helvetica, sans-serif;
-      font-size: 12px;
-      line-height: 18px;
+      font-size: 12px !important;
+      line-height: 18px !important;
       display: inline-block;
       float: left;
       clear: both;
-      margin: 1px 0;
+      margin: 0 0 1px 0 !important;
       padding: 0 2px;
       white-space: nowrap;
       overflow: hidden;
@@ -41,18 +56,18 @@
   }
 
   &.large {
+    height: 100px;
+    &.right {
+      width: 270px;
+    }
     ul.details {
       left: 121px;
     }
   }
 
-  &.large {
-    &.right {
-      width: 270px;
-    }
-  }
 
   &.standard {
+    height: 80px;
     &.right {
       width: 245px;
     }
@@ -60,10 +75,7 @@
 
   &.large, &.standard {
     &.right {
-      img {
-        right: 0;
-        left: auto;
-      }
+      background-position: right;
 
       ul.details {
         left: 0;
@@ -78,36 +90,48 @@
 
   &.mini {
     width: 150px;
+    height: 79px;
     position: relative;
 
     ul.details {
       left: 0;
       top: 23px;
+      max-width: 150px;
+      min-width: 0;
     }
-    &.right {
-      img {
-        position: absolute;
-        right: 0;
-        left: auto;
-      }
+    &.top-right {
+      background-position: top right;
 
       ul.details {
         left: 0;
-        max-width: 150px;
-        min-width: 0;
         li {
           float: right;
         }
       }
     }
-    &.bottom {
-      height: 82px;
-      img {
-        top: auto;
-        bottom: 0;
+    &.top-left {
+      background-position: top left;
+
+      ul.details {
+        right: 0;
+        li {
+          float: left;
+        }
       }
+    }
+    &.bottom-left {
+      background-position: left bottom;
       ul.details {
         top: 0;
+      }
+    }
+    &.bottom-right {
+      background-position: right bottom;
+      ul.details {
+        top: 0;
+        li {
+          float: right;
+        }
       }
     }
   }
