@@ -18,8 +18,12 @@
   @for $i from 1 through length($levels) {
     &.odi-#{nth($levels, $i)} {
       @for $x from 1 through length($sizes) {
-        &.#{nth($sizes, $x)} {
-          background-image: url("/assets/badge/#{nth($levels, $i)}/#{nth($sizes, $x)}-badge.png");
+          &.#{nth($sizes, $x)} {
+            @for $c from 1 through length($colourNames) {
+              &.#{nth($colourNames, $c)} {
+                background-image: url("/logos/#{nth($levels, $i)}/#{nth($sizes, $x)}/#{nth($colourNames, $c)}.svg");
+              }
+          }
         }
       }
     }
@@ -66,6 +70,7 @@
 
   &.large {
     height: 100px;
+    background-size: 116px 100px;
     &.right {
       width: 270px;
     }
@@ -77,6 +82,7 @@
 
   &.standard {
     height: 80px;
+    background-size: 93px 80px;
     &.right {
       width: 245px;
     }
