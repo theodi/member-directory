@@ -40,7 +40,7 @@
     <div class="controls">
       <% ['black', 'blue', 'red', 'crimson', 'orange', 'green', 'pomegranate', 'grey'].each do |colour| %>
         <label class="radio inline">
-          <%= radio_button_tag("colour", colour, colour == 'standard', class: "colour") %>
+          <%= radio_button_tag("colour", colour, colour == 'black', class: "colour") %>
           <%= colour.titleize %>
         </label>
       <% end %>
