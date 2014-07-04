@@ -13,10 +13,7 @@ describe "members/_badge.html.erb" do
     render
 
     expect(rendered).to have_tag('a', with: { href: member_url(@partner) })
-    expect(rendered).to have_tag('img', with: {
-                                                src: "/assets/badge/partner/standard-badge.png",
-                                                alt: "Open Data Institute Partner"
-                                              })
+    expect(rendered).to have_tag('div', with: { class: 'odi-partner' })
     expect(rendered).to have_tag('li') do
       with_text /Open Data Institute Partner/
     end
@@ -28,8 +25,7 @@ describe "members/_badge.html.erb" do
 
     render
 
-    expect(rendered).to have_tag('img', with: { src: "/assets/badge/partner/large-badge.png" })
-    expect(rendered).to have_tag('div', with: { class: "odi-member large"})
+    expect(rendered).to have_tag('div', with: { class: "odi-partner large"})
   end
 
   it "shows a mini badge if specified" do
@@ -38,8 +34,7 @@ describe "members/_badge.html.erb" do
 
     render
 
-    expect(rendered).to have_tag('img', with: { src: "/assets/badge/partner/mini-badge.png" })
-    expect(rendered).to have_tag('div', with: { class: "odi-member mini"})
+    expect(rendered).to have_tag('div', with: { class: "odi-partner mini"})
   end
 
   it "displays supporter information on the badge" do
@@ -48,10 +43,7 @@ describe "members/_badge.html.erb" do
     render
 
     expect(rendered).to have_tag('a', with: { href: member_url(@supporter) })
-    expect(rendered).to have_tag('img', with: {
-                                                src: "/assets/badge/supporter/standard-badge.png",
-                                                alt: "Open Data Institute Supporter"
-                                              })
+    expect(rendered).to have_tag('div', with: { class: 'odi-supporter' })
     expect(rendered).to have_tag('li') do
       with_text /Open Data Institute Supporter/
     end
