@@ -104,7 +104,7 @@
   }
 
   &.mini {
-    width: 150px;
+    width: 165px;
     height: 79px;
     position: relative;
 
@@ -118,7 +118,8 @@
       background-position: top right;
 
       ul.details {
-        left: 0;
+        right: 0;
+        left: auto;
         li {
           float: right;
         }
@@ -144,6 +145,8 @@
       background-position: right bottom;
       ul.details {
         top: 0;
+        right: 0;
+        left: auto;
         li {
           float: right;
         }
