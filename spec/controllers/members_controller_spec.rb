@@ -67,7 +67,7 @@ describe MembersController do
     end
 
     it "allows specific alignments to be specified" do
-      ['left', 'right', 'top', 'bottom'].each do |align|
+      ['left', 'right', 'top-left', 'top-right', 'bottom-left', 'bottom-right'].each do |align|
         get 'badge', :id => @member.membership_number, :align => align
         assigns(:align).should be(align)
       end

@@ -47,7 +47,7 @@ class MembersController < ApplicationController
 
   def badge
     @size = params[:size] if ['standard', 'large', 'mini'].include?(params[:size])
-    @align = params[:align] if ['left', 'right', 'top', 'bottom'].include?(params[:align])
+    @align = params[:align] if ['left', 'right', 'top-left', 'top-right', 'bottom-left', 'bottom-right'].include?(params[:align])
     render action: "badge", layout: nil
   end
 
