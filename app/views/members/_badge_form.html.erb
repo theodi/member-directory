@@ -38,7 +38,8 @@
   <div class="row-fluid">
     <div class="span6">
       <h3>Code</h3>
-      <%= text_area_tag("code", javascript_include_tag(badge_member_url(@member, format: :js)), rows: 5, cols: 30, id: "code") %>
+      <p><%= text_area_tag("code", javascript_include_tag(badge_member_url(@member, format: :js)), rows: 5, cols: 30, id: "code") %></p>
+      <p><button id="copy-button" class="btn btn-primary"><i class="icon-copy"></i></button></p>
     </div>
 
     <div class="span6">
@@ -53,7 +54,33 @@
 
   <script type="text/javascript">
     $(document).ready(function() {
+      client = new ZeroClipboard($("#copy-button"));
       $('#mini_align').addClass('hidden');
+
+      $("#copy-button").click(function() {
+        return false;
+      });
+
+      $("#copy-button").hover(function() {
+        $(this).tooltip({"title": "Copy code"})
+        $(this).tooltip('show')
+      })
+
+      client.on( 'ready', function(event) {
+        client.on( "copy", function (event) {
+          var clipboard = event.clipboardData;
+          clipboard.setData( "text/plain", $("#code").val() );
+        });
+
+        client.on( 'aftercopy', function(event) {
+          $("#copy-button").tooltip('hide')
+                           .attr('data-original-title', 'Copied!')
+                           .tooltip('fixTitle')
+                           .tooltip('show')
+                           .attr('data-original-title', 'Copy code');
+        });
+      });
+
 
       $('.size, .align').click(function() {
         url = "<%= badge_member_url(@member, format: :js) %>"
