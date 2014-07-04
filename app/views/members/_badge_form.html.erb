@@ -1,0 +1,90 @@
+<fieldset>
+
+  <legend>Badge</legend>
+
+  <p class='alert alert-info'>
+    Tell the world about your ODI membership! Simply select the display options
+    from the options below, and then copy the generated code from the box below
+    and paste it into your website's footer, or give it to your website manager
+    (if you don't have access to the website)
+  </p>
+
+  <div class="control-group">
+    <label class="control-label" for="size">Badge size</label>
+    <div class="controls">
+      <% ['standard', 'large', 'mini'].each do |size| %>
+        <label class="radio inline">
+          <%= radio_button_tag("size", size, size == 'standard', class: "size") %>
+          <%= size.titleize %>
+        </label>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="control-group" id="align">
+    <label class="control-label" for="align">Badge alignment</label>
+    <% { standard: ['left', 'right'], mini: ['top-left', 'top-right', 'bottom-left', 'bottom-right'] }.each do |size, alignments| %>
+      <div class="controls" id="<%= size %>_align">
+        <% alignments.each do |align| %>
+          <label class="radio inline" id="label_<%= align %>">
+            <%= radio_button_tag("align", align, align == 'left', class: "align") %>
+            <%= align.titleize %>
+          </label>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="row-fluid">
+    <div class="span6">
+      <h3>Code</h3>
+      <%= text_area_tag("code", javascript_include_tag(badge_member_url(@member, format: :js)), rows: 5, cols: 30, id: "code") %>
+    </div>
+
+    <div class="span6">
+      <h3>Preview</h3>
+
+      <div id="preview">
+        <%= render(:partial => 'badge') %>
+      </div>
+
+    </div>
+  </div>
+
+  <script type="text/javascript">
+    $(document).ready(function() {
+      $('#mini_align').addClass('hidden');
+
+      $('.size, .align').click(function() {
+        url = "<%= badge_member_url(@member, format: :js) %>"
+
+        $('#mini_align, #standard_align').addClass('hidden');
+
+        params = {
+            size: $('.size:checked')[0].value,
+            align: $('.align:checked')[0].value
+        }
+
+        if (params["size"] == "mini") {
+          $('#mini_align').removeClass('hidden');
+          if ($.inArray(params["align"], ['left', 'right']) >= 0) {
+            $('#align_top-left').prop('checked', true);
+            params["align"] = "top-left";
+          }
+        } else {
+          $('#standard_align').removeClass('hidden');
+          if ($.inArray(params["align"], ['left', 'right']) < 0) {
+            $('#align_left').prop('checked', true);
+            params["align"] = "left";
+          }
+        }
+
+        $('#preview .odi-badge').attr('class', 'odi-badge odi-<%= @member.product_name %> ' + params["size"] + ' ' + params["align"])
+
+        url = url + "?" + jQuery.param(params)
+        $('#code').val("<script src=\""+ url +"\" type=\"text/javascript\"><\/script>")
+      })
+    })
+  </script>
+
+</fieldset>

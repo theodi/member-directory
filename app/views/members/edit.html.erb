@@ -1,8 +1,8 @@
 <%= form_for(@member, :html => { :method => :put, :class => 'form-horizontal' }) do |f| %>
   <%= error_messages(@member) %>
-  
+
   <fieldset>
-  
+
     <legend>Account Details</legend>
 
     <div class="control-group">
@@ -19,29 +19,29 @@
   			<%= f.email_field :email %>
   		</div>
   	</div>
-  
+
     <% if @member.pending_reconfirmation? %>
       <div>Currently waiting confirmation for: <%= @member.unconfirmed_email %></div>
     <% end %>
-  
+
     <%= form_field f, :cached_newsletter do %>
       <%= f.check_box :cached_newsletter %>
     <% end %>
-  
-  <fieldset>   
+
+  <fieldset>
     <% render :partial => 'devise/registrations/member_details', :locals => { :f => f } %>
   </fieldset>
-  
-  <fieldset id='organization-details'>   
-    
+
+  <fieldset id='organization-details'>
+
     <legend>Organisation Details</legend>
-    
+
     <p class='alert alert-info'>
-      The ODI membership directory is a space that allows open data companies to 
-      network, find each other, and work together. This section allows you to specify 
+      The ODI membership directory is a space that allows open data companies to
+      network, find each other, and work together. This section allows you to specify
       the details that are shown in the directory.
     </p>
-    
+
     <%= f.fields_for :organization do |builder| %>
       <%= render :partial => 'organizations/form', :locals => { :f => builder } %>
     <% end %>
@@ -55,7 +55,7 @@
     </div>
 
   </fieldset>
-  
+
   <% unless current_admin %>
 
     <fieldset>
@@ -68,20 +68,20 @@
     			<%= f.password_field :password %>
     		</div>
     	</div>
-  
+
       <div class="control-group">
     		<%= f.label :password_confirmation, :class => 'control-label' %>
     		<div class="controls">
     			<%= f.password_field :password_confirmation %>
     		</div>
     	</div>
-  
+
     </fieldset>
 
     <fieldset>
 
       <legend>Current Password</legend>
-    
+
       <p>
         We need your current password to confirm your changes.
       </p>
@@ -106,3 +106,5 @@
     <%= f.submit "Save", :id => 'save', :class => 'btn btn-primary btn-large' %>
   </div>
 <% end %>
+
+<%= render(:partial => 'badge_form') %>
