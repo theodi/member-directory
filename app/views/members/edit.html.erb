@@ -32,6 +32,13 @@
     <% render :partial => 'devise/registrations/member_details', :locals => { :f => f } %>
   </fieldset>
 
+  <fieldset>
+    <legend>Badge</legend>
+
+    <p>Tell the world about your ODI membership. <a href="#" data-toggle="modal" data-target="#badgeContent">Display a badge</a> on your site.</p>
+
+  </fieldset>
+
   <fieldset id='organization-details'>
 
     <legend>Organisation Details</legend>
@@ -93,6 +100,7 @@
   		<span class="help-inline">(required)</span>
         </div>
       </div>
+
     </fieldset>
   <% end %>
 

@@ -177,3 +177,27 @@
   width: 202px;
   height: 49px;
 }
+
+#badgeContent {
+	.modal-body {
+		overflow: hidden;
+
+		textarea {
+			width: 95%;
+			font-size: 0.8em;
+			height: 125px;
+		}
+
+		label {
+			color: #fff;
+		}
+
+		.radio {
+			margin: 0 10px 0 0;
+		}
+
+		#preview {
+			height: 100px;
+		}
+	}
+}
