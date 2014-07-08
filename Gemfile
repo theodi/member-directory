@@ -52,6 +52,7 @@ group :assets do
 end
 
 gem 'jquery-rails'
+gem 'zeroclipboard-rails'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
@@ -83,6 +84,7 @@ group :development, :test do
   gem 'mailcatcher'
   gem 'simplecov-rcov'
   gem 'travis'
+  gem 'rspec-html-matchers'
 end
 
 group :test do

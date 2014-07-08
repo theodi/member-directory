@@ -1,0 +1,161 @@
+.odi-badge {
+  position: relative;
+  background-repeat: no-repeat;
+
+  $levels: partner, supporter;
+  $sizes: large, mini, standard;
+  $colourNames: black, blue, red, crimson, orange, green, pomegranate, grey;
+  $colours: #000, #00b7ff, #ff6700, #d30102, #f99C06, #0DBC37, #dc4810, #aaa;
+
+  @for $i from 1 through length($colourNames) {
+    &.#{nth($colourNames, $i)} {
+      ul.details li {
+        background-color: #{nth($colours, $i)};
+      }
+    }
+  }
+
+  @for $i from 1 through length($levels) {
+    &.odi-#{nth($levels, $i)} {
+      @for $x from 1 through length($sizes) {
+          &.#{nth($sizes, $x)} {
+            @for $c from 1 through length($colourNames) {
+              &.#{nth($colourNames, $c)} {
+                background-image: url("/logos/#{nth($levels, $i)}/#{nth($sizes, $x)}/#{nth($colourNames, $c)}.svg");
+              }
+          }
+        }
+      }
+    }
+  }
+
+  a {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  ul.details {
+    display: none;
+    position: absolute;
+    left: 100px;
+    top: 0px;
+    z-index: 5000;
+    min-width: 200px;
+    text-align: left;
+    padding: 0;
+    margin: 0;
+
+    li {
+      font-family: 'Helvetica Neue', Helvetica, sans-serif;
+      font-size: 12px !important;
+      line-height: 18px !important;
+      display: inline-block;
+      float: left;
+      clear: both;
+      margin: 0 0 1px 0 !important;
+      padding: 0 2px;
+      white-space: nowrap;
+      overflow: hidden;
+      color: #fff;
+
+      span {
+        display: inline-block;
+        background-color: black;
+        color: white;
+        padding: 0 2px;
+      }
+    }
+  }
+
+  &.large {
+    height: 100px;
+    background-size: 116px 100px;
+    &.right {
+      width: 270px;
+    }
+    ul.details {
+      left: 121px;
+    }
+  }
+
+
+  &.standard {
+    height: 80px;
+    background-size: 93px 80px;
+    &.right {
+      width: 245px;
+    }
+  }
+
+  &.large, &.standard {
+    &.right {
+      background-position: right;
+
+      ul.details {
+        left: 0;
+        max-width: 150px;
+        min-width: 0;
+        li {
+          float: right;
+        }
+      }
+    }
+  }
+
+  &.mini {
+    width: 165px;
+    height: 79px;
+    position: relative;
+
+    ul.details {
+      left: 0;
+      top: 23px;
+      max-width: 150px;
+      min-width: 0;
+    }
+    &.top-right {
+      background-position: top right;
+
+      ul.details {
+        right: 0;
+        left: auto;
+        li {
+          float: right;
+        }
+      }
+    }
+    &.top-left {
+      background-position: top left;
+
+      ul.details {
+        right: 0;
+        li {
+          float: left;
+        }
+      }
+    }
+    &.bottom-left {
+      background-position: left bottom;
+      ul.details {
+        top: 0;
+      }
+    }
+    &.bottom-right {
+      background-position: right bottom;
+      ul.details {
+        top: 0;
+        right: 0;
+        left: auto;
+        li {
+          float: right;
+        }
+      }
+    }
+  }
+
+  &:hover ul.details {
+    display: block;
+  }
+
+}

@@ -48,6 +48,50 @@ describe MembersController do
 
   end
 
+  describe "GET 'badge'" do
+
+    before :all do
+      @member = FactoryGirl.create :member, :cached_active => true, :product_name => 'member'
+    end
+
+    it "allows specific sizes to be specified" do
+      ['standard', 'large', 'mini'].each do |size|
+        get 'badge', :id => @member.membership_number, :size => size
+        assigns(:size).should be(size)
+      end
+    end
+
+    it "doesn't allow bad sizes to be specified" do
+      get 'badge', :id => @member.membership_number, :size => 'foobar'
+      assigns(:size).should be(nil)
+    end
+
+    it "allows specific alignments to be specified" do
+      ['left', 'right', 'top-left', 'top-right', 'bottom-left', 'bottom-right'].each do |align|
+        get 'badge', :id => @member.membership_number, :align => align
+        assigns(:align).should be(align)
+      end
+    end
+
+    it "doesn't allow bad alignments to be specified" do
+      get 'badge', :id => @member.membership_number, :align => 'foobar'
+      assigns(:align).should be(nil)
+    end
+
+    it "allows specific colours to be specified" do
+      ['black', 'blue', 'red', 'crimson', 'orange', 'green', 'pomegranate', 'grey'].each do |colour|
+        get 'badge', :id => @member.membership_number, :colour => colour
+        assigns(:colour).should be(colour)
+      end
+    end
+
+    it "doesn't allow bad colours to be specified" do
+      get 'badge', :id => @member.membership_number, :colours => 'puce'
+      assigns(:align).should be(nil)
+    end
+
+  end
+
   describe "content locations" do
 
     it "includes query parameters" do

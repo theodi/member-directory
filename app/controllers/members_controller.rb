@@ -2,6 +2,7 @@ class MembersController < ApplicationController
   respond_to :html, :json
 
   before_filter :get_member, :except => [:index]
+  before_filter :set_formats, :only => [:badge]
 
   before_filter(:only => [:index, :show]) {alternate_formats [:json]}
 
@@ -15,7 +16,7 @@ class MembersController < ApplicationController
       end
       @organizations.flatten!
     end
-  
+
     respond_with(@organizations)
   end
 
@@ -28,10 +29,10 @@ class MembersController < ApplicationController
       else
         @title = "Edit member"
       end
-      render 'edit'      
+      render 'edit'
     else
       @organization = @member.organization
-      raise ActiveRecord::RecordNotFound and return if @organization.nil? 
+      raise ActiveRecord::RecordNotFound and return if @organization.nil?
       if @member.cached_active == false
         if signed_in?
           raise ActiveResource::UnauthorizedAccess.new(request.fullpath) and return
@@ -44,7 +45,11 @@ class MembersController < ApplicationController
       respond_with(@organization)
     end
   end
-  
+
+  def badge
+    render action: "badge", layout: nil
+  end
+
   def update
     # Prepend http to URL if not present
     if params[:member] && params[:member][:organization_attributes] && params[:member][:organization_attributes][:url]
@@ -66,11 +71,11 @@ class MembersController < ApplicationController
   end
 
   private
-  
+
   def get_member
     # Get member
     @member = Member.where(:membership_number => params[:id]).first
     raise ActiveRecord::RecordNotFound and return if @member.nil?
   end
-  
+
 end

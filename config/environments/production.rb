@@ -1,4 +1,5 @@
 MemberDirectory::Application.configure do
+  config.action_controller.asset_host = "directory.theodi.org"
   # Settings specified here will take precedence over those in config/application.rb
 
   # Code is not reloaded between requests
@@ -65,7 +66,7 @@ MemberDirectory::Application.configure do
   # Log the query plan for queries taking more than this (works
   # with SQLite, MySQL, and PostgreSQL)
   # config.active_record.auto_explain_threshold_in_seconds = 0.5
-  
+
   config.action_mailer.smtp_settings = {
     :user_name => ENV["MANDRILL_USERNAME"],
     :password => ENV["MANDRILL_PASSWORD"],

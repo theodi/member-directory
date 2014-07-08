@@ -23,10 +23,16 @@ MemberDirectory::Application.routes.draw do
         get :cancel
       end
   end
-  
-  resources :members, :only => [:index, :show, :update]
-  
+
+  resources :members, :only => [:index, :show, :update] do
+    member do
+      get :badge, defaults: {format: :js}
+    end
+  end
+
   root :to => redirect("/members")
+
+  get '/logos/:level/:size/:colour.svg', defaults: {format: :svg}, to: 'application#logo'
 
   match '/401', :to => 'errors#unauthorized'
   match '/404', :to => 'errors#not_found'

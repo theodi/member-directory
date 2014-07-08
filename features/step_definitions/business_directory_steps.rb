@@ -31,7 +31,7 @@ Then /^the description field is limited to (\d+) characters$/ do |limit|
 end
 
 Then /^I can see a logo upload$/ do
-  page.should have_content 'Logo' 
+  page.should have_content 'Logo'
 end
 
 Then /^I enter my organization details$/ do
@@ -45,7 +45,7 @@ Then /^I enter my organization details$/ do
   @organization_linkedin    = Faker::Internet.url
   @organization_facebook    = Faker::Internet.url
   @organization_tagline     = Faker::Company.bs
-  
+
   fill_in('member_organization_attributes_name',                 :with => @organization_name)
   fill_in('member_organization_attributes_description',          :with => @organization_description)
   fill_in('member_organization_attributes_url',                  :with => @organization_url)
@@ -60,12 +60,12 @@ end
 
 Then /^I attach an image$/ do
   @organization_logo = File.join(::Rails.root, "fixtures/image_object_uploader/acme-logo.png")
-  
+
   # Store the urls for access earlier in the steps
   @fullsize_url = "#{ENV['RACKSPACE_DIRECTORY_ASSET_HOST']}/logos/<MEMBERSHIP_NUMBER>/original.png"
   @rectangular_url = "#{ENV['RACKSPACE_DIRECTORY_ASSET_HOST']}/logos/<MEMBERSHIP_NUMBER>/rectangular.png"
   @square_url = "#{ENV['RACKSPACE_DIRECTORY_ASSET_HOST']}/logos/<MEMBERSHIP_NUMBER>/square.png"
-  
+
   attach_file('member_organization_attributes_logo', @organization_logo)
 end
 
@@ -139,7 +139,7 @@ When /^I should see an error telling me that my description should not be longer
 end
 
 Then /^the fullsize logo should be available at the correct URL$/ do
-  @member = Member.find_by_email(@email)  
+  @member = Member.find_by_email(@email)
   @member.organization.logo.url.should eq @fullsize_url.gsub(/<MEMBERSHIP_NUMBER>/, @member.membership_number)
 end
 
@@ -153,14 +153,14 @@ end
 
 Then /^my organisation details should be queued for further processing$/ do
   @member = Member.find_by_email(@email)
-  
+
   logo = @fullsize_url.gsub(/<MEMBERSHIP_NUMBER>/, @member.membership_number) rescue nil
   thumbnail = @square_url.gsub(/<MEMBERSHIP_NUMBER>/, @member.membership_number) rescue nil
-  
+
   organization = {
     :name => @organization_name
   }
-  
+
   directory_entry = {
     :description => @organization_description,
     :homepage    => @organization_url,
@@ -171,12 +171,12 @@ Then /^my organisation details should be queued for further processing$/ do
     :email       => @organization_email,
     :twitter     => @organization_twitter,
     :linkedin    => @organization_linkedin,
-    :facebook    => @organization_facebook,    
-    :tagline     => @organization_tagline,    
+    :facebook    => @organization_facebook,
+    :tagline     => @organization_tagline,
   }
-  
+
   date = @member.organization.updated_at.to_s
-  
+
   Resque.should_receive(:enqueue).with(SendDirectoryEntryToCapsule, @member.membership_number, organization, directory_entry, date)
 end
 
