@@ -112,6 +112,14 @@ class Member < ActiveRecord::Base
     Stripe::Customer.retrieve(stripe_customer_id) if stripe_customer_id
   end
 
+  def product_name
+    if membership_number == ENV['FOUNDING_PARTNER_ID']
+      "Founding partner"
+    else
+      super
+    end
+  end
+
 	private
 
   def generate_membership_number
