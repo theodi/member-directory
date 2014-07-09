@@ -35,3 +35,4 @@ env:
   - secure: K8ck0lX/cC6pl++6lp+pBzLUHE1NL+ldF7/5x/6/+TiLUCPp3X+EQaa1TSe8UnY1Dot+XxdQ5Z1BKBcmn1ebqnBz8zoxCKdaKZpXiifuKud9p9Xf4HAloy78Nb/8HfMPBfVkxfUFfxDJWhTskVmbhKv5Q7+9I8QBt4XOL/Axxww=
   - secure: MiZJ+pmU5stria23Cbf5AZEmMtSJmTyQAoFHY18n0MbcJbUHCquiG7E2HhzM6h9vvBnSBF1dKEV6p5XlZNs06MRvId/R4qkb8OL35QVqbQyrot7RHBlKaBaAeKrHheYNi4Sm5FiAOmCt6xgu9sMcdcVfDwJLEnjJyZHZzUuxWyI=
   - STRIPE_API_KEY=fakeapikey
+  - FOUNDING_PARTNER_ID=NU4997LN
