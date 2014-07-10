@@ -118,3 +118,22 @@ Feature: Adding details to the organization directory
     When I click submit
     And I should see a notice that my details were saved successfully
     And I should see my changed membership details when I revisit the edit page
+
+	Scenario: Founding partner labelled correctly
+
+		Given I have a partner account
+		And I am a founding partner
+		And I have entered my organization details
+		And my listing is active
+		When I visit the members list
+		Then I should be listed as a founding partner
+
+	Scenario: Founding partner appears first in the list
+
+		Given there are 5 active partners in the directory
+		And I have a partner account
+		And I am a founding partner
+		And I have entered my organization details
+		And my listing is active
+		When I visit the members list
+		Then my listing should appear first in the list

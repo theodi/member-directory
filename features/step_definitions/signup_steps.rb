@@ -14,11 +14,11 @@ Given /^there is already an organization with the name '(.*?)'$/ do |org_name|
   FactoryGirl.create :member, :organization_name => org_name
 end
 
-Given(/^I have a sponsor account$/) do
+Given(/^I have a (sponsor|partner) account$/) do |level|
 
   @password = 'password'
   @email = Faker::Internet.email
-  @member = FactoryGirl.create :member, :product_name => 'sponsor', :organization_name => Faker::Company.name,
+  @member = FactoryGirl.create :member, :product_name => level, :organization_name => Faker::Company.name,
                          :password => @password, :password_confirmation => @password, :email => @email
   @member.confirm!
   @membership_number = @member.membership_number

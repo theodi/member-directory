@@ -208,3 +208,44 @@ When(/^I should see my changed membership details when I revisit the edit page$/
   page.should have_content(@changed_email)
   (page.find('#member_cached_newsletter').checked? == 'checked').should == @changed_newsletter
 end
+
+Given(/^there are (\d+) active partners in the directory$/) do |num|
+  num.to_i.times do
+    member = FactoryGirl.create :member, :product_name => 'partner', :cached_active => true
+    member.organization.description = Faker::Company.catch_phrase
+    member.organization.save
+  end
+end
+
+Given(/^I am a founding partner$/) do
+  @member = Member.find_by_email(@email)
+  @member.membership_number = ENV['FOUNDING_PARTNER_ID']
+  @member.save
+end
+
+When(/^I visit the members list$/) do
+  visit("/members")
+end
+
+Then(/^I should be listed as a founding partner$/) do
+  all("h2").first.text.should match /Founding partner/
+end
+
+Given(/^I have entered my organization details$/) do
+  steps %{
+    When I visit my account page
+    And I am redirected to submit my organization details
+    And I enter my organization details
+    And I click submit
+  }
+end
+
+Given(/^my listing is active$/) do
+  @member.cached_active = true
+  @member.save
+end
+
+Then(/^my listing should appear first in the list$/) do
+  all("h2").count.should == 6
+  all("h2").first.text.should match /#{@organization_name}/
+end
