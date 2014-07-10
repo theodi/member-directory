@@ -228,7 +228,7 @@ When(/^I visit the members list$/) do
 end
 
 Then(/^I should be listed as a founding partner$/) do
-  all("h2").first.text.should match /Founding partner/
+  all("h2").first.text.should match /Founding Partner/
 end
 
 Given(/^I have entered my organization details$/) do
