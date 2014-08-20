@@ -32,12 +32,15 @@
     <% render :partial => 'devise/registrations/member_details', :locals => { :f => f } %>
   </fieldset>
 
-  <fieldset>
-    <legend>Badge</legend>
+  <% if ['partner', 'sponsor', 'supporter'].include?(@member.product_name) %>
+    <fieldset>
+      <legend>Badge</legend>
 
-    <p>Tell the world about your ODI membership. <a href="#" data-toggle="modal" data-target="#badgeContent">Display a badge</a> on your site.</p>
+      <p>Tell the world about your ODI membership. <a href="#badgeContent" data-toggle="modal">Display a badge</a> on your site.</p>
 
-  </fieldset>
+      <%= render(:partial => 'badge_form') %>
+    </fieldset>
+  <% end %>
 
   <fieldset id='organization-details'>
 
@@ -114,5 +117,3 @@
     <%= f.submit "Save", :id => 'save', :class => 'btn btn-primary btn-large' %>
   </div>
 <% end %>
-
-<%= render(:partial => 'badge_form') if ['partner', 'supporter'].include?(@member.product_name) %>

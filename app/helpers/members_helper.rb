@@ -16,8 +16,21 @@ module MembersHelper
       'orange' => '#f99C06',
       'green' => '#0DBC37',
       'pomegranate' => '#dc4810',
-      'grey' => '#aaa'
+      'grey' => '#aaa',
+      'orange' => '#ff6700'
     }[colour] rescue nil
+  end
+
+  def member_colour(member)
+    member_colours[member.product_name]
+  end
+
+  def member_colours
+    {
+      'partner' => 'blue',
+      'sponsor' => 'green',
+      'supporter' => 'orange',
+    }
   end
 
 end
