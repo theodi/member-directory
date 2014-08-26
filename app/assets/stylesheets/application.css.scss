@@ -179,6 +179,8 @@
 }
 
 #badgeContent {
+	width: 920px;
+	margin-left: -460px;
 	.modal-body {
 		overflow: hidden;
 
@@ -197,7 +199,7 @@
 		}
 
 		#preview {
-			height: 100px;
+			height: 170px;
 		}
 	}
 }

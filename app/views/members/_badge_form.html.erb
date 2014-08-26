@@ -14,7 +14,7 @@
           <div class="controls">
             <% ['mini', 'small', 'medium', 'large'].each do |size| %>
               <label class="radio inline">
-                <%= radio_button_tag("size", size, size == 'standard', class: "size") %>
+                <%= radio_button_tag("size", size, size == 'small', class: "size") %>
                 <%= size.titleize %>
               </label>
             <% end %>
