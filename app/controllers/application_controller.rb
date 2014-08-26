@@ -15,8 +15,8 @@ class ApplicationController < ActionController::Base
   end
 
   def logo
-    if ['standard', 'large'].include?(params[:size])
-      @size == 'large' ? @size = 100 : @size = 80
+    @colour = params[:colour]
+    if ['small', 'medium', 'large'].include?(params[:size])
       render "logos/#{params[:level]}-standard", format: :svg
     else
       render "logos/#{params[:level]}-mini", format: :svg
@@ -39,7 +39,7 @@ class ApplicationController < ActionController::Base
   helper_method :editable?
 
   def set_formats
-    @size = params[:size] if ['standard', 'large', 'mini'].include?(params[:size])
+    @size = params[:size] if ['mini', 'small', 'medium', 'large'].include?(params[:size])
     @align = params[:align] if ['left', 'right', 'top-left', 'top-right', 'bottom-left', 'bottom-right'].include?(params[:align])
     @colour = params[:colour] if ['black', 'blue', 'red', 'crimson', 'orange', 'green', 'pomegranate', 'grey'].include?(params[:colour])
   end

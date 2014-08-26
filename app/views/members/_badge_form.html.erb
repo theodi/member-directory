@@ -12,9 +12,9 @@
         <div class="control-group">
           <label class="control-label" for="size">Badge size</label>
           <div class="controls">
-            <% ['standard', 'large', 'mini'].each do |size| %>
+            <% ['mini', 'small', 'medium', 'large'].each do |size| %>
               <label class="radio inline">
-                <%= radio_button_tag("size", size, size == 'standard', class: "size") %>
+                <%= radio_button_tag("size", size, size == 'small', class: "size") %>
                 <%= size.titleize %>
               </label>
             <% end %>
