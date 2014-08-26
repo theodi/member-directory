@@ -55,7 +55,7 @@ describe MembersController do
     end
 
     it "allows specific sizes to be specified" do
-      ['standard', 'large', 'mini'].each do |size|
+      ['mini', 'small', 'medium', 'large'].each do |size|
         get 'badge', :id => @member.membership_number, :size => size
         assigns(:size).should be(size)
       end
