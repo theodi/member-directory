@@ -3,7 +3,7 @@
   background-repeat: no-repeat;
 
   $levels: partner, supporter;
-  $sizes: large, mini, standard;
+  $sizes: mini, small, medium, large;
   $colourNames: 'black', 'blue', 'red', 'crimson', 'orange', 'green', 'pomegranate', 'grey';
   $colours: #000, #00b7ff, #ff6700, #d30102, #f99C06, #0DBC37, #dc4810, #aaa;
 
@@ -68,7 +68,16 @@
     }
   }
 
-  &.large {
+
+  &.small {
+    height: 80px;
+    background-size: 93px 80px;
+    &.right {
+      width: 245px;
+    }
+  }
+
+  &.medium {
     height: 100px;
     background-size: 116px 100px;
     &.right {
@@ -79,12 +88,14 @@
     }
   }
 
-
-  &.standard {
-    height: 80px;
-    background-size: 93px 80px;
+  &.large {
+    height: 170px;
+    background-size: 197px 170px;
     &.right {
-      width: 245px;
+      width: 270px;
+    }
+    ul.details {
+      left: 202px;
     }
   }
 
