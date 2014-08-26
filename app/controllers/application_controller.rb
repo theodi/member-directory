@@ -15,6 +15,7 @@ class ApplicationController < ActionController::Base
   end
 
   def logo
+    @colour = params[:colour]
     if ['standard', 'large'].include?(params[:size])
       @size == 'large' ? @size = 100 : @size = 80
       render "logos/#{params[:level]}-standard", format: :svg
