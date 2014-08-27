@@ -92,14 +92,14 @@
     height: 170px;
     background-size: 197px 170px;
     &.right {
-      width: 270px;
+      width: 367px;
     }
     ul.details {
       left: 202px;
     }
   }
 
-  &.large, &.standard {
+  &.large, &.medium, &.small {
     &.right {
       background-position: right;
 
