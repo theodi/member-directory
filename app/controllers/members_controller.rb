@@ -2,8 +2,7 @@ class MembersController < ApplicationController
   respond_to :html, :json
 
   before_filter :get_member, :except => [:index]
-  before_filter :set_formats, :only => [:badge]
-  before_filter :log_embed, :only => [:badge]
+  before_filter :set_formats, :log_embed, :only => [:badge]
 
   before_filter(:only => [:index, :show]) {alternate_formats [:json]}
 
@@ -84,7 +83,9 @@ class MembersController < ApplicationController
   end
 
   def log_embed
-    #if request.referer
+    unless request.referer =~ /https?:\/\/#{request.host_with_port}./
+      @member.register_embed(request.referer)
+    end
   end
 
 end

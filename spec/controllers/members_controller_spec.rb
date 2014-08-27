@@ -90,6 +90,33 @@ describe MembersController do
       assigns(:align).should be(nil)
     end
 
+    describe "embed stats"
+
+      it "creates an embed stat when a badge is embeded" do
+        controller.request.stub referer: 'http://example.com'
+
+        get 'badge', :id => @member.membership_number
+
+        EmbedStat.count.should == 1
+        EmbedStat.first.referrer.should == 'http://example.com'
+      end
+
+      it "doesn't create a stat when there is no referrer" do
+        controller.request.stub referer: nil
+
+        get 'badge', :id => @member.membership_number
+
+        EmbedStat.count.should == 0
+      end
+
+      it "doesn't create a stat when the referrer is local" do
+        controller.request.should_receive(:referer).and_return('http://test.host/example.html')
+
+        get 'badge', :id => @member.membership_number
+
+        EmbedStat.count.should == 0
+      end
+
   end
 
   describe "content locations" do
