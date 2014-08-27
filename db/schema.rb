@@ -60,8 +60,8 @@ ActiveRecord::Schema.define(:version => 20140827100245) do
     t.datetime "updated_at",                             :null => false
     t.string   "membership_number"
     t.string   "product_name"
-    t.integer  "cached_active",          :default => 0
-    t.integer  "cached_newsletter",      :default => 0
+    t.boolean  "cached_active",          :default => false
+    t.boolean  "cached_newsletter",      :default => false
     t.string   "stripe_customer_id"
   end
 
