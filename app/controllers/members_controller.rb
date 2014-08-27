@@ -3,6 +3,7 @@ class MembersController < ApplicationController
 
   before_filter :get_member, :except => [:index]
   before_filter :set_formats, :only => [:badge]
+  before_filter :log_embed, :only => [:badge]
 
   before_filter(:only => [:index, :show]) {alternate_formats [:json]}
 
@@ -80,6 +81,10 @@ class MembersController < ApplicationController
     # Get member
     @member = Member.where(:membership_number => params[:id]).first
     raise ActiveRecord::RecordNotFound and return if @member.nil?
+  end
+
+  def log_embed
+    #if request.referer
   end
 
 end
