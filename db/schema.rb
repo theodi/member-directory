@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140827100245) do
+ActiveRecord::Schema.define(:version => 20140827154557) do
 
   create_table "admins", :force => true do |t|
     t.string   "email",              :default => "", :null => false
@@ -63,6 +63,7 @@ ActiveRecord::Schema.define(:version => 20140827100245) do
     t.boolean  "cached_active",          :default => false
     t.boolean  "cached_newsletter",      :default => false
     t.string   "stripe_customer_id"
+    t.integer  "embed_stat_id"
   end
 
   add_index "members", ["email"], :name => "members_index_members_on_email"

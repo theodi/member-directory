@@ -9,8 +9,10 @@ describe Member do
   it "creates an embed stat" do
     @member.register_embed("http://www.example.com/page")
 
-    @member.embed_stats.count.should == 1
-    @member.embed_stats.first.referrer.should == "http://www.example.com/page"
+    stat = @member.embed_stats.first
+
+    stat.referrer.should == "http://www.example.com/page"
+    stat.member.should == @member
   end
 
   it "only creates one embed stat per referrer" do
