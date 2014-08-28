@@ -15,6 +15,9 @@ describe EmbedStat do
       2.times.each { |i| member.register_embed("http://example#{n}.com/#{i}") }
     end
 
+    validator = Csvlint::Validator.new(StringIO.new(EmbedStat.csv))
+    validator.valid?.should be_true
+
     csv = CSV.parse(EmbedStat.csv)
 
     csv.count.should == 11
