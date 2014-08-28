@@ -4,4 +4,12 @@ class EmbedStat < ActiveRecord::Base
   validates :referrer, url: true
 
   attr_accessible :referrer
+
+  def self.csv
+    CSV.generate do |csv|
+      csv << ["Member Name", "Referring URL", "First Detected"]
+      all.each { |s| csv << [s.member.organization.name, s.referrer, s.created_at] }
+    end
+  end
+
 end
