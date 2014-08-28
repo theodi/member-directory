@@ -85,6 +85,7 @@ group :development, :test do
   gem 'simplecov-rcov'
   gem 'travis'
   gem 'rspec-html-matchers'
+  gem 'csvlint'
 end
 
 group :test do

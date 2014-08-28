@@ -4,6 +4,8 @@ class Member < ActiveRecord::Base
   # :lockable, :timeoutable and :omniauthable
 
   has_one :organization
+  has_many :embed_stats
+
   accepts_nested_attributes_for :organization
   attr_accessible :organization_attributes
 
@@ -117,6 +119,14 @@ class Member < ActiveRecord::Base
       "Founding partner"
     else
       read_attribute(:product_name)
+    end
+  end
+
+  def register_embed(referrer)
+    begin
+      embed_stats.create(referrer: referrer)
+    rescue ActiveRecord::RecordNotUnique
+      nil
     end
   end
 
