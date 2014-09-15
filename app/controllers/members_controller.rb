@@ -12,10 +12,11 @@ class MembersController < ApplicationController
     else
       @organizations = []
       # Make sure we get the founding partner first
-      @organizations << Organization.includes(:member).where(:'members.membership_number' => ENV['FOUNDING_PARTNER_ID']).first
+      founding_partner = ENV['FOUNDING_PARTNER_ID'] || 0
+      @organizations << Organization.includes(:member).where(:'members.membership_number' => founding_partner).first
       ['partner','sponsor','member','supporter'].each do |level|
         @organizations << Organization.includes(:member).where(:'members.cached_active' => true, :'members.product_name' => level)
-                          .where('members.membership_number != ?', ENV['FOUNDING_PARTNER_ID'])
+                          .where('members.membership_number != ?', founding_partner)
                           .order(:name)
       end
       @organizations.flatten!
