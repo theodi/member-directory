@@ -115,7 +115,7 @@ class Member < ActiveRecord::Base
   end
 
   def product_name
-    if membership_number == ENV['FOUNDING_PARTNER_ID']
+    if ENV['FOUNDING_PARTNER_ID'] && membership_number == ENV['FOUNDING_PARTNER_ID']
       "Founding partner"
     else
       read_attribute(:product_name)
