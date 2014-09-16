@@ -45,7 +45,6 @@ class Member < ActiveRecord::Base
                   :remote
 
   attr_accessor :organization_name,
-                :organization_size,
                 :organization_type,
                 :contact_name,
                 :telephone,
