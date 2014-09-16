@@ -19,7 +19,7 @@ class MembersController < ApplicationController
                           .where('members.membership_number != ?', founding_partner)
                           .order(:name)
       end
-      @organizations.flatten!
+      @organizations.flatten!.compact!
     end
 
     respond_with(@organizations)
