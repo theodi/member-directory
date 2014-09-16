@@ -6,7 +6,7 @@ FactoryGirl.define do
     product_name      'supporter'
     organization_name { Faker::Company.name }
     organization_type 'commercial'
-    organization_size 'large'
+    organization_size '>1000'
     contact_name      { Faker::Name.name }
     street_address    { Faker::Address.street_address }
     address_locality  { Faker::Address.city }

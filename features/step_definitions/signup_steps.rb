@@ -45,7 +45,7 @@ When /^I enter my details$/ do
   @contact_name                = 'Ian McIain'
   @email                       = 'iain@foobar.com'
   @organization_name           = 'FooBar Inc'
-  @organization_size           = 'large'
+  @organization_size           = '251-1000'
   @organization_type           = 'commercial'
   @telephone                   = '0121 123 446'
   @street_address              = '123 Fake Street'

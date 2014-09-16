@@ -73,7 +73,7 @@ class Member < ActiveRecord::Base
 	# validations
   validates :product_name, presence: true, inclusion: %w(supporter member partner sponsor), on: :create
   validates :contact_name, presence: true, on: :create
-  validates :organization_size, presence: true, inclusion: %w(small large), on: :create
+  validates :organization_size, presence: true, inclusion: %w(<10 10-50 51-250 251-1000 >1000), on: :create
   validates :organization_type, presence: true, inclusion: %w(commercial non_commercial), on: :create
   validates :street_address, presence: true, on: :create
   validates :address_locality, presence: true, on: :create
@@ -230,7 +230,7 @@ class Member < ActiveRecord::Base
 
   def get_plan
     plan = ''
-    if organization_size == 'large' && organization_type == 'commercial'
+    if %w{251-1000 >1000}.include?(organization_size) && organization_type == 'commercial'
       plan += 'corporate_'
     end
     plan += 'supporter_'
