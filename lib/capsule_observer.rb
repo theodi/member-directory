@@ -34,6 +34,8 @@ class CapsuleObserver
         member.cached_active     = (directory_entry['active'] == "true")
         member.product_name      = membership['product_name']
         member.cached_newsletter = membership['newsletter']
+        member.organization_size = membership['size'] if membership['size']
+        member.organization_sector = membership['sector'] if membership['sector']
         member.remote            = true
         # We don't store email here, that's only for new accounts
         member.save(:validate => false)

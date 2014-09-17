@@ -39,6 +39,8 @@ When /^my information is changed in CapsuleCRM$/ do
   @linkedin          = Faker::Internet.url
   @facebook          = Faker::Internet.url
   @tagline           = Faker::Company.bs
+  @organization_size = '>1000'
+  @organization_sector = "Other"
 end
 
 When /^the sync task runs$/ do
@@ -47,6 +49,8 @@ When /^the sync task runs$/ do
     'product_name'  => @product_name,
     'id'            => @membership_number,
     'newsletter'    => @newsletter,
+    'size'          => @organization_size,
+    'sector'        => @organization_sector,
   }.compact
   directory_entry = {
     'active'        => @active,
@@ -86,6 +90,8 @@ Then /^my details should be cached correctly$/ do
   @membership.cached_active.should                     == (@active == "true")
   @membership.product_name.should                      == @product_name
   @membership.cached_newsletter.should                 == @newsletter
+  @membership.organization_size.should                 == @organization_size
+  @membership.organization_sector.should               == @organization_sector
   @membership.organization.name.should                 == @organization_name
   @membership.organization.description.should          == @old_description # description should not change when synced
   @membership.organization.url.should                  == @url
