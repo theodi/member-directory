@@ -160,7 +160,8 @@ class Member < ActiveRecord::Base
                         'vat_id' => organization_vat_id,
                         'company_number' => organization_company_number,
                         'size' => organization_size,
-                        'type' => organization_type
+                        'type' => organization_type,
+                        'sector' => organization_sector
                       }
     contact_person  = {'name' => contact_name, 'email' => email, 'telephone' => telephone}
     billing         = {

@@ -107,7 +107,8 @@ Then /^my details should be queued for further processing$/ do
     'vat_id'         => @organization_vat_id,
     'company_number' => @organization_company_number,
     'size'           => @organization_size,
-    'type'           => @organization_type
+    'type'           => @organization_type,
+    'sector'         => @organization_sector
   }
   contact_person = {
     'name'      => @contact_name,
