@@ -25,6 +25,7 @@ class Member < ActiveRecord::Base
                   :organization_name,
                   :organization_size,
                   :organization_type,
+                  :organization_sector,
                   :contact_name,
                   :telephone,
                   :street_address,
@@ -73,6 +74,7 @@ class Member < ActiveRecord::Base
   validates :product_name, presence: true, inclusion: %w(supporter member partner sponsor), on: :create
   validates :contact_name, presence: true, on: :create
   validates :organization_size, presence: true, inclusion: %w(<10 10-50 51-250 251-1000 >1000), on: :create
+  validates :organization_sector, presence: true, on: :create
   validates :organization_type, presence: true, inclusion: %w(commercial non_commercial), on: :create
   validates :street_address, presence: true, on: :create
   validates :address_locality, presence: true, on: :create
@@ -278,4 +280,27 @@ class Member < ActiveRecord::Base
     country.translations[I18n.locale.to_s] || country.name
   end
 
+  def self.sectors
+    [
+      "Business & Legal Services",
+      "Data/Technology",
+      "Education",
+      "Energy",
+      "Environment & Weather",
+      "Finance & Investment",
+      "Food & Agriculture",
+      "Geospatial/Mapping",
+      "Governance",
+      "Healthcare",
+      "Housing/Real Estate",
+      "Insurance",
+      "Lifestyle & Consumer",
+      "Media",
+      "Research & Consulting",
+      "Scientific Research",
+      "Transportation",
+      "Other"
+    ]
+  end
+  
 end

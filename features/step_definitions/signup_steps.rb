@@ -47,6 +47,7 @@ When /^I enter my details$/ do
   @organization_name           = 'FooBar Inc'
   @organization_size           = '251-1000'
   @organization_type           = 'commercial'
+  @organization_sector         = 'Energy'
   @telephone                   = '0121 123 446'
   @street_address              = '123 Fake Street'
   @address_locality            = 'Faketown'
@@ -67,6 +68,7 @@ When /^I enter my details$/ do
   select(find_by_id('member_organization_type').
          find("option[value='#{@organization_type}']").text,
          from: 'member_organization_type')
+  select(@organization_sector, from: 'member_organization_sector')
   fill_in('member_telephone', :with => @telephone)
   fill_in('member_street_address', :with => @street_address)
   fill_in('member_address_locality', :with => @address_locality)
