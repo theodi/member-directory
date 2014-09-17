@@ -107,18 +107,6 @@ Feature: Adding details to the organization directory
     When I click submit
 		And I should see an error telling me that my description should not be longer than 1000 characters
 
-  Scenario: Supporter updates their contact details
-
-		Given I have a sponsor account
-		And I visit my account page
-		And I enter my organization details
-		And I update my membership details
-    Then my membership details should be queued for updating in CapsuleCRM
-    And my organisation details should be queued for further processing
-    When I click submit
-    And I should see a notice that my details were saved successfully
-    And I should see my changed membership details when I revisit the edit page
-
 	Scenario: Founding partner labelled correctly
 
 		Given I have a partner account

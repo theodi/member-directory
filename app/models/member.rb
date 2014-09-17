@@ -202,7 +202,9 @@ class Member < ActiveRecord::Base
     if unconfirmed_email_changed? || cached_newsletter_changed?
       Resque.enqueue(SaveMembershipDetailsToCapsule, membership_number, {
         'email'      => unconfirmed_email || email,
-        'newsletter' => cached_newsletter
+        'newsletter' => cached_newsletter,
+        'size'       => organization_size,
+        'sector'     => organization_sector
       })
     end
   end

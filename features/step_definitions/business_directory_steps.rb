@@ -194,19 +194,30 @@ Then(/^I update my membership details$/) do
   else
     uncheck('member_cached_newsletter')
   end
+  
+  @changed_size = ">1000"
+  select("more than 1000", :from => "member_organization_size")
+
+  @changed_sector = "Other"
+  select(@changed_sector, :from => "member_organization_sector")
+  
 end
 
 Then(/^my membership details should be queued for updating in CapsuleCRM$/) do
   @member = Member.find_by_email(@email)
   Resque.should_receive(:enqueue).with(SaveMembershipDetailsToCapsule, @member.membership_number, {
     'email'      => @changed_email,
-    'newsletter' => @changed_newsletter
+    'newsletter' => @changed_newsletter,
+    'size'       => @changed_size,
+    'sector'     => @changed_sector,
   })
 end
 
 When(/^I should see my changed membership details when I revisit the edit page$/) do
   page.should have_content(@changed_email)
   (page.find('#member_cached_newsletter').checked? == 'checked').should == @changed_newsletter
+  page.find('#member_organization_size').value.should == @changed_size
+  page.find('#member_organization_sector').value.should == @changed_sector
 end
 
 Given(/^there are (\d+) active partners in the directory$/) do |num|
