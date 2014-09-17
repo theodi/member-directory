@@ -28,13 +28,12 @@
     <%= f.label :organization_size, :class => 'control-label' %>
     <div class="controls">
       <%= f.select(:organization_size, {
-          "Please select"            => nil,
           "less than 10 employees"   => '<10',
           "10 - 50 employees"        => '10-50',
           "51 - 250 employees"       => '51-250',
           "251 - 1000 employees"     => '251-1000',
           "more than 1000 employees" => '>1000'
-        }) %>
+        }, prompt: "Please select") %>
       <span class="help-inline">(required)</span>
     </div>
   </div>
@@ -43,10 +42,9 @@
     <%= f.label :organization_type, :class => 'control-label'  %>
     <div class="controls">
       <%= f.select(:organization_type, {
-          "Please select"            => nil,
           "Corporate"                => "commercial",
           "Nonprofit / Government"   => "non_commercial"
-        }) %>
+        }, prompt: "Please select") %>
       <span class="help-inline">(required)</span>
     </div>
   </div>
