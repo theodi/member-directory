@@ -200,7 +200,7 @@ class Member < ActiveRecord::Base
   skip_callback :update, :after, :save_to_capsule, :if => lambda { self.remote === true }
 
   def save_to_capsule
-    if unconfirmed_email_changed? || cached_newsletter_changed?
+    if unconfirmed_email_changed? || cached_newsletter_changed? || organization_size_changed? || organization_sector_changed?
       Resque.enqueue(SaveMembershipDetailsToCapsule, membership_number, {
         'email'      => unconfirmed_email || email,
         'newsletter' => cached_newsletter,
