@@ -28,8 +28,6 @@
       <%= f.check_box :cached_newsletter %>
     <% end %>
 
-  <fieldset>
-    <% render :partial => 'devise/registrations/member_details', :locals => { :f => f } %>
   </fieldset>
 
   <% if ['partner', 'sponsor', 'supporter'].include?(@member.product_name) %>
