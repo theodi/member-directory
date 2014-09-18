@@ -45,8 +45,9 @@ When /^I enter my details$/ do
   @contact_name                = 'Ian McIain'
   @email                       = 'iain@foobar.com'
   @organization_name           = 'FooBar Inc'
-  @organization_size           = 'large'
+  @organization_size           = '251-1000'
   @organization_type           = 'commercial'
+  @organization_sector         = 'Energy'
   @telephone                   = '0121 123 446'
   @street_address              = '123 Fake Street'
   @address_locality            = 'Faketown'
@@ -67,6 +68,7 @@ When /^I enter my details$/ do
   select(find_by_id('member_organization_type').
          find("option[value='#{@organization_type}']").text,
          from: 'member_organization_type')
+  select(@organization_sector, from: 'member_organization_sector')
   fill_in('member_telephone', :with => @telephone)
   fill_in('member_street_address', :with => @street_address)
   fill_in('member_address_locality', :with => @address_locality)
@@ -105,7 +107,8 @@ Then /^my details should be queued for further processing$/ do
     'vat_id'         => @organization_vat_id,
     'company_number' => @organization_company_number,
     'size'           => @organization_size,
-    'type'           => @organization_type
+    'type'           => @organization_type,
+    'sector'         => @organization_sector
   }
   contact_person = {
     'name'      => @contact_name,
