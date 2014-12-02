@@ -3,6 +3,7 @@
 
 en:
   agreed_to_terms: I have read and agree to the terms and conditions of membership
+  credit_card: Credit / Debit card
   formats:
     json: JSON
   activerecord:
