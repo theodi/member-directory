@@ -233,12 +233,16 @@ class Member < ActiveRecord::Base
   end
 
   def get_plan
-    plan = ''
-    if %w{251-1000 >1000}.include?(organization_size) && organization_type == 'commercial'
-      plan += 'corporate_'
+    if individual?
+      plan = 'individual_supporter'
+    else
+      plan = ''
+      if %w{251-1000 >1000}.include?(organization_size) && organization_type == 'commercial'
+        plan += 'corporate_'
+      end
+      plan += 'supporter_'
+      plan += payment_frequency
     end
-    plan += 'supporter_'
-    plan += payment_frequency
   end
 
   def get_plan_description
@@ -246,7 +250,8 @@ class Member < ActiveRecord::Base
       'corporate_supporter_monthly' => 'corporate supporter',
       'supporter_monthly'           => 'supporter',
       'corporate_supporter_annual'  => 'corporate supporter',
-      'supporter_annual'            => 'supporter'
+      'supporter_annual'            => 'supporter',
+      'individual_supporter'        => 'individual supporter'
     }[get_plan]
   end
 
