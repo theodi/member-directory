@@ -310,5 +310,8 @@ class Member < ActiveRecord::Base
       "Other"
     ]
   end
-  
+
+  def individual?
+    product_name == "individual"
+  end
 end
