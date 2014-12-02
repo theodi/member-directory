@@ -1,33 +1,5 @@
-<p><%= greeting(@member) %>,</p>
-
-<p>We are delighted to have you join the Open Data Institute membership community. Thank you for supporting us!</p>
-
-<p>- Your membership number is <strong><%= @resource.membership_number %></strong>.</p>
-
-<p>- To activate your account click <%= link_to 'here', confirmation_url(@resource, :confirmation_token => @resource.confirmation_token) %> and enter your company profile for the Member Directory.</p>
-
-<p>- We are drawing up your invoice and it will be sent to you shortly.</p>
-
-<p>- You will soon receive your Welcome Pack to help you make the most of ODI Communications.</p>
-
-<p>- You will receive our monthly membership newsletter (let us know if you want to add any colleagues to the mailing list) and invites to the bi-annual ODI Connect member networking events and the annual Summit.</p>
-
-<p>We also run a free to attend lecture series every Friday highlighting some of the awe inspiring work going on using Open Data - everything from data as art, through to the CTO of the World Bank giving a 'fireside chat' about his experience at the White House. You can register for upcoming talks <a href="http://www.theodi.org/lunchtime-lectures">here</a>.</p>
-
-<p>Please do get in touch with the team (details below) if you have any questions or suggestions.</p>
-
-<p>Best wishes,</p>
-
-<p>
-  Stuart, Georgia, Carl and Andrea
-  <br/>
-  The ODI Membership team
-</p>
-
-<p>
-  <%= mail_to 'stuart.coleman@theodi.org', 'Stuart Coleman' %> Commercial Director<br/>
-  <%= mail_to 'georgia.phillips@theodi.org', 'Georgia Phillips' %> For Partner / Sponsor queries<br/>
-  <%= mail_to 'carl.rodrigues@theodi.org', 'Carl Rodrigues' %> For new Supporter queries<br/>
-  <%= mail_to 'andrea.cox@theodi.org', 'Andrea Cox' %> For membership community, events and newsletter<br/>
-  <%= mail_to 'members@theodi.org', 'Membership' %> For general queries<br/>
-</p>
+<% if @resource.product_name == "individual" %>
+  <%= render(:partial => 'individual_confirmation') %>
+<% else %>
+  <%= render(:partial => 'confirmation') %>
+<% end %>

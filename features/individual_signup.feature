@@ -33,4 +33,4 @@ Feature: Signup as an individual member
     Then my card should be charged successfully
     And I should have a membership number generated
     And a welcome email should be sent to me
-    And I should see "Welcome Pack" in the email body
+    And I should see "download an ODI Supporter badge" in the email body

@@ -1,0 +1,39 @@
+<p><%= greeting(@member) %>,</p>
+
+<p>We are delighted to welcome you to the Open Data Institute member community. As an ODI Supporter you join a unique group of individuals and organisations who share a deep interest in open data and its potential.</p>
+
+<p>Your membership number is <strong><%= @resource.membership_number %></strong>.</p>
+
+<p>To activate your account click <%= link_to 'here', confirmation_url(@resource, :confirmation_token => @resource.confirmation_token) %></p>
+
+<p>You will then be able to download an ODI Supporter badge which you can display on your website and on your print collateral.</p>
+
+<h3>Join the conversation on Twitter and LinkedIn</h3>
+
+<p>Connect with our global network of corporates, start-ups, universities and public sector organisations by joining the <%= link_to "LinkedIn members' group", "https://www.linkedin.com/groups?gid=5161407" %>. For real-time open data events and news follow the Twitter handles <%= link_to '@UKODImembers', 'https://twitter.com/UKODImembers' %> and <%= link_to '@UKODI', 'https://twitter.com/UKODI' %>.</p>
+
+<h3>Keep up to date with your monthly e-newsletter</h3>
+
+<p>Look out for our monthly membership newsletter which you’ll receive on the third Friday of every month.</p>
+
+<h3>Save 20% on all Open Data Institute public <%= link_to 'training courses', 'http://theodi.org/courses' %></h3>
+
+<p>Build skills and open data expertise through our range of courses.</p>
+
+<h3>And also benefit from ODI offerings such as...</h3>
+
+<h4>Attend ODI events and lectures</h4>
+
+<p>Come along or listen to the live-streaming of our <%= link_to 'open data lectures', 'http://theodi.org/lunchtime-lectures' %> every Friday lunchtime from 1pm highlighting some of the awe-inspiring work using open data. See what events are coming up at the ODI here: <%= link_to 'http://theodi.org/events', 'http://theodi.org/events' %>.</li>
+
+<h4>Access the open data archive</h4>
+
+<p>Browse <%= link_to 'case studies', 'http://theodi.org/case-studies' %>, technical <%= link_to 'open data guides', 'http://theodi.org/guides' %>, the ODI <%= link_to 'lecture archive', 'http://theodi.org/lunchtime-lectures' %> and the latest <%= link_to 'news', 'http://theodi.org/news' %> and <%= link_to 'video content', 'http://vimeo.com/theodiuk' %>.</p>
+
+<p>Your membership officially runs from <%= Date.today.to_formatted_s(:long_ordinal) %> to <%= (Date.today + 12.months).to_formatted_s(:long_ordinal) %>. We hope that you will enjoy the benefits of membership during this time and that you’ll remain with us for the years to come.</p>
+
+<p>Please do get in touch by emailing <%= link_to 'mailto:members@theodi.org', 'members@theodi.org' %> if you have any questions or suggestions.</p>
+
+<p>Best wishes,<br />
+Georgia, Carl, Andrea, Clara and Patrik<br />
+The ODI Membership team</p>
