@@ -20,3 +20,17 @@ Feature: Signup as an individual member
     Then I should see "This Agreement is made between Ian McIain"
     And I should see "means Ian McIain of 123 Fake Street, Faketown, Fakeshire, United Kingdom, FAKE 123"
     And I should see today's date
+
+  @vcr
+  Scenario: Member signup
+
+    Given I want to sign up as an individual member
+    When I visit the signup page
+    And I enter my details
+    And I enter valid credit card details
+    Then my details should be queued for further processing
+    When I click sign up
+    Then my card should be charged successfully
+    And I should have a membership number generated
+    And a welcome email should be sent to me
+    And I should see "Welcome Pack" in the email body

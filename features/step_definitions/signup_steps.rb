@@ -44,9 +44,6 @@ When /^I enter my details$/ do
   # Store for later
   @contact_name                = 'Ian McIain'
   @email                       = 'iain@foobar.com'
-  @organization_name           = 'FooBar Inc'
-  @organization_size           = '251-1000'
-  @organization_type           = 'commercial'
   @organization_sector         = 'Energy'
   @telephone                   = '0121 123 446'
   @street_address              = '123 Fake Street'
@@ -54,9 +51,6 @@ When /^I enter my details$/ do
   @address_region              = 'Fakeshire'
   @address_country             = 'United Kingdom'
   @postal_code                 = 'FAKE 123'
-  @organization_vat_id         = '213244343'
-  @organization_company_number = '012345678'
-  @purchase_order_number       = 'PO-43243242342'
 
   # Fill in form
   fill_in('member_contact_name', :with => @contact_name)
@@ -72,6 +66,13 @@ When /^I enter my details$/ do
   fill_in('member_password_confirmation', :with => 'p4ssw0rd')
 
   unless @product_name == 'individual'
+    @organization_name = 'FooBar Inc'
+    @organization_size = '251-1000'
+    @organization_type = 'commercial'
+    @organization_vat_id = '213244343'
+    @organization_company_number = '012345678'
+    @purchase_order_number = 'PO-43243242342'
+
     fill_in('member_organization_name', :with => @organization_name)
     select(find_by_id('member_organization_size').
            find("option[value='#{@organization_size}']").text,

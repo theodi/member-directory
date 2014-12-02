@@ -1,0 +1,266 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api.stripe.com/v1/customers
+    body:
+      encoding: US-ASCII
+      string: card[exp_month]=12&card[exp_year]=2<XPC_SERVICE_NAME>16&card[number]=4242424242424242&card[cvc]=123&plan=individual_supporter&description=Ian%2<XPC_SERVICE_NAME>McIain%2<XPC_SERVICE_NAME>individual%2<XPC_SERVICE_NAME>supporter%2<XPC_SERVICE_NAME>membership%2<XPC_SERVICE_NAME>(GZ<XPC_SERVICE_NAME>2<XPC_SERVICE_NAME>8MT)
+    headers:
+      Accept:
+      - ! '*/*; q=<XPC_SERVICE_NAME>.5, application/xml'
+      Accept-Encoding:
+      - gzip, deflate
+      User-Agent:
+      - Stripe/v1 RubyBindings/1.13.<XPC_SERVICE_NAME>
+      Authorization:
+      - Bearer sk_test_39F7AAZeF7Kij<XPC_SERVICE_NAME>yrNOlDznbH
+      Content-Type:
+      - application/x-www-form-urlencoded
+      X-Stripe-Client-User-Agent:
+      - ! '{"bindings_version":"1.13.<XPC_SERVICE_NAME>","lang":"ruby","lang_version":"1.9.3
+        p547 (2<XPC_SERVICE_NAME>14-<XPC_SERVICE_NAME>5-14)","platform":"x86_64-darwin14.<XPC_SERVICE_NAME>.<XPC_SERVICE_NAME>","publisher":"stripe","uname":"Darwin
+        Stuarts-MBP-3.home 14.<XPC_SERVICE_NAME>.<XPC_SERVICE_NAME> Darwin Kernel
+        Version 14.<XPC_SERVICE_NAME>.<XPC_SERVICE_NAME>: Fri Sep 19 <XPC_SERVICE_NAME><XPC_SERVICE_NAME>:26:44
+        PDT 2<XPC_SERVICE_NAME>14; root:xnu-2782.1.97~2/RELEASE_X86_64 x86_64"}'
+      Content-Length:
+      - '184'
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx
+      Date:
+      - Tue, <XPC_SERVICE_NAME>2 Dec 2<XPC_SERVICE_NAME>14 15:24:36 GMT
+      Content-Type:
+      - application/json;charset=utf-8
+      Content-Length:
+      - '2341'
+      Access-Control-Allow-Credentials:
+      - 'true'
+      Access-Control-Allow-Methods:
+      - GET, POST, HEAD, OPTIONS, DELETE
+      Access-Control-Max-Age:
+      - 3<XPC_SERVICE_NAME><XPC_SERVICE_NAME>
+      Cache-Control:
+      - no-cache, no-store
+      Request-Id:
+      - <XPC_SERVICE_NAME>6eeaf73-eb<XPC_SERVICE_NAME>5-49dd-9d1c-958b33<XPC_SERVICE_NAME>9ae45
+      Stripe-Version:
+      - 2<XPC_SERVICE_NAME>14-<XPC_SERVICE_NAME>5-19
+      Strict-Transport-Security:
+      - max-age=31556926; includeSubDomains
+    body:
+      encoding: US-ASCII
+      string: ! "{\n  \"object\": \"customer\",\n  \"created\": 1417533875,\n  \"id\":
+        \"cus_5Fo8PDaUnbz5Wo\",\n  \"livemode\": false,\n  \"description\": \"Ian
+        McIain individual supporter membership (GZ<XPC_SERVICE_NAME>2<XPC_SERVICE_NAME>8MT)\",\n
+        \ \"email\": null,\n  \"delinquent\": false,\n  \"metadata\": {},\n  \"subscriptions\":
+        {\n    \"object\": \"list\",\n    \"total_count\": 1,\n    \"has_more\": false,\n
+        \   \"url\": \"/v1/customers/cus_5Fo8PDaUnbz5Wo/subscriptions\",\n    \"data\":
+        [\n      {\n        \"id\": \"sub_5Fo8jSz<XPC_SERVICE_NAME>3A1n8c\",\n        \"plan\":
+        {\n          \"interval\": \"year\",\n          \"name\": \"Individual supporter\",\n
+        \         \"created\": 1417532545,\n          \"amount\": 1<XPC_SERVICE_NAME>8<XPC_SERVICE_NAME><XPC_SERVICE_NAME>,\n
+        \         \"currency\": \"gbp\",\n          \"id\": \"individual_supporter\",\n
+        \         \"object\": \"plan\",\n          \"livemode\": false,\n          \"interval_count\":
+        1,\n          \"trial_period_days\": null,\n          \"metadata\": {},\n
+        \         \"statement_description\": \"ODI membership\"\n        },\n        \"object\":
+        \"subscription\",\n        \"start\": 1417533875,\n        \"status\": \"active\",\n
+        \       \"customer\": \"cus_5Fo8PDaUnbz5Wo\",\n        \"cancel_at_period_end\":
+        false,\n        \"current_period_start\": 1417533875,\n        \"current_period_end\":
+        1449<XPC_SERVICE_NAME>69875,\n        \"ended_at\": null,\n        \"trial_start\":
+        null,\n        \"trial_end\": null,\n        \"canceled_at\": null,\n        \"quantity\":
+        1,\n        \"application_fee_percent\": null,\n        \"discount\": null,\n
+        \       \"metadata\": {}\n      }\n    ]\n  },\n  \"discount\": null,\n  \"account_balance\":
+        <XPC_SERVICE_NAME>,\n  \"currency\": \"gbp\",\n  \"cards\": {\n    \"object\":
+        \"list\",\n    \"total_count\": 1,\n    \"has_more\": false,\n    \"url\":
+        \"/v1/customers/cus_5Fo8PDaUnbz5Wo/cards\",\n    \"data\": [\n      {\n        \"id\":
+        \"card_155IVz4oB<XPC_SERVICE_NAME>YITArSynDBROeh\",\n        \"object\": \"card\",\n
+        \       \"last4\": \"4242\",\n        \"brand\": \"Visa\",\n        \"funding\":
+        \"credit\",\n        \"exp_month\": 12,\n        \"exp_year\": 2<XPC_SERVICE_NAME>16,\n
+        \       \"fingerprint\": \"qBYthW9tt9MyrCdj\",\n        \"country\": \"US\",\n
+        \       \"name\": null,\n        \"address_line1\": null,\n        \"address_line2\":
+        null,\n        \"address_city\": null,\n        \"address_state\": null,\n
+        \       \"address_zip\": null,\n        \"address_country\": null,\n        \"cvc_check\":
+        \"pass\",\n        \"address_line1_check\": null,\n        \"address_zip_check\":
+        null,\n        \"dynamic_last4\": null,\n        \"customer\": \"cus_5Fo8PDaUnbz5Wo\",\n
+        \       \"type\": \"Visa\"\n      }\n    ]\n  },\n  \"default_card\": \"card_155IVz4oB<XPC_SERVICE_NAME>YITArSynDBROeh\"\n}\n"
+    http_version: 
+  recorded_at: Tue, 02 Dec 2014 15:24:36 GMT
+- request:
+    method: get
+    uri: https://api.stripe.com/v1/customers/cus_5Fo8PDaUnbz5Wo
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - ! '*/*; q=<XPC_SERVICE_NAME>.5, application/xml'
+      Accept-Encoding:
+      - gzip, deflate
+      User-Agent:
+      - Stripe/v1 RubyBindings/1.13.<XPC_SERVICE_NAME>
+      Authorization:
+      - Bearer sk_test_39F7AAZeF7Kij<XPC_SERVICE_NAME>yrNOlDznbH
+      Content-Type:
+      - application/x-www-form-urlencoded
+      X-Stripe-Client-User-Agent:
+      - ! '{"bindings_version":"1.13.<XPC_SERVICE_NAME>","lang":"ruby","lang_version":"1.9.3
+        p547 (2<XPC_SERVICE_NAME>14-<XPC_SERVICE_NAME>5-14)","platform":"x86_64-darwin14.<XPC_SERVICE_NAME>.<XPC_SERVICE_NAME>","publisher":"stripe","uname":"Darwin
+        Stuarts-MBP-3.home 14.<XPC_SERVICE_NAME>.<XPC_SERVICE_NAME> Darwin Kernel
+        Version 14.<XPC_SERVICE_NAME>.<XPC_SERVICE_NAME>: Fri Sep 19 <XPC_SERVICE_NAME><XPC_SERVICE_NAME>:26:44
+        PDT 2<XPC_SERVICE_NAME>14; root:xnu-2782.1.97~2/RELEASE_X86_64 x86_64"}'
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx
+      Date:
+      - Tue, <XPC_SERVICE_NAME>2 Dec 2<XPC_SERVICE_NAME>14 15:24:37 GMT
+      Content-Type:
+      - application/json;charset=utf-8
+      Content-Length:
+      - '2341'
+      Access-Control-Allow-Credentials:
+      - 'true'
+      Access-Control-Allow-Methods:
+      - GET, POST, HEAD, OPTIONS, DELETE
+      Access-Control-Max-Age:
+      - 3<XPC_SERVICE_NAME><XPC_SERVICE_NAME>
+      Cache-Control:
+      - no-cache, no-store
+      Request-Id:
+      - ba6b2a9e-d17e-44<XPC_SERVICE_NAME><XPC_SERVICE_NAME>-b25<XPC_SERVICE_NAME>-a1<XPC_SERVICE_NAME><XPC_SERVICE_NAME>c6ad4e49
+      Stripe-Version:
+      - 2<XPC_SERVICE_NAME>14-<XPC_SERVICE_NAME>5-19
+      Strict-Transport-Security:
+      - max-age=31556926; includeSubDomains
+    body:
+      encoding: US-ASCII
+      string: ! "{\n  \"object\": \"customer\",\n  \"created\": 1417533875,\n  \"id\":
+        \"cus_5Fo8PDaUnbz5Wo\",\n  \"livemode\": false,\n  \"description\": \"Ian
+        McIain individual supporter membership (GZ<XPC_SERVICE_NAME>2<XPC_SERVICE_NAME>8MT)\",\n
+        \ \"email\": null,\n  \"delinquent\": false,\n  \"metadata\": {},\n  \"subscriptions\":
+        {\n    \"object\": \"list\",\n    \"total_count\": 1,\n    \"has_more\": false,\n
+        \   \"url\": \"/v1/customers/cus_5Fo8PDaUnbz5Wo/subscriptions\",\n    \"data\":
+        [\n      {\n        \"id\": \"sub_5Fo8jSz<XPC_SERVICE_NAME>3A1n8c\",\n        \"plan\":
+        {\n          \"interval\": \"year\",\n          \"name\": \"Individual supporter\",\n
+        \         \"created\": 1417532545,\n          \"amount\": 1<XPC_SERVICE_NAME>8<XPC_SERVICE_NAME><XPC_SERVICE_NAME>,\n
+        \         \"currency\": \"gbp\",\n          \"id\": \"individual_supporter\",\n
+        \         \"object\": \"plan\",\n          \"livemode\": false,\n          \"interval_count\":
+        1,\n          \"trial_period_days\": null,\n          \"metadata\": {},\n
+        \         \"statement_description\": \"ODI membership\"\n        },\n        \"object\":
+        \"subscription\",\n        \"start\": 1417533875,\n        \"status\": \"active\",\n
+        \       \"customer\": \"cus_5Fo8PDaUnbz5Wo\",\n        \"cancel_at_period_end\":
+        false,\n        \"current_period_start\": 1417533875,\n        \"current_period_end\":
+        1449<XPC_SERVICE_NAME>69875,\n        \"ended_at\": null,\n        \"trial_start\":
+        null,\n        \"trial_end\": null,\n        \"canceled_at\": null,\n        \"quantity\":
+        1,\n        \"application_fee_percent\": null,\n        \"discount\": null,\n
+        \       \"metadata\": {}\n      }\n    ]\n  },\n  \"discount\": null,\n  \"account_balance\":
+        <XPC_SERVICE_NAME>,\n  \"currency\": \"gbp\",\n  \"cards\": {\n    \"object\":
+        \"list\",\n    \"total_count\": 1,\n    \"has_more\": false,\n    \"url\":
+        \"/v1/customers/cus_5Fo8PDaUnbz5Wo/cards\",\n    \"data\": [\n      {\n        \"id\":
+        \"card_155IVz4oB<XPC_SERVICE_NAME>YITArSynDBROeh\",\n        \"object\": \"card\",\n
+        \       \"last4\": \"4242\",\n        \"brand\": \"Visa\",\n        \"funding\":
+        \"credit\",\n        \"exp_month\": 12,\n        \"exp_year\": 2<XPC_SERVICE_NAME>16,\n
+        \       \"fingerprint\": \"qBYthW9tt9MyrCdj\",\n        \"country\": \"US\",\n
+        \       \"name\": null,\n        \"address_line1\": null,\n        \"address_line2\":
+        null,\n        \"address_city\": null,\n        \"address_state\": null,\n
+        \       \"address_zip\": null,\n        \"address_country\": null,\n        \"cvc_check\":
+        \"pass\",\n        \"address_line1_check\": null,\n        \"address_zip_check\":
+        null,\n        \"dynamic_last4\": null,\n        \"customer\": \"cus_5Fo8PDaUnbz5Wo\",\n
+        \       \"type\": \"Visa\"\n      }\n    ]\n  },\n  \"default_card\": \"card_155IVz4oB<XPC_SERVICE_NAME>YITArSynDBROeh\"\n}\n"
+    http_version: 
+  recorded_at: Tue, 02 Dec 2014 15:24:37 GMT
+- request:
+    method: get
+    uri: https://api.stripe.com/v1/customers/cus_5Fo8PDaUnbz5Wo
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - ! '*/*; q=<XPC_SERVICE_NAME>.5, application/xml'
+      Accept-Encoding:
+      - gzip, deflate
+      User-Agent:
+      - Stripe/v1 RubyBindings/1.13.<XPC_SERVICE_NAME>
+      Authorization:
+      - Bearer sk_test_39F7AAZeF7Kij<XPC_SERVICE_NAME>yrNOlDznbH
+      Content-Type:
+      - application/x-www-form-urlencoded
+      X-Stripe-Client-User-Agent:
+      - ! '{"bindings_version":"1.13.<XPC_SERVICE_NAME>","lang":"ruby","lang_version":"1.9.3
+        p547 (2<XPC_SERVICE_NAME>14-<XPC_SERVICE_NAME>5-14)","platform":"x86_64-darwin14.<XPC_SERVICE_NAME>.<XPC_SERVICE_NAME>","publisher":"stripe","uname":"Darwin
+        Stuarts-MBP-3.home 14.<XPC_SERVICE_NAME>.<XPC_SERVICE_NAME> Darwin Kernel
+        Version 14.<XPC_SERVICE_NAME>.<XPC_SERVICE_NAME>: Fri Sep 19 <XPC_SERVICE_NAME><XPC_SERVICE_NAME>:26:44
+        PDT 2<XPC_SERVICE_NAME>14; root:xnu-2782.1.97~2/RELEASE_X86_64 x86_64"}'
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx
+      Date:
+      - Tue, <XPC_SERVICE_NAME>2 Dec 2<XPC_SERVICE_NAME>14 15:24:38 GMT
+      Content-Type:
+      - application/json;charset=utf-8
+      Content-Length:
+      - '2341'
+      Access-Control-Allow-Credentials:
+      - 'true'
+      Access-Control-Allow-Methods:
+      - GET, POST, HEAD, OPTIONS, DELETE
+      Access-Control-Max-Age:
+      - 3<XPC_SERVICE_NAME><XPC_SERVICE_NAME>
+      Cache-Control:
+      - no-cache, no-store
+      Request-Id:
+      - 1fd3<XPC_SERVICE_NAME>13a-629e-4699-8d41-9ca9d8aa9af8
+      Stripe-Version:
+      - 2<XPC_SERVICE_NAME>14-<XPC_SERVICE_NAME>5-19
+      Strict-Transport-Security:
+      - max-age=31556926; includeSubDomains
+    body:
+      encoding: US-ASCII
+      string: ! "{\n  \"object\": \"customer\",\n  \"created\": 1417533875,\n  \"id\":
+        \"cus_5Fo8PDaUnbz5Wo\",\n  \"livemode\": false,\n  \"description\": \"Ian
+        McIain individual supporter membership (GZ<XPC_SERVICE_NAME>2<XPC_SERVICE_NAME>8MT)\",\n
+        \ \"email\": null,\n  \"delinquent\": false,\n  \"metadata\": {},\n  \"subscriptions\":
+        {\n    \"object\": \"list\",\n    \"total_count\": 1,\n    \"has_more\": false,\n
+        \   \"url\": \"/v1/customers/cus_5Fo8PDaUnbz5Wo/subscriptions\",\n    \"data\":
+        [\n      {\n        \"id\": \"sub_5Fo8jSz<XPC_SERVICE_NAME>3A1n8c\",\n        \"plan\":
+        {\n          \"interval\": \"year\",\n          \"name\": \"Individual supporter\",\n
+        \         \"created\": 1417532545,\n          \"amount\": 1<XPC_SERVICE_NAME>8<XPC_SERVICE_NAME><XPC_SERVICE_NAME>,\n
+        \         \"currency\": \"gbp\",\n          \"id\": \"individual_supporter\",\n
+        \         \"object\": \"plan\",\n          \"livemode\": false,\n          \"interval_count\":
+        1,\n          \"trial_period_days\": null,\n          \"metadata\": {},\n
+        \         \"statement_description\": \"ODI membership\"\n        },\n        \"object\":
+        \"subscription\",\n        \"start\": 1417533875,\n        \"status\": \"active\",\n
+        \       \"customer\": \"cus_5Fo8PDaUnbz5Wo\",\n        \"cancel_at_period_end\":
+        false,\n        \"current_period_start\": 1417533875,\n        \"current_period_end\":
+        1449<XPC_SERVICE_NAME>69875,\n        \"ended_at\": null,\n        \"trial_start\":
+        null,\n        \"trial_end\": null,\n        \"canceled_at\": null,\n        \"quantity\":
+        1,\n        \"application_fee_percent\": null,\n        \"discount\": null,\n
+        \       \"metadata\": {}\n      }\n    ]\n  },\n  \"discount\": null,\n  \"account_balance\":
+        <XPC_SERVICE_NAME>,\n  \"currency\": \"gbp\",\n  \"cards\": {\n    \"object\":
+        \"list\",\n    \"total_count\": 1,\n    \"has_more\": false,\n    \"url\":
+        \"/v1/customers/cus_5Fo8PDaUnbz5Wo/cards\",\n    \"data\": [\n      {\n        \"id\":
+        \"card_155IVz4oB<XPC_SERVICE_NAME>YITArSynDBROeh\",\n        \"object\": \"card\",\n
+        \       \"last4\": \"4242\",\n        \"brand\": \"Visa\",\n        \"funding\":
+        \"credit\",\n        \"exp_month\": 12,\n        \"exp_year\": 2<XPC_SERVICE_NAME>16,\n
+        \       \"fingerprint\": \"qBYthW9tt9MyrCdj\",\n        \"country\": \"US\",\n
+        \       \"name\": null,\n        \"address_line1\": null,\n        \"address_line2\":
+        null,\n        \"address_city\": null,\n        \"address_state\": null,\n
+        \       \"address_zip\": null,\n        \"address_country\": null,\n        \"cvc_check\":
+        \"pass\",\n        \"address_line1_check\": null,\n        \"address_zip_check\":
+        null,\n        \"dynamic_last4\": null,\n        \"customer\": \"cus_5Fo8PDaUnbz5Wo\",\n
+        \       \"type\": \"Visa\"\n      }\n    ]\n  },\n  \"default_card\": \"card_155IVz4oB<XPC_SERVICE_NAME>YITArSynDBROeh\"\n}\n"
+    http_version: 
+  recorded_at: Tue, 02 Dec 2014 15:24:38 GMT
+recorded_with: VCR 2.9.2
