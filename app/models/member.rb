@@ -10,6 +10,7 @@ class Member < ActiveRecord::Base
   attr_accessible :organization_attributes
 
   before_create :set_membership_number
+  before_validation :set_defaults
 
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable,
@@ -314,4 +315,9 @@ class Member < ActiveRecord::Base
   def individual?
     product_name == "individual"
   end
+
+  def set_defaults
+    self.payment_method = "credit_card" if product_name == "individual"
+  end
+
 end
