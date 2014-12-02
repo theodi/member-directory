@@ -1,52 +1,55 @@
 <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => {:class => 'form-horizontal'}) do |f| %>
   <%= devise_error_messages! %>
   <p class="lead">
-	 We're delighted that you would like to join the ODI. We just need a few details from you before we can confirm your membership.  
+	 We're delighted that you would like to join the ODI. We just need a few details from you before we can confirm your membership.
   </p>
   <p class="lead">
 	  This won't take longer than a couple of minutes!
   </p>
-   
+
 	<%= f.hidden_field :product_name, :value => params[:level] || @member.product_name %>
-  
+
   <%= render :partial => 'member_details', :locals => { :f => f } %>
-  
+
   <fieldset>
-  
+
     <legend>Password</legend>
-    
+
     <div class="control-group">
   		<%= f.label :password, :class => 'control-label' %>
   		<div class="controls">
   			<%= f.password_field :password %>
   		</div>
   	</div>
-  
+
     <div class="control-group">
   		<%= f.label :password_confirmation, :class => 'control-label' %>
   		<div class="controls">
   			<%= f.password_field :password_confirmation %>
   		</div>
   	</div>
-    
+
   </fieldset>
 
   <hr class="heavy">
-  	  	
+
   	<h2>Terms and conditions</h2>
-  	
+
   	<p>Please read the terms and conditions below and tick to say you accept them. As an open organisation we publish who funds us and what our relationships are. As part of this agreement you are agreeing that we can publish your membership and our contract.</p>
-  	
+
 <div id="terms" class="well">
-	<%= render :partial => 'terms' %>
+  <% if @product_name == "individual" %>
+    <%= render :partial => 'individual_terms' %>
+  <% else %>
+	 <%= render :partial => 'terms' %>
+  <% end %>
   <script>
     function update_name() {
-      if ($('#member_organization_name')[0].value) {
+      if ($('#member_organization_name')[0]) {
         $('.legal-name').text($('#member_organization_name')[0].value);
         $('#company-details').show();
         $('#individual-details').hide();
-      }
-      else {
+      } else {
         $('.legal-name').text($('#member_contact_name')[0].value);
         $('#company-details').hide();
         $('#individual-details').show();
@@ -75,7 +78,7 @@
       $('#member_postal_code').change(update_address);
       $('#member_organization_company_number').change(function(e){
         $('#company-number').text(e.target.value);
-      });  
+      });
       update_name();
       update_address();
     });
@@ -83,19 +86,19 @@
 </div>
 
 
-  
+
     <div class="control-group">
       <div class="controls">
   		  <label class='checkbox'>
           <%= f.check_box :agreed_to_terms %> <%= t(:agreed_to_terms) %>
         </label>
   	</div>
-  	
+
   </fieldset>
 
   <div class="form-actions">
     <%= f.submit "Sign up", :id => 'submit', :class => 'btn btn-primary btn-large' %>
     or <%= link_to "Sign in", new_session_path(resource_name) %>
   </div>
-  
+
 <% end %>
