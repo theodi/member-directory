@@ -1,6 +1,6 @@
 Feature: Signup as an individual member
 
-  Scenario: Inidividual member does not see specific fields
+  Scenario: Individual member does not see specific fields
 
     Given I want to sign up as an individual member
     When I visit the signup page
