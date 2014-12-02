@@ -223,7 +223,7 @@ class Member < ActiveRecord::Base
             cvc:       card_validation_code
           },
           plan:        get_plan,
-          description: "#{organization_name} #{get_plan_description} membership (#{membership_number})"
+          description: "#{organization_name || contact_name} #{get_plan_description} membership (#{membership_number})"
         )
         self.stripe_customer_id = customer.id
       rescue Stripe::CardError => e
