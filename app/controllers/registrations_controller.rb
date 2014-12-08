@@ -1,14 +1,13 @@
 class RegistrationsController < Devise::RegistrationsController
   before_filter :check_product_name, :only => 'new'
+  before_filter :set_title, :only => %w[new create]
   helper_method :individual?
 
   def new
     if %w{partner sponsor}.include? @product_name
       @contact_request = ContactRequest.new
-      @product_name == "sponsor" ? @title = "Sponsor us" : @title = "Partner with us"
       render 'contact_requests/new'
     else
-      @title = "Sign up"
       super
     end
   end
@@ -36,6 +35,17 @@ class RegistrationsController < Devise::RegistrationsController
   def check_product_name
     @product_name = params[:level].to_s
     redirect_to 'http://www.theodi.org/join-us' unless %w{supporter partner sponsor individual}.include?(@product_name)
+  end
+
+  def set_title
+    @title = case @product_name
+    when 'sponsor'
+      'Sponsor us'
+    when 'partner'
+      'Partner with us'
+    else
+      "Sign up"
+    end
   end
 
   def individual?
