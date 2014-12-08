@@ -76,9 +76,6 @@ class Member < ActiveRecord::Base
 	# validations
   validates :product_name, presence: true, inclusion: SUPPORTER_LEVELS, on: :create
   validates :contact_name, presence: true, on: :create
-  validates :organization_size, presence: true, inclusion: %w(<10 10-50 51-250 251-1000 >1000), on: :create, unless: :individual?
-  validates :organization_sector, presence: true, on: :create, unless: :individual?
-  validates :organization_type, presence: true, inclusion: %w(commercial non_commercial), on: :create, unless: :individual?
   validates :street_address, presence: true, on: :create
   validates :address_locality, presence: true, on: :create
   validates :address_country, presence: true, on: :create
@@ -88,7 +85,7 @@ class Member < ActiveRecord::Base
 
   after_validation :stripe_payment
 
-  validate :check_organization_names
+  validates_with OrganizationValidator, on: :create, unless: :individual?
 
   def paid_with_card?
     payment_method == 'credit_card'
@@ -327,7 +324,7 @@ class Member < ActiveRecord::Base
   end
 
   def set_defaults
-    self.payment_method = "credit_card" if product_name == "individual"
+    self.payment_method = "credit_card" if individual?
   end
 
 end
