@@ -52,7 +52,7 @@
 
   </fieldset>
 
-  <% if ['partner', 'sponsor', 'supporter'].include?(@member.product_name) %>
+  <% if @member.organization? %>
     <fieldset>
       <legend>Badge</legend>
 

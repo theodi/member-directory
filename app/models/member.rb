@@ -115,6 +115,10 @@ class Member < ActiveRecord::Base
     self.class.is_individual_level?(product_name)
   end
 
+  def organization?
+    %w[partner sponsor supporter].include?(product_name)
+  end
+
   def stripe_customer
     Stripe::Customer.retrieve(stripe_customer_id) if stripe_customer_id
   end
