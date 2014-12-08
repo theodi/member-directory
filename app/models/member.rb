@@ -114,6 +114,10 @@ class Member < ActiveRecord::Base
     product_name == "supporter"
   end
 
+  def individual?
+    self.class.is_individual_level?(product_name)
+  end
+
   def stripe_customer
     Stripe::Customer.retrieve(stripe_customer_id) if stripe_customer_id
   end
@@ -320,10 +324,6 @@ class Member < ActiveRecord::Base
       "Transportation",
       "Other"
     ]
-  end
-
-  def individual?
-    product_name == "individual"
   end
 
   def set_defaults

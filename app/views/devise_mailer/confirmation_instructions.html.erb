@@ -1,4 +1,4 @@
-<% if @resource.product_name == "individual" %>
+<% if @resource.individual? %>
   <%= render(:partial => 'individual_confirmation') %>
 <% else %>
   <%= render(:partial => 'confirmation') %>
