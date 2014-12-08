@@ -27,7 +27,8 @@ class MembersController < ApplicationController
 
   def show
     # Get organization
-    if editable?(@member.organization) && request.format.html?
+    @organization = @member.organization
+    if editable?(@member) && request.format.html?
       @preview = true
       if current_member == @member
         @title = "Edit your details"
@@ -36,7 +37,6 @@ class MembersController < ApplicationController
       end
       render 'edit'
     else
-      @organization = @member.organization
       raise ActiveRecord::RecordNotFound and return if @organization.nil?
       if @member.cached_active == false
         if signed_in?
