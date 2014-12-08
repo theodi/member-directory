@@ -130,7 +130,7 @@
     </fieldset>
   <% end %>
 
-  <% unless @member.cached_active %>
+  <% unless @member.individual? || @member.cached_active %>
     <p class='alert alert-info'>
       After you save, the ODI will review your listing and enable it for display in the public directory.
     </p>
