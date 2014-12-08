@@ -23,4 +23,13 @@ module DeviseHelper
     end
   end
 
+  def payment_frequency_options
+    case product_name
+    when 'individual'
+      [["Yearly", :annual]]
+    else
+      [["Yearly", :annual], ["Monthly", :monthly]]
+    end
+  end
+
 end
