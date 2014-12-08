@@ -38,7 +38,7 @@
   	<p>Please read the terms and conditions below and tick to say you accept them. As an open organisation we publish who funds us and what our relationships are. As part of this agreement you are agreeing that we can publish your membership and our contract.</p>
 
 <div id="terms" class="well">
-  <% if @product_name == "individual" %>
+  <% if individual? %>
     <%= render :partial => 'individual_terms' %>
   <% else %>
 	 <%= render :partial => 'terms' %>

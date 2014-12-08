@@ -1,5 +1,6 @@
 class RegistrationsController < Devise::RegistrationsController
   before_filter :check_product_name, :only => 'new'
+  helper_method :individual?
 
   def new
     if %w{partner sponsor}.include? @product_name
@@ -35,6 +36,10 @@ class RegistrationsController < Devise::RegistrationsController
   def check_product_name
     @product_name = params[:level].to_s
     redirect_to 'http://www.theodi.org/join-us' unless %w{supporter partner sponsor individual}.include?(@product_name)
+  end
+
+  def individual?
+    @member.individual? || Member.is_individual_level?(@product_name)
   end
 
 end

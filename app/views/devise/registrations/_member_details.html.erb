@@ -17,7 +17,7 @@
   	</div>
   </div>
 
-  <% unless @product_name == "individual" %>
+  <% unless individual? %>
     <div class="control-group">
     	<%= f.label :organization_name, :class => 'control-label' %>
     	<div class="controls">
@@ -113,7 +113,7 @@
 
 </fieldset>
 
-<% unless @product_name == "individual" %>
+<% unless individual? %>
   <fieldset>
 
     <legend>Financial information</legend>
@@ -139,7 +139,7 @@
 
   <legend>Payment Details</legend>
 
-  <% unless @product_name == "individual" %>
+  <% unless individual? %>
 
     <div class="control-group">
     	<%= f.label :payment_method, :class => 'control-label' %>
@@ -224,7 +224,7 @@
 
   </div>
 
-  <% unless @product_name == "individual" %>
+  <% unless individual? %>
 
     <div id='invoice-details'>
 

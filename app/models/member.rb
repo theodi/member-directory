@@ -289,6 +289,11 @@ class Member < ActiveRecord::Base
     country.translations[I18n.locale.to_s] || country.name
   end
 
+
+  def self.is_individual_level?(level)
+    'individual' == level
+  end
+
   def self.sectors
     [
       "Business & Legal Services",
