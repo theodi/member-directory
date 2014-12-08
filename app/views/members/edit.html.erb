@@ -24,6 +24,7 @@
       <div>Currently waiting confirmation for: <%= @member.unconfirmed_email %></div>
     <% end %>
 
+    <% if @member.organization? %>
     <div class="control-group">
       <%= f.label :organization_size, :class => 'control-label' %>
       <div class="controls">
@@ -36,7 +37,7 @@
           }) %>
       </div>
     </div>
-
+    <% end %>
 
     <div class="control-group">
       <%= f.label :organization_sector, :class => 'control-label'  %>
@@ -62,6 +63,7 @@
     </fieldset>
   <% end %>
 
+  <% if @member.organization? %>
   <fieldset id='organization-details'>
 
     <legend>Organisation Details</legend>
@@ -85,6 +87,7 @@
     </div>
 
   </fieldset>
+  <% end %>
 
   <% unless current_admin %>
 
