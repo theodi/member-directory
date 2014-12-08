@@ -2,6 +2,8 @@ class Member < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,
   # :lockable, :timeoutable and :omniauthable
+  SUPPORTER_LEVELS = %w(supporter member partner sponsor individual)
+  CURRENT_SUPPORTER_LEVELS = SUPPORTER_LEVELS - %w(member)
 
   has_one :organization
   has_many :embed_stats
@@ -72,7 +74,7 @@ class Member < ActiveRecord::Base
   attr_accessible :access_key, as: :admin
 
 	# validations
-  validates :product_name, presence: true, inclusion: %w(supporter member partner sponsor individual), on: :create
+  validates :product_name, presence: true, inclusion: SUPPORTER_LEVELS, on: :create
   validates :contact_name, presence: true, on: :create
   validates :organization_size, presence: true, inclusion: %w(<10 10-50 51-250 251-1000 >1000), on: :create, unless: :individual?
   validates :organization_sector, presence: true, on: :create, unless: :individual?
@@ -289,6 +291,9 @@ class Member < ActiveRecord::Base
     country.translations[I18n.locale.to_s] || country.name
   end
 
+  def self.is_current_supporter_level?(level)
+    CURRENT_SUPPORTER_LEVELS.include?(level)
+  end
 
   def self.is_individual_level?(level)
     'individual' == level
