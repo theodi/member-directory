@@ -53,7 +53,7 @@
 
   </fieldset>
 
-  <% if @member.organization? %>
+  <% if @member.organization? && !@member.founding_partner? %>
     <fieldset>
       <legend>Badge</legend>
 

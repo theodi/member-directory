@@ -116,7 +116,13 @@ class Member < ActiveRecord::Base
   end
 
   def organization?
-    %w[partner sponsor supporter].include?(product_name)
+    %w[partner sponsor supporter].include?(read_attribute(:product_name))
+  end
+
+  def founding_partner?
+    if founding_parter_id = ENV['FOUNDING_PARTNER_ID']
+      membership_number == founding_parter_id
+    end
   end
 
   def stripe_customer
@@ -124,7 +130,7 @@ class Member < ActiveRecord::Base
   end
 
   def product_name
-    if ENV['FOUNDING_PARTNER_ID'] && membership_number == ENV['FOUNDING_PARTNER_ID']
+    if founding_partner?
       "Founding partner"
     else
       read_attribute(:product_name)
