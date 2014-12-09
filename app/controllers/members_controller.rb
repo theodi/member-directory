@@ -7,19 +7,10 @@ class MembersController < ApplicationController
   before_filter(:only => [:index, :show]) {alternate_formats [:json]}
 
   def index
+    @organizations = Organization.active.display_order
+
     if params[:level]
-      @organizations = Organization.includes(:member).where(:'members.cached_active' => true, :'members.product_name' => params[:level].downcase)
-    else
-      @organizations = []
-      # Make sure we get the founding partner first
-      founding_partner = ENV['FOUNDING_PARTNER_ID'] || 0
-      @organizations << Organization.includes(:member).where(:'members.membership_number' => founding_partner).first
-      ['partner','sponsor','member','supporter'].each do |level|
-        @organizations << Organization.includes(:member).where(:'members.cached_active' => true, :'members.product_name' => level)
-                          .where('members.membership_number != ?', founding_partner)
-                          .order(:name)
-      end
-      @organizations.flatten!.compact!
+      @organizations = @organizations.for_level(params[:level].downcase)
     end
 
     respond_with(@organizations)

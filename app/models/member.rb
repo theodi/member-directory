@@ -127,6 +127,10 @@ class Member < ActiveRecord::Base
     end
   end
 
+  def self.founding_partner_id
+    ENV['FOUNDING_PARTNER_ID']
+  end
+
   def register_embed(referrer)
     begin
       embed_stats.create(referrer: referrer)
