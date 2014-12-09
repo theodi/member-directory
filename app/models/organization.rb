@@ -30,7 +30,7 @@ class Organization < ActiveRecord::Base
   end
 
   def supporter?
-    self.member.product_name == "supporter"
+    member.supporter?
   end
   
   def character_limit
