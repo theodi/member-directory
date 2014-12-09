@@ -3,7 +3,7 @@
   <%= stylesheet_link_tag "badge.css" %>
   <a href="<%= member_url(@member) %>">
     <ul class="details">
-      <li>Open Data Institute <%= @member.product_name.titleize %></li>
+      <li>Open Data Institute <%= @member.membership_description.titleize %></li>
       <li>Active since <%= @member.created_at.to_date %></li>
       <li>London, UK</li>
     </ul>

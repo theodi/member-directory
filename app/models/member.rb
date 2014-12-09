@@ -125,6 +125,16 @@ class Member < ActiveRecord::Base
     end
   end
 
+  def membership_description
+    if founding_partner?
+      'Founding partner'
+    elsif organization?
+      product_name.titleize
+    else
+      "Supporter"
+    end
+  end
+
   def stripe_customer
     Stripe::Customer.retrieve(stripe_customer_id) if stripe_customer_id
   end

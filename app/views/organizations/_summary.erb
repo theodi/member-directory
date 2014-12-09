@@ -4,7 +4,7 @@
        style='background-image: url(<%= organization.logo.rectangular.url %>)'>
   </div>
   <div class='organization-content'>
-    <h2 property="name"><%= link_to organization.name, organization.member %>  <span class="label <%= organization.member.product_name %>"><%= organization.member.product_name.capitalize %></span></h2>
+    <h2 property="name"><%= link_to organization.name, organization.member %>  <span class="label <%= organization.member.product_name %>"><%= organization.membership_description %></span></h2>
 
     <% if organization.cached_tagline.present? %>
       <p><strong><%= organization.cached_tagline %></strong></p>

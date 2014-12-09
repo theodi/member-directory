@@ -32,6 +32,10 @@ class Organization < ActiveRecord::Base
   def supporter?
     member.supporter?
   end
+
+  def membership_description
+    member.membership_description
+  end
   
   def character_limit
     supporter? ? 500 : 1000 
