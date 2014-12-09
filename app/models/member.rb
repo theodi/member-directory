@@ -116,7 +116,7 @@ class Member < ActiveRecord::Base
   end
 
   def organization?
-    %w[partner sponsor supporter].include?(read_attribute(:product_name))
+    %w[partner sponsor supporter].include?(product_name)
   end
 
   def founding_partner?
@@ -137,14 +137,6 @@ class Member < ActiveRecord::Base
 
   def stripe_customer
     Stripe::Customer.retrieve(stripe_customer_id) if stripe_customer_id
-  end
-
-  def product_name
-    if founding_partner?
-      "Founding partner"
-    else
-      read_attribute(:product_name)
-    end
   end
 
   def register_embed(referrer)
