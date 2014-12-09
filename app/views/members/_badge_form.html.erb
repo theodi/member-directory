@@ -100,9 +100,9 @@
               $('#mini_align, #standard_align').addClass('hidden');
 
               params = {
-                  size: $('.size:checked')[0].value,
-                  align: $('.align:checked')[0].value,
-                  colour: $('.colour:checked')[0].value
+                  size: $('.size:checked').val(),
+                  align: $('.align:checked').val(),
+                  colour: $('.colour:checked').val(),
               }
 
               if (params["size"] == "mini") {
