@@ -53,15 +53,13 @@
 
   </fieldset>
 
-  <% if @member.organization? && !@member.founding_partner? %>
-    <fieldset>
-      <legend>Badge</legend>
+  <fieldset>
+    <legend>Badge</legend>
 
-      <p>Tell the world about your ODI membership. <a href="#badgeContent" data-toggle="modal">Display a badge</a> on your site.</p>
+    <p>Tell the world about your ODI membership. <a href="#badgeContent" data-toggle="modal">Display a badge</a> on your site.</p>
 
-      <%= render(:partial => 'badge_form') %>
-    </fieldset>
-  <% end %>
+    <%= render(:partial => 'badge_form') %>
+  </fieldset>
 
   <% if @member.organization? %>
   <fieldset id='organization-details'>
