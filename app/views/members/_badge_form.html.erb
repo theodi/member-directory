@@ -38,7 +38,7 @@
         <div class="control-group">
           <label class="control-label" for="colour">Badge colour</label>
           <div class="controls">
-            <% ['black', 'grey', member_colour(@member)].each do |colour| %>
+            <% badge_colours(@member).each do |colour| %>
               <label class="radio inline">
                 <%= radio_button_tag("colour", colour, colour == 'black', class: "colour") %>
                 <%= colour.titleize %>
