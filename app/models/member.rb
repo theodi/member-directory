@@ -125,6 +125,14 @@ class Member < ActiveRecord::Base
     end
   end
 
+  def badge_class
+    if %w[partner sponsor].include?(product_name)
+      "partner"
+    else
+      "supporter"
+    end
+  end
+
   def membership_description
     if founding_partner?
       'Founding partner'

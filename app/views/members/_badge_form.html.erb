@@ -119,7 +119,7 @@
                 }
               }
 
-              $('#preview .odi-badge').attr('class', 'odi-badge odi-<%= @member.product_name %> ' + params["size"] + ' ' + params["align"] + ' ' + params["colour"] )
+              $('#preview .odi-badge').attr('class', 'odi-badge odi-<%= @member.badge_class %> ' + params["size"] + ' ' + params["align"] + ' ' + params["colour"] )
 
               url = url + "?" + jQuery.param(params)
               $('#code').val("<script src=\""+ url +"\" type=\"text/javascript\"><\/script>")
