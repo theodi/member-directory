@@ -37,6 +37,10 @@ div.organization-summary div.organization-description {
   min-height: auto;
 }
 
+div.organization-summary div.organization-description a.btn::after {
+  content: ' \00BB';
+}
+
 span.contact-detail {
   margin-right: 20px;
   display: block;
