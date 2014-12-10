@@ -217,7 +217,7 @@ class Member < ActiveRecord::Base
   end
 
   def setup_organization
-    self.create_organization(:name => organization_name, :remote => remote)
+    self.create_organization(:name => organization_name, :remote => remote) unless individual?
   end
 
   after_update :save_to_capsule

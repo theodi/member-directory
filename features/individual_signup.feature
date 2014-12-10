@@ -34,3 +34,13 @@ Feature: Signup as an individual member
     And I should have a membership number generated
     And a welcome email should be sent to me
     And I should see "download an ODI Supporter badge" in the email body
+
+  @vcr
+  Scenario: Individual members should not have an organisation assigned
+
+    Given I want to sign up as an individual member
+    When I visit the signup page
+    And I enter my details
+    And I enter valid credit card details
+    And I click sign up
+    Then I should not have an organisation assinged to me

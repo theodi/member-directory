@@ -4,6 +4,20 @@ Given(/^I want to sign up as an individual member$/) do
   @payment_ref = /cus_[0-9A-Za-z]{14}/
 end
 
+Given(/^I sign up as an indidual member$/) do
+  steps %{
+    Given I want to sign up as an individual member
+    When I visit the signup page
+    And I enter my details
+    And I enter valid credit card details
+  }
+end
+
+Then(/^I should not have an organisation assinged to me$/) do
+  member = Member.where(email: @email).first
+  (member.organization).should be_nil
+end
+
 Then(/^I should not see the "(.*?)" field$/) do |field|
   assert has_no_field?(field)
 end

@@ -1,0 +1,177 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api.stripe.com/v1/customers
+    body:
+      encoding: US-ASCII
+      string: card[exp_month]=12&card[exp_year]=2016&card[number]=4242424242424242&card[cvc]=123&plan=individual_supporter&description=Ian%20McIain%20individual%20supporter%20membership%20(BK2861DZ)
+    headers:
+      Accept:
+      - ! '*/*; q=0.5, application/xml'
+      Accept-Encoding:
+      - gzip, deflate
+      User-Agent:
+      - Stripe/v1 RubyBindings/1.13.0
+      Authorization:
+      - Bearer sk_<RAILS_ENV>_39F7AAZeF7Kij0yrNOlDznbH
+      Content-Type:
+      - application/x-www-form-urlencoded
+      X-Stripe-Client-User-Agent:
+      - ! '{"bindings_version":"1.13.0","lang":"ruby","lang_version":"1.9.3 p547 (2014-05-14)","platform":"x86_64-darwin14.0.0","publisher":"stripe","uname":"Darwin
+        Stuarts-MBP-3.home 14.0.0 Darwin Kernel Version 14.0.0: Fri Sep 19 00:26:44
+        PDT 2014; root:xnu-2782.1.97~2/RELEASE_X86_64 x86_64"}'
+      Content-Length:
+      - '184'
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx
+      Date:
+      - Wed, 10 Dec 2014 12:02:43 GMT
+      Content-Type:
+      - application/json;charset=utf-8
+      Content-Length:
+      - '2341'
+      Connection:
+      - keep-alive
+      Access-Control-Allow-Credentials:
+      - 'true'
+      Access-Control-Allow-Methods:
+      - GET, POST, HEAD, OPTIONS, DELETE
+      Access-Control-Max-Age:
+      - '300'
+      Cache-Control:
+      - no-cache, no-store
+      Request-Id:
+      - req_9Cut6v3vst4X4R1t
+      Stripe-Version:
+      - '2014-05-19'
+      Strict-Transport-Security:
+      - max-age=31556926; includeSubDomains
+    body:
+      encoding: US-ASCII
+      string: ! "{\n  \"object\": \"customer\",\n  \"created\": 1418212963,\n  \"id\":
+        \"cus_5IkgMRk6RXMExw\",\n  \"livemode\": false,\n  \"description\": \"Ian
+        McIain individual supporter membership (BK2861DZ)\",\n  \"email\": null,\n
+        \ \"delinquent\": false,\n  \"metadata\": {},\n  \"subscriptions\": {\n    \"object\":
+        \"list\",\n    \"total_count\": 1,\n    \"has_more\": false,\n    \"url\":
+        \"/v1/customers/cus_5IkgMRk6RXMExw/subscriptions\",\n    \"data\": [\n      {\n
+        \       \"id\": \"sub_5Ikg37qnaHicf1\",\n        \"plan\": {\n          \"interval\":
+        \"year\",\n          \"name\": \"Individual supporter\",\n          \"created\":
+        1417532545,\n          \"amount\": 10800,\n          \"currency\": \"gbp\",\n
+        \         \"id\": \"individual_supporter\",\n          \"object\": \"plan\",\n
+        \         \"livemode\": false,\n          \"interval_count\": 1,\n          \"trial_period_days\":
+        null,\n          \"metadata\": {},\n          \"statement_description\": \"ODI
+        membership\"\n        },\n        \"object\": \"subscription\",\n        \"start\":
+        1418212963,\n        \"status\": \"active\",\n        \"customer\": \"cus_5IkgMRk6RXMExw\",\n
+        \       \"cancel_at_period_end\": false,\n        \"current_period_start\":
+        1418212963,\n        \"current_period_end\": 1449748963,\n        \"ended_at\":
+        null,\n        \"trial_start\": null,\n        \"trial_end\": null,\n        \"canceled_at\":
+        null,\n        \"quantity\": 1,\n        \"application_fee_percent\": null,\n
+        \       \"discount\": null,\n        \"metadata\": {}\n      }\n    ]\n  },\n
+        \ \"discount\": null,\n  \"account_balance\": 0,\n  \"currency\": \"gbp\",\n
+        \ \"cards\": {\n    \"object\": \"list\",\n    \"total_count\": 1,\n    \"has_more\":
+        false,\n    \"url\": \"/v1/customers/cus_5IkgMRk6RXMExw/cards\",\n    \"data\":
+        [\n      {\n        \"id\": \"card_1589B14oB0YITArSgI7dwucB\",\n        \"object\":
+        \"card\",\n        \"last4\": \"4242\",\n        \"brand\": \"Visa\",\n        \"funding\":
+        \"credit\",\n        \"exp_month\": 12,\n        \"exp_year\": 2016,\n        \"fingerprint\":
+        \"qBYthW9tt9MyrCdj\",\n        \"country\": \"US\",\n        \"name\": null,\n
+        \       \"address_line1\": null,\n        \"address_line2\": null,\n        \"address_city\":
+        null,\n        \"address_state\": null,\n        \"address_zip\": null,\n
+        \       \"address_country\": null,\n        \"cvc_check\": \"pass\",\n        \"address_line1_check\":
+        null,\n        \"address_zip_check\": null,\n        \"dynamic_last4\": null,\n
+        \       \"customer\": \"cus_5IkgMRk6RXMExw\",\n        \"type\": \"Visa\"\n
+        \     }\n    ]\n  },\n  \"default_card\": \"card_1589B14oB0YITArSgI7dwucB\"\n}\n"
+    http_version: 
+  recorded_at: Wed, 10 Dec 2014 12:02:43 GMT
+- request:
+    method: get
+    uri: https://api.stripe.com/v1/customers/cus_5IkgMRk6RXMExw
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - ! '*/*; q=0.5, application/xml'
+      Accept-Encoding:
+      - gzip, deflate
+      User-Agent:
+      - Stripe/v1 RubyBindings/1.13.0
+      Authorization:
+      - Bearer sk_<RAILS_ENV>_39F7AAZeF7Kij0yrNOlDznbH
+      Content-Type:
+      - application/x-www-form-urlencoded
+      X-Stripe-Client-User-Agent:
+      - ! '{"bindings_version":"1.13.0","lang":"ruby","lang_version":"1.9.3 p547 (2014-05-14)","platform":"x86_64-darwin14.0.0","publisher":"stripe","uname":"Darwin
+        Stuarts-MBP-3.home 14.0.0 Darwin Kernel Version 14.0.0: Fri Sep 19 00:26:44
+        PDT 2014; root:xnu-2782.1.97~2/RELEASE_X86_64 x86_64"}'
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx
+      Date:
+      - Wed, 10 Dec 2014 12:02:44 GMT
+      Content-Type:
+      - application/json;charset=utf-8
+      Content-Length:
+      - '2341'
+      Connection:
+      - keep-alive
+      Access-Control-Allow-Credentials:
+      - 'true'
+      Access-Control-Allow-Methods:
+      - GET, POST, HEAD, OPTIONS, DELETE
+      Access-Control-Max-Age:
+      - '300'
+      Cache-Control:
+      - no-cache, no-store
+      Request-Id:
+      - req_CK7XsqkcDzYCIkJc
+      Stripe-Version:
+      - '2014-05-19'
+      Strict-Transport-Security:
+      - max-age=31556926; includeSubDomains
+    body:
+      encoding: US-ASCII
+      string: ! "{\n  \"object\": \"customer\",\n  \"created\": 1418212963,\n  \"id\":
+        \"cus_5IkgMRk6RXMExw\",\n  \"livemode\": false,\n  \"description\": \"Ian
+        McIain individual supporter membership (BK2861DZ)\",\n  \"email\": null,\n
+        \ \"delinquent\": false,\n  \"metadata\": {},\n  \"subscriptions\": {\n    \"object\":
+        \"list\",\n    \"total_count\": 1,\n    \"has_more\": false,\n    \"url\":
+        \"/v1/customers/cus_5IkgMRk6RXMExw/subscriptions\",\n    \"data\": [\n      {\n
+        \       \"id\": \"sub_5Ikg37qnaHicf1\",\n        \"plan\": {\n          \"interval\":
+        \"year\",\n          \"name\": \"Individual supporter\",\n          \"created\":
+        1417532545,\n          \"amount\": 10800,\n          \"currency\": \"gbp\",\n
+        \         \"id\": \"individual_supporter\",\n          \"object\": \"plan\",\n
+        \         \"livemode\": false,\n          \"interval_count\": 1,\n          \"trial_period_days\":
+        null,\n          \"metadata\": {},\n          \"statement_description\": \"ODI
+        membership\"\n        },\n        \"object\": \"subscription\",\n        \"start\":
+        1418212963,\n        \"status\": \"active\",\n        \"customer\": \"cus_5IkgMRk6RXMExw\",\n
+        \       \"cancel_at_period_end\": false,\n        \"current_period_start\":
+        1418212963,\n        \"current_period_end\": 1449748963,\n        \"ended_at\":
+        null,\n        \"trial_start\": null,\n        \"trial_end\": null,\n        \"canceled_at\":
+        null,\n        \"quantity\": 1,\n        \"application_fee_percent\": null,\n
+        \       \"discount\": null,\n        \"metadata\": {}\n      }\n    ]\n  },\n
+        \ \"discount\": null,\n  \"account_balance\": 0,\n  \"currency\": \"gbp\",\n
+        \ \"cards\": {\n    \"object\": \"list\",\n    \"total_count\": 1,\n    \"has_more\":
+        false,\n    \"url\": \"/v1/customers/cus_5IkgMRk6RXMExw/cards\",\n    \"data\":
+        [\n      {\n        \"id\": \"card_1589B14oB0YITArSgI7dwucB\",\n        \"object\":
+        \"card\",\n        \"last4\": \"4242\",\n        \"brand\": \"Visa\",\n        \"funding\":
+        \"credit\",\n        \"exp_month\": 12,\n        \"exp_year\": 2016,\n        \"fingerprint\":
+        \"qBYthW9tt9MyrCdj\",\n        \"country\": \"US\",\n        \"name\": null,\n
+        \       \"address_line1\": null,\n        \"address_line2\": null,\n        \"address_city\":
+        null,\n        \"address_state\": null,\n        \"address_zip\": null,\n
+        \       \"address_country\": null,\n        \"cvc_check\": \"pass\",\n        \"address_line1_check\":
+        null,\n        \"address_zip_check\": null,\n        \"dynamic_last4\": null,\n
+        \       \"customer\": \"cus_5IkgMRk6RXMExw\",\n        \"type\": \"Visa\"\n
+        \     }\n    ]\n  },\n  \"default_card\": \"card_1589B14oB0YITArSgI7dwucB\"\n}\n"
+    http_version: 
+  recorded_at: Wed, 10 Dec 2014 12:02:44 GMT
+recorded_with: VCR 2.9.2
