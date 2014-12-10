@@ -84,7 +84,7 @@ group :development, :test do
   gem 'mailcatcher'
   gem 'simplecov-rcov'
   gem 'travis'
-  gem 'rspec-html-matchers'
+  gem 'rspec-html-matchers', :require => false, :git => 'git@github.com:theodi/rspec-html-matchers.git'
   gem 'csvlint'
 end
 
