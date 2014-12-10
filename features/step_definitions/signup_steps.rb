@@ -36,7 +36,7 @@ end
 
 When /^I visit the signup page$/ do
   visit("/members/new?level=#{@product_name}")
-  page.should have_content 'Sign up'
+  page.should have_content 'Become an ODI member'
   @field_prefix = 'member'
 end
 
