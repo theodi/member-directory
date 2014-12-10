@@ -1,3 +1,12 @@
+<div class="pagination">
+  <ul>
+    <%= pagination_item(link_to('All', alpha: nil), @alpha.nil?) %>
+    <% @groups.each do |letter| %>
+      <%= pagination_item(link_to(letter, alpha: letter), letter == @alpha) %>
+    <% end %>
+  </ul>
+</div>
+
 <p class="muted">This directory lists organisations who are currently members of the ODI:</p>
 
 <% @organizations.each do |organization| %>

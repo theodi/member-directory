@@ -13,6 +13,13 @@ class MembersController < ApplicationController
       @organizations = @organizations.for_level(params[:level].downcase)
     end
 
+    @groups = @organizations.alpha_groups
+
+    if @alpha = params[:alpha]
+      @organizations = @organizations.in_alpha_group(@alpha)
+    end
+
+
     respond_with(@organizations)
   end
 

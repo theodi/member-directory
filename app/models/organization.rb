@@ -42,6 +42,24 @@ class Organization < ActiveRecord::Base
     organizations.name
   ORDER
 
+  def self.in_alpha_group(alpha)
+    if alpha.upcase.between?('A', 'Z')
+      where("substr(organizations.name, 1, 1) = ?", alpha)
+    else
+      letters = ("A".."Z").to_a.join
+      where("instr('#{letters}', substr(organizations.name, 1, 1)) = 0")
+    end
+  end
+
+  def self.alpha_groups
+    pluck(:name).group_by {|name| alpha_group(name) }.keys.sort
+  end
+
+  def self.alpha_group(name)
+    letter = name.upcase.first
+    letter.between?('A', 'Z') ? letter : '#'
+  end
+
   def remote
     @remote || false
   end

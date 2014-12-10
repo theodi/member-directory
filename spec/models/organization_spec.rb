@@ -30,7 +30,7 @@ describe Organization do
     end
   end
 
-  context "sort ordering" do
+  context "scopes" do
 
     def organization(options={})
       values = {
@@ -41,30 +41,41 @@ describe Organization do
       (FactoryGirl.create :member, values).organization
     end
 
-    it "sorts alphabetically" do
-      g = organization(:name => 'Grace')
-      b = organization(:name => 'Betty')
-      a = organization(:name => 'Ace')
+    context "display order" do
+      it "sorts alphabetically" do
+        g = organization(:name => 'Grace')
+        b = organization(:name => 'Betty')
+        a = organization(:name => 'Ace')
 
-      expect(Organization.display_order).to eq([a,b,g])
+        expect(Organization.display_order).to eq([a,b,g])
+      end
+
+      it "sorts by partner, sponsor, member, supporter" do
+        supporter = organization(:type => 'supporter')
+        sponsor = organization(:type => 'sponsor')
+        member = organization()
+        member.member.update_attribute(:product_name, 'member')
+        partner = organization(:type => 'partner')
+        expect(Organization.display_order).to eq([partner, sponsor, member, supporter])
+      end
+
+      it "sorts by founding partner first" do
+        partner = organization(:name => 'a', :type => 'partner')
+        founding_partner = organization(:name => 'z', :type => 'partner')
+        founding_partner.member.update_attribute(:membership_number, Member.founding_partner_id)
+        expect(founding_partner.member.product_name).to eq("Founding partner")
+        expect(Organization.display_order).to eq([founding_partner, partner])
+      end
     end
 
-    it "sorts by partner, sponsor, member, supporter" do
-      supporter = organization(:type => 'supporter')
-      sponsor = organization(:type => 'sponsor')
-      member = organization()
-      member.member.update_attribute(:product_name, 'member')
-      partner = organization(:type => 'partner')
-      expect(Organization.display_order).to eq([partner, sponsor, member, supporter])
-    end
+    context "filtering by alpha group" do
+      it "returns organizations in a group" do
+        a1 = organization(:name => "Alice")
+        a2 = organization(:name => "Agile")
+        organization(:name => "Eve")
 
-    it "sorts by founding partner first" do
-      partner = organization(:name => 'a', :type => 'partner')
-      founding_partner = organization(:name => 'z', :type => 'partner')
-      founding_partner.member.update_attribute(:membership_number, Member.founding_partner_id)
-      expect(founding_partner.member.product_name).to eq("Founding partner")
-      expect(Organization.display_order).to eq([founding_partner, partner])
+        expect(Organization.in_alpha_group("A")).to eq([a1, a2])
+      end
     end
   end
-
 end
