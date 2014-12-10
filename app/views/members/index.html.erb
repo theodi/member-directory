@@ -1,8 +1,13 @@
 <p class="muted">This directory lists organisations who are currently members of the ODI:</p>
 
+<form class="form-search">
+  <input type="text" name="q" value="<%= @search %>" class="input-medium search-query">
+  <button type="submit" class="btn">Search</button>
+</form>
+
 <div class="alpha-group pagination">
   <ul>
-    <%= pagination_item(link_to('All', alpha: nil), @alpha.nil?) %>
+    <%= pagination_item(link_to('All', alpha: nil), @alpha.nil? && @search.nil?) %>
     <% @groups.each do |letter| %>
       <%= pagination_item(link_to(letter, alpha: letter), letter == @alpha) %>
     <% end %>
