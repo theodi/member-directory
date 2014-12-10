@@ -95,7 +95,7 @@ group :test do
 end
 
 group :production do
-  gem 'foreman'
+  gem 'foreman', '< 0.65.0'
   gem 'thin'
   gem 'mysql2'
 end
