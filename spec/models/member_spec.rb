@@ -11,8 +11,8 @@ describe Member do
 
     stat = @member.embed_stats.first
 
-    stat.referrer.should == "http://www.example.com/page"
-    stat.member.should == @member
+    expect(stat.referrer).to eq("http://www.example.com/page")
+    expect(stat.member).to eq(@member)
   end
 
   it "only creates one embed stat per referrer" do
@@ -20,7 +20,7 @@ describe Member do
       @member.register_embed("http://www.example.com/page")
     end
 
-    @member.embed_stats.count.should == 1
+    expect(@member.embed_stats.count).to eq(1)
   end
 
 end
