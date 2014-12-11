@@ -111,6 +111,10 @@ class Member < ActiveRecord::Base
     product_name == "supporter"
   end
 
+  def organization_name=(value)
+    @organization_name = value.try(:strip)
+  end
+
   def stripe_customer
     Stripe::Customer.retrieve(stripe_customer_id) if stripe_customer_id
   end

@@ -190,6 +190,10 @@ And (/^my organisation name is "(.*?)"$/) do |org_name|
   fill_in('member_organization_name', :with => @organization_name)
 end
 
+And (/^my organisation name is expected to be "(.*?)"$/) do |org_name|
+  @organization_name = org_name
+end
+
 Then (/^my organisation name should be "(.*?)"$/) do |org_name|
   @member.organization.name.should == org_name
 end
