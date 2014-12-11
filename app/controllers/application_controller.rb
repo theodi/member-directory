@@ -15,11 +15,7 @@ class ApplicationController < ActionController::Base
   end
 
   def logo
-    if ['small', 'medium', 'large'].include?(params[:size])
-      render "logos/#{@level}-standard", format: :svg
-    else
-      render "logos/#{@level}-mini", format: :svg
-    end
+    render "logos/#{badge_type}-#{badge_size}", format: :svg
   end
 
   private
@@ -42,6 +38,14 @@ class ApplicationController < ActionController::Base
     @align = params[:align] if ['left', 'right', 'top-left', 'top-right', 'bottom-left', 'bottom-right'].include?(params[:align])
     @colour = params[:colour] if ['black', 'blue', 'red', 'crimson', 'orange', 'green', 'pomegranate', 'grey'].include?(params[:colour])
     @level = params[:level] if %w[partner supporter].include?(params[:level])
+  end
+
+  def badge_type
+    @level == 'partner' ? 'partner' : 'supporter'
+  end
+
+  def badge_size
+    @size == 'mini' ? 'mini' : 'standard'
   end
 
 end
