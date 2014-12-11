@@ -16,9 +16,9 @@ class ApplicationController < ActionController::Base
 
   def logo
     if ['small', 'medium', 'large'].include?(params[:size])
-      render "logos/#{params[:level]}-standard", format: :svg
+      render "logos/#{@level}-standard", format: :svg
     else
-      render "logos/#{params[:level]}-mini", format: :svg
+      render "logos/#{@level}-mini", format: :svg
     end
   end
 
@@ -41,6 +41,7 @@ class ApplicationController < ActionController::Base
     @size = params[:size] if ['mini', 'small', 'medium', 'large'].include?(params[:size])
     @align = params[:align] if ['left', 'right', 'top-left', 'top-right', 'bottom-left', 'bottom-right'].include?(params[:align])
     @colour = params[:colour] if ['black', 'blue', 'red', 'crimson', 'orange', 'green', 'pomegranate', 'grey'].include?(params[:colour])
+    @level = params[:level] if %w[partner supporter].include?(params[:level])
   end
 
 end
