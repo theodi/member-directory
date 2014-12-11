@@ -90,6 +90,7 @@ Feature: Add new signups to queue
     And I enter my details
     And I choose to pay by invoice
     And my organisation name is "Doge Enterprises Inc. "
+    But my organisation name is expected to be "Doge Enterprises Inc."
     Then my details should be queued for further processing
     When I click sign up
     And I should have a membership number generated
