@@ -46,7 +46,7 @@ class Organization < ActiveRecord::Base
     if alpha.upcase.between?('A', 'Z')
       where("substr(organizations.name, 1, 1) = ?", alpha)
     else
-      letters = ("A".."Z").to_a.join
+      letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
       where("instr('#{letters}', substr(organizations.name, 1, 1)) = 0")
     end
   end
