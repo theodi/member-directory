@@ -4,7 +4,7 @@ describe MembersController do
 
   describe "GET 'index'" do
 
-    before :all do
+    before :each do
       @member    = FactoryGirl.create :member, :cached_active => true, :product_name => 'member'
       @supporter = FactoryGirl.create :member, :cached_active => true, :product_name => 'supporter'
       @inactive  = FactoryGirl.create :member, :cached_active => false, :product_name => 'member'
@@ -50,7 +50,7 @@ describe MembersController do
 
   describe "GET 'badge'" do
 
-    before :all do
+    before :each do
       @member = FactoryGirl.create :member, :cached_active => true, :product_name => 'member'
     end
 

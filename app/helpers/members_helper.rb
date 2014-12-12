@@ -33,4 +33,8 @@ module MembersHelper
     }
   end
 
+  def pagination_item(content, active)
+    content_tag(:li, content, class: ('active' if active))
+  end
+
 end

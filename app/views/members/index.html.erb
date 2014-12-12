@@ -1,5 +1,14 @@
 <p class="muted">This directory lists organisations who are currently members of the ODI:</p>
 
+<div class="alpha-group pagination">
+  <ul>
+    <%= pagination_item(link_to('All', alpha: nil), @alpha.nil?) %>
+    <% @groups.each do |letter| %>
+      <%= pagination_item(link_to(letter, alpha: letter), letter == @alpha) %>
+    <% end %>
+  </ul>
+</div>
+
 <% @organizations.each do |organization| %>
   <%= render :partial => 'organizations/summary', :locals => {:organization => organization}%>
 <% end %>
