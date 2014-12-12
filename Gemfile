@@ -3,7 +3,7 @@ source 'https://rubygems.org'
 #ruby=ruby-1.9.3
 #ruby-gemset=member-directory
 
-gem 'rails', '~> 3.2.12'
+gem 'rails', '~> 3.2.18'
 
 gem 'sqlite3'
 gem 'devise', '~> 2.2.4'
