@@ -15,10 +15,15 @@ class MembersController < ApplicationController
 
     @groups = @organizations.alpha_groups
 
-    if @alpha = params[:alpha]
+    if @search = params[:q]
+      @organizations = @organizations.search(
+        m: 'or',
+        name_cont: @search,
+        description_cont: @search
+      ).result
+    elsif @alpha = params[:alpha]
       @organizations = @organizations.in_alpha_group(@alpha)
     end
-
 
     respond_with(@organizations)
   end
