@@ -13,8 +13,8 @@
     <i class='icon icon-home'></i> <%= link_to organization.url, organization.url, :property => "url"%></a>
     
     <div class='organization-description clearfix'>
-      <p property="description"><%= organization_description(organization) %></p>
-      <%= link_to "#{editable?(organization.member) ? "Edit" : "More"} information &raquo;".html_safe, organization.member, :class=>'btn pull-right' %>
+      <p property="description"><%= highlight(organization_description(organization), @search) %></p>
+      <%= link_to "#{editable?(organization.member) ? "Edit" : "More"} information &raquo;".html_safe, organization.member, :class=>'btn pull-right', :title => "#{editable?(organization.member) ? "Edit" : "More"} information on #{organization.name}" %>
     </div>
   </div>
 

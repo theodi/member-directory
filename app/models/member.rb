@@ -133,6 +133,14 @@ class Member < ActiveRecord::Base
     end
   end
 
+  def organization_name=(value)
+    @organization_name = value.try(:strip)
+  end
+
+  def stripe_customer
+    Stripe::Customer.retrieve(stripe_customer_id) if stripe_customer_id
+  end
+
   def membership_description
     if founding_partner?
       'Founding partner'
@@ -143,8 +151,8 @@ class Member < ActiveRecord::Base
     end
   end
 
-  def stripe_customer
-    Stripe::Customer.retrieve(stripe_customer_id) if stripe_customer_id
+  def self.founding_partner_id
+    ENV['FOUNDING_PARTNER_ID']
   end
 
   def register_embed(referrer)

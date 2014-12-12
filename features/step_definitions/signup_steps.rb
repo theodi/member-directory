@@ -36,7 +36,7 @@ end
 
 When /^I visit the signup page$/ do
   visit("/members/new?level=#{@product_name}")
-  page.should have_content 'Sign up'
+  page.should have_content 'Become an ODI member'
   @field_prefix = 'member'
 end
 
@@ -192,6 +192,10 @@ end
 And (/^my organisation name is "(.*?)"$/) do |org_name|
   @organization_name = org_name
   fill_in('member_organization_name', :with => @organization_name)
+end
+
+And (/^my organisation name is expected to be "(.*?)"$/) do |org_name|
+  @organization_name = org_name
 end
 
 Then (/^my organisation name should be "(.*?)"$/) do |org_name|

@@ -44,7 +44,7 @@ class RegistrationsController < Devise::RegistrationsController
     when 'partner'
       'Partner with us'
     else
-      "Sign up"
+      "Become an ODI member"
     end
   end
 
