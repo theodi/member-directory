@@ -44,19 +44,19 @@
     <p>
       <% if @preview || organization.cached_twitter.present? %>
         <span data-bind="visible: twitter().length > 0" property='contactPoint' typeof='ContactPoint'>
-          <a property='url' data-bind="text: twitter, attr: {href: twitterUrl}" href='http://twitter.com/<%= organization.cached_twitter %>'><%= image_tag 'twitter-16x16.png', :alt => "Twitter" %><span property='name' class='contact-point-description'>Twitter</span></a>
+          <a property='url' data-bind="attr: {href: twitterUrl}" href='http://twitter.com/<%= organization.cached_twitter %>'><%= image_tag 'twitter-16x16.png', :alt => "Twitter" %><span property='name' class='contact-point-description'>Twitter</span></a>
         </span>
       <% end %>
 
       <% if @preview || organization.cached_facebook.present? %>
         <span data-bind="visible: facebook().length > 0" property='contactPoint' typeof='ContactPoint'>
-          <a property='url' data-bind="text: facebookLabel, attr: {href: facebook}" href='<%= organization.cached_facebook %>'><%= image_tag 'facebook-16x16.png', :alt => "Facebook" %><span property='name' class='contact-point-description'>Facebook</span></a>
+          <a property='url' data-bind="attr: {href: facebook}" href='<%= organization.cached_facebook %>'><%= image_tag 'facebook-16x16.png', :alt => "Facebook" %><span property='name' class='contact-point-description'>Facebook</span></a>
         </span>
       <% end %>
 
       <% if @preview || organization.cached_linkedin.present? %>
         <span data-bind="visible: linkedin().length > 0" property='contactPoint' typeof='ContactPoint'>
-          <a property='url' data-bind="text: linkedinLabel, attr: {href: linkedin}" href='<%= organization.cached_linkedin %>'><%= image_tag 'linkedin-16x16.png', :alt => "Linkedin" %><span property='name' class='contact-point-description'>Linkedin</span></a>
+          <a property='url' data-bind="attr: {href: linkedin}" href='<%= organization.cached_linkedin %>'><%= image_tag 'linkedin-16x16.png', :alt => "Linkedin" %><span property='name' class='contact-point-description'>Linkedin</span></a>
         </span>
       <% end %>
     </p>
