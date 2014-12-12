@@ -33,6 +33,7 @@ MemberDirectory::Application.routes.draw do
   root :to => redirect("/members")
 
   get '/logos/:level/:size/:colour.svg', defaults: {format: :svg}, to: 'badge#logo'
+  get '/logos/:level/:size/:colour.png', defaults: {format: :png}, to: 'badge#badge'
   get 'embed_stats.csv', to: 'embed_stats#index'
 
   match '/401', :to => 'errors#unauthorized'
