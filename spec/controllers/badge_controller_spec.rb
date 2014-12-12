@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe ApplicationController do
+describe BadgeController do
   context "svgs for badge embedding" do
     it 'gives standard black partner badge' do
       get :logo, colour: 'black', size: 'medium', level: 'partner', format: 'svg'
