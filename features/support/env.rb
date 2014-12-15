@@ -76,3 +76,11 @@ end
 
 Capybara.current_driver = :poltergeist
 Capybara.javascript_driver = :poltergeist
+
+CarrierWave.configure do |config|
+  config.storage = :file
+  config.enable_processing = false
+end
+ImageObjectUploader.class_eval do
+  storage :file
+end
