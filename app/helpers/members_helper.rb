@@ -8,7 +8,7 @@ module MembersHelper
   end
 
   def highlight(text, search)
-    super(text, search, '<mark>\1</mark>')
+    super(text, search, :highlighter => '<mark>\1</mark>')
   end
 
   def get_colour(colour)
