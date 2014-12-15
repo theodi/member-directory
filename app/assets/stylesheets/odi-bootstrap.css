@@ -5218,6 +5218,7 @@ input[type="submit"].btn.btn-mini {
 }
 
 .modal {
+  display: none;
   position: fixed;
   top: 10%;
   left: 50%;

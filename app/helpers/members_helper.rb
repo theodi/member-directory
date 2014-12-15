@@ -37,6 +37,14 @@ module MembersHelper
     }
   end
 
+  def badge_download_colours(member)
+    if member_colour(member) == 'orange'
+      %w[black grey orange]
+    else
+      %w[black grey]
+    end
+  end
+
   def pagination_item(content, active)
     content_tag(:li, content, class: ('active' if active))
   end
