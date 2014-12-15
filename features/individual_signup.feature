@@ -10,6 +10,7 @@ Feature: Signup as an individual member
     And I should not see the "VAT Number (if not UK)" field
     And I should not see the "Purchase Order Number" field
     And the terms and conditions should be correct
+    And the submit button should say "Pay now"
 
   @javascript
   Scenario: Auto-update terms based on user input

@@ -22,6 +22,10 @@ Then(/^I should not see the "(.*?)" field$/) do |field|
   assert has_no_field?(field)
 end
 
+Then(/the submit button should say "(.*?)"$/) do |text|
+  page.should have_selector("input[type=submit][value='#{text}']")
+end
+
 Then(/^the terms and conditions should be correct$/) do
   (page).should have_content("an 'Individual' Supporter of the ODI.")
 end
