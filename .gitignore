@@ -24,6 +24,7 @@
 .chef/*secrets*
 .vagrant
 /public/uploads/
+/public/logos/
 /.env.development
 /.env.production
 /.env.test
