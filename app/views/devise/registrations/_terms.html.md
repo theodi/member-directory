@@ -26,7 +26,7 @@
 
 5. Your Entitlements
     1. During the Term, you will be entitled to:
-        1. receive a discount on the price of the ODI’s “Annual Summit” conference tickets for an attendee who is a member of your board of directors or is your employee or sub-contractor. If you are an individual Supporter (as opposed to a company), you may receive a discount on the ticket price for yourself.
+        1. receive a discount on the price of the ODI’s “Annual Summit” conference tickets for an attendee who is a member of your board of directors or is your employee or sub-contractor. 
         2. send 2 attendees and 1 guest (the guest being from another organisation) to the ODI’s “ODI Connect Member Networking Event” provided that your attendees be a member of your board of directors or is your employee or sub-contractor. If you are an individual Supporter (as opposed to a company), you may attend the ODI Connect Member Networking Event with 2 guests.
         3. provided that all necessary details are provided to the ODI, have your name and details displayed as text on the ODI’s website and in the text of its annual report;
         4.  receive the ODI’s member newsletter and related communications; and
