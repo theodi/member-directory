@@ -1,5 +1,5 @@
 1. Introduction
-    1. This Agreement is made between <span class='legal-name'>(name)</span> ("You" or "Your") and the ODI and will govern the ODI's relationship with you whilst you are an 'Individual' Supporter of the ODI.
+    1. This Agreement is made between <%= member.name %> ("You" or "Your") and the ODI and will govern the ODI's relationship with you whilst you are an 'Individual' Supporter of the ODI.
 
 
 2. Definitions
@@ -7,14 +7,14 @@
 
     | Term | Definition |
     |-|-|
-    | Effective Date | means <%= Date.today.to_formatted_s(:long_ordinal) %> |
+    | Effective Date | means <%= member.start_date %> |
     | End Date | means the date that this Agreement ends |
     | Confidential Information | means all information marked as confidential, however recorded or preserved, disclosed by a party or its employees, officers, representatives or advisors, to the other party during the Term |
     | ODI | means the Open Data Institute, a company registered in England and Wales with company number 08030289 and whose registered office is 3rd Floor, 65 Clifton Street, London, EC2A 4JE |
     | Subscription Fee | £90 per annum |
     | Individual Supporter |  means a category of membership to the ODI |
     | Term | means the term of this Agreement, commencing on the Effective Date and expiring on the End Date (inclusive) |
-    | You/Your | means <span class='legal-name'>(name)</span> of  <span class='legal-address'>(address)</span> |
+    | You/Your | means <%= member.name %> of <%= member.address %> |
     | VAT | means value added tax chargeable under the Value Added Tax Act 1994 |
 
 3. Term

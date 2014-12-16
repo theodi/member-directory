@@ -39,21 +39,17 @@
 
 <div id="terms" class="well">
   <% if individual? %>
-    <%= render :partial => 'individual_terms' %>
+    <%= render :partial => 'individual_terms', :locals => {:member => PlaceholderPresenter.new} %>
   <% else %>
-	 <%= render :partial => 'terms' %>
+    <%= render :partial => 'terms', :locals => {:member => PlaceholderPresenter.new} %>
   <% end %>
   <script>
     function update_name() {
-      if ($('#member_organization_name')[0]) {
-        $('.legal-name').text($('#member_organization_name')[0].value);
-        $('#company-details').show();
-        $('#individual-details').hide();
-      } else {
-        $('.legal-name').text($('#member_contact_name')[0].value);
-        $('#company-details').hide();
-        $('#individual-details').show();
-      }
+      <% if individual? %>
+      $('.legal-name').text($('#member_contact_name')[0].value);
+      <% else %>
+      $('.legal-name').text($('#member_organization_name')[0].value);
+      <% end %>
     }
     function update_address() {
       var index = $('#member_address_country')[0].selectedIndex;
@@ -77,7 +73,7 @@
       $('#member_address_country').change(update_address);
       $('#member_postal_code').change(update_address);
       $('#member_organization_company_number').change(function(e){
-        $('#company-number').text(e.target.value);
+        $('.company-number').text(e.target.value);
       });
       <% unless params[:action] == 'new' %>
       update_name();
