@@ -33,6 +33,7 @@ Feature: Signup as an individual member
     When I click sign up
     Then my card should be charged successfully
     And I should have a membership number generated
+    And I should see my details
     And a welcome email should be sent to me
     And I should see "download an ODI Supporter badge" in the email body
 

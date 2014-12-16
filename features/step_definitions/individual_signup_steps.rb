@@ -63,3 +63,9 @@ Then /^my individual details should be queued for further processing$/ do
     args[4]['purchase_order_reference'].should == @purchase_order_number
   end
 end
+
+Then /^I should see my details$/ do
+  page.should have_field('member_contact_name', with: @contact_name) 
+  page.should have_field('member_email', with: @email) 
+  page.should have_field('member_telephone', with: @telephone) 
+end

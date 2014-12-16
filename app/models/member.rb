@@ -50,8 +50,6 @@ class Member < ActiveRecord::Base
 
   attr_accessor :organization_name,
                 :organization_type,
-                :contact_name,
-                :telephone,
                 :street_address,
                 :address_locality,
                 :address_region,
@@ -135,6 +133,24 @@ class Member < ActiveRecord::Base
 
   def organization_name=(value)
     @organization_name = value.try(:strip)
+  end
+
+  def contact_name
+    @contact_name || name.presence
+  end
+
+  def telephone
+    @telephone || phone.presence
+  end
+
+  def contact_name=(value)
+    @contact_name = value
+    self.name = value if individual?
+  end
+
+  def telephone=(value)
+    @telephone = value
+    self.phone = value if individual?
   end
 
   def stripe_customer
