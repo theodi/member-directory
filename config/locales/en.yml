@@ -2,6 +2,8 @@
 # See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 en:
+  credit_card: "Credit / debit card"
+  invoice: "Annual invoice"
   agreed_to_terms: I have read and agree to the terms and conditions of membership
   formats:
     json: JSON
