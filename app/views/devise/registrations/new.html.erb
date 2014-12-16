@@ -79,8 +79,10 @@
       $('#member_organization_company_number').change(function(e){
         $('#company-number').text(e.target.value);
       });
+      <% unless params[:action] == 'new' %>
       update_name();
       update_address();
+      <% end %>
     });
   </script>
 </div>
