@@ -68,6 +68,7 @@ ActiveRecord::Schema.define(:version => 20141216144552) do
     t.string   "organization_size"
     t.string   "name"
     t.string   "phone"
+    t.text     "address"
   end
 
   add_index "members", ["email"], :name => "members_index_members_on_email"

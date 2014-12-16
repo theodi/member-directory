@@ -11,7 +11,7 @@ class Member < ActiveRecord::Base
   accepts_nested_attributes_for :organization
   attr_accessible :organization_attributes
 
-  before_create :set_membership_number
+  before_create :set_membership_number, :set_address
   before_validation :set_defaults
 
   devise :database_authenticatable, :registerable,
@@ -46,7 +46,8 @@ class Member < ActiveRecord::Base
                   :agreed_to_terms,
                   :payment_method,
                   :payment_frequency,
-                  :remote
+                  :remote,
+                  :address
 
   attr_accessor :organization_name,
                 :organization_type,
@@ -192,6 +193,16 @@ class Member < ActiveRecord::Base
         self.membership_number = generate_membership_number
       end while self.class.exists?(membership_number: membership_number)
     end
+  end
+
+  def set_address
+    self.address = [
+      street_address,
+      address_locality,
+      address_region,
+      address_country,
+      postal_code
+    ].compact.join("\n")
   end
 
   after_create :add_to_queue, :setup_organization, :save_membership_id_in_capsule

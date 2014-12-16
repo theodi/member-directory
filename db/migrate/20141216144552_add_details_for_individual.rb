@@ -3,6 +3,7 @@ class AddDetailsForIndividual < ActiveRecord::Migration
     change_table :members do |t|
       t.string :name
       t.string :phone
+      t.text :address
     end
   end
 end
