@@ -9,12 +9,12 @@
     |-|-|
     | Effective Date | means <%= Date.today.to_formatted_s(:long_ordinal) %> |
     | End Date | means the date that this Agreement ends |
-	| Confidential Information | means all information marked as confidential, however recorded or preserved, disclosed by a party or its employees, officers, representatives or advisors, to the other party during the Term |
-	| ODI | means the Open Data Institute, a company registered in England and Wales with company number 08030289 and whose registered office is 3rd Floor, 65 Clifton Street, London, EC2A 4JE |
-	| Subscription Fee | <%= annual_product_price %> per annum for commercial organisations with 249 employees or fewer, academic institutions, not-for-profits, charities and Government organisations; or <%= annual_product_price :corporate %> per annum for commercial organisations with 250 employees or more |
-	| <%= @product_name %> | means a category of membership to the ODI |
-	| Term | means the term of this Agreement, commencing on the Effective Date and expiring on the End Date (inclusive) |
-	| You/Your | means <span class='legal-name'>(name)</span> <span id='company-details' style='display:none'>being a company registered in England and Wales with company number <span id='company-number'>(company number)</span> and whose registered office is <span class='legal-address'>(address)</span></span><span id='individual-details'> of <span class='legal-address'>(address)</span> |
+    | Confidential Information | means all information marked as confidential, however recorded or preserved, disclosed by a party or its employees, officers, representatives or advisors, to the other party during the Term |
+    | ODI | means the Open Data Institute, a company registered in England and Wales with company number 08030289 and whose registered office is 3rd Floor, 65 Clifton Street, London, EC2A 4JE |
+    | Subscription Fee | <%= annual_product_price %> per annum for commercial organisations with 249 employees or fewer, academic institutions, not-for-profits, charities and Government organisations; or <%= annual_product_price :corporate %> per annum for commercial organisations with 250 employees or more |
+    | <%= @product_name %> | means a category of membership to the ODI |
+    | Term | means the term of this Agreement, commencing on the Effective Date and expiring on the End Date (inclusive) |
+    | You/Your | means <span class='legal-name'>(name)</span> <span id='company-details' style='display:none'>being a company registered in England and Wales with company number <span id='company-number'>(company number)</span> and whose registered office is <span class='legal-address'>(address)</span></span><span id='individual-details'> of <span class='legal-address'>(address)</span> |
     | VAT | means value added tax chargeable under the Value Added Tax Act 1994 |
 	
 
