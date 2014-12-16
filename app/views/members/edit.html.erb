@@ -69,10 +69,12 @@
       </div>
     </div>
 
-
-    <%= form_field f, :cached_newsletter do %>
-      <%= f.check_box :cached_newsletter %>
-    <% end %>
+    <div class="control-group">
+      <div class="controls">
+  		  <label class='checkbox'>
+          <%= f.check_box :cached_newsletter %> <%= t(:cached_newsletter, scope: 'activerecord.attributes.member') %>
+        </label>
+  	</div>
 
   </fieldset>
 
