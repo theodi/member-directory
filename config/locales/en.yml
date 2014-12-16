@@ -3,6 +3,7 @@
 
 en:
   agreed_to_terms: I have read and agree to the terms and conditions of membership
+  agreed_to_datapolicy: I have read and agree to the data protection policy
   credit_card: Credit / Debit card
   formats:
     json: JSON

@@ -44,6 +44,7 @@ class Member < ActiveRecord::Base
                   :card_expiry_year,
                   :purchase_order_number,
                   :agreed_to_terms,
+                  :agreed_to_datapolicy,
                   :payment_method,
                   :payment_frequency,
                   :remote,
@@ -64,6 +65,7 @@ class Member < ActiveRecord::Base
                 :card_expiry_year,
                 :purchase_order_number,
                 :agreed_to_terms,
+                :agreed_to_datapolicy,
                 :payment_method,
                 :payment_frequency
 
@@ -81,6 +83,7 @@ class Member < ActiveRecord::Base
   validates :postal_code, presence: true, on: :create
   validates :payment_method, presence: true, on: :create
   validates_acceptance_of :agreed_to_terms, on: :create
+  validates_acceptance_of :agreed_to_datapolicy, on: :create, if: :individual?
 
   after_validation :stripe_payment
 

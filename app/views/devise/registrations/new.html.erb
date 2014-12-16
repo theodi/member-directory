@@ -91,6 +91,14 @@
           <%= f.check_box :agreed_to_terms %> <%= t(:agreed_to_terms) %>
         </label>
   	</div>
+    <% if individual? %>
+    <div class="control-group">
+      <div class="controls">
+  		  <label class='checkbox'>
+          <%= f.check_box :agreed_to_datapolicy %> <%= t(:agreed_to_datapolicy) %>
+        </label>
+  	</div>
+    <% end %>
 
   </fieldset>
 
