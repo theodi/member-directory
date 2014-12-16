@@ -18,7 +18,8 @@ en:
       unconfirmed: "You have to confirm your account before continuing."
     mailer:
       confirmation_instructions:
-        subject: "Welcome to the ODI community!"
+        subject: "Welcome to the ODI network!
+"
       reset_password_instructions:
         subject: "Open Data Institute: Password reset instructions"
       unlock_instructions:
