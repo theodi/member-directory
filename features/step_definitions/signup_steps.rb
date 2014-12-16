@@ -197,6 +197,6 @@ Then(/^I should see today's date$/) do
 end
 
 When(/^I choose to pay by invoice$/) do
-  choose('Invoice')
+  choose('Annual invoice')
   @payment_method = 'invoice'
 end

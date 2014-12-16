@@ -1,5 +1,5 @@
 When(/^I choose to pay by credit card$/) do
-  choose('Credit Card')
+  choose('Credit / debit card')
   @payment_method = 'credit_card'
   @payment_ref = /cus_[0-9A-Za-z]{14}/
 end
