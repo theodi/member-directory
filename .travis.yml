@@ -3,7 +3,7 @@ sudo: false
 cache: bundler
 rvm:
 - 1.9.3
-before_script: bundle exec rake db:schema:load
+before_script: cp config/database.example.yml config/database.yml && bundle exec rake db:schema:load
 services: redis
 after_success:
 - ! '[ "$TRAVIS_BRANCH" == "master" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ] && curl -v -X DELETE -u $GITHUB_USER:$GITHUB_PASSWORD

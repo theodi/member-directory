@@ -10,6 +10,8 @@
 # Ignore all logfiles and tempfiles.
 /log/*.log
 /tmp
+
+config/database.yml
 /.env
 /.powrc
 .idea/
@@ -20,6 +22,7 @@
 .chef/*secrets*
 .vagrant
 /public/uploads/
+/public/logos/
 /.env.development
 /.env.production
 /.env.test

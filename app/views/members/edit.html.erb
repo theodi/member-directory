@@ -56,9 +56,14 @@
   <fieldset>
     <legend>Badge</legend>
 
-    <p>Tell the world about your ODI membership. <a href="#badgeContent" data-toggle="modal">Display a badge</a> on your site.</p>
+    <p>
+      Tell the world about your ODI membership.
+      <a id="badge-embed" href="#badgeContent" data-toggle="modal">Display a badge</a> on your site or
+      <a id="badge-download" href="#badgeDownload" data-toggle="modal">download an image of your badge</a>.
+    </p>
 
     <%= render(:partial => 'badge_form') %>
+    <%= render(:partial => 'badge_download') %>
   </fieldset>
 
   <% if @member.organization? %>
