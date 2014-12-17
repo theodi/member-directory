@@ -31,6 +31,7 @@ Feature: Signup as an individual member
     And I enter my details
     And I enter valid credit card details
     And I agree to the data protection policy
+    And I should see a link to the right to cancel
     Then my details should be queued for further processing
     When I click sign up
     Then my card should be charged successfully

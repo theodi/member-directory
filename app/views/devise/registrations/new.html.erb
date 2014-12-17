@@ -111,7 +111,12 @@
   </fieldset>
 
   <div class="form-actions">
+    <p>
     <%= f.submit (individual? ? "Pay now" : "Become an ODI member"), :id => 'submit', :class => 'btn btn-primary btn-large' %>
+    </p>
+    <% if individual? %>
+      <p>You have a <%= link_to 'right to cancel', right_to_cancel_members_path %> anytime.</p>
+    <% end %>
   </div>
 
 <% end %>

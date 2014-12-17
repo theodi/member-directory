@@ -78,3 +78,6 @@ Then /^I should get an error telling me to accept the data protection policy$/ d
   page.should have_content "Please read and agree to our data protection policy"
 end
 
+Then /^I should see a link to the right to cancel$/ do
+  find_link("right to cancel").should be_visible
+end

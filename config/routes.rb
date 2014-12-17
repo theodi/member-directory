@@ -28,6 +28,9 @@ MemberDirectory::Application.routes.draw do
     member do
       get :badge, defaults: {format: :js}
     end
+    collection do
+      get 'right-to-cancel', to: :right_to_cancel, as: :right_to_cancel
+    end
   end
 
   root :to => redirect("/members")
