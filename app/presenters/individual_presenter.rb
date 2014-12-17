@@ -11,7 +11,7 @@ class IndividualPresenter
   end
 
   def address
-    addr = member.address.split("\n").join(",")
+    addr = member.address.split("\n").join(", ")
     content_tag(:span, addr, class: 'legal-address')
   end
 
