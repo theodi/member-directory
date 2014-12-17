@@ -69,3 +69,12 @@ Then /^I should see my details$/ do
   page.should have_field('member_email', with: @email) 
   page.should have_field('member_telephone', with: @telephone) 
 end
+
+Then /^I agree to the data protection policy$/ do
+  check("member_agreed_to_datapolicy")
+end
+
+Then /^I should get an error telling me to accept the data protection policy$/ do
+  page.should have_content "Please read and agree to our data protection policy"
+end
+
