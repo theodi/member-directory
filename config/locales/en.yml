@@ -69,7 +69,7 @@ en:
         comment_text: "Your Interest"
   capsule_signup_mailer:
     confirmation:
-      subject: "Welcome to the ODI community!"
+      subject: "Welcome to the ODI network!"
   error_mailer:
     membership_number_generation_failed:
       subject: "Membership Number Error"
