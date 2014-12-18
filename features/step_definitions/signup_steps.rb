@@ -183,7 +183,7 @@ Then /^a welcome email should be sent to me$/ do
     When they open the email
     And they should see the email delivered from "members@theodi.org"
     And they should see "Welcome to the ODI network!" in the email subject
-    And they should see "Your membership number is <strong>#{@membership_number}</strong>." in the email body
+    And they should see "Your membership number is <strong>#{@membership_number}</strong>" in the email body
     And they should see "Georgia, Carl, Andrea, Clara and Patrik" in the email body
     And they should see "mailto:members@theodi.org" in the email body
   }
