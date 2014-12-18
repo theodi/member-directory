@@ -18,19 +18,19 @@ gem 'rails_admin'
 # Lock ruby-openid to a particular version to resolve login problems.
 # Reasons described in https://github.com/sishen/omniauth-google-apps/issues/6.
 # We need ruby-openid to fix https://github.com/openid/ruby-openid/issues/51 before we can go back on the mainline.
-gem "ruby-openid", :git => "git://github.com/kendagriff/ruby-openid.git", :ref => "79beaa419d4754e787757f2545331509419e222e"
+gem "ruby-openid", github: "kendagriff/ruby-openid", :ref => "79beaa419d4754e787757f2545331509419e222e"
 gem 'omniauth-google-apps'
 
 # We use this version as the original gem only allows Rails up to 3.0.11
-gem 'data_migrate', :git => 'https://github.com/doublewide/data-migrate.git'
+gem 'data_migrate', github: 'doublewide/data-migrate'
 
 gem 'validate_url'
 
 # Manually specify some dependencies so we use our own version
-gem 'xeroizer', :git => 'https://github.com/theodi/xeroizer.git'
-gem 'capsulecrm', :git => 'https://github.com/theodi/capsulecrm.git'
+gem 'xeroizer', github: 'theodi/xeroizer'
+gem 'capsulecrm', github: 'theodi/capsulecrm'
 
-gem 'open-orgn-services', :git =>  'https://github.com/theodi/open-orgn-services.git'
+gem 'open-orgn-services', github: 'theodi/open-orgn-services'
 
 gem 'rack-google-analytics'
 
@@ -71,7 +71,7 @@ gem 'zeroclipboard-rails'
 
 
 group :development, :test do
-  gem 'cucumber-rails', :require => false
+  gem 'cucumber-rails', require: false
   gem 'database_cleaner'
   gem 'rspec-rails'
   gem 'guard-cucumber'
@@ -84,7 +84,7 @@ group :development, :test do
   gem 'mailcatcher'
   gem 'simplecov-rcov'
   gem 'travis'
-  gem 'rspec-html-matchers', :require => false, :git => 'git@github.com:theodi/rspec-html-matchers.git'
+  gem 'rspec-html-matchers', require: false, github: 'theodi/rspec-html-matchers'
   gem 'csvlint'
 end
 

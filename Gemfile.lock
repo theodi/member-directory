@@ -1,4 +1,11 @@
 GIT
+  remote: git://github.com/doublewide/data-migrate.git
+  revision: 972cedae91e035578b0141b1ac28c2730b07fcdc
+  specs:
+    data_migrate (1.2.0)
+      rails (>= 3.0.0, < 3.3)
+
+GIT
   remote: git://github.com/kendagriff/ruby-openid.git
   revision: 79beaa419d4754e787757f2545331509419e222e
   ref: 79beaa419d4754e787757f2545331509419e222e
@@ -13,29 +20,7 @@ GIT
       countries (~> 0.9, >= 0.9.3)
 
 GIT
-  remote: git@github.com:theodi/rspec-html-matchers.git
-  revision: 11a5855c21376a8f88241b6680457b77b552742d
-  specs:
-    rspec-html-matchers (0.6.1.theodi)
-      nokogiri (~> 1)
-      rspec (~> 3)
-
-GIT
-  remote: https://github.com/doublewide/data-migrate.git
-  revision: 972cedae91e035578b0141b1ac28c2730b07fcdc
-  specs:
-    data_migrate (1.2.0)
-      rails (>= 3.0.0, < 3.3)
-
-GIT
-  remote: https://github.com/theodi/alternate-rails.git
-  revision: 83a5b8b73655283b2d9729eeae848488881eecc4
-  specs:
-    alternate_rails (0.0.2)
-      rails (>= 3.2.13)
-
-GIT
-  remote: https://github.com/theodi/capsulecrm.git
+  remote: git://github.com/theodi/capsulecrm.git
   revision: 5351f3995366a2ecaff018776886fc1a115461ee
   specs:
     capsulecrm (0.0.4)
@@ -44,8 +29,8 @@ GIT
       httparty (>= 0.7.4)
 
 GIT
-  remote: https://github.com/theodi/open-orgn-services.git
-  revision: cf18917b569da5609184b2b359b67011244f5a45
+  remote: git://github.com/theodi/open-orgn-services.git
+  revision: f76710c4678687d8e385ed64c0f25ea2c0cb5ddd
   specs:
     open-orgn-services (0.0.0)
       activemodel (~> 3.2, >= 3.2.12)
@@ -65,7 +50,15 @@ GIT
       xeroizer (~> 2.15, >= 2.15.3)
 
 GIT
-  remote: https://github.com/theodi/xeroizer.git
+  remote: git://github.com/theodi/rspec-html-matchers.git
+  revision: 11a5855c21376a8f88241b6680457b77b552742d
+  specs:
+    rspec-html-matchers (0.6.1.theodi)
+      nokogiri (~> 1)
+      rspec (~> 3)
+
+GIT
+  remote: git://github.com/theodi/xeroizer.git
   revision: 7c86c917eaf515bcec012ea0fbf682669d50fbaa
   specs:
     xeroizer (2.15.3)
@@ -74,6 +67,13 @@ GIT
       i18n
       nokogiri
       oauth (~> 0.4.5)
+
+GIT
+  remote: https://github.com/theodi/alternate-rails.git
+  revision: 83a5b8b73655283b2d9729eeae848488881eecc4
+  specs:
+    alternate_rails (0.0.2)
+      rails (>= 3.2.13)
 
 GEM
   remote: https://rubygems.org/
@@ -391,7 +391,7 @@ GEM
     rdiscount (2.1.7.1)
     rdoc (3.12.2)
       json (~> 1.4)
-    redis (3.1.0)
+    redis (3.2.0)
     redis-namespace (1.5.1)
       redis (~> 3.0, >= 3.0.4)
     remotipart (1.2.1)
