@@ -1,8 +1,6 @@
 require 'vcr'
 require 'webmock/cucumber'
 
-WebMock.disable_net_connect!(:allow => 'lon.auth.api.rackspacecloud.com')
-
 VCR.configure do |c|
   # Automatically filter all secure details that are stored in the environment
   ignore_env = %w(
@@ -16,6 +14,7 @@ VCR.configure do |c|
   c.cassette_library_dir = 'fixtures/vcr_cassettes'
   c.hook_into :webmock
   c.ignore_localhost = true
+  c.ignore_hosts 'lon.auth.api.rackspacecloud.com'
   c.ignore_request do |request|
     URI(request.uri).host =~ %r{.*\.clouddrive\.com.*}
   end
