@@ -7,6 +7,10 @@ module MembersHelper
     truncate(summary, :length => 300, :separator => " ", :omission => " ...")
   end
 
+  def highlight(text, search)
+    super(text, search, :highlighter => '<mark>\1</mark>')
+  end
+
   def get_colour(colour)
     {
       'black' => '#000',
@@ -31,6 +35,18 @@ module MembersHelper
       'sponsor' => 'green',
       'supporter' => 'orange',
     }
+  end
+
+  def badge_download_colours(member)
+    if member_colour(member) == 'orange'
+      %w[black grey orange]
+    else
+      %w[black grey]
+    end
+  end
+
+  def pagination_item(content, active)
+    content_tag(:li, content, class: ('active' if active))
   end
 
 end

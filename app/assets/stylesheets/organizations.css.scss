@@ -53,3 +53,23 @@ span.contact-point-description {
 #organization-details input:required, #organization-details textarea:required {
 	background-color: #FFC;
 }
+
+.alpha-group.pagination {
+  ul {
+    box-shadow: none;
+  }
+
+  li > a {
+    border: none;
+  }
+
+  .active > a {
+    background: transparent;
+  }
+}
+
+.organization mark {
+  font-weight: normal;
+  background: #e5e5e5;
+  color: inherit;
+}

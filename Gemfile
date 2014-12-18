@@ -3,7 +3,7 @@ source 'https://rubygems.org'
 #ruby=ruby-1.9.3
 #ruby-gemset=member-directory
 
-gem 'rails', '~> 3.2.12'
+gem 'rails', '~> 3.2.18'
 
 gem 'sqlite3'
 gem 'devise', '~> 2.2.4'
@@ -38,6 +38,7 @@ gem 'airbrake'
 gem 'rdiscount'
 gem 'stripe'
 gem 'country_select', github: 'stefanpenner/country_select'
+gem 'ransack'
 
 # Gems used only for assets and not required
 # in production environments by default.

@@ -111,6 +111,10 @@ class Member < ActiveRecord::Base
     product_name == "supporter"
   end
 
+  def organization_name=(value)
+    @organization_name = value.try(:strip)
+  end
+
   def stripe_customer
     Stripe::Customer.retrieve(stripe_customer_id) if stripe_customer_id
   end
@@ -121,6 +125,10 @@ class Member < ActiveRecord::Base
     else
       read_attribute(:product_name)
     end
+  end
+
+  def self.founding_partner_id
+    ENV['FOUNDING_PARTNER_ID']
   end
 
   def register_embed(referrer)

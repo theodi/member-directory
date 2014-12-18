@@ -3,8 +3,6 @@ class ApplicationController < ActionController::Base
 
   before_filter :set_content_location_header
 
-  before_filter :set_formats, :only => [:logo]
-
   def set_content_location_header
     if request.format
       extension = '.' + request.format.symbol.to_s
@@ -14,16 +12,14 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def logo
-    @colour = params[:colour]
-    if ['small', 'medium', 'large'].include?(params[:size])
-      render "logos/#{params[:level]}-standard", format: :svg
-    else
-      render "logos/#{params[:level]}-mini", format: :svg
-    end
-  end
-
   private
+
+  def set_formats
+    @size = params[:size] if ['mini', 'small', 'medium', 'large'].include?(params[:size])
+    @align = params[:align] if ['left', 'right', 'top-left', 'top-right', 'bottom-left', 'bottom-right'].include?(params[:align])
+    @colour = params[:colour] if ['black', 'blue', 'red', 'crimson', 'orange', 'green', 'pomegranate', 'grey'].include?(params[:colour])
+    @level = params[:level] if %w[partner supporter].include?(params[:level])
+  end
 
   def after_sign_in_path_for(resource)
     resource.is_a?(Member) ? member_path(resource) : members_path
@@ -37,11 +33,5 @@ class ApplicationController < ActionController::Base
     (organization.member == current_member) || current_admin
   end
   helper_method :editable?
-
-  def set_formats
-    @size = params[:size] if ['mini', 'small', 'medium', 'large'].include?(params[:size])
-    @align = params[:align] if ['left', 'right', 'top-left', 'top-right', 'bottom-left', 'bottom-right'].include?(params[:align])
-    @colour = params[:colour] if ['black', 'blue', 'red', 'crimson', 'orange', 'green', 'pomegranate', 'grey'].include?(params[:colour])
-  end
 
 end
