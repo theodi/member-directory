@@ -91,8 +91,8 @@ end
 
 group :test do
   gem 'poltergeist'
-  gem 'vcr'
-  gem 'webmock'
+  gem 'vcr', require: false
+  gem 'webmock', require: false
 end
 
 group :production do
