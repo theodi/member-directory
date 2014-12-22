@@ -105,17 +105,17 @@ Then /^my details should be cached correctly$/ do
 end
 
 Then /^nothing should be placed on the queue$/ do
-  Resque.should_not_receive(:enqueue)
+  expect(Resque).not_to receive(:enqueue)
 end
 
 Then /^nothing should be placed on the signup queue$/ do
-  Resque.should_not_receive(:enqueue).with do |*args|
+  expect(Resque).not_to receive(:enqueue) do |*args|
     args[0] == SignupProcessor
   end
 end
 
 Then /^my membership number should be stored in CapsuleCRM$/ do
-  Resque.should_receive(:enqueue).with do |*args|
+  expect(Resque).to receive(:enqueue) do |*args|
     args[0].should == SaveMembershipIdInCapsule
     args[1].should == @organization_name
     args[2].should == Member.where(email: @email).first.membership_number
