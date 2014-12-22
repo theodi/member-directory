@@ -128,7 +128,7 @@ Then /^my details should be queued for further processing$/ do
     }
   }
 
-  Resque.should_receive(:enqueue).with do |*args|
+  expect(Resque).to receive(:enqueue) do |*args|
     args[0].should == SignupProcessor
     args[1].should == organization
     args[2].should == contact_person
