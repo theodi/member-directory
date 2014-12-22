@@ -29,6 +29,7 @@ gem 'validate_url'
 # Manually specify some dependencies so we use our own version
 gem 'xeroizer', github: 'theodi/xeroizer'
 gem 'capsulecrm', github: 'theodi/capsulecrm'
+gem 'eventbrite-client', github: 'theodi/eventbrite-client.rb', branch: 'update-dependencies'
 
 gem 'open-orgn-services', github: 'theodi/open-orgn-services'
 
