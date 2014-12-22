@@ -19,13 +19,13 @@ describe BadgeController do
     it 'returns image data from assets' do
       badge = File.read('app/assets/images/badges/black/170px.png', encoding: 'binary')
       get :badge, colour: 'black', size: '170px', level: 'supporter'
-      expect(response.body == badge).to be_true, "images don't match"
+      expect(response.body == badge).to eq(true), "images don't match"
     end
 
     it 'returns the orange mini image data' do
       badge = File.read('app/assets/images/badges/orange/16px.png', encoding: 'binary')
       get :badge, colour: 'orange', size: '16px', level: 'supporter'
-      expect(response.body == badge).to be_true, "images don't match"
+      expect(response.body == badge).to eq(true), "images don't match"
     end
 
     it 'has a content disposition of attachment' do

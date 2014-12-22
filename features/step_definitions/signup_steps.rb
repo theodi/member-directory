@@ -128,17 +128,17 @@ Then /^my details should be queued for further processing$/ do
     }
   }
 
-  Resque.should_receive(:enqueue).with do |*args|
-    args[0].should == SignupProcessor
-    args[1].should == organization
-    args[2].should == contact_person
-    args[3].should == billing
-    args[4]['payment_method'].should == @payment_method
-    args[4]['payment_freq'].should == @payment_frequency
-    args[4]['payment_ref'].should =~ @payment_ref if @payment_ref
-    args[4]['offer_category'].should == @product_name
-    args[4]['membership_id'].should_not be_nil
-    args[4]['purchase_order_reference'].should == @purchase_order_number
+  expect(Resque).to receive(:enqueue) do |*args|
+    expect(args[0]).to eql SignupProcessor
+    expect(args[1]).to eql organization
+    expect(args[2]).to eql contact_person
+    expect(args[3]).to eql billing
+    expect(args[4]['payment_method']).to eql @payment_method
+    expect(args[4]['payment_freq']).to eql @payment_frequency
+    expect(args[4]['payment_ref']).to match @payment_ref if @payment_ref
+    expect(args[4]['offer_category']).to eql @product_name
+    expect(args[4]['membership_id']).not_to eql nil
+    expect(args[4]['purchase_order_reference']).to eql @purchase_order_number
   end
 end
 

@@ -3,12 +3,14 @@ sudo: false
 cache: bundler
 rvm:
 - 1.9.3
-before_script: cp config/database.example.yml config/database.yml && bundle exec rake db:schema:load
+before_script: cp config/database.example.yml config/database.yml && bundle exec rake
+  db:schema:load
 services: redis
 after_success:
-- ! '[ "$TRAVIS_BRANCH" == "master" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ] && curl -v -X DELETE -u $GITHUB_USER:$GITHUB_PASSWORD
-  "https://api.github.com/repos/$TRAVIS_REPO_SLUG/git/refs/tags/CURRENT"'
-- ! '[ "$TRAVIS_BRANCH" == "master" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ] && curl -v -X POST -d ''{"ref":"refs/tags/CURRENT","sha":"''$TRAVIS_COMMIT''"}''  --header
+- ! '[ "$TRAVIS_BRANCH" == "master" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ] &&
+  curl -v -X DELETE -u $GITHUB_USER:$GITHUB_PASSWORD "https://api.github.com/repos/$TRAVIS_REPO_SLUG/git/refs/tags/CURRENT"'
+- ! '[ "$TRAVIS_BRANCH" == "master" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ] &&
+  curl -v -X POST -d ''{"ref":"refs/tags/CURRENT","sha":"''$TRAVIS_COMMIT''"}''  --header
   "Content-Type:application/json" -u $GITHUB_USER:$GITHUB_PASSWORD "https://api.github.com/repos/$TRAVIS_REPO_SLUG/git/refs"'
 branches:
   except:
@@ -38,3 +40,4 @@ env:
   - secure: MiZJ+pmU5stria23Cbf5AZEmMtSJmTyQAoFHY18n0MbcJbUHCquiG7E2HhzM6h9vvBnSBF1dKEV6p5XlZNs06MRvId/R4qkb8OL35QVqbQyrot7RHBlKaBaAeKrHheYNi4Sm5FiAOmCt6xgu9sMcdcVfDwJLEnjJyZHZzUuxWyI=
   - STRIPE_API_KEY=fakeapikey
   - FOUNDING_PARTNER_ID=NU4997LN
+  - secure: AU7M7tWv2LOj/CHO/cr0l92+GxK1IQ/1u8cPIIl4huP7VbPw+8KUg0BiB6RT0FZ2+Himd1DyfGFwlTGUXlskCHnW3uNXBOYz++kmGkRwvNJaxxgQ114KyD2NkAfNSH2h9hWgMtE73rUcbXQJXw9pPuxKUOqe1opi0tSL4/e24f8=
