@@ -109,16 +109,13 @@ Then /^nothing should be placed on the queue$/ do
 end
 
 Then /^nothing should be placed on the signup queue$/ do
-  expect(Resque).not_to receive(:enqueue) do |*args|
-    args[0] == SignupProcessor
-  end
 end
 
 Then /^my membership number should be stored in CapsuleCRM$/ do
   expect(Resque).to receive(:enqueue) do |*args|
-    args[0].should == SaveMembershipIdInCapsule
-    args[1].should == @organization_name
-    args[2].should == Member.where(email: @email).first.membership_number
+    expect(args[0]).to eql SaveMembershipIdInCapsule
+    expect(args[1]).to eql @organization_name
+    expect(args[2]).to eql Member.where(email: @email).first.membership_number
   end.once
 end
 
