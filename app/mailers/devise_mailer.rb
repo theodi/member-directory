@@ -1,5 +1,5 @@
 class DeviseMailer < Devise::Mailer
-  
+
   add_template_helper(ApplicationHelper)
 
   def headers_for(action, opts)
@@ -16,10 +16,6 @@ class DeviseMailer < Devise::Mailer
       attachments['terms-and-conditions.html'] = {
         mime_type: 'text/html',
         content: document_renderer.terms_and_conditions(record)
-      }
-      attachments['data-protection-policy.html'] = {
-        mime_type: 'text/html',
-        content: document_renderer.data_protection_policy(record)
       }
     end
     super

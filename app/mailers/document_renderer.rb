@@ -14,7 +14,4 @@ class DocumentRenderer
     @view.render :partial => 'devise/registrations/individual_terms', locals: { member: presenter }
   end
 
-  def data_protection_policy(member)
-    @view.render :partial => 'devise/registrations/data_protection_policy'
-  end
 end
