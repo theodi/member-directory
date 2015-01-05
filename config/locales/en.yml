@@ -26,7 +26,7 @@ en:
         address_region: "Region"
         address_country: "Country"
         postal_code: "Postcode"
-        organization_company_number: "Company Number"
+        organization_company_number: "Company / Charity Number"
         organization_vat_id: "VAT Number (if not UK)"
         purchase_order_number: "Purchase Order Number"
         password: "Password"
