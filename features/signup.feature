@@ -103,7 +103,6 @@ Feature: Add new signups to queue
     And I enter my details
     Then I should see "means FooBar Inc being"
     And I should see "with number 012345678"
-    And I should see "whose principal office is 123 Fake Street, Faketown, Fakeshire, United Kingdom, FAKE 123"
+    And I should see "whose principal address is 123 Fake Street, Faketown, Fakeshire, United Kingdom, FAKE 123"
     And I should see "£720 per annum + VAT for SME & Non Profit Supporters"
     And I should see "or £2,200 per annum + VAT for Corporate Supporters"
-    And I should see today's date
