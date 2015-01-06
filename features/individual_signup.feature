@@ -18,7 +18,6 @@ Feature: Signup as an individual member
     Given I want to sign up as an individual member
     When I visit the signup page
     And I enter my details
-    And I agree to the data protection policy
     Then I should see "This Agreement is made between Ian McIain"
     And I should see "means Ian McIain of 123 Fake Street, Faketown, Fakeshire, United Kingdom, FAKE 123"
     And I should see today's date
@@ -30,7 +29,6 @@ Feature: Signup as an individual member
     When I visit the signup page
     And I enter my details
     And I enter valid credit card details
-    And I agree to the data protection policy
     And I should see a link to the right to cancel
     Then my details should be queued for further processing
     When I click sign up
@@ -47,15 +45,5 @@ Feature: Signup as an individual member
     When I visit the signup page
     And I enter my details
     And I enter valid credit card details
-    And I agree to the data protection policy
     And I click sign up
     Then I should not have an organisation assinged to me
-
-  Scenario: Indivudial member tries to sign up, but doesn't agree to the data protection policy
-
-    Given I want to sign up as an individual member
-    When I visit the signup page
-    And I enter my details
-    And I enter valid credit card details
-    When I click sign up
-    And I should get an error telling me to accept the data protection policy

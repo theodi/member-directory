@@ -3,17 +3,10 @@
 
 en:
   agreed_to_terms: I have read and agree to the terms and conditions of membership
-  agreed_to_datapolicy: I have read and agree to the data protection policy
   credit_card: Credit / Debit card
   formats:
     json: JSON
   activerecord:
-    errors:
-      models:
-        member:
-          attributes:
-            agreed_to_datapolicy:
-              accepted: "Please read and agree to our data protection policy"
     models:
       member: Member
       organization: Organisation
@@ -42,7 +35,6 @@ en:
         card_validation_code: CVC
         card_expiry_month: Expiry month
         card_expiry_year: Expiry year
-        agreed_to_datapolicy: ""
       organization:
         name: "Organisation Name"
         url: "Homepage"
