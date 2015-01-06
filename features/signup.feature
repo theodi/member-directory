@@ -39,14 +39,15 @@ Feature: Add new signups to queue
     And I should see an error relating to <text>
 
     Examples:
-			| field 								| text             |
-			| contact_name 					| Your Name        |
-			| street_address 				| Address          |
-			| address_locality 			| City             |
-			| postal_code 			    | Postcode         |
+			| field 								| text              |
+			| contact_name 					| Your Name         |
+			| street_address 				| Address           |
+			| address_locality 			| City              |
+			| postal_code 			    | Postcode          |
       | organization_size     | Organisation size |
       | organization_type     | Organisation type |
-#			| address_country 			| Country          |
+      | organization_sector   | Industry sector   |
+#			| address_country 			| Country           |
 
   Scenario: Member tries to sign up, but doesn't agree to the terms
 
@@ -89,6 +90,7 @@ Feature: Add new signups to queue
     And I enter my details
     And I choose to pay by invoice
     And my organisation name is "Doge Enterprises Inc. "
+    But my organisation name is expected to be "Doge Enterprises Inc."
     Then my details should be queued for further processing
     When I click sign up
     And I should have a membership number generated

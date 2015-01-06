@@ -2,23 +2,27 @@ class MembersController < ApplicationController
   respond_to :html, :json
 
   before_filter :get_member, :except => [:index]
-  before_filter :set_formats, :only => [:badge]
+  before_filter :set_formats, :log_embed, :only => [:badge]
 
   before_filter(:only => [:index, :show]) {alternate_formats [:json]}
 
   def index
+    @organizations = Organization.active.display_order
+
     if params[:level]
-      @organizations = Organization.includes(:member).where(:'members.cached_active' => true, :'members.product_name' => params[:level].downcase)
-    else
-      @organizations = []
-      # Make sure we get the founding partner first
-      @organizations << Organization.includes(:member).where(:'members.membership_number' => ENV['FOUNDING_PARTNER_ID']).first
-      ['partner','sponsor','member','supporter'].each do |level|
-        @organizations << Organization.includes(:member).where(:'members.cached_active' => true, :'members.product_name' => level)
-                          .where('members.membership_number != ?', ENV['FOUNDING_PARTNER_ID'])
-                          .order(:name)
-      end
-      @organizations.flatten!
+      @organizations = @organizations.for_level(params[:level].downcase)
+    end
+
+    @groups = @organizations.alpha_groups
+
+    if @search = params[:q]
+      @organizations = @organizations.search(
+        m: 'or',
+        name_cont: @search,
+        description_cont: @search
+      ).result
+    elsif @alpha = params[:alpha]
+      @organizations = @organizations.in_alpha_group(@alpha)
     end
 
     respond_with(@organizations)
@@ -80,6 +84,12 @@ class MembersController < ApplicationController
     # Get member
     @member = Member.where(:membership_number => params[:id]).first
     raise ActiveRecord::RecordNotFound and return if @member.nil?
+  end
+
+  def log_embed
+    unless request.referer =~ /https?:\/\/#{request.host_with_port}./
+      @member.register_embed(request.referer)
+    end
   end
 
 end

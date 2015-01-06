@@ -58,3 +58,9 @@ end
 Then /^I should have recieve an error$/ do
   page.should have_content "Invalid membership number or password"
 end
+
+Given(/^my size and sector are not set$/) do
+  @membership.organization_size = nil
+  @membership.organization_sector = nil
+  @membership.save(validate: false)
+end

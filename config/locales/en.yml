@@ -20,6 +20,7 @@ en:
         organization_name: "Organisation Name"
         organization_size: "Organisation size"
         organization_type: "Organisation type"
+        organization_sector: "Industry sector"
         telephone: "Contact Number"
         street_address: "Address"
         address_locality: "City"

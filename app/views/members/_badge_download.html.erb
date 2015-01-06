@@ -1,0 +1,68 @@
+<div class="modal fade" id="badgeDownload" tabindex="-1" role="dialog" aria-labelledby="badge-download" aria-hidden="true" style="display: none">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button>
+        <h3 class="modal-title">Download your badge as an image</h3>
+      </div>
+
+      <div class="modal-body">
+
+        <div class="control-group">
+          <label class="control-label" for="size">Badge height</label>
+          <div class="controls">
+            <% %w[170px 100px 80px 16px].each_with_index do |size, i| %>
+              <label class="radio inline">
+                <%= radio_button_tag("size", size, i == 0, class: "size") %>
+                <%= size.titleize %>
+              </label>
+            <% end %>
+          </div>
+        </div>
+
+        <div class="control-group">
+          <label class="control-label" for="colour">Badge colour</label>
+          <div class="controls">
+            <% badge_download_colours(@member).each_with_index do |colour, i| %>
+              <label class="radio inline">
+                <%= radio_button_tag("colour", colour, i == 0, class: "colour") %>
+                <%= colour.titleize %>
+              </label>
+            <% end %>
+          </div>
+        </div>
+
+        <div class="row-fluid">
+
+          <div class="preview well">
+            <div class="image-padding">
+              <%= image_tag "badges/black/170px.png", id: 'download-preview' %>
+            </div>
+            <p>
+              <%= link_to "Download", "badges/black/170px.png", id: 'download-link' %>
+            </p>
+          </div>
+
+        </div>
+
+        <script type="text/javascript">
+          $(document).ready(function() {
+            $('#badgeDownload .size, #badgeDownload .colour').click(function() {
+
+              var size = $('.size:checked').val(),
+                  colour = $('.colour:checked').val();
+
+              var img_path = '/assets/badges/' + colour + '/' + size + '.png';
+              var download_path = '/logos/supporter/' + size + '/' + colour + '.png';
+              $('#download-preview').attr('src', img_path);
+              $('#download-link').attr('href', download_path);
+            })
+          })
+        </script>
+
+      </div>
+
+    </div>
+  </div>
+</div>

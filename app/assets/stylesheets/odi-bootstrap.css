@@ -2303,7 +2303,7 @@ table th[class*="span"],
   *margin-right: .3em;
   line-height: 14px;
   vertical-align: text-top;
-  background-image: url("http://assets.theodi.org/img/glyphicons-halflings.png");
+  background-image: url("//assets.theodi.org/img/glyphicons-halflings.png");
   background-position: 14px 14px;
   background-repeat: no-repeat;
 }
@@ -2327,7 +2327,7 @@ table th[class*="span"],
 .dropdown-submenu:focus > a > [class^="icon-"],
 .dropdown-submenu:hover > a > [class*=" icon-"],
 .dropdown-submenu:focus > a > [class*=" icon-"] {
-  background-image: url("http://assets.theodi.org/img/glyphicons-halflings-white.png");
+  background-image: url("//assets.theodi.org/img/glyphicons-halflings-white.png");
 }
 
 .icon-glass {
@@ -5218,6 +5218,7 @@ input[type="submit"].btn.btn-mini {
 }
 
 .modal {
+  display: none;
   position: fixed;
   top: 10%;
   left: 50%;
@@ -7368,7 +7369,7 @@ a.badge:focus {
 }
 
 .modal-body .log-in {
-  background: url(http://assets.theodi.org/img/modal-divider.gif) repeat-y top right;
+  background: url(//assets.theodi.org/img/modal-divider.gif) repeat-y top right;
   /* Sign in button used on many pages as orange primary button */
 
   /* Needs to be overridden to be blue info button in modals */
@@ -7496,7 +7497,7 @@ a.badge:focus {
   position: static;
   width: 14px;
   height: 14px;
-  background-image: url(http://assets.theodi.org/img/glyphicons-halflings-white.png);
+  background-image: url(//assets.theodi.org/img/glyphicons-halflings-white.png);
   background-position: -312px 0;
   opacity: 1;
 }
@@ -7702,7 +7703,7 @@ header.affix {
 }
 
 .odi-bleed {
-  background: #ffffff url("http://assets.theodi.org/img/splat.png") no-repeat top left fixed;
+  background: #ffffff url("//assets.theodi.org/img/splat.png") no-repeat top left fixed;
   background-position: center -450px;
 }
 
@@ -7721,7 +7722,7 @@ header.affix {
 .home .steps {
   /* Background stripes (image has 30px of space on left to align) */
 
-  background: url(http://assets.theodi.org/img/background-home-header.gif) repeat-y center;
+  background: url(//assets.theodi.org/img/background-home-header.gif) repeat-y center;
 }
 
 .home .steps .span4 {
@@ -7778,7 +7779,7 @@ header.affix {
   overflow: hidden;
   text-indent: 100%;
   white-space: nowrap;
-  background: url(http://assets.theodi.org/img/ODI_kitemark-75x75.png) no-repeat center;
+  background: url(//assets.theodi.org/img/ODI_kitemark-75x75.png) no-repeat center;
 }
 
 .home-header-buttons .span4 .btn-primary {
@@ -7823,7 +7824,7 @@ hr {
 
 hr.heavy {
   height: 5px;
-  background: url(http://assets.theodi.org/img/divider.png);
+  background: url(//assets.theodi.org/img/divider.png);
   border: 0;
 }
 
@@ -7848,7 +7849,7 @@ hr.heavy {
 }
 
 #topbar {
-  height: 70px;
+  height: 68px;
   background: #1b1b1b;
 }
 
@@ -7876,14 +7877,14 @@ hr.heavy {
 }
 
 #topbar ul li {
-  height: 60px;
+  height: 68px;
   padding: 0;
   margin: 0;
   border-left: 1px solid #707070;
 }
 
 #topbar ul li a {
-  padding: 20px;
+  padding: 24px;
   color: #fff;
 }
 
@@ -8119,7 +8120,7 @@ header h6 {
   overflow: hidden;
   text-indent: 100%;
   white-space: nowrap;
-  background: url(http://assets.theodi.org/img/logo-footer.png) no-repeat top left;
+  background: url(//assets.theodi.org/img/logo-footer.png) no-repeat top left;
 }
 
 #footer .footer-content h1 a {
@@ -8217,7 +8218,7 @@ header h6 {
   position: static;
   width: 14px;
   height: 14px;
-  background-image: url(http://assets.theodi.org/img/glyphicons-halflings-white.png);
+  background-image: url(//assets.theodi.org/img/glyphicons-halflings-white.png);
   background-position: -312px 0;
   opacity: 1;
 }
@@ -8266,11 +8267,11 @@ header h6 {
 .icon-large {
   width: 28px;
   height: 28px;
-  background-image: url(http://assets.theodi.org/img/glyphicons.png);
+  background-image: url(//assets.theodi.org/img/glyphicons.png);
 }
 
 .icon-large.icon-white {
-  background-image: url(http://assets.theodi.org/img/glyphicons_white.png);
+  background-image: url(//assets.theodi.org/img/glyphicons_white.png);
 }
 
 .icon-large.icon-ok-sign {
@@ -8663,23 +8664,23 @@ td.action form {
   left: -78px;
   width: 78px;
   height: 72px;
-  background-image: url(http://assets.theodi.org/img/panel-handle.png);
+  background-image: url(//assets.theodi.org/img/panel-handle.png);
 }
 
 #status_panel #panel_handle.attained-basic {
-  background-image: url(http://assets.theodi.org/img/panel-handle-basic.png);
+  background-image: url(//assets.theodi.org/img/panel-handle-basic.png);
 }
 
 #status_panel #panel_handle.attained-pilot {
-  background-image: url(http://assets.theodi.org/img/panel-handle-pilot.png);
+  background-image: url(//assets.theodi.org/img/panel-handle-pilot.png);
 }
 
 #status_panel #panel_handle.attained-standard {
-  background-image: url(http://assets.theodi.org/img/panel-handle-standard.png);
+  background-image: url(//assets.theodi.org/img/panel-handle-standard.png);
 }
 
 #status_panel #panel_handle.attained-exemplar {
-  background-image: url(http://assets.theodi.org/img/panel-handle-exemplar.png);
+  background-image: url(//assets.theodi.org/img/panel-handle-exemplar.png);
 }
 
 #status_panel h3 {
@@ -8798,7 +8799,7 @@ strong.certificate-level {
 }
 
 .basic-level .certificate-badge {
-  background-image: url(http://assets.theodi.org/img/badges/raw_level_badge.png);
+  background-image: url(//assets.theodi.org/img/badges/raw_level_badge.png);
 }
 
 .basic-level strong.certificate-level {
@@ -8806,7 +8807,7 @@ strong.certificate-level {
 }
 
 .pilot-level .certificate-badge {
-  background-image: url(http://assets.theodi.org/img/badges/pilot_level_badge.png);
+  background-image: url(//assets.theodi.org/img/badges/pilot_level_badge.png);
 }
 
 .pilot-level strong.certificate-level {
@@ -8814,7 +8815,7 @@ strong.certificate-level {
 }
 
 .standard-level .certificate-badge {
-  background-image: url(http://assets.theodi.org/img/badges/standard_level_badge.png);
+  background-image: url(//assets.theodi.org/img/badges/standard_level_badge.png);
 }
 
 .standard-level strong.certificate-level {
@@ -8822,7 +8823,7 @@ strong.certificate-level {
 }
 
 .exemplar-level .certificate-badge {
-  background-image: url(http://assets.theodi.org/img/badges/exemplar_level_badge.png);
+  background-image: url(//assets.theodi.org/img/badges/exemplar_level_badge.png);
 }
 
 .exemplar-level strong.certificate-level {
@@ -8896,22 +8897,22 @@ strong.certificate-level {
 }
 
 .container.about .span8 ul.kitemarks li.kitemark1 {
-  background: url(http://assets.theodi.org/img/badges/raw_level_badge.png) no-repeat top left;
+  background: url(//assets.theodi.org/img/badges/raw_level_badge.png) no-repeat top left;
   background-size: 65px;
 }
 
 .container.about .span8 ul.kitemarks li.kitemark2 {
-  background: url(http://assets.theodi.org/img/badges/pilot_level_badge.png) no-repeat top left;
+  background: url(//assets.theodi.org/img/badges/pilot_level_badge.png) no-repeat top left;
   background-size: 65px;
 }
 
 .container.about .span8 ul.kitemarks li.kitemark3 {
-  background: url(http://assets.theodi.org/img/badges/standard_level_badge.png) no-repeat top left;
+  background: url(//assets.theodi.org/img/badges/standard_level_badge.png) no-repeat top left;
   background-size: 65px;
 }
 
 .container.about .span8 ul.kitemarks li.kitemark4 {
-  background: url(http://assets.theodi.org/img/badges/exemplar_level_badge.png) no-repeat top left;
+  background: url(//assets.theodi.org/img/badges/exemplar_level_badge.png) no-repeat top left;
   background-size: 65px;
 }
 
@@ -8995,15 +8996,15 @@ section.improvement p {
 }
 
 section.improvement.improvement-pilot header .container {
-  background-image: url(http://assets.theodi.org/img/badges/pilot_level_badge.png);
+  background-image: url(//assets.theodi.org/img/badges/pilot_level_badge.png);
 }
 
 section.improvement.improvement-standard header .container {
-  background-image: url(http://assets.theodi.org/img/badges/standard_level_badge.png);
+  background-image: url(//assets.theodi.org/img/badges/standard_level_badge.png);
 }
 
 section.improvement.improvement-exemplar header .container {
-  background-image: url(http://assets.theodi.org/img/badges/exemplar_level_badge.png);
+  background-image: url(//assets.theodi.org/img/badges/exemplar_level_badge.png);
 }
 
 section.improvement.improvement-basic {

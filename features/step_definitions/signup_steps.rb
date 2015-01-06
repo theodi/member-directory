@@ -36,7 +36,7 @@ end
 
 When /^I visit the signup page$/ do
   visit("/members/new?level=#{@product_name}")
-  page.should have_content 'Sign up'
+  page.should have_content 'Become an ODI member'
   @field_prefix = 'member'
 end
 
@@ -45,8 +45,9 @@ When /^I enter my details$/ do
   @contact_name                = 'Ian McIain'
   @email                       = 'iain@foobar.com'
   @organization_name           = 'FooBar Inc'
-  @organization_size           = 'large'
+  @organization_size           = '251-1000'
   @organization_type           = 'commercial'
+  @organization_sector         = 'Energy'
   @telephone                   = '0121 123 446'
   @street_address              = '123 Fake Street'
   @address_locality            = 'Faketown'
@@ -67,6 +68,7 @@ When /^I enter my details$/ do
   select(find_by_id('member_organization_type').
          find("option[value='#{@organization_type}']").text,
          from: 'member_organization_type')
+  select(@organization_sector, from: 'member_organization_sector')
   fill_in('member_telephone', :with => @telephone)
   fill_in('member_street_address', :with => @street_address)
   fill_in('member_address_locality', :with => @address_locality)
@@ -105,7 +107,8 @@ Then /^my details should be queued for further processing$/ do
     'vat_id'         => @organization_vat_id,
     'company_number' => @organization_company_number,
     'size'           => @organization_size,
-    'type'           => @organization_type
+    'type'           => @organization_type,
+    'sector'         => @organization_sector
   }
   contact_person = {
     'name'      => @contact_name,
@@ -125,17 +128,17 @@ Then /^my details should be queued for further processing$/ do
     }
   }
 
-  Resque.should_receive(:enqueue).with do |*args|
-    args[0].should == SignupProcessor
-    args[1].should == organization
-    args[2].should == contact_person
-    args[3].should == billing
-    args[4]['payment_method'].should == @payment_method
-    args[4]['payment_freq'].should == @payment_frequency
-    args[4]['payment_ref'].should =~ @payment_ref if @payment_ref
-    args[4]['offer_category'].should == @product_name
-    args[4]['membership_id'].should_not be_nil
-    args[4]['purchase_order_reference'].should == @purchase_order_number
+  expect(Resque).to receive(:enqueue) do |*args|
+    expect(args[0]).to eql SignupProcessor
+    expect(args[1]).to eql organization
+    expect(args[2]).to eql contact_person
+    expect(args[3]).to eql billing
+    expect(args[4]['payment_method']).to eql @payment_method
+    expect(args[4]['payment_freq']).to eql @payment_frequency
+    expect(args[4]['payment_ref']).to match @payment_ref if @payment_ref
+    expect(args[4]['offer_category']).to eql @product_name
+    expect(args[4]['membership_id']).not_to eql nil
+    expect(args[4]['purchase_order_reference']).to eql @purchase_order_number
   end
 end
 
@@ -185,6 +188,10 @@ end
 And (/^my organisation name is "(.*?)"$/) do |org_name|
   @organization_name = org_name
   fill_in('member_organization_name', :with => @organization_name)
+end
+
+And (/^my organisation name is expected to be "(.*?)"$/) do |org_name|
+  @organization_name = org_name
 end
 
 Then (/^my organisation name should be "(.*?)"$/) do |org_name|

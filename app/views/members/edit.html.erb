@@ -24,21 +24,46 @@
       <div>Currently waiting confirmation for: <%= @member.unconfirmed_email %></div>
     <% end %>
 
+    <div class="control-group">
+      <%= f.label :organization_size, :class => 'control-label' %>
+      <div class="controls">
+        <%= f.select(:organization_size, {
+            "less than 10 employees"   => '<10',
+            "10 - 50 employees"        => '10-50',
+            "51 - 250 employees"       => '51-250',
+            "251 - 1000 employees"     => '251-1000',
+            "more than 1000 employees" => '>1000'
+          }) %>
+      </div>
+    </div>
+
+
+    <div class="control-group">
+      <%= f.label :organization_sector, :class => 'control-label'  %>
+      <div class="controls">
+        <%= f.select(:organization_sector, Member.sectors) %>
+      </div>
+    </div>
+
+
     <%= form_field f, :cached_newsletter do %>
       <%= f.check_box :cached_newsletter %>
     <% end %>
 
-  <fieldset>
-    <% render :partial => 'devise/registrations/member_details', :locals => { :f => f } %>
   </fieldset>
 
   <% if ['partner', 'sponsor', 'supporter'].include?(@member.product_name) %>
     <fieldset>
       <legend>Badge</legend>
 
-      <p>Tell the world about your ODI membership. <a href="#badgeContent" data-toggle="modal">Display a badge</a> on your site.</p>
+      <p>
+        Tell the world about your ODI membership.
+        <a id="badge-embed" href="#badgeContent" data-toggle="modal">Display a badge</a> on your site or
+        <a id="badge-download" href="#badgeDownload" data-toggle="modal">download an image of your badge</a>.
+      </p>
 
       <%= render(:partial => 'badge_form') %>
+      <%= render(:partial => 'badge_download') %>
     </fieldset>
   <% end %>
 

@@ -39,6 +39,8 @@ When /^my information is changed in CapsuleCRM$/ do
   @linkedin          = Faker::Internet.url
   @facebook          = Faker::Internet.url
   @tagline           = Faker::Company.bs
+  @organization_size = '>1000'
+  @organization_sector = "Other"
 end
 
 When /^the sync task runs$/ do
@@ -47,6 +49,8 @@ When /^the sync task runs$/ do
     'product_name'  => @product_name,
     'id'            => @membership_number,
     'newsletter'    => @newsletter,
+    'size'          => @organization_size,
+    'sector'        => @organization_sector,
   }.compact
   directory_entry = {
     'active'        => @active,
@@ -86,6 +90,8 @@ Then /^my details should be cached correctly$/ do
   @membership.cached_active.should                     == (@active == "true")
   @membership.product_name.should                      == @product_name
   @membership.cached_newsletter.should                 == @newsletter
+  @membership.organization_size.should                 == @organization_size
+  @membership.organization_sector.should               == @organization_sector
   @membership.organization.name.should                 == @organization_name
   @membership.organization.description.should          == @old_description # description should not change when synced
   @membership.organization.url.should                  == @url
@@ -99,20 +105,17 @@ Then /^my details should be cached correctly$/ do
 end
 
 Then /^nothing should be placed on the queue$/ do
-  Resque.should_not_receive(:enqueue)
+  expect(Resque).not_to receive(:enqueue)
 end
 
 Then /^nothing should be placed on the signup queue$/ do
-  Resque.should_not_receive(:enqueue).with do |*args|
-    args[0] == SignupProcessor
-  end
 end
 
 Then /^my membership number should be stored in CapsuleCRM$/ do
-  Resque.should_receive(:enqueue).with do |*args|
-    args[0].should == SaveMembershipIdInCapsule
-    args[1].should == @organization_name
-    args[2].should == Member.where(email: @email).first.membership_number
+  expect(Resque).to receive(:enqueue) do |*args|
+    expect(args[0]).to eql SaveMembershipIdInCapsule
+    expect(args[1]).to eql @organization_name
+    expect(args[2]).to eql Member.where(email: @email).first.membership_number
   end.once
 end
 
