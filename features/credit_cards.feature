@@ -45,15 +45,15 @@ Feature: Accept credit card payments during signup
     Then I should be signed up to the <plan> plan
 
       Examples:
-        | size  | type            | frequency | plan                        |
-        | small | non_commercial  | monthly   | supporter_monthly           |
-        | large | non_commercial  | monthly   | supporter_monthly           |
-        | small | commercial      | monthly   | supporter_monthly           |
-        | large | commercial      | monthly   | corporate_supporter_monthly |
-        | small | non_commercial  | annual    | supporter_annual            |
-        | large | non_commercial  | annual    | supporter_annual            |
-        | small | commercial      | annual    | supporter_annual            |
-        | large | commercial      | annual    | corporate_supporter_annual  |
+        | size  | type            | frequency | plan                             |
+        | small | non_commercial  | monthly   | supporter_monthly                |
+        | large | non_commercial  | monthly   | supporter_monthly                |
+        | small | commercial      | monthly   | supporter_monthly                |
+        | large | commercial      | monthly   | 2015_corporate_supporter_monthly |
+        | small | non_commercial  | annual    | supporter_annual                 |
+        | large | non_commercial  | annual    | supporter_annual                 |
+        | small | commercial      | annual    | supporter_annual                 |
+        | large | commercial      | annual    | 2015_corporate_supporter_annual  |
 
   Scenario Outline: Bad credit card details
 

@@ -221,7 +221,7 @@ class Member < ActiveRecord::Base
   def get_plan
     plan = ''
     if organization_size == 'large' && organization_type == 'commercial'
-      plan += 'corporate_'
+      plan += '2015_corporate_'
     end
     plan += 'supporter_'
     plan += payment_frequency
@@ -229,10 +229,12 @@ class Member < ActiveRecord::Base
 
   def get_plan_description
     {
-      'corporate_supporter_monthly' => 'corporate supporter',
-      'supporter_monthly'           => 'supporter',
-      'corporate_supporter_annual'  => 'corporate supporter',
-      'supporter_annual'            => 'supporter'
+      '2015_corporate_supporter_monthly' => 'corporate supporter',
+      'corporate_supporter_monthly'      => 'corporate supporter',
+      'supporter_monthly'                => 'supporter',
+      '2015_corporate_supporter_annual'  => 'corporate supporter',
+      'corporate_supporter_annual'       => 'corporate supporter',
+      'supporter_annual'                 => 'supporter'
     }[get_plan]
   end
 
