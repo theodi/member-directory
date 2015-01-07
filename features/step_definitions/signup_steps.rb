@@ -83,9 +83,6 @@ When /^I enter my details$/ do
   fill_in('member_password_confirmation', :with => 'p4ssw0rd')
 
   check('member_agreed_to_terms')
-
-  @payment_frequency = 'annual' # default
-
 end
 
 When /^I don't agree to the terms$/ do
@@ -134,7 +131,6 @@ Then /^my details should be queued for further processing$/ do
     expect(args[2]).to eql contact_person
     expect(args[3]).to eql billing
     expect(args[4]['payment_method']).to eql @payment_method
-    expect(args[4]['payment_freq']).to eql @payment_frequency
     expect(args[4]['payment_ref']).to match @payment_ref if @payment_ref
     expect(args[4]['offer_category']).to eql @product_name
     expect(args[4]['membership_id']).not_to eql nil
@@ -178,9 +174,9 @@ Then /^a welcome email should be sent to me$/ do
     Then "#{@email}" should receive an email
     When they open the email
     And they should see the email delivered from "members@theodi.org"
-    And they should see "Welcome to the ODI community!" in the email subject
+    And they should see "Welcome to the ODI network!" in the email subject
     And they should see "Your membership number is <strong>#{@membership_number}</strong>." in the email body
-    And they should see "Stuart, Georgia, Carl and Andrea" in the email body
+    And they should see "Georgia, Carl, Andrea, Patrik and Clara" in the email body
     And they should see "mailto:members@theodi.org" in the email body
   }
 end
@@ -203,6 +199,6 @@ Then(/^I should see today's date$/) do
 end
 
 When(/^I choose to pay by invoice$/) do
-  choose('Invoice')
+  choose('Annual invoice')
   @payment_method = 'invoice'
 end

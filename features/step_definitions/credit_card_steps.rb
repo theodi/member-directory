@@ -1,5 +1,5 @@
 When(/^I choose to pay by credit card$/) do
-  choose('Credit Card')
+  choose('Credit / debit card')
   @payment_method = 'credit_card'
   @payment_ref = /cus_[0-9A-Za-z]{14}/
 end
@@ -18,16 +18,6 @@ end
 
 When(/^I enter my expiry year (\d+)$/) do |year|
   fill_in 'Expiry year', with: year
-end
-
-When(/^I choose to pay on a monthly basis$/) do
-  select 'Monthly', from: 'Payment frequency'
-  @payment_frequency = :monthly
-end
-
-When(/^I choose to pay on an? annual basis$/) do
-  select 'Yearly', from: 'Payment frequency'
-  @payment_frequency = :annual
 end
 
 When(/^I enter valid credit card details$/) do
