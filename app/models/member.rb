@@ -42,7 +42,6 @@ class Member < ActiveRecord::Base
                   :purchase_order_number,
                   :agreed_to_terms,
                   :payment_method,
-                  :payment_frequency,
                   :remote
 
   attr_accessor :organization_name,
@@ -62,8 +61,7 @@ class Member < ActiveRecord::Base
                 :card_expiry_year,
                 :purchase_order_number,
                 :agreed_to_terms,
-                :payment_method,
-                :payment_frequency
+                :payment_method
 
   attr_writer :remote
 
@@ -186,7 +184,6 @@ class Member < ActiveRecord::Base
                       }
     purchase        = {
                         'payment_method' => payment_method,
-                        'payment_freq' => payment_frequency,
                         'payment_ref' => stripe_customer.try(:id),
                         'offer_category' => product_name,
                         'purchase_order_reference' => purchase_order_number,
@@ -241,22 +238,17 @@ class Member < ActiveRecord::Base
   end
 
   def get_plan
-    plan = ''
     if %w{251-1000 >1000}.include?(organization_size) && organization_type == 'commercial'
-      plan += '2015_corporate_'
+      '2015_corporate_supporter_annual'
+    else
+      'supporter_annual'
     end
-    plan += 'supporter_'
-    plan += payment_frequency
   end
 
   def get_plan_description
     {
-      '2015_corporate_supporter_monthly' => 'corporate supporter',
-      'corporate_supporter_monthly'      => 'corporate supporter',
-      'supporter_monthly'                => 'supporter',
-      '2015_corporate_supporter_annual'  => 'corporate supporter',
-      'corporate_supporter_annual'       => 'corporate supporter',
-      'supporter_annual'                 => 'supporter'
+      '2015_corporate_supporter' => 'corporate supporter',
+      'supporter'                => 'supporter'
     }[get_plan]
   end
 

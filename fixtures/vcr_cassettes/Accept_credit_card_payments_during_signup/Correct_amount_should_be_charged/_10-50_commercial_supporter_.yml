@@ -1,0 +1,61 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api.stripe.com/v1/customers
+    body:
+      encoding: US-ASCII
+      string: card[exp_month]=12&card[exp_year]=2<XPC_SERVICE_NAME>16&card[number]=4242424242424242&card[cvc]=123&plan=supporter&description=FooBar%2<XPC_SERVICE_NAME>Inc%2<XPC_SERVICE_NAME>supporter%2<XPC_SERVICE_NAME>membership%2<XPC_SERVICE_NAME>(ZM3954OJ)
+    headers:
+      Accept:
+      - ! '*/*; q=<XPC_SERVICE_NAME>.5, application/xml'
+      Accept-Encoding:
+      - gzip, deflate
+      User-Agent:
+      - Stripe/v1 RubyBindings/1.16.<XPC_SERVICE_NAME>
+      Authorization:
+      - Bearer sk_test_39F7AAZeF7Kij<XPC_SERVICE_NAME>yrNOlDznbH
+      Content-Type:
+      - application/x-www-form-urlencoded
+      X-Stripe-Client-User-Agent:
+      - ! '{"bindings_version":"1.16.<XPC_SERVICE_NAME>","lang":"ruby","lang_version":"1.9.3
+        p547 (2<XPC_SERVICE_NAME>14-<XPC_SERVICE_NAME>5-14)","platform":"x86_64-darwin14.<XPC_SERVICE_NAME>.<XPC_SERVICE_NAME>","publisher":"stripe","uname":"Darwin
+        Stuarts-MBP-3.home 14.<XPC_SERVICE_NAME>.<XPC_SERVICE_NAME> Darwin Kernel
+        Version 14.<XPC_SERVICE_NAME>.<XPC_SERVICE_NAME>: Fri Sep 19 <XPC_SERVICE_NAME><XPC_SERVICE_NAME>:26:44
+        PDT 2<XPC_SERVICE_NAME>14; root:xnu-2782.1.97~2/RELEASE_X86_64 x86_64"}'
+      Content-Length:
+      - 16<XPC_SERVICE_NAME>
+  response:
+    status:
+      code: 400
+      message: Bad Request
+    headers:
+      Server:
+      - nginx
+      Date:
+      - Wed, <XPC_SERVICE_NAME>7 Jan 2<XPC_SERVICE_NAME>15 13:23:28 GMT
+      Content-Type:
+      - application/json;charset=utf-8
+      Content-Length:
+      - 12<XPC_SERVICE_NAME>
+      Connection:
+      - keep-alive
+      Access-Control-Allow-Credentials:
+      - 'true'
+      Access-Control-Allow-Methods:
+      - GET, POST, HEAD, OPTIONS, DELETE
+      Access-Control-Max-Age:
+      - 3<XPC_SERVICE_NAME><XPC_SERVICE_NAME>
+      Cache-Control:
+      - no-cache, no-store
+      Request-Id:
+      - req_6HJZ2spg8ZornaPI
+      Stripe-Version:
+      - 2<XPC_SERVICE_NAME>14-<XPC_SERVICE_NAME>5-19
+    body:
+      encoding: US-ASCII
+      string: ! "{\n  \"error\": {\n    \"type\": \"invalid_request_error\",\n    \"message\":
+        \"No such plan: supporter\",\n    \"param\": \"plan\"\n  }\n}\n"
+    http_version: 
+  recorded_at: Wed, 07 Jan 2015 13:23:31 GMT
+recorded_with: VCR 2.9.3
