@@ -8,12 +8,12 @@ describe EmbedStatsController do
 
     get 'index'
 
-    response.should be_success
-    response.headers['Content-Type'].should == 'text/csv; header=present; charset=utf-8'
+    expect(response).to be_success
+    expect(response.headers['Content-Type']).to eq('text/csv; header=present; charset=utf-8')
 
     csv = CSV.parse(response.body)
 
-    csv.count.should == 2
+    expect(csv.count).to eq(2)
   end
 
 end

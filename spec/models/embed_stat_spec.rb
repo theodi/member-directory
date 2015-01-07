@@ -5,8 +5,8 @@ describe EmbedStat do
   it "returns an error if referrer is an invalid URL" do
     e = EmbedStat.create(referrer: "this is not a URL")
 
-    e.valid?.should be_false
-    e.errors.first.should == [:referrer, "is not a valid URL"]
+    expect(e).to_not be_valid
+    expect(e.errors.first).to eq([:referrer, "is not a valid URL"])
   end
 
   it "generates a CSV of all embeds" do
@@ -16,21 +16,21 @@ describe EmbedStat do
     end
 
     validator = Csvlint::Validator.new(StringIO.new(EmbedStat.csv))
-    validator.valid?.should be_true
+    expect(validator).to be_valid
 
     csv = CSV.parse(EmbedStat.csv)
 
-    csv.count.should == 11
+    expect(csv.count).to eq(11)
 
-    csv.first.should == ["Member Name", "Referring URL", "First Detected"]
+    expect(csv.first).to eq(["Member Name", "Referring URL", "First Detected"])
 
-    csv[1][0].should == "Member 0"
-    csv[1][1].should == "http://example0.com/0"
-    Date.parse(csv[1][2]).should == Date.today
+    expect(csv[1][0]).to eq("Member 0")
+    expect(csv[1][1]).to eq("http://example0.com/0")
+    expect(Date.parse(csv[1][2])).to eq(Date.today)
 
-    csv.last[0].should == "Member 4"
-    csv.last[1].should == "http://example4.com/1"
-    Date.parse(csv.last[2]).should == Date.today
+    expect(csv.last[0]).to eq("Member 4")
+    expect(csv.last[1]).to eq("http://example4.com/1")
+    expect(Date.parse(csv.last[2])).to eq(Date.today)
   end
 
 end
