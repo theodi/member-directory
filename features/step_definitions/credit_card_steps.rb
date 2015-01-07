@@ -1,5 +1,5 @@
 When(/^I choose to pay by credit card$/) do
-  choose('Credit / debit card')
+  choose('Credit / Debit card')
   @payment_method = 'credit_card'
   @payment_ref = /cus_[0-9A-Za-z]{14}/
 end
@@ -30,7 +30,7 @@ end
 Then(/^my card should be charged successfully$/) do
   member = Member.find_by_email(@email)
   customer = member.stripe_customer
-  customer.description.should =~ /(#{member.organization.name})/
+  customer.description.should =~ /(#{member.organization.try(:name) || @contact_name})/
   customer.description.should =~ /supporter/
   customer.description.should =~ /membership \([A-Z]{2}[0-9]{4}[A-Z]{2}\)/
   customer.subscriptions.total_count.should == 1

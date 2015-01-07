@@ -38,7 +38,7 @@
         <div class="control-group">
           <label class="control-label" for="colour">Badge colour</label>
           <div class="controls">
-            <% ['black', 'grey', member_colour(@member)].each do |colour| %>
+            <% badge_colours(@member).each do |colour| %>
               <label class="radio inline">
                 <%= radio_button_tag("colour", colour, colour == 'black', class: "colour") %>
                 <%= colour.titleize %>
@@ -100,9 +100,9 @@
               $('#mini_align, #standard_align').addClass('hidden');
 
               params = {
-                  size: $('.size:checked')[0].value,
-                  align: $('.align:checked')[0].value,
-                  colour: $('.colour:checked')[0].value
+                  size: $('.size:checked').val(),
+                  align: $('.align:checked').val(),
+                  colour: $('.colour:checked').val(),
               }
 
               if (params["size"] == "mini") {
@@ -119,7 +119,7 @@
                 }
               }
 
-              $('#preview .odi-badge').attr('class', 'odi-badge odi-<%= @member.product_name %> ' + params["size"] + ' ' + params["align"] + ' ' + params["colour"] )
+              $('#preview .odi-badge').attr('class', 'odi-badge odi-<%= @member.badge_class %> ' + params["size"] + ' ' + params["align"] + ' ' + params["colour"] )
 
               url = url + "?" + jQuery.param(params)
               $('#code').val("<script src=\""+ url +"\" type=\"text/javascript\"><\/script>")

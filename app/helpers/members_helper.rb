@@ -25,16 +25,16 @@ module MembersHelper
     }[colour] rescue nil
   end
 
-  def member_colour(member)
-    member_colours[member.product_name]
+  def badge_colours(member)
+    (%w[black grey] + [member_colour(member)]).compact
   end
 
-  def member_colours
+  def member_colour(member)
     {
       'partner' => 'blue',
       'sponsor' => 'green',
       'supporter' => 'orange',
-    }
+    }[member.product_name]
   end
 
   def badge_download_colours(member)

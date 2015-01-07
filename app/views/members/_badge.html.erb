@@ -1,12 +1,17 @@
 <!-- BEGIN ODI MEMBER BADGE -->
-<div class="odi-badge odi-<%= @member.product_name %> <%= @size || "small" %> <%= @align %> <%= @colour || "black" %>">
+<div class="odi-badge odi-<%= @member.badge_class %> <%= @size || "small" %> <%= @align %> <%= @colour || "black" %>">
   <%= stylesheet_link_tag "badge.css" %>
-  <a href="<%= member_url(@member) %>">
+  <% content_for :badge_details do %>
     <ul class="details">
-      <li>Open Data Institute <%= @member.product_name.titleize %></li>
+      <li>Open Data Institute <%= @member.membership_description.titleize %></li>
       <li>Active since <%= @member.created_at.to_date %></li>
       <li>London, UK</li>
     </ul>
-  </a>
+  <% end %>
+  <% if @member.organization? %>
+    <a href="<%= member_url(@member) %>"><%= yield :badge_details %></a>
+  <% else %>
+    <%= yield :badge_details %>
+  <% end %>
 </div>
 <!-- END ODI MEMBER BADGE -->

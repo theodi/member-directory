@@ -63,7 +63,7 @@ describe Organization do
         partner = organization(:name => 'a', :type => 'partner')
         founding_partner = organization(:name => 'z', :type => 'partner')
         founding_partner.member.update_attribute(:membership_number, Member.founding_partner_id)
-        expect(founding_partner.member.product_name).to eq("Founding partner")
+        expect(founding_partner.member).to be_founding_partner
         expect(Organization.display_order).to eq([founding_partner, partner])
       end
     end

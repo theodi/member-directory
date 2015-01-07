@@ -44,9 +44,6 @@ When /^I enter my details$/ do
   # Store for later
   @contact_name                = 'Ian McIain'
   @email                       = 'iain@foobar.com'
-  @organization_name           = 'FooBar Inc'
-  @organization_size           = '251-1000'
-  @organization_type           = 'commercial'
   @organization_sector         = 'Energy'
   @telephone                   = '0121 123 446'
   @street_address              = '123 Fake Street'
@@ -54,20 +51,10 @@ When /^I enter my details$/ do
   @address_region              = 'Fakeshire'
   @address_country             = 'United Kingdom'
   @postal_code                 = 'FAKE 123'
-  @organization_vat_id         = '213244343'
-  @organization_company_number = '012345678'
-  @purchase_order_number       = 'PO-43243242342'
 
   # Fill in form
   fill_in('member_contact_name', :with => @contact_name)
   fill_in('member_email', :with => @email)
-  fill_in('member_organization_name', :with => @organization_name)
-  select(find_by_id('member_organization_size').
-         find("option[value='#{@organization_size}']").text,
-         from: 'member_organization_size')
-  select(find_by_id('member_organization_type').
-         find("option[value='#{@organization_type}']").text,
-         from: 'member_organization_type')
   select(@organization_sector, from: 'member_organization_sector')
   fill_in('member_telephone', :with => @telephone)
   fill_in('member_street_address', :with => @street_address)
@@ -75,12 +62,29 @@ When /^I enter my details$/ do
   fill_in('member_address_region', :with => @address_region)
   select(@address_country, from: :member_address_country, match: :first)
   fill_in('member_postal_code', :with => @postal_code)
-  fill_in('member_organization_company_number',
-          with: @organization_company_number)
-  fill_in('member_organization_vat_id', :with => @organization_vat_id)
-  fill_in('member_purchase_order_number', :with => @purchase_order_number)
   fill_in('member_password', :with => 'p4ssw0rd')
   fill_in('member_password_confirmation', :with => 'p4ssw0rd')
+
+  unless @product_name == 'individual'
+    @organization_name = 'FooBar Inc'
+    @organization_size = '251-1000'
+    @organization_type = 'commercial'
+    @organization_vat_id = '213244343'
+    @organization_company_number = '012345678'
+    @purchase_order_number = 'PO-43243242342'
+
+    fill_in('member_organization_name', :with => @organization_name)
+    select(find_by_id('member_organization_size').
+           find("option[value='#{@organization_size}']").text,
+           from: 'member_organization_size')
+    select(find_by_id('member_organization_type').
+           find("option[value='#{@organization_type}']").text,
+           from: 'member_organization_type')
+    fill_in('member_organization_company_number',
+            with: @organization_company_number)
+    fill_in('member_organization_vat_id', :with => @organization_vat_id)
+    fill_in('member_purchase_order_number', :with => @purchase_order_number)
+  end
 
   check('member_agreed_to_terms')
 end
@@ -175,7 +179,7 @@ Then /^a welcome email should be sent to me$/ do
     When they open the email
     And they should see the email delivered from "members@theodi.org"
     And they should see "Welcome to the ODI network!" in the email subject
-    And they should see "Your membership number is <strong>#{@membership_number}</strong>." in the email body
+    And they should see "Your membership number is <strong>#{@membership_number}</strong>" in the email body
     And they should see "Georgia, Carl, Andrea, Patrik and Clara" in the email body
     And they should see "mailto:members@theodi.org" in the email body
   }

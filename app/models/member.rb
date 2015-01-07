@@ -2,6 +2,8 @@ class Member < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,
   # :lockable, :timeoutable and :omniauthable
+  SUPPORTER_LEVELS = %w(supporter member partner sponsor individual)
+  CURRENT_SUPPORTER_LEVELS = SUPPORTER_LEVELS - %w(member)
 
   has_one :organization
   has_many :embed_stats
@@ -9,7 +11,8 @@ class Member < ActiveRecord::Base
   accepts_nested_attributes_for :organization
   attr_accessible :organization_attributes
 
-  before_create :set_membership_number
+  before_create :set_membership_number, :set_address
+  before_validation :set_defaults
 
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable,
@@ -42,12 +45,11 @@ class Member < ActiveRecord::Base
                   :purchase_order_number,
                   :agreed_to_terms,
                   :payment_method,
-                  :remote
+                  :remote,
+                  :address
 
   attr_accessor :organization_name,
                 :organization_type,
-                :contact_name,
-                :telephone,
                 :street_address,
                 :address_locality,
                 :address_region,
@@ -69,11 +71,8 @@ class Member < ActiveRecord::Base
   attr_accessible :access_key, as: :admin
 
 	# validations
-  validates :product_name, presence: true, inclusion: %w(supporter member partner sponsor), on: :create
+  validates :product_name, presence: true, inclusion: SUPPORTER_LEVELS, on: :create
   validates :contact_name, presence: true, on: :create
-  validates :organization_size, presence: true, inclusion: %w(<10 10-50 51-250 251-1000 >1000), on: :create
-  validates :organization_sector, presence: true, on: :create
-  validates :organization_type, presence: true, inclusion: %w(commercial non_commercial), on: :create
   validates :street_address, presence: true, on: :create
   validates :address_locality, presence: true, on: :create
   validates :address_country, presence: true, on: :create
@@ -83,7 +82,7 @@ class Member < ActiveRecord::Base
 
   after_validation :stripe_payment
 
-  validate :check_organization_names
+  validates_with OrganizationValidator, on: :create, unless: :individual?
 
   def paid_with_card?
     payment_method == 'credit_card'
@@ -109,19 +108,61 @@ class Member < ActiveRecord::Base
     product_name == "supporter"
   end
 
+  def individual?
+    self.class.is_individual_level?(product_name)
+  end
+
+  def organization?
+    %w[partner sponsor supporter].include?(product_name)
+  end
+
+  def founding_partner?
+    if founding_parter_id = ENV['FOUNDING_PARTNER_ID']
+      membership_number == founding_parter_id
+    end
+  end
+
+  def badge_class
+    if %w[partner sponsor].include?(product_name)
+      "partner"
+    else
+      "supporter"
+    end
+  end
+
   def organization_name=(value)
     @organization_name = value.try(:strip)
+  end
+
+  def contact_name
+    @contact_name || name.presence
+  end
+
+  def telephone
+    @telephone || phone.presence
+  end
+
+  def contact_name=(value)
+    @contact_name = value
+    self.name = value if individual?
+  end
+
+  def telephone=(value)
+    @telephone = value
+    self.phone = value if individual?
   end
 
   def stripe_customer
     Stripe::Customer.retrieve(stripe_customer_id) if stripe_customer_id
   end
 
-  def product_name
-    if ENV['FOUNDING_PARTNER_ID'] && membership_number == ENV['FOUNDING_PARTNER_ID']
-      "Founding partner"
+  def membership_description
+    if founding_partner?
+      'Founding partner'
+    elsif organization?
+      product_name.titleize
     else
-      read_attribute(:product_name)
+      "Supporter"
     end
   end
 
@@ -150,6 +191,16 @@ class Member < ActiveRecord::Base
         self.membership_number = generate_membership_number
       end while self.class.exists?(membership_number: membership_number)
     end
+  end
+
+  def set_address
+    self.address = [
+      street_address,
+      address_locality,
+      address_region,
+      address_country,
+      postal_code
+    ].compact.join("\n")
   end
 
   after_create :add_to_queue, :setup_organization, :save_membership_id_in_capsule
@@ -198,7 +249,7 @@ class Member < ActiveRecord::Base
   end
 
   def setup_organization
-    self.create_organization(:name => organization_name, :remote => remote)
+    self.create_organization(:name => organization_name, :remote => remote) unless individual?
   end
 
   after_update :save_to_capsule
@@ -227,7 +278,7 @@ class Member < ActiveRecord::Base
             cvc:       card_validation_code
           },
           plan:        get_plan,
-          description: "#{organization_name} #{get_plan_description} membership (#{membership_number})"
+          description: "#{organization_name || contact_name} #{get_plan_description} membership (#{membership_number})"
         )
         self.stripe_customer_id = customer.id
       rescue Stripe::CardError => e
@@ -238,17 +289,22 @@ class Member < ActiveRecord::Base
   end
 
   def get_plan
-    if %w{251-1000 >1000}.include?(organization_size) && organization_type == 'commercial'
-      '2015_corporate_supporter_annual'
+    if individual?
+      'individual_supporter'
     else
-      'supporter_annual'
+      if %w{251-1000 >1000}.include?(organization_size) && organization_type == 'commercial'
+        '2015_corporate_supporter_annual'
+      else
+        'supporter_annual'
+      end
     end
   end
 
   def get_plan_description
     {
-      '2015_corporate_supporter' => 'corporate supporter',
-      'supporter'                => 'supporter'
+      'individual_supporter'            => 'individual supporter',
+      '2015_corporate_supporter_annual' => 'corporate supporter',
+      'supporter_annual'                => 'supporter'
     }[get_plan]
   end
 
@@ -285,6 +341,14 @@ class Member < ActiveRecord::Base
     country.translations[I18n.locale.to_s] || country.name
   end
 
+  def self.is_current_supporter_level?(level)
+    CURRENT_SUPPORTER_LEVELS.include?(level)
+  end
+
+  def self.is_individual_level?(level)
+    'individual' == level
+  end
+
   def self.sectors
     [
       "Business & Legal Services",
@@ -306,6 +370,10 @@ class Member < ActiveRecord::Base
       "Transportation",
       "Other"
     ]
+  end
+
+  def set_defaults
+    self.payment_method = "credit_card" if individual?
   end
 
 end

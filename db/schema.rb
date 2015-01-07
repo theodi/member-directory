@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140916163146) do
+ActiveRecord::Schema.define(:version => 20141216144552) do
 
   create_table "admins", :force => true do |t|
     t.string   "email",              :default => "", :null => false
@@ -66,6 +66,9 @@ ActiveRecord::Schema.define(:version => 20140916163146) do
     t.integer  "embed_stat_id"
     t.string   "organization_sector"
     t.string   "organization_size"
+    t.string   "name"
+    t.string   "phone"
+    t.text     "address"
   end
 
   add_index "members", ["email"], :name => "members_index_members_on_email"

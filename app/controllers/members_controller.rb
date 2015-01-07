@@ -1,7 +1,7 @@
 class MembersController < ApplicationController
   respond_to :html, :json
 
-  before_filter :get_member, :except => [:index]
+  before_filter :get_member, :except => [:index, :right_to_cancel]
   before_filter :set_formats, :log_embed, :only => [:badge]
 
   before_filter(:only => [:index, :show]) {alternate_formats [:json]}
@@ -30,7 +30,8 @@ class MembersController < ApplicationController
 
   def show
     # Get organization
-    if editable?(@member.organization) && request.format.html?
+    @organization = @member.organization
+    if editable?(@member) && request.format.html?
       @preview = true
       if current_member == @member
         @title = "Edit your details"
@@ -39,7 +40,6 @@ class MembersController < ApplicationController
       end
       render 'edit'
     else
-      @organization = @member.organization
       raise ActiveRecord::RecordNotFound and return if @organization.nil?
       if @member.cached_active == false
         if signed_in?
@@ -76,6 +76,10 @@ class MembersController < ApplicationController
       end
     end
     respond_with(@member)
+  end
+
+  def right_to_cancel
+    @title = "Membership agreement: Right to cancel"
   end
 
   private

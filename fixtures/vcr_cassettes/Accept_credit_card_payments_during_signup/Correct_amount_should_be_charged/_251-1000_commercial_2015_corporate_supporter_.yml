@@ -5,24 +5,24 @@ http_interactions:
     uri: https://api.stripe.com/v1/customers
     body:
       encoding: US-ASCII
-      string: card[exp_month]=12&card[exp_year]=2<XPC_SERVICE_NAME>16&card[number]=4242424242424242&card[cvc]=123&plan=2<XPC_SERVICE_NAME>15_corporate_supporter_annual&description=FooBar%2<XPC_SERVICE_NAME>Inc%2<XPC_SERVICE_NAME>%2<XPC_SERVICE_NAME>membership%2<XPC_SERVICE_NAME>(BB1933CS)
+      string: card[exp_month]=12&card[exp_year]=2016&card[number]=4242424242424242&card[cvc]=123&plan=2015_corporate_supporter_annual&description=FooBar%20Inc%20%20membership%20(BB1933CS)
     headers:
       Accept:
-      - ! '*/*; q=<XPC_SERVICE_NAME>.5, application/xml'
+      - ! '*/*; q=0.5, application/xml'
       Accept-Encoding:
       - gzip, deflate
       User-Agent:
-      - Stripe/v1 RubyBindings/1.16.<XPC_SERVICE_NAME>
+      - Stripe/v1 RubyBindings/1.16.0
       Authorization:
-      - Bearer sk_test_39F7AAZeF7Kij<XPC_SERVICE_NAME>yrNOlDznbH
+      - Bearer sk_test_39F7AAZeF7Kij0yrNOlDznbH
       Content-Type:
       - application/x-www-form-urlencoded
       X-Stripe-Client-User-Agent:
-      - ! '{"bindings_version":"1.16.<XPC_SERVICE_NAME>","lang":"ruby","lang_version":"1.9.3
-        p547 (2<XPC_SERVICE_NAME>14-<XPC_SERVICE_NAME>5-14)","platform":"x86_64-darwin14.<XPC_SERVICE_NAME>.<XPC_SERVICE_NAME>","publisher":"stripe","uname":"Darwin
-        Stuarts-MBP-3.home 14.<XPC_SERVICE_NAME>.<XPC_SERVICE_NAME> Darwin Kernel
-        Version 14.<XPC_SERVICE_NAME>.<XPC_SERVICE_NAME>: Fri Sep 19 <XPC_SERVICE_NAME><XPC_SERVICE_NAME>:26:44
-        PDT 2<XPC_SERVICE_NAME>14; root:xnu-2782.1.97~2/RELEASE_X86_64 x86_64"}'
+      - ! '{"bindings_version":"1.16.0","lang":"ruby","lang_version":"1.9.3
+        p547 (2014-05-14)","platform":"x86_64-darwin14.0.0","publisher":"stripe","uname":"Darwin
+        Stuarts-MBP-3.home 14.0.0 Darwin Kernel
+        Version 14.0.0: Fri Sep 19 00:26:44
+        PDT 2014; root:xnu-2782.1.97~2/RELEASE_X86_64 x86_64"}'
       Content-Length:
       - '173'
   response:
@@ -33,12 +33,12 @@ http_interactions:
       Server:
       - nginx
       Date:
-      - Wed, <XPC_SERVICE_NAME>7 Jan 2<XPC_SERVICE_NAME>15 14:<XPC_SERVICE_NAME>2:54
+      - Wed, 07 Jan 2015 14:02:54
         GMT
       Content-Type:
       - application/json;charset=utf-8
       Content-Length:
-      - 241<XPC_SERVICE_NAME>
+      - 2410
       Connection:
       - keep-alive
       Access-Control-Allow-Credentials:
@@ -46,78 +46,78 @@ http_interactions:
       Access-Control-Allow-Methods:
       - GET, POST, HEAD, OPTIONS, DELETE
       Access-Control-Max-Age:
-      - 3<XPC_SERVICE_NAME><XPC_SERVICE_NAME>
+      - 300
       Cache-Control:
       - no-cache, no-store
       Request-Id:
       - req_XKK6SM5IKxSLt1KY
       Stripe-Version:
-      - 2<XPC_SERVICE_NAME>14-<XPC_SERVICE_NAME>5-19
+      - 2014-05-19
       Strict-Transport-Security:
       - max-age=31556926; includeSubDomains
     body:
       encoding: US-ASCII
-      string: ! "{\n  \"object\": \"customer\",\n  \"created\": 142<XPC_SERVICE_NAME>639374,\n
-        \ \"id\": \"cus_5TGwI<XPC_SERVICE_NAME>JaUcnA92\",\n  \"livemode\": false,\n
+      string: ! "{\n  \"object\": \"customer\",\n  \"created\": 1420639374,\n
+        \ \"id\": \"cus_5TGwI0JaUcnA92\",\n  \"livemode\": false,\n
         \ \"description\": \"FooBar Inc  membership (BB1933CS)\",\n  \"email\": null,\n
         \ \"delinquent\": false,\n  \"metadata\": {},\n  \"subscriptions\": {\n    \"object\":
         \"list\",\n    \"total_count\": 1,\n    \"has_more\": false,\n    \"url\":
-        \"/v1/customers/cus_5TGwI<XPC_SERVICE_NAME>JaUcnA92/subscriptions\",\n    \"data\":
+        \"/v1/customers/cus_5TGwI0JaUcnA92/subscriptions\",\n    \"data\":
         [\n      {\n        \"id\": \"sub_5TGwoRKFyBVDcC\",\n        \"plan\": {\n
         \         \"interval\": \"year\",\n          \"name\": \"Corporate Supporter
-        Annual (2<XPC_SERVICE_NAME>15 prices)\",\n          \"created\": 142<XPC_SERVICE_NAME>547324,\n
-        \         \"amount\": 264<XPC_SERVICE_NAME><XPC_SERVICE_NAME><XPC_SERVICE_NAME>,\n
-        \         \"currency\": \"gbp\",\n          \"id\": \"2<XPC_SERVICE_NAME>15_corporate_supporter_annual\",\n
+        Annual (2015 prices)\",\n          \"created\": 1420547324,\n
+        \         \"amount\": 264000,\n
+        \         \"currency\": \"gbp\",\n          \"id\": \"2015_corporate_supporter_annual\",\n
         \         \"object\": \"plan\",\n          \"livemode\": false,\n          \"interval_count\":
         1,\n          \"trial_period_days\": null,\n          \"metadata\": {},\n
         \         \"statement_descriptor\": null,\n          \"statement_description\":
         null\n        },\n        \"object\": \"subscription\",\n        \"start\":
-        142<XPC_SERVICE_NAME>639374,\n        \"status\": \"active\",\n        \"customer\":
-        \"cus_5TGwI<XPC_SERVICE_NAME>JaUcnA92\",\n        \"cancel_at_period_end\":
-        false,\n        \"current_period_start\": 142<XPC_SERVICE_NAME>639374,\n        \"current_period_end\":
+        1420639374,\n        \"status\": \"active\",\n        \"customer\":
+        \"cus_5TGwI0JaUcnA92\",\n        \"cancel_at_period_end\":
+        false,\n        \"current_period_start\": 1420639374,\n        \"current_period_end\":
         1452175374,\n        \"ended_at\": null,\n        \"trial_start\": null,\n
         \       \"trial_end\": null,\n        \"canceled_at\": null,\n        \"quantity\":
         1,\n        \"application_fee_percent\": null,\n        \"discount\": null,\n
         \       \"tax_percent\": null,\n        \"metadata\": {}\n      }\n    ]\n
-        \ },\n  \"discount\": null,\n  \"account_balance\": <XPC_SERVICE_NAME>,\n
+        \ },\n  \"discount\": null,\n  \"account_balance\": 0,\n
         \ \"currency\": \"gbp\",\n  \"cards\": {\n    \"object\": \"list\",\n    \"total_count\":
-        1,\n    \"has_more\": false,\n    \"url\": \"/v1/customers/cus_5TGwI<XPC_SERVICE_NAME>JaUcnA92/cards\",\n
-        \   \"data\": [\n      {\n        \"id\": \"card_15IKOg4oB<XPC_SERVICE_NAME>YITArSxlkLW8Y9\",\n
+        1,\n    \"has_more\": false,\n    \"url\": \"/v1/customers/cus_5TGwI0JaUcnA92/cards\",\n
+        \   \"data\": [\n      {\n        \"id\": \"card_15IKOg4oB0YITArSxlkLW8Y9\",\n
         \       \"object\": \"card\",\n        \"last4\": \"4242\",\n        \"brand\":
         \"Visa\",\n        \"funding\": \"credit\",\n        \"exp_month\": 12,\n
-        \       \"exp_year\": 2<XPC_SERVICE_NAME>16,\n        \"fingerprint\": \"qBYthW9tt9MyrCdj\",\n
+        \       \"exp_year\": 2016,\n        \"fingerprint\": \"qBYthW9tt9MyrCdj\",\n
         \       \"country\": \"US\",\n        \"name\": null,\n        \"address_line1\":
         null,\n        \"address_line2\": null,\n        \"address_city\": null,\n
         \       \"address_state\": null,\n        \"address_zip\": null,\n        \"address_country\":
         null,\n        \"cvc_check\": \"pass\",\n        \"address_line1_check\":
         null,\n        \"address_zip_check\": null,\n        \"dynamic_last4\": null,\n
-        \       \"customer\": \"cus_5TGwI<XPC_SERVICE_NAME>JaUcnA92\",\n        \"type\":
-        \"Visa\"\n      }\n    ]\n  },\n  \"default_card\": \"card_15IKOg4oB<XPC_SERVICE_NAME>YITArSxlkLW8Y9\"\n}\n"
+        \       \"customer\": \"cus_5TGwI0JaUcnA92\",\n        \"type\":
+        \"Visa\"\n      }\n    ]\n  },\n  \"default_card\": \"card_15IKOg4oB0YITArSxlkLW8Y9\"\n}\n"
     http_version: 
   recorded_at: Wed, 07 Jan 2015 14:02:54 GMT
 - request:
     method: get
-    uri: https://api.stripe.com/v1/customers/cus_5TGwI<XPC_SERVICE_NAME>JaUcnA92
+    uri: https://api.stripe.com/v1/customers/cus_5TGwI0JaUcnA92
     body:
       encoding: US-ASCII
       string: ''
     headers:
       Accept:
-      - ! '*/*; q=<XPC_SERVICE_NAME>.5, application/xml'
+      - ! '*/*; q=0.5, application/xml'
       Accept-Encoding:
       - gzip, deflate
       User-Agent:
-      - Stripe/v1 RubyBindings/1.16.<XPC_SERVICE_NAME>
+      - Stripe/v1 RubyBindings/1.16.0
       Authorization:
-      - Bearer sk_test_39F7AAZeF7Kij<XPC_SERVICE_NAME>yrNOlDznbH
+      - Bearer sk_test_39F7AAZeF7Kij0yrNOlDznbH
       Content-Type:
       - application/x-www-form-urlencoded
       X-Stripe-Client-User-Agent:
-      - ! '{"bindings_version":"1.16.<XPC_SERVICE_NAME>","lang":"ruby","lang_version":"1.9.3
-        p547 (2<XPC_SERVICE_NAME>14-<XPC_SERVICE_NAME>5-14)","platform":"x86_64-darwin14.<XPC_SERVICE_NAME>.<XPC_SERVICE_NAME>","publisher":"stripe","uname":"Darwin
-        Stuarts-MBP-3.home 14.<XPC_SERVICE_NAME>.<XPC_SERVICE_NAME> Darwin Kernel
-        Version 14.<XPC_SERVICE_NAME>.<XPC_SERVICE_NAME>: Fri Sep 19 <XPC_SERVICE_NAME><XPC_SERVICE_NAME>:26:44
-        PDT 2<XPC_SERVICE_NAME>14; root:xnu-2782.1.97~2/RELEASE_X86_64 x86_64"}'
+      - ! '{"bindings_version":"1.16.0","lang":"ruby","lang_version":"1.9.3
+        p547 (2014-05-14)","platform":"x86_64-darwin14.0.0","publisher":"stripe","uname":"Darwin
+        Stuarts-MBP-3.home 14.0.0 Darwin Kernel
+        Version 14.0.0: Fri Sep 19 00:26:44
+        PDT 2014; root:xnu-2782.1.97~2/RELEASE_X86_64 x86_64"}'
   response:
     status:
       code: 200
@@ -126,12 +126,12 @@ http_interactions:
       Server:
       - nginx
       Date:
-      - Wed, <XPC_SERVICE_NAME>7 Jan 2<XPC_SERVICE_NAME>15 14:<XPC_SERVICE_NAME>2:55
+      - Wed, 07 Jan 2015 14:02:55
         GMT
       Content-Type:
       - application/json;charset=utf-8
       Content-Length:
-      - 241<XPC_SERVICE_NAME>
+      - 2410
       Connection:
       - keep-alive
       Access-Control-Allow-Credentials:
@@ -139,78 +139,78 @@ http_interactions:
       Access-Control-Allow-Methods:
       - GET, POST, HEAD, OPTIONS, DELETE
       Access-Control-Max-Age:
-      - 3<XPC_SERVICE_NAME><XPC_SERVICE_NAME>
+      - 300
       Cache-Control:
       - no-cache, no-store
       Request-Id:
-      - req_yVic6GNH9rkGks<XPC_SERVICE_NAME>C
+      - req_yVic6GNH9rkGks0C
       Stripe-Version:
-      - 2<XPC_SERVICE_NAME>14-<XPC_SERVICE_NAME>5-19
+      - 2014-05-19
       Strict-Transport-Security:
       - max-age=31556926; includeSubDomains
     body:
       encoding: US-ASCII
-      string: ! "{\n  \"object\": \"customer\",\n  \"created\": 142<XPC_SERVICE_NAME>639374,\n
-        \ \"id\": \"cus_5TGwI<XPC_SERVICE_NAME>JaUcnA92\",\n  \"livemode\": false,\n
+      string: ! "{\n  \"object\": \"customer\",\n  \"created\": 1420639374,\n
+        \ \"id\": \"cus_5TGwI0JaUcnA92\",\n  \"livemode\": false,\n
         \ \"description\": \"FooBar Inc  membership (BB1933CS)\",\n  \"email\": null,\n
         \ \"delinquent\": false,\n  \"metadata\": {},\n  \"subscriptions\": {\n    \"object\":
         \"list\",\n    \"total_count\": 1,\n    \"has_more\": false,\n    \"url\":
-        \"/v1/customers/cus_5TGwI<XPC_SERVICE_NAME>JaUcnA92/subscriptions\",\n    \"data\":
+        \"/v1/customers/cus_5TGwI0JaUcnA92/subscriptions\",\n    \"data\":
         [\n      {\n        \"id\": \"sub_5TGwoRKFyBVDcC\",\n        \"plan\": {\n
         \         \"interval\": \"year\",\n          \"name\": \"Corporate Supporter
-        Annual (2<XPC_SERVICE_NAME>15 prices)\",\n          \"created\": 142<XPC_SERVICE_NAME>547324,\n
-        \         \"amount\": 264<XPC_SERVICE_NAME><XPC_SERVICE_NAME><XPC_SERVICE_NAME>,\n
-        \         \"currency\": \"gbp\",\n          \"id\": \"2<XPC_SERVICE_NAME>15_corporate_supporter_annual\",\n
+        Annual (2015 prices)\",\n          \"created\": 1420547324,\n
+        \         \"amount\": 264000,\n
+        \         \"currency\": \"gbp\",\n          \"id\": \"2015_corporate_supporter_annual\",\n
         \         \"object\": \"plan\",\n          \"livemode\": false,\n          \"interval_count\":
         1,\n          \"trial_period_days\": null,\n          \"metadata\": {},\n
         \         \"statement_descriptor\": null,\n          \"statement_description\":
         null\n        },\n        \"object\": \"subscription\",\n        \"start\":
-        142<XPC_SERVICE_NAME>639374,\n        \"status\": \"active\",\n        \"customer\":
-        \"cus_5TGwI<XPC_SERVICE_NAME>JaUcnA92\",\n        \"cancel_at_period_end\":
-        false,\n        \"current_period_start\": 142<XPC_SERVICE_NAME>639374,\n        \"current_period_end\":
+        1420639374,\n        \"status\": \"active\",\n        \"customer\":
+        \"cus_5TGwI0JaUcnA92\",\n        \"cancel_at_period_end\":
+        false,\n        \"current_period_start\": 1420639374,\n        \"current_period_end\":
         1452175374,\n        \"ended_at\": null,\n        \"trial_start\": null,\n
         \       \"trial_end\": null,\n        \"canceled_at\": null,\n        \"quantity\":
         1,\n        \"application_fee_percent\": null,\n        \"discount\": null,\n
         \       \"tax_percent\": null,\n        \"metadata\": {}\n      }\n    ]\n
-        \ },\n  \"discount\": null,\n  \"account_balance\": <XPC_SERVICE_NAME>,\n
+        \ },\n  \"discount\": null,\n  \"account_balance\": 0,\n
         \ \"currency\": \"gbp\",\n  \"cards\": {\n    \"object\": \"list\",\n    \"total_count\":
-        1,\n    \"has_more\": false,\n    \"url\": \"/v1/customers/cus_5TGwI<XPC_SERVICE_NAME>JaUcnA92/cards\",\n
-        \   \"data\": [\n      {\n        \"id\": \"card_15IKOg4oB<XPC_SERVICE_NAME>YITArSxlkLW8Y9\",\n
+        1,\n    \"has_more\": false,\n    \"url\": \"/v1/customers/cus_5TGwI0JaUcnA92/cards\",\n
+        \   \"data\": [\n      {\n        \"id\": \"card_15IKOg4oB0YITArSxlkLW8Y9\",\n
         \       \"object\": \"card\",\n        \"last4\": \"4242\",\n        \"brand\":
         \"Visa\",\n        \"funding\": \"credit\",\n        \"exp_month\": 12,\n
-        \       \"exp_year\": 2<XPC_SERVICE_NAME>16,\n        \"fingerprint\": \"qBYthW9tt9MyrCdj\",\n
+        \       \"exp_year\": 2016,\n        \"fingerprint\": \"qBYthW9tt9MyrCdj\",\n
         \       \"country\": \"US\",\n        \"name\": null,\n        \"address_line1\":
         null,\n        \"address_line2\": null,\n        \"address_city\": null,\n
         \       \"address_state\": null,\n        \"address_zip\": null,\n        \"address_country\":
         null,\n        \"cvc_check\": \"pass\",\n        \"address_line1_check\":
         null,\n        \"address_zip_check\": null,\n        \"dynamic_last4\": null,\n
-        \       \"customer\": \"cus_5TGwI<XPC_SERVICE_NAME>JaUcnA92\",\n        \"type\":
-        \"Visa\"\n      }\n    ]\n  },\n  \"default_card\": \"card_15IKOg4oB<XPC_SERVICE_NAME>YITArSxlkLW8Y9\"\n}\n"
+        \       \"customer\": \"cus_5TGwI0JaUcnA92\",\n        \"type\":
+        \"Visa\"\n      }\n    ]\n  },\n  \"default_card\": \"card_15IKOg4oB0YITArSxlkLW8Y9\"\n}\n"
     http_version: 
   recorded_at: Wed, 07 Jan 2015 14:02:55 GMT
 - request:
     method: get
-    uri: https://api.stripe.com/v1/customers/cus_5TGwI<XPC_SERVICE_NAME>JaUcnA92
+    uri: https://api.stripe.com/v1/customers/cus_5TGwI0JaUcnA92
     body:
       encoding: US-ASCII
       string: ''
     headers:
       Accept:
-      - ! '*/*; q=<XPC_SERVICE_NAME>.5, application/xml'
+      - ! '*/*; q=0.5, application/xml'
       Accept-Encoding:
       - gzip, deflate
       User-Agent:
-      - Stripe/v1 RubyBindings/1.16.<XPC_SERVICE_NAME>
+      - Stripe/v1 RubyBindings/1.16.0
       Authorization:
-      - Bearer sk_test_39F7AAZeF7Kij<XPC_SERVICE_NAME>yrNOlDznbH
+      - Bearer sk_test_39F7AAZeF7Kij0yrNOlDznbH
       Content-Type:
       - application/x-www-form-urlencoded
       X-Stripe-Client-User-Agent:
-      - ! '{"bindings_version":"1.16.<XPC_SERVICE_NAME>","lang":"ruby","lang_version":"1.9.3
-        p547 (2<XPC_SERVICE_NAME>14-<XPC_SERVICE_NAME>5-14)","platform":"x86_64-darwin14.<XPC_SERVICE_NAME>.<XPC_SERVICE_NAME>","publisher":"stripe","uname":"Darwin
-        Stuarts-MBP-3.home 14.<XPC_SERVICE_NAME>.<XPC_SERVICE_NAME> Darwin Kernel
-        Version 14.<XPC_SERVICE_NAME>.<XPC_SERVICE_NAME>: Fri Sep 19 <XPC_SERVICE_NAME><XPC_SERVICE_NAME>:26:44
-        PDT 2<XPC_SERVICE_NAME>14; root:xnu-2782.1.97~2/RELEASE_X86_64 x86_64"}'
+      - ! '{"bindings_version":"1.16.0","lang":"ruby","lang_version":"1.9.3
+        p547 (2014-05-14)","platform":"x86_64-darwin14.0.0","publisher":"stripe","uname":"Darwin
+        Stuarts-MBP-3.home 14.0.0 Darwin Kernel
+        Version 14.0.0: Fri Sep 19 00:26:44
+        PDT 2014; root:xnu-2782.1.97~2/RELEASE_X86_64 x86_64"}'
   response:
     status:
       code: 200
@@ -219,12 +219,12 @@ http_interactions:
       Server:
       - nginx
       Date:
-      - Wed, <XPC_SERVICE_NAME>7 Jan 2<XPC_SERVICE_NAME>15 14:<XPC_SERVICE_NAME>2:56
+      - Wed, 07 Jan 2015 14:02:56
         GMT
       Content-Type:
       - application/json;charset=utf-8
       Content-Length:
-      - 241<XPC_SERVICE_NAME>
+      - 2410
       Connection:
       - keep-alive
       Access-Control-Allow-Credentials:
@@ -232,78 +232,78 @@ http_interactions:
       Access-Control-Allow-Methods:
       - GET, POST, HEAD, OPTIONS, DELETE
       Access-Control-Max-Age:
-      - 3<XPC_SERVICE_NAME><XPC_SERVICE_NAME>
+      - 300
       Cache-Control:
       - no-cache, no-store
       Request-Id:
       - req_r3EvMF9zIWDquSXf
       Stripe-Version:
-      - 2<XPC_SERVICE_NAME>14-<XPC_SERVICE_NAME>5-19
+      - 2014-05-19
       Strict-Transport-Security:
       - max-age=31556926; includeSubDomains
     body:
       encoding: US-ASCII
-      string: ! "{\n  \"object\": \"customer\",\n  \"created\": 142<XPC_SERVICE_NAME>639374,\n
-        \ \"id\": \"cus_5TGwI<XPC_SERVICE_NAME>JaUcnA92\",\n  \"livemode\": false,\n
+      string: ! "{\n  \"object\": \"customer\",\n  \"created\": 1420639374,\n
+        \ \"id\": \"cus_5TGwI0JaUcnA92\",\n  \"livemode\": false,\n
         \ \"description\": \"FooBar Inc  membership (BB1933CS)\",\n  \"email\": null,\n
         \ \"delinquent\": false,\n  \"metadata\": {},\n  \"subscriptions\": {\n    \"object\":
         \"list\",\n    \"total_count\": 1,\n    \"has_more\": false,\n    \"url\":
-        \"/v1/customers/cus_5TGwI<XPC_SERVICE_NAME>JaUcnA92/subscriptions\",\n    \"data\":
+        \"/v1/customers/cus_5TGwI0JaUcnA92/subscriptions\",\n    \"data\":
         [\n      {\n        \"id\": \"sub_5TGwoRKFyBVDcC\",\n        \"plan\": {\n
         \         \"interval\": \"year\",\n          \"name\": \"Corporate Supporter
-        Annual (2<XPC_SERVICE_NAME>15 prices)\",\n          \"created\": 142<XPC_SERVICE_NAME>547324,\n
-        \         \"amount\": 264<XPC_SERVICE_NAME><XPC_SERVICE_NAME><XPC_SERVICE_NAME>,\n
-        \         \"currency\": \"gbp\",\n          \"id\": \"2<XPC_SERVICE_NAME>15_corporate_supporter_annual\",\n
+        Annual (2015 prices)\",\n          \"created\": 1420547324,\n
+        \         \"amount\": 264000,\n
+        \         \"currency\": \"gbp\",\n          \"id\": \"2015_corporate_supporter_annual\",\n
         \         \"object\": \"plan\",\n          \"livemode\": false,\n          \"interval_count\":
         1,\n          \"trial_period_days\": null,\n          \"metadata\": {},\n
         \         \"statement_descriptor\": null,\n          \"statement_description\":
         null\n        },\n        \"object\": \"subscription\",\n        \"start\":
-        142<XPC_SERVICE_NAME>639374,\n        \"status\": \"active\",\n        \"customer\":
-        \"cus_5TGwI<XPC_SERVICE_NAME>JaUcnA92\",\n        \"cancel_at_period_end\":
-        false,\n        \"current_period_start\": 142<XPC_SERVICE_NAME>639374,\n        \"current_period_end\":
+        1420639374,\n        \"status\": \"active\",\n        \"customer\":
+        \"cus_5TGwI0JaUcnA92\",\n        \"cancel_at_period_end\":
+        false,\n        \"current_period_start\": 1420639374,\n        \"current_period_end\":
         1452175374,\n        \"ended_at\": null,\n        \"trial_start\": null,\n
         \       \"trial_end\": null,\n        \"canceled_at\": null,\n        \"quantity\":
         1,\n        \"application_fee_percent\": null,\n        \"discount\": null,\n
         \       \"tax_percent\": null,\n        \"metadata\": {}\n      }\n    ]\n
-        \ },\n  \"discount\": null,\n  \"account_balance\": <XPC_SERVICE_NAME>,\n
+        \ },\n  \"discount\": null,\n  \"account_balance\": 0,\n
         \ \"currency\": \"gbp\",\n  \"cards\": {\n    \"object\": \"list\",\n    \"total_count\":
-        1,\n    \"has_more\": false,\n    \"url\": \"/v1/customers/cus_5TGwI<XPC_SERVICE_NAME>JaUcnA92/cards\",\n
-        \   \"data\": [\n      {\n        \"id\": \"card_15IKOg4oB<XPC_SERVICE_NAME>YITArSxlkLW8Y9\",\n
+        1,\n    \"has_more\": false,\n    \"url\": \"/v1/customers/cus_5TGwI0JaUcnA92/cards\",\n
+        \   \"data\": [\n      {\n        \"id\": \"card_15IKOg4oB0YITArSxlkLW8Y9\",\n
         \       \"object\": \"card\",\n        \"last4\": \"4242\",\n        \"brand\":
         \"Visa\",\n        \"funding\": \"credit\",\n        \"exp_month\": 12,\n
-        \       \"exp_year\": 2<XPC_SERVICE_NAME>16,\n        \"fingerprint\": \"qBYthW9tt9MyrCdj\",\n
+        \       \"exp_year\": 2016,\n        \"fingerprint\": \"qBYthW9tt9MyrCdj\",\n
         \       \"country\": \"US\",\n        \"name\": null,\n        \"address_line1\":
         null,\n        \"address_line2\": null,\n        \"address_city\": null,\n
         \       \"address_state\": null,\n        \"address_zip\": null,\n        \"address_country\":
         null,\n        \"cvc_check\": \"pass\",\n        \"address_line1_check\":
         null,\n        \"address_zip_check\": null,\n        \"dynamic_last4\": null,\n
-        \       \"customer\": \"cus_5TGwI<XPC_SERVICE_NAME>JaUcnA92\",\n        \"type\":
-        \"Visa\"\n      }\n    ]\n  },\n  \"default_card\": \"card_15IKOg4oB<XPC_SERVICE_NAME>YITArSxlkLW8Y9\"\n}\n"
+        \       \"customer\": \"cus_5TGwI0JaUcnA92\",\n        \"type\":
+        \"Visa\"\n      }\n    ]\n  },\n  \"default_card\": \"card_15IKOg4oB0YITArSxlkLW8Y9\"\n}\n"
     http_version: 
   recorded_at: Wed, 07 Jan 2015 14:02:56 GMT
 - request:
     method: get
-    uri: https://api.stripe.com/v1/customers/cus_5TGwI<XPC_SERVICE_NAME>JaUcnA92
+    uri: https://api.stripe.com/v1/customers/cus_5TGwI0JaUcnA92
     body:
       encoding: US-ASCII
       string: ''
     headers:
       Accept:
-      - ! '*/*; q=<XPC_SERVICE_NAME>.5, application/xml'
+      - ! '*/*; q=0.5, application/xml'
       Accept-Encoding:
       - gzip, deflate
       User-Agent:
-      - Stripe/v1 RubyBindings/1.16.<XPC_SERVICE_NAME>
+      - Stripe/v1 RubyBindings/1.16.0
       Authorization:
-      - Bearer sk_test_39F7AAZeF7Kij<XPC_SERVICE_NAME>yrNOlDznbH
+      - Bearer sk_test_39F7AAZeF7Kij0yrNOlDznbH
       Content-Type:
       - application/x-www-form-urlencoded
       X-Stripe-Client-User-Agent:
-      - ! '{"bindings_version":"1.16.<XPC_SERVICE_NAME>","lang":"ruby","lang_version":"1.9.3
-        p547 (2<XPC_SERVICE_NAME>14-<XPC_SERVICE_NAME>5-14)","platform":"x86_64-darwin14.<XPC_SERVICE_NAME>.<XPC_SERVICE_NAME>","publisher":"stripe","uname":"Darwin
-        Stuarts-MBP-3.home 14.<XPC_SERVICE_NAME>.<XPC_SERVICE_NAME> Darwin Kernel
-        Version 14.<XPC_SERVICE_NAME>.<XPC_SERVICE_NAME>: Fri Sep 19 <XPC_SERVICE_NAME><XPC_SERVICE_NAME>:26:44
-        PDT 2<XPC_SERVICE_NAME>14; root:xnu-2782.1.97~2/RELEASE_X86_64 x86_64"}'
+      - ! '{"bindings_version":"1.16.0","lang":"ruby","lang_version":"1.9.3
+        p547 (2014-05-14)","platform":"x86_64-darwin14.0.0","publisher":"stripe","uname":"Darwin
+        Stuarts-MBP-3.home 14.0.0 Darwin Kernel
+        Version 14.0.0: Fri Sep 19 00:26:44
+        PDT 2014; root:xnu-2782.1.97~2/RELEASE_X86_64 x86_64"}'
   response:
     status:
       code: 200
@@ -312,12 +312,12 @@ http_interactions:
       Server:
       - nginx
       Date:
-      - Wed, <XPC_SERVICE_NAME>7 Jan 2<XPC_SERVICE_NAME>15 14:<XPC_SERVICE_NAME>2:57
+      - Wed, 07 Jan 2015 14:02:57
         GMT
       Content-Type:
       - application/json;charset=utf-8
       Content-Length:
-      - 241<XPC_SERVICE_NAME>
+      - 2410
       Connection:
       - keep-alive
       Access-Control-Allow-Credentials:
@@ -325,53 +325,53 @@ http_interactions:
       Access-Control-Allow-Methods:
       - GET, POST, HEAD, OPTIONS, DELETE
       Access-Control-Max-Age:
-      - 3<XPC_SERVICE_NAME><XPC_SERVICE_NAME>
+      - 300
       Cache-Control:
       - no-cache, no-store
       Request-Id:
       - req_huRF1ca2TKNyQmqd
       Stripe-Version:
-      - 2<XPC_SERVICE_NAME>14-<XPC_SERVICE_NAME>5-19
+      - 2014-05-19
       Strict-Transport-Security:
       - max-age=31556926; includeSubDomains
     body:
       encoding: US-ASCII
-      string: ! "{\n  \"object\": \"customer\",\n  \"created\": 142<XPC_SERVICE_NAME>639374,\n
-        \ \"id\": \"cus_5TGwI<XPC_SERVICE_NAME>JaUcnA92\",\n  \"livemode\": false,\n
+      string: ! "{\n  \"object\": \"customer\",\n  \"created\": 1420639374,\n
+        \ \"id\": \"cus_5TGwI0JaUcnA92\",\n  \"livemode\": false,\n
         \ \"description\": \"FooBar Inc  membership (BB1933CS)\",\n  \"email\": null,\n
         \ \"delinquent\": false,\n  \"metadata\": {},\n  \"subscriptions\": {\n    \"object\":
         \"list\",\n    \"total_count\": 1,\n    \"has_more\": false,\n    \"url\":
-        \"/v1/customers/cus_5TGwI<XPC_SERVICE_NAME>JaUcnA92/subscriptions\",\n    \"data\":
+        \"/v1/customers/cus_5TGwI0JaUcnA92/subscriptions\",\n    \"data\":
         [\n      {\n        \"id\": \"sub_5TGwoRKFyBVDcC\",\n        \"plan\": {\n
         \         \"interval\": \"year\",\n          \"name\": \"Corporate Supporter
-        Annual (2<XPC_SERVICE_NAME>15 prices)\",\n          \"created\": 142<XPC_SERVICE_NAME>547324,\n
-        \         \"amount\": 264<XPC_SERVICE_NAME><XPC_SERVICE_NAME><XPC_SERVICE_NAME>,\n
-        \         \"currency\": \"gbp\",\n          \"id\": \"2<XPC_SERVICE_NAME>15_corporate_supporter_annual\",\n
+        Annual (2015 prices)\",\n          \"created\": 1420547324,\n
+        \         \"amount\": 264000,\n
+        \         \"currency\": \"gbp\",\n          \"id\": \"2015_corporate_supporter_annual\",\n
         \         \"object\": \"plan\",\n          \"livemode\": false,\n          \"interval_count\":
         1,\n          \"trial_period_days\": null,\n          \"metadata\": {},\n
         \         \"statement_descriptor\": null,\n          \"statement_description\":
         null\n        },\n        \"object\": \"subscription\",\n        \"start\":
-        142<XPC_SERVICE_NAME>639374,\n        \"status\": \"active\",\n        \"customer\":
-        \"cus_5TGwI<XPC_SERVICE_NAME>JaUcnA92\",\n        \"cancel_at_period_end\":
-        false,\n        \"current_period_start\": 142<XPC_SERVICE_NAME>639374,\n        \"current_period_end\":
+        1420639374,\n        \"status\": \"active\",\n        \"customer\":
+        \"cus_5TGwI0JaUcnA92\",\n        \"cancel_at_period_end\":
+        false,\n        \"current_period_start\": 1420639374,\n        \"current_period_end\":
         1452175374,\n        \"ended_at\": null,\n        \"trial_start\": null,\n
         \       \"trial_end\": null,\n        \"canceled_at\": null,\n        \"quantity\":
         1,\n        \"application_fee_percent\": null,\n        \"discount\": null,\n
         \       \"tax_percent\": null,\n        \"metadata\": {}\n      }\n    ]\n
-        \ },\n  \"discount\": null,\n  \"account_balance\": <XPC_SERVICE_NAME>,\n
+        \ },\n  \"discount\": null,\n  \"account_balance\": 0,\n
         \ \"currency\": \"gbp\",\n  \"cards\": {\n    \"object\": \"list\",\n    \"total_count\":
-        1,\n    \"has_more\": false,\n    \"url\": \"/v1/customers/cus_5TGwI<XPC_SERVICE_NAME>JaUcnA92/cards\",\n
-        \   \"data\": [\n      {\n        \"id\": \"card_15IKOg4oB<XPC_SERVICE_NAME>YITArSxlkLW8Y9\",\n
+        1,\n    \"has_more\": false,\n    \"url\": \"/v1/customers/cus_5TGwI0JaUcnA92/cards\",\n
+        \   \"data\": [\n      {\n        \"id\": \"card_15IKOg4oB0YITArSxlkLW8Y9\",\n
         \       \"object\": \"card\",\n        \"last4\": \"4242\",\n        \"brand\":
         \"Visa\",\n        \"funding\": \"credit\",\n        \"exp_month\": 12,\n
-        \       \"exp_year\": 2<XPC_SERVICE_NAME>16,\n        \"fingerprint\": \"qBYthW9tt9MyrCdj\",\n
+        \       \"exp_year\": 2016,\n        \"fingerprint\": \"qBYthW9tt9MyrCdj\",\n
         \       \"country\": \"US\",\n        \"name\": null,\n        \"address_line1\":
         null,\n        \"address_line2\": null,\n        \"address_city\": null,\n
         \       \"address_state\": null,\n        \"address_zip\": null,\n        \"address_country\":
         null,\n        \"cvc_check\": \"pass\",\n        \"address_line1_check\":
         null,\n        \"address_zip_check\": null,\n        \"dynamic_last4\": null,\n
-        \       \"customer\": \"cus_5TGwI<XPC_SERVICE_NAME>JaUcnA92\",\n        \"type\":
-        \"Visa\"\n      }\n    ]\n  },\n  \"default_card\": \"card_15IKOg4oB<XPC_SERVICE_NAME>YITArSxlkLW8Y9\"\n}\n"
+        \       \"customer\": \"cus_5TGwI0JaUcnA92\",\n        \"type\":
+        \"Visa\"\n      }\n    ]\n  },\n  \"default_card\": \"card_15IKOg4oB0YITArSxlkLW8Y9\"\n}\n"
     http_version: 
   recorded_at: Wed, 07 Jan 2015 14:02:57 GMT
 recorded_with: VCR 2.9.3

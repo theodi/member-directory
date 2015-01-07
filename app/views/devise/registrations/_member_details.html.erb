@@ -17,37 +17,39 @@
   	</div>
   </div>
 
-  <div class="control-group">
-  	<%= f.label :organization_name, :class => 'control-label' %>
-  	<div class="controls">
-  		<%= f.text_field :organization_name %>
-  	</div>
-  </div>
-
-  <div class="control-group">
-    <%= f.label :organization_size, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.select(:organization_size, {
-          "less than 10 employees"   => '<10',
-          "10 - 50 employees"        => '10-50',
-          "51 - 250 employees"       => '51-250',
-          "251 - 1000 employees"     => '251-1000',
-          "more than 1000 employees" => '>1000'
-        }, prompt: "Please select") %>
-      <span class="help-inline">(required)</span>
+  <% unless individual? %>
+    <div class="control-group">
+    	<%= f.label :organization_name, :class => 'control-label' %>
+    	<div class="controls">
+    		<%= f.text_field :organization_name %>
+    	</div>
     </div>
-  </div>
 
-  <div class="control-group">
-    <%= f.label :organization_type, :class => 'control-label'  %>
-    <div class="controls">
-      <%= f.select(:organization_type, {
-          "Corporate"                => "commercial",
-          "Nonprofit / Government"   => "non_commercial"
-        }, prompt: "Please select") %>
-      <span class="help-inline">(required)</span>
+    <div class="control-group">
+      <%= f.label :organization_size, :class => 'control-label' %>
+      <div class="controls">
+        <%= f.select(:organization_size, {
+            "less than 10 employees"   => '<10',
+            "10 - 50 employees"        => '10-50',
+            "51 - 250 employees"       => '51-250',
+            "251 - 1000 employees"     => '251-1000',
+            "more than 1000 employees" => '>1000'
+          }, prompt: "Please select") %>
+        <span class="help-inline">(required)</span>
+      </div>
     </div>
-  </div>
+
+    <div class="control-group">
+      <%= f.label :organization_type, :class => 'control-label'  %>
+      <div class="controls">
+        <%= f.select(:organization_type, {
+            "Corporate"                => "commercial",
+            "Nonprofit / Government"   => "non_commercial"
+          }, prompt: "Please select") %>
+        <span class="help-inline">(required)</span>
+      </div>
+    </div>
+  <% end %>
 
   <div class="control-group">
     <%= f.label :organization_sector, :class => 'control-label'  %>
@@ -111,54 +113,64 @@
 
 </fieldset>
 
-<fieldset>
+<% unless individual? %>
+  <fieldset>
 
-  <legend>Financial information</legend>
+    <legend>Financial information</legend>
 
-  <div class="control-group">
-  	<%= f.label :organization_company_number, :class => 'control-label' %>
-  	<div class="controls">
-  		<%= f.text_field :organization_company_number %>
-  	</div>
-  </div>
+    <div class="control-group">
+    	<%= f.label :organization_company_number, :class => 'control-label' %>
+    	<div class="controls">
+    		<%= f.text_field :organization_company_number %>
+    	</div>
+    </div>
 
-  <div class="control-group">
-  	<%= f.label :organization_vat_id, :class => 'control-label' %>
-  	<div class="controls">
-  		<%= f.text_field :organization_vat_id %>
-  	</div>
-  </div>
+    <div class="control-group">
+    	<%= f.label :organization_vat_id, :class => 'control-label' %>
+    	<div class="controls">
+    		<%= f.text_field :organization_vat_id %>
+    	</div>
+    </div>
 
-</fieldset>
+  </fieldset>
+<% end %>
 
 <fieldset>
 
   <legend>Payment Details</legend>
 
-  <div class="control-group">
-  	<%= f.label :payment_method, :class => 'control-label' %>
-  	<div class="controls">
-      <%= f.label :payment_method, t(:credit_card), :value => :credit_card do %>
-        <%= f.radio_button :payment_method, :credit_card %>
-        <%= t(:credit_card) %>
-      <% end %>
-      <%= f.label :payment_method, t(:invoice), :value => :invoice do %>
-        <%= f.radio_button :payment_method, :invoice %>
-        <%= t(:invoice) %>
-      <% end %>
-  	</div>
-  </div>
+  <% unless individual? %>
+
+    <div class="control-group">
+    	<%= f.label :payment_method, :class => 'control-label' %>
+    	<div class="controls">
+        <%= f.label :payment_method, t(:credit_card), :value => :credit_card do %>
+          <%= f.radio_button :payment_method, :credit_card %>
+          <%= t(:credit_card) %>
+        <% end %>
+        <%= f.label :payment_method, t(:invoice), :value => :invoice do %>
+          <%= f.radio_button :payment_method, :invoice %>
+          <%= t(:invoice) %>
+        <% end %>
+    	</div>
+    </div>
+
+  <% end %>
 
   <script>
     function show_payment_options() {
       selected = $('input:radio[name="member[payment_method]"]:checked').val();
-      $('#card-details').slideUp();
-      $('#invoice-details').slideUp();
-      if (selected == "invoice") {
-        $('#invoice-details').slideDown();
-      }
-      if (selected == "credit_card") {
+      if (selected == undefined) {
         $('#card-details').slideDown();
+      } else {
+        $('#card-details').slideUp();
+        $('#invoice-details').slideUp();
+        if (selected == "invoice") {
+          $('#invoice-details').slideDown();
+        }
+        if (selected == "credit_card") {
+          $('#card-details').slideDown();
+        }
       }
     }
 
@@ -205,15 +217,19 @@
 
   </div>
 
-  <div id='invoice-details'>
+  <% unless individual? %>
 
-    <div class="control-group">
-      <%= f.label :purchase_order_number, :class => 'control-label' %>
-      <div class="controls">
-        <%= f.text_field :purchase_order_number %>
+    <div id='invoice-details'>
+
+      <div class="control-group">
+        <%= f.label :purchase_order_number, :class => 'control-label' %>
+        <div class="controls">
+          <%= f.text_field :purchase_order_number %>
+        </div>
       </div>
+
     </div>
 
-  </div>
+  <% end %>
 
 </fieldset>

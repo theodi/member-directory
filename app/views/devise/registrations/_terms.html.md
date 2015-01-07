@@ -12,7 +12,7 @@
     | ODI | means the Open Data Institute, a company registered in England and Wales with company number 08030289 and whose registered office is 3rd Floor, 65 Clifton Street, London, EC2A 4JE |
     | SME & Non Profit Supporter | a commercial organisation with 249 employees or fewer, academic institutions, not-for-profits, charities and local government organisations |
     | Start Date | means the date the Membership Fee is received by the ODI in full; or where you opt to pay in monthly installments, the date the first installment is received in full |
-    | You/Your | means <span class='legal-name'>(name)</span> <span id='company-details' style='display:none'>being a company / charity registered in England and Wales with number <span id='company-number'>(company number)</span> and whose principal address is <span class='legal-address'>(address)</span> |
+    | You/Your | means <span class='legal-name'><%= member.name %></span> <span id='company-details' style='<%= member.company_number ? "" : "display:none"%>'>being a company / charity registered in England and Wales with number <span id='company-number'><%= member.company_number %></span> and whose principal address is <span class='legal-address'><%= member.address %></span> |
     | VAT | means value added tax chargeable under the Value Added Tax Act 1994 |
 
 3. Membership
