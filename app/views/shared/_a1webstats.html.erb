@@ -1,0 +1,12 @@
+<% if ENV['A1_STATS_ID'] %>
+
+  <script>
+
+  var _pt = ["<%= ENV['A1_STATS_ID'] %>"];
+  (function(d,t){
+    var a=d.createElement(t),s=d.getElementsByTagName(t)[0];a.src=location.protocol+'//a1webstrategy.com/track.js';s.parentNode.insertBefore(a,s);
+  }(document,'script'));
+
+  </script>
+
+<% end %>
