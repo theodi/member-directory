@@ -11,7 +11,7 @@ class DocumentRenderer
 
   def terms_and_conditions(member)
     presenter = IndividualPresenter.new(member)
-    @view.render :partial => 'devise/registrations/individual_terms', locals: { member: presenter }
+    @view.render :partial => 'devise/registrations/individual_terms', locals: { member: presenter }, layout: 'layouts/email_attachment'
   end
 
 end

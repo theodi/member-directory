@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <style>
+      ol {
+        counter-reset: section;
+        list-style-type: none;
+      }  
+      ol li {
+        counter-increment: section;
+      }      
+      ol li:before  {
+        content: counters(section, ".") ". ";
+      }
+      ol li p {
+        display: inline-block;
+      }
+    </style>
+  </head>
+  <body>
+    <%= yield %>
+  </body>
+</html>
