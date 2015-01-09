@@ -29,8 +29,8 @@
 
 5. Your Entitlements
     1. During the Term, You will be entitled to:
-      1. receive the ODI's member newsletter and related communications; and
-      2. receive a 20% discount on ODI training courses for yourself (those published at http://theodi.org/courses).
+        1. receive the ODI's member newsletter and related communications; and
+        2. receive a 20% discount on ODI training courses for yourself (those published at http://theodi.org/courses).
 
 
 6. Publicity and Branding

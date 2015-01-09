@@ -34,7 +34,7 @@
 7. Your Entitlements
     1. Whilst you are a member, you will be entitled to:
         1. receive a discount on the price of the ODI’s “Annual Summit” conference tickets for an attendee who is a member of your board of directors or is your employee or consultant.
-        2.  send 2 attendees and 1 guest to the ODI’s “ODI Connect Member Networking Event” provided that your attendees be a member of your board of directors or is your employee or consultant.
+        2. send 2 attendees and 1 guest to the ODI’s “ODI Connect Member Networking Event” provided that your attendees be a member of your board of directors or is your employee or consultant.
         3. provided that all necessary details are provided to the ODI, have your organisation’s name and details displayed in the ODI’s members’ directory.
         4. receive the ODI’s member newsletter and related communications.
         5. receive a 20% discount on ODI UK public training courses (as published at [http://theodi.org/courses](http://theodi.org/courses))  for attendees who are members of your board of directors, your employees or consultants.
