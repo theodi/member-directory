@@ -1,101 +1,67 @@
 1. Introduction
-    1. This Agreement is made between <%= member.name %> ("You" or "Your") and the ODI and will govern the ODI's relationship with you whilst you are an 'Individual' Supporter of the ODI.
-
+    1. You agree to comply with these terms and conditions whilst you are a member of the ODI.  
 
 2. Definitions
-    1. The following definitions apply to this Agreement:
+    1. The following definitions apply to these terms and conditions:
 
     | Term | Definition |
     |-|-|
-    | Effective Date | means <%= member.start_date %> |
-    | End Date | means the date that this Agreement ends |
-    | Confidential Information | means all information marked as confidential, however recorded or preserved, disclosed by a party or its employees, officers, representatives or advisors, to the other party during the Term |
+    | End Date | means 12 calendar months’ after the Start Date |
+    | Membership Fee | £90 per annum + VAT |
     | ODI | means the Open Data Institute, a company registered in England and Wales with company number 08030289 and whose registered office is 3rd Floor, 65 Clifton Street, London, EC2A 4JE |
-    | Subscription Fee | £90 per annum |
-    | Individual Supporter |  means a category of membership to the ODI |
-    | Term | means the term of this Agreement, commencing on the Effective Date and expiring on the End Date (inclusive) |
+    | Start Date | means the date the Membership Fee is received by the ODI in full |
     | You/Your | means <%= member.name %> of <%= member.address %> |
+    | Supporter Badge | means a visual digital mark that you can use whilst an active individual Supporter
     | VAT | means value added tax chargeable under the Value Added Tax Act 1994 |
 
-3. Term
-    1. This Agreement will begin on the Effective Date and, unless terminated in accordance with this Agreement, will continue for minimum period of one year and will automatically renew on each anniversary of the Effective Date for a period of one year.
+3. Membership
+    1. Your category of membership to the ODI is “Individual Supporter”. 
+    2. Your membership is personal to you.  You may not transfer your membership to any other person. No one other than you is entitled to any discount or other offer you may be entitled to as a result of your membership to the ODI. 
 
+4. Membership Period
+    1. Your membership to the ODI will begin the date the Membership Fee is received by the ODI in full (the “Start Date”) and, unless terminated in accordance with these terms, will end 12 calendar months’ thereafter.
 
-4. Membership Fee
-    1. You shall pay the Subscription Fee to the ODI for each year you are a Supporter.  VAT will be added to the Subscription Fee, where appropriate.
-    2. You must pay the Subscription Fee annually by credit/debit card. You will pay the annual fee on the Effective Date prior completing your registration as an ODI Supporter and prior to each anniversary thereafter.
-    3. The ODI reserves the right to increase the Subscription Fee.  In the event of an increase, you are under no obligation to continue being a Supporter of the ODI.  Upon receipt of notice from the ODI regarding any increase in the Subscription Fee, you may terminate this Agreement within 30 days of the date of that notice.  In the event of termination under this clause, you shall be liable for the payment of the Subscription Fee, on a proportionate basis, up to the End Date, being the date written notice to terminate is received by the ODI from you.
+5. Membership Fee
+    1. You will pay the Membership Fee in full by credit or debit card on the date you subscribe to become a member of the ODI.
+    2. Following receipt of the Membership Fee, the ODI will send you an invoice to the email address you provided during the registration process.
+    
+6. Membership Renewal
+    1. Prior to the End Date, you will be given the option to renew your membership for a further year.  When offering the option to renew, the ODI reserves the right to vary its membership offering, including any fee payable.  You are under no obligation to agree to the option to renew.  
 
+7. Entitlements
+    1. Whilst you are a member, you will be entitled to:
+        1. receive the ODI’s member newsletter and related communications;
+        2. receive a 20% discount on the ODI’s training courses (as published at http://theodi.org/courses);
+        3. use the ODI’s Supporter Badge provided such use is in accordance with the ODI’s Brand Guidelines.
 
-5. Your Entitlements
-    1. During the Term, You will be entitled to:
-        1. receive the ODI's member newsletter and related communications; and
-        2. receive a 20% discount on ODI training courses for yourself (those published at http://theodi.org/courses).
+8. Publications and Branding
+    1. You are allowed to use the ODI’s Supporter Badge in accordance with paragraph 7.1.3, above.  Any further publications or communications regarding the ODI, its business, your membership or membership generally must be agreed in writing in advance by the ODI.
+    2. The members’ newsletters and other communications may be written by the ODI and/or others.  You must not rely on such communications as any form of professional advice.  The ODI (or third party author) will own the intellectual property arising from such communications and you should check the associated licence on the communication before re-using it.
 
+9. Personal Data
+    1. In order to administer your membership, you consent to the ODI, and those who provide services to the ODI, processing personal data relating to you for legal, personnel, administrative and management purposes.  Details of the ODI’s privacy policy can be found here: [http://theodi.org/privacy-policy](http://theodi.org/privacy-policy).
 
-6. Publicity and Branding
-    1. During the Term, subject to its availability and the ODI's Brand Guidelines, you may display the ODI's Supporter badge and include reference to the ODI on your website and in your collateral.
-    2. Publications or other communications regarding the ODI's business, your membership to the ODI or membership to the ODI generally must be agreed in writing in advance by the ODI.
+10. Right to Cancel Membership
+    1. You have the right to cancel your membership within 14 days of the Start Date as per the [Consumer Contracts Regulations 2013](http://www.legislation.gov.uk/uksi/2013/3134/made). If you cancel within this timeframe, the ODI will refund you the Membership Fee in full. 
+    2. In order to cancel your membership the ODI must receive your completed cancellation form by post or by email to [members@theodi.org](members@theodi.org) within 14 days of the Start Date. You can access the cancellation form here:  [http://bit.ly/ODIcancellation](http://bit.ly/ODIcancellation).
+    3. You will lose your right to cancel your membership if, within the 14 day time frame, you book onto one of the ODI’s courses having taken advantage of the 20% discount.
 
+11. Termination of Membership
+    1. The ODI may terminate your membership immediately on written notice if you:
+        1. breach any of these terms and conditions;
+        2. bring the ODI into disrepute, damage its brand and/or its reputation.
+    2. If the ODI terminates your membership in accordance with paragraph 11.1, it will not be liable to refund any proportionate part of the Membership Fee paid by you.
+    3. If the ODI has to terminate your membership for any other reason, it will notify you in writing and refund any proportionate amount of the Membership Fee.
 
-7. Confidential Information
-    1. Each party shall keep the other party's Confidential Information confidential and shall not disclose such Confidential Information in whole or in part to any third party without the prior written consent of the other.  The restrictions in this clause shall cease to apply to any information which becomes available to the public generally (save where there has been breach of this Agreement) or is required to be disclosed by law, regulation or order, provided that, unless prevented by law, the disclosing party shall give reasonable advance notice of the intended disclosure to the other party.
-    2. All Confidential Information shall remain the property of that party disclosing it and, upon termination of this Agreement, the receiving party shall promptly return the other's Confidential Information.
+12. End of Membership
+    1. Following the end of your membership you shall cease using the ODI’s Supporter Badge and ensure that no third party is misled as to any on-going relationship with the ODI.
 
-8. Personal Data
-    1. You consent to the ODI, and those who provide services to the ODI, processing personal data relating to you, your employees and contractors for legal, personnel, administrative and management purposes and further consent that the ODI transferring such personal data, where necessary to satisfy its reporting requirements to regulatory and governmental authorities.  Details of our privacy policy can be found here http://theodi.org/privacy-policy.
-    2. In the event you receive personal data whereby the ODI is data controller, then you will act as data processor and shall process such personal data in accordance with the ODI's instructions and shall promptly comply with all requests given.
+13. Contact Details
+    1. If you wish to contact to the ODI, you may do so by using the following address: 3rd Floor, 65 Clifton Street, London, EC2A 4JE.  You may also email the ODI at [members@theodi.org](mailto:members@theodi.org).
+    2. If the ODI needs to contact you, it shall do so using the contact details you provided when you registered as a member.  If your contact details change, please notify the ODI using the above contact details.
 
+14. Feedback
+    1. Any feedback you may have should be directed to the ODI using the contact details set out in paragraph 13.  
 
-9. 	Termination of Membership
-    1. Without prejudice to any other rights or remedies which the ODI may have, the ODI may terminate this Agreement with immediate effect if:
-        1. You fail to pay the Subscription Fee in accordance with clause 4.2; and
-        2. The ODI, in its sole discretion, dictates this Agreement must be terminated.
-    2. Without prejudice to any other rights or remedies which the parties may have, either party may terminate this Agreement, which, save for 9.2.1, will be effective immediately if:
-        1. within 30 days' of the anniversary of the Effective Date, written notice is given to the other to terminate (in which case the End Date will be the anniversary of the Effective Date);
-        2. either party is in material breach of this Agreement;
-        3. either party deems that the other has done something which has damaged its brand and/or reputation;
-        4. the existence or terms of this Agreement causes or is likely to cause the other to be in breach of its regulatory requirements; and
-        5. either party is placed into receivership, administration, liquidation, enters into an arrangement with its creditors, is declared bankrupt or has a county court administration order made against them under the County Court Action 1984.
-    3. In the event of termination of this Agreement and where the Subscription Fee has been paid in advance, the ODI shall, within 30 days of the End Date, reimburse your Subscription Fee, on a proportionate basis up to the End Date.  The ODI reserves the right to off-set any monies owing to it from any proportion of Subscription Fee due to you pursuant to this clause.
-
-
-10. Effects of Termination
-    1. In the event of termination, you shall:
-        1. within 30 days of the End Date, pay the ODI any sums owing to it as at the End Date;
-        2. within 7 days of the End Date, ensure that any reference to the ODI, together with its trade marks are removed from all advertising, promotional materials, websites, stationery and other materials of belonging to you;
-        3. immediately cease promoting and advertising your relationship with the ODI;
-        4. take all reasonable steps to ensure that any third parties are not mislead as to any on-going relationship with the ODI; and
-        5. within 7 days of the End Date, return all property belonging to the ODI, including any of its Confidential Information.
-
-
-11. Limitation of Liability
-    1. Except in respect of death or personal injury caused by a party's negligence (or the party's employees, agents, consultants and sub-contractors), neither party shall be liable to the other for any indirect loss including loss of profit and/or special or consequential loss, damage, costs or expenses including by reason of any representation, misrepresentation (unless fraudulent), any implied warranty, condition or other term, any duty at common law and any corruption of data or information.
-    2. Subject to clause 11.1, each party's total liability to the other is limited to one year's Subscription Fee.  In the event the Subscription Fee has increased during the Term, such limitation being the value of the Subscription Fee the Supporter is paying in the year to which any claim relates.
-    3. The ODI does not guarantee or make any warranty that its website, or any content on it, will always be available or be uninterrupted or will be free from bugs, viruses, or errors.  The ODI may suspend, withdraw, discontinue or change all or any part of its site without notice and without any liability to you.
-
-
-12. Notices
-    1. All notices or other communications given under this Agreement shall be in email and writing and
-served to:
-      1. ODI: 3rd Floor, 65 Clifton Street, London, EC2A 4JE; and members@theodi.org;
-      2. You: your address and email address given when you registered as a Supporter; or such other address as you confirm to the ODI in writing.
-
-
-13. Waiver
-    1. A waiver of any right or remedy under this Agreement is only effective if given in writing and shall not be deemed a waiver of any subsequent breach or default.
-
-
-14. Severance
-    1. If any provision or part-provision of this Agreement is or becomes invalid, illegal or unenforceable, it shall be deemed modified to the minimum extent necessary to make it valid legal and enforceable.  If such modification is not possible, the relevant provision or part-provision shall be deemed deleted.  Any modification to or deletion of a provision or part-provision under this clause shall not affect the validity and enforceability of the rest of the agreement.
-
-15. Third Party Rights
-    1. No one other than a party to this Agreement shall have any right to enforce any of its terms.
-
-
-16. Entire Agreement
-    1. This Agreement embodies the entire agreement of the parties in respect of the matters contained or referred to in it and there are no promises, terms, conditions or obligations or written, express or implied other than those contained in this Agreement.
-
-
-17. Governing Law and Jurisdiction
-    1. This Agreement and any dispute or claim arising out of or in connection with it or its subject matter or formation (including non-contractual disputes or claims) shall be governed by and construed in accordance with the law of England and Wales and each party irrevocably agrees that the courts of England and Wales shall have exclusive jurisdiction to settle any dispute or claim arising out of or in connection with this Agreement or its subject matter or formation (including non-contractual disputes or claims).
+15. Law
+    1. These terms and conditions are governed by the laws of England and Wales, and the courts of England and Wales have exclusive jurisdiction.
