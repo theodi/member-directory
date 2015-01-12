@@ -25,21 +25,21 @@
 
 5. Membership Fee
     1. You shall pay the Membership Fee to the ODI for each year you are a member.
-    2. You may pay the Membership Fee in full by invoice or credit or debit card.
+    2. You may pay the Membership Fee in full by invoice or credit or debit card. You may do this either at the time of subscription (if paying by credit or debit card) or 30 days from date of an invoice, as requested by you at the time of subscription.
 
 6. Membership Renewal
-    1. Your membership will automatically renew for a period of one year, unless at least 30 days’ prior to the End Date you give written notice to the ODI to terminate your membership.
+    1. Your membership will automatically renew for a period of one year, unless at least 30 days prior to the End Date you give written notice to the ODI to terminate your membership.
     2. On each anniversary of your membership, the ODI reserves the right to vary its membership offering, including any fee payable.  In such an event, you will be notified of the variations prior to the anniversary of the Start Date.
 
 7. Your Entitlements
     1. Whilst you are a member, you will be entitled to:
         1. receive a discount on the price of the ODI’s “Annual Summit” conference tickets for an attendee who is a member of your board of directors or is your employee or consultant.
         2. send 2 attendees and 1 guest to the ODI’s “ODI Connect Member Networking Event” provided that your attendees be a member of your board of directors or is your employee or consultant.
-        3. provided that all necessary details are provided to the ODI, have your organisation’s name and details displayed in the ODI’s members’ directory.
+        3. provided that all necessary details are provided to the ODI, have your organisation’s name and details displayed in the [ODI’s members’ directory](http://directory.theodi.org).
         4. receive the ODI’s member newsletter and related communications.
         5. subject to availability and payment of fees, have access to the ODI’s innovation space and offices provided that appropriate arrangements are made in advance with the ODI, consistent with the terms and conditions at: [http://theodi.org/space](http://theodi.org/space).  
         6. receive a 20% discount on ODI UK public training courses (as published at [http://theodi.org/courses](http://theodi.org/courses))  for attendees who are members of your board of directors, your employees or consultants.
-        7. use the ODI’s Supporter Badge provided such use is in accordance with the ODI’s [Brand Guidelines](https://docs.google.com/a/theodi.org/file/d/0B4rriq9nxtslY1dfazhCNUFkMTQ).
+        7. use the ODI’s Supporter Badge provided such use is in accordance with the ODI’s Brand Guidelines.
 
 8. Publications and Branding
     1. You are allowed to use the ODI’s Supporter Badge in accordance with paragraph 7.1.7, above.  Any further publications or communications regarding the ODI, its business, your membership or membership to the ODI generally must be agreed in writing in advance by the ODI.
@@ -63,7 +63,7 @@
 
 12. Contact Details
     1. If you wish to contact to the ODI, you may do so by using the following address: 3rd Floor, 65 Clifton Street, London, EC2A 4JE.  You may also email the ODI at members@theodi.org.
-    2. If the ODI needs to contact you, it shall do so using the contact details you provided when you registered as a member.  If your contact details change, please notify the ODI using the above contact details
+    2. If the ODI needs to contact you, it shall do so using the contact details you provided when you registered as a member.  If your contact details change, please notify the ODI using the above contact details.
 
 13. Feedback
     1. Any feedback you may have should be directed to the ODI using the contact details set out in paragraph 12.
