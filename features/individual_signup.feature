@@ -18,9 +18,8 @@ Feature: Signup as an individual member
     Given I want to sign up as an individual member
     When I visit the signup page
     And I enter my details
-    Then I should see "This Agreement is made between Ian McIain"
+    Then I should see "You agree to comply with these terms and conditions"
     And I should see "means Ian McIain of 123 Fake Street, Faketown, Fakeshire, United Kingdom, FAKE 123"
-    And I should see today's date
 
   @vcr
   Scenario: Member signup

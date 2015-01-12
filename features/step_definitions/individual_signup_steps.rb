@@ -27,7 +27,7 @@ Then(/the submit button should say "(.*?)"$/) do |text|
 end
 
 Then(/^the terms and conditions should be correct$/) do
-  (page).should have_content("an 'Individual' Supporter of the ODI.")
+  (page).should have_content("You agree to comply with these terms and conditions")
 end
 
 Then /^my individual details should be queued for further processing$/ do
