@@ -4,13 +4,22 @@
 
 <p>As you share your perspectives, collaborate with your fellow members and support the ODI you will play a key role in helping us to achieve our mission to promote a sustainable open data culture around the world.</p>
 
-<ul>
-    <li>Your membership number is <strong><%= @resource.membership_number %></strong></li>
+<table>
+    <tr>
+        <td>
+            <ul>
+                <li>Your membership number is <strong><%= @resource.membership_number %></strong></li>
 
-    <li>To activate your account click <%= link_to 'here', confirmation_url(@resource, :confirmation_token => @resource.confirmation_token) %></li>
+                <li>To activate your account click <%= link_to 'here', confirmation_url(@resource, :confirmation_token => @resource.confirmation_token) %></li>
 
-    <li>You will then be able to download an ODI Supporter badge which you can display on your website and on your print collateral</li>
-</ul>
+                <li>You will then be able to download an ODI Supporter badge which you can display on your website and on your print collateral</li>
+            </ul>
+        </td>
+        <td>
+            <%= image_tag attachments['supporter.png'].url, width: 144, height: 124, alt: "" %>
+        </td>
+    </tr>
+</table>
 
 <p>As an ODI Individual Supporter we hope you will also:</p>
 
