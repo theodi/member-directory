@@ -6,7 +6,7 @@
 
     | Term | Definition |
     |-|-|
-    | End Date | means 12 calendar months’ after the Start Date |
+    | End Date | means 12 calendar months after the Start Date |
     | Membership Fee | £90 per annum + VAT |
     | ODI | means the Open Data Institute, a company registered in England and Wales with company number 08030289 and whose registered office is 3rd Floor, 65 Clifton Street, London, EC2A 4JE |
     | Start Date | means the date the Membership Fee is received by the ODI in full |
@@ -19,7 +19,7 @@
     2. Your membership is personal to you.  You may not transfer your membership to any other person. No one other than you is entitled to any discount or other offer you may be entitled to as a result of your membership to the ODI. 
 
 4. Membership Period
-    1. Your membership to the ODI will begin the date the Membership Fee is received by the ODI in full (the “Start Date”) and, unless terminated in accordance with these terms, will end 12 calendar months’ thereafter.
+    1. Your membership to the ODI will begin the date the Membership Fee is received by the ODI in full (the “Start Date”) and, unless terminated in accordance with these terms, will end 12 calendar months thereafter.
 
 5. Membership Fee
     1. You will pay the Membership Fee in full by credit or debit card on the date you subscribe to become a member of the ODI.
