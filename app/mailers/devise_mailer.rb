@@ -13,6 +13,10 @@ class DeviseMailer < Devise::Mailer
   def confirmation_instructions(record, opts)
     if record.individual?
       document_renderer = DocumentRenderer.new
+      attachments['supporter.png'] = {
+        mime_type: 'image/png',
+        content: File.read(Rails.root.join('public/supporter.png'))
+      }
       attachments['terms-and-conditions.html'] = {
         mime_type: 'text/html',
         content: document_renderer.terms_and_conditions(record)

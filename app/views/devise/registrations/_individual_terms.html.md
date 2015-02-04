@@ -6,7 +6,7 @@
 
     | Term | Definition |
     |-|-|
-    | End Date | means 12 calendar months’ after the Start Date |
+    | End Date | means 12 calendar months after the Start Date |
     | Membership Fee | £90 per annum + VAT |
     | ODI | means the Open Data Institute, a company registered in England and Wales with company number 08030289 and whose registered office is 3rd Floor, 65 Clifton Street, London, EC2A 4JE |
     | Start Date | means the date the Membership Fee is received by the ODI in full |
