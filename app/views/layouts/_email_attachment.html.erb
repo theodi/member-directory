@@ -3,6 +3,22 @@
   <head>
     <meta charset="utf-8">
     <style>
+      body {
+        padding: 1em 2em;
+        font-family: sans-serif;
+      }
+      h1 {
+        text-transform: uppercase;
+        padding: 0;
+        margin: 0;
+      }
+      h2 {
+        margin: 0;
+        padding: 0;
+      }
+      body > ol {
+        padding: 0;
+      }
       ol {
         counter-reset: section;
         list-style-type: none;
@@ -15,6 +31,15 @@
       }
       ol li p {
         display: inline-block;
+      }
+      table {
+        width: 100%;
+        margin-top: 1em;
+        border-collapse: collapse;
+      }
+      table td, table th {
+        border: 1px solid black;
+        padding: 2px;
       }
     </style>
   </head>

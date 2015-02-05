@@ -1,3 +1,6 @@
+#Terms and Conditions
+## Individual Supporter Membership
+
 1. Introduction
     1. You agree to comply with these terms and conditions whilst you are a member of the ODI.  
 
@@ -19,7 +22,7 @@
     2. Your membership is personal to you.  You may not transfer your membership to any other person. No one other than you is entitled to any discount or other offer you may be entitled to as a result of your membership to the ODI. 
 
 4. Membership Period
-    1. Your membership to the ODI will begin the date the Membership Fee is received by the ODI in full (the “Start Date”) and, unless terminated in accordance with these terms, will end 12 calendar months’ thereafter.
+    1. Your membership to the ODI will begin the date the Membership Fee is received by the ODI in full (the “Start Date”) and, unless terminated in accordance with these terms, will end 12 calendar months thereafter.
 
 5. Membership Fee
     1. You will pay the Membership Fee in full by credit or debit card on the date you subscribe to become a member of the ODI.

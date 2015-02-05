@@ -13,7 +13,7 @@ class DeviseMailer < Devise::Mailer
   def confirmation_instructions(record, opts)
     if record.individual?
       document_renderer = DocumentRenderer.new
-      attachments['supporter.png'] = {
+      attachments.inline['supporter.png'] = {
         mime_type: 'image/png',
         content: File.read(Rails.root.join('public/supporter.png'))
       }
