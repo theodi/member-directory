@@ -2,8 +2,8 @@ class Member < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,
   # :lockable, :timeoutable and :omniauthable
-  SUPPORTER_LEVELS = %w(supporter member partner sponsor individual)
-  CURRENT_SUPPORTER_LEVELS = SUPPORTER_LEVELS - %w(member)
+  SUPPORTER_LEVELS = %w[supporter member partner sponsor individual]
+  CURRENT_SUPPORTER_LEVELS = %w[supporter individual]
 
   has_one :organization
   has_many :embed_stats
@@ -73,14 +73,14 @@ class Member < ActiveRecord::Base
 	# validations
   validates :product_name, presence: true, inclusion: SUPPORTER_LEVELS, on: :create
   validates :contact_name, presence: true, on: :create
-  validates :street_address, presence: true, on: :create
-  validates :address_locality, presence: true, on: :create
-  validates :address_country, presence: true, on: :create
-  validates :postal_code, presence: true, on: :create
-  validates :payment_method, presence: true, on: :create
+  #validates :street_address, presence: true, on: :create
+  #validates :address_locality, presence: true, on: :create
+  #validates :address_country, presence: true, on: :create
+  #validates :postal_code, presence: true, on: :create
+  #validates :payment_method, presence: true, on: :create
   validates_acceptance_of :agreed_to_terms, on: :create
 
-  after_validation :stripe_payment
+  #after_validation :stripe_payment
 
   validates_with OrganizationValidator, on: :create, unless: :individual?
 
@@ -164,6 +164,24 @@ class Member < ActiveRecord::Base
     else
       "Supporter"
     end
+  end
+
+  def chargify_product_link
+    link = URI(ENV[individual? ? 'CHARGIFY_INDIVIDUAL_SUPPORTER' : 'CHARGIFY_CORPORATE_SUPPORTER'])
+    link.query = {
+      reference: membership_number,
+      email: email
+    }.to_query
+    return link.to_s
+  end
+
+  def update_chargify_values!(params)
+    update_attributes!({
+      chargify_customer_id: params[:customer_id],
+      chargify_subscription_id: params[:subscription_id],
+      chargify_product_id: params[:product_id],
+      chargify_payment_id: params[:payment_id]
+    }, without_protection: true)
   end
 
   def self.founding_partner_id

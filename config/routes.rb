@@ -21,6 +21,7 @@ MemberDirectory::Application.routes.draw do
       controller: 'registrations',
       as: :member_registration do
         get :cancel
+        get :chargify_return
       end
   end
 

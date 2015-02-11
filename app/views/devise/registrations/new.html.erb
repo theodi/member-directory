@@ -101,7 +101,7 @@
 
   <div class="form-actions">
     <p>
-    <%= f.submit (individual? ? "Pay now" : "Become an ODI member"), :id => 'submit', :class => 'btn btn-primary btn-large' %>
+    <%= f.submit "Become an ODI member", :id => 'submit', :class => 'btn btn-primary btn-large' %>
     </p>
     <% if individual? %>
       <p>You have the <%= link_to 'right to cancel', right_to_cancel_members_path %> within the first 14 days of your membership.</p>

@@ -68,51 +68,6 @@
 
 </fieldset>
 
-<fieldset>
-
-  <legend>Billing Address</legend>
-
-  <div class="control-group">
-  	<%= f.label :street_address, :class => 'control-label' %>
-  	<div class="controls">
-  		<%= f.text_field :street_address, :required => 'required' %>
-		<span class="help-inline">(required)</span>
-  	</div>
-  </div>
-
-  <div class="control-group">
-  	<%= f.label :address_locality, :class => 'control-label' %>
-  	<div class="controls">
-  		<%= f.text_field :address_locality, :required => 'required' %>
-		<span class="help-inline">(required)</span>
-  	</div>
-  </div>
-
-  <div class="control-group">
-  	<%= f.label :address_region, :class => 'control-label' %>
-  	<div class="controls">
-  		<%= f.text_field :address_region %>
-  	</div>
-  </div>
-
-  <div class="control-group">
-  	<%= f.label :address_country, :class => 'control-label', :required => 'required' %>
-  	<div class="controls">
-  		<%= f.country_select :address_country, priority_countries: ["GB"], prompt: true %>
-		<span class="help-inline">(required)</span>
-  	</div>
-  </div>
-
-  <div class="control-group">
-  	<%= f.label :postal_code, :class => 'control-label', :required => 'required' %>
-  	<div class="controls">
-  		<%= f.text_field :postal_code %>
-		<span class="help-inline">(required)</span>
-  	</div>
-  </div>
-
-</fieldset>
-
 <% unless individual? %>
   <fieldset>
 
@@ -136,8 +91,6 @@
 <% end %>
 
 <fieldset>
-
-  <legend>Payment Details</legend>
 
   <% unless individual? %>
 
@@ -175,7 +128,6 @@
     }
 
     $(document).ready(function() {
-      $('#card-details').hide();
       $('#invoice-details').hide();
       show_payment_options();
 
@@ -185,37 +137,6 @@
     });
   </script>
 
-  <div id='card-details'>
-
-    <div class="control-group">
-      <%= f.label :card_number, :class => 'control-label' %>
-      <div class="controls">
-        <%= f.text_field :card_number %>
-      </div>
-    </div>
-
-    <div class="control-group">
-      <%= f.label :card_validation_code, :class => 'control-label' %>
-      <div class="controls">
-        <%= f.text_field :card_validation_code %>
-      </div>
-    </div>
-
-    <div class="control-group">
-      <%= f.label :card_expiry_month, :class => 'control-label' %>
-      <div class="controls">
-        <%= f.text_field :card_expiry_month %>
-      </div>
-    </div>
-
-    <div class="control-group">
-      <%= f.label :card_expiry_year, :class => 'control-label' %>
-      <div class="controls">
-        <%= f.text_field :card_expiry_year %>
-      </div>
-    </div>
-
-  </div>
 
   <% unless individual? %>
 
