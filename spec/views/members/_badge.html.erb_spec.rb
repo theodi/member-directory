@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe "members/_badge.html.erb" do
 
-  before :all do
+  before :each do
     @partner = FactoryGirl.create :member, :cached_active => true, :product_name => 'partner'
     @supporter = FactoryGirl.create :member, :cached_active => true, :product_name => 'supporter'
   end
