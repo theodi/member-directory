@@ -47,7 +47,7 @@ Feature: Add new signups to queue
       | organization_size     | Organisation size |
       | organization_type     | Organisation type |
       | organization_sector   | Industry sector   |
-#			| address_country 			| Country           |
+      | address_country       | Country           |
 
   Scenario: Member tries to sign up, but doesn't agree to the terms
 
