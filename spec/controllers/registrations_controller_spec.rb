@@ -28,6 +28,10 @@ describe RegistrationsController do
   end
 
   describe 'individual credit card signup via chargify' do
+    before do
+      Member.register_chargify_product_link('individual_supporter', 'https://chargify.com/individual')
+    end
+
     let!(:response) do
       post :create, :member => {
         product_name: "individual",
@@ -41,14 +45,14 @@ describe RegistrationsController do
 
     let!(:member) { Member.last }
 
-    let!(:params) do
+    let(:params) do
       url = URI.parse(response.location)
       Rack::Utils.parse_nested_query(url.query)
     end
 
     it 'redirects to chargify' do
       expect(response).to be_redirect
-      expect(response.location).to match('chargify.com')
+      expect(response.location).to match(%r{^https://chargify.com/individual})
     end
     
     it 'includes membership number as customer reference' do
@@ -57,6 +61,73 @@ describe RegistrationsController do
     
     it 'includes email' do
       expect(params).to include("email" => "test@example.com")
+    end
+  end
+
+  describe 'organisation credit card signup via chargify' do
+    before do
+      Member.register_chargify_product_link('corporate_supporter_annual', 'https://chargify.com/corporate')
+    end
+
+    let!(:response) do
+      post :create, :member => {
+        product_name: "supporter",
+        contact_name: "Test Person",
+        email: 'test@example.com',
+        organization_name: "Test Org",
+        organization_size: "251-1000",
+        organization_type: "commercial",
+        organization_sector: "Energy",
+        password: 'testtest',
+        password_confirmation: 'testtest',
+        agreed_to_terms: "1"
+      }
+    end
+
+    let!(:member) { Member.last }
+
+    let(:params) do
+      url = URI.parse(response.location)
+      Rack::Utils.parse_nested_query(url.query)
+    end
+
+    it 'redirects to chargify' do
+      expect(response).to be_redirect
+      expect(response.location).to match(%r{https://chargify.com/corporate})
+    end
+
+    it 'includes membership number as customer reference' do
+      expect(params).to include("reference" => member.membership_number)
+    end
+
+    it 'includes organization_name' do
+      expect(params).to include("organization" => "Test Org")
+    end
+  end
+
+  describe 'non commerical organization redirects to different chargify product' do
+    before do
+      Member.register_chargify_product_link('supporter_annual', 'https://chargify.com/non-profit')
+    end
+
+    let!(:response) do
+      post :create, :member => {
+        product_name: "supporter",
+        contact_name: "Test Person",
+        email: 'test@example.com',
+        organization_name: "Test Org",
+        organization_size: "251-1000",
+        organization_type: "non_commercial",
+        organization_sector: "Energy",
+        password: 'testtest',
+        password_confirmation: 'testtest',
+        agreed_to_terms: "1"
+      }
+    end
+
+    it 'redirects to chargify' do
+      expect(response).to be_redirect
+      expect(response.location).to match(%r{https://chargify.com/non-profit})
     end
   end
 
@@ -89,9 +160,9 @@ describe RegistrationsController do
       chargify_customer_id: 1,
       chargify_subscription_id: 2,
       chargify_payment_id: 3,
-      chargify_product_id: 4
     }.each do |chargify_param, id|
       it "updates #{chargify_param} on member record" do
+        response
         expect(member.reload.send(chargify_param)).to eq(id.to_s)
       end
     end

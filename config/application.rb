@@ -85,6 +85,9 @@ module MemberDirectory
 
     config.action_dispatch.rescue_responses.merge!('ActiveResource::UnauthorizedAccess' => :unauthorized)
 
+    config.after_initialize do
+      Member.initialize_chargify_links!
+    end
     
   end
 end

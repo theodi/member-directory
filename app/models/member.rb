@@ -5,6 +5,8 @@ class Member < ActiveRecord::Base
   SUPPORTER_LEVELS = %w[supporter member partner sponsor individual]
   CURRENT_SUPPORTER_LEVELS = %w[supporter individual]
 
+  CHARGIFY_PRODUCT_LINKS = {}
+
   has_one :organization
   has_many :embed_stats
 
@@ -166,13 +168,32 @@ class Member < ActiveRecord::Base
     end
   end
 
+  def self.initialize_chargify_links!
+    Chargify::Product.all.each do |product|
+      page = product.public_signup_pages.first
+      if page
+        register_chargify_product_link(product.handle, page.url)
+      end
+    end
+  end
+
+  def self.register_chargify_product_link(plan, url)
+    CHARGIFY_PRODUCT_LINKS[plan] = url
+  end
+
   def chargify_product_link
-    link = URI(ENV[individual? ? 'CHARGIFY_INDIVIDUAL_SUPPORTER' : 'CHARGIFY_CORPORATE_SUPPORTER'])
-    link.query = {
-      reference: membership_number,
-      email: email
-    }.to_query
-    return link.to_s
+    if link = CHARGIFY_PRODUCT_LINKS[get_plan]
+      url = URI(link)
+      params = {
+        reference: membership_number,
+        email: email
+      }
+      params[:organization] = organization_name if organization?
+      url.query = params.to_query
+      return url.to_s
+    else
+      raise ArgumentError, "no link for #{get_plan}"
+    end
   end
 
   def update_chargify_values!(params)
@@ -311,7 +332,7 @@ class Member < ActiveRecord::Base
       'individual_supporter'
     else
       if %w{251-1000 >1000}.include?(organization_size) && organization_type == 'commercial'
-        '2015_corporate_supporter_annual'
+        'corporate_supporter_annual'
       else
         'supporter_annual'
       end
@@ -321,7 +342,7 @@ class Member < ActiveRecord::Base
   def get_plan_description
     {
       'individual_supporter'            => 'individual supporter',
-      '2015_corporate_supporter_annual' => 'corporate supporter',
+      'corporate_supporter_annual' => 'corporate supporter',
       'supporter_annual'                => 'supporter'
     }[get_plan]
   end
