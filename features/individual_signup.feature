@@ -6,11 +6,13 @@ Feature: Signup as an individual member
     When I visit the signup page
     Then I should not see the "Organisation Name" field
     And I should not see the "Organisation size" field
+    And I should not see the "Organisation type" field
+    And I should not see the "Industry sector" field
     And I should not see the "Company Number" field
     And I should not see the "VAT Number (if not UK)" field
     And I should not see the "Purchase Order Number" field
     And the terms and conditions should be correct
-    And the submit button should say "Pay now"
+    And the submit button should say "Become an ODI member"
 
   @javascript
   Scenario: Auto-update terms based on user input
