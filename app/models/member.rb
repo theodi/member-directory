@@ -200,9 +200,28 @@ class Member < ActiveRecord::Base
     update_attributes!({
       chargify_customer_id: params[:customer_id],
       chargify_subscription_id: params[:subscription_id],
-      chargify_product_id: params[:product_id],
-      chargify_payment_id: params[:payment_id]
+      chargify_payment_id: params[:payment_id],
     }, without_protection: true)
+  end
+
+  def setup_chargify_subscription!
+  end
+
+  def verify_chargify_subscription!(subscription, customer)
+    verified = chargify_subscription_id == subscription['id'] &&
+      chargify_customer_id == customer['id'] &&
+      chargify_payment_id == subscription['signup_payment_id']
+    self.update_attribute(:chargify_data_verified, verified)
+  end
+
+  def update_address_from_chargify(customer)
+    self.street_address = customer['address']
+    self.address_locality = customer['address_2']
+    self.address_region = customer['city']
+    self.address_country = customer['country']
+    self.postal_code = customer['zip']
+    set_address
+    save!
   end
 
   def self.founding_partner_id

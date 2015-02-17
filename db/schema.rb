@@ -71,8 +71,8 @@ ActiveRecord::Schema.define(:version => 20150210170112) do
     t.text     "address"
     t.string   "chargify_customer_id"
     t.string   "chargify_subscription_id"
-    t.string   "chargify_product_id"
     t.string   "chargify_payment_id"
+    t.boolean  "chargify_data_verified",   :default => false
   end
 
   add_index "members", ["email"], :name => "index_members_on_email", :unique => true

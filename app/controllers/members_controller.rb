@@ -1,7 +1,7 @@
 class MembersController < ApplicationController
   respond_to :html, :json
 
-  before_filter :get_member, :except => [:index, :right_to_cancel]
+  before_filter :get_member, :except => [:index, :right_to_cancel, :chargify_verify]
   before_filter :set_formats, :log_embed, :only => [:badge]
 
   before_filter(:only => [:index, :show]) {alternate_formats [:json]}
@@ -80,6 +80,19 @@ class MembersController < ApplicationController
 
   def right_to_cancel
     @title = "Membership agreement: Right to cancel"
+  end
+
+  def chargify_verify
+    case(params['event'])
+    when 'test'
+    when 'signup_success'
+      subscription = params['payload']['subscription']
+      customer = subscription['customer']
+      member = Member.find_by_membership_number!(customer['reference'])
+      member.verify_chargify_subscription!(subscription, customer)
+      member.update_address_from_chargify(customer)
+    end
+    head :ok
   end
 
   private

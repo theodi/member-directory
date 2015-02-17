@@ -152,4 +152,63 @@ describe MembersController do
 
   end
 
+  describe 'verifying chargify customers' do
+    let(:event) do
+      JSON.load(Rails.root + 'fixtures/chargify/signup_success.json')
+    end
+
+    let(:valid_data) { {chargify_subscription_id: 14, chargify_customer_id: 15, chargify_payment_id: 30} }
+
+    subject(:member) { FactoryGirl.create :member }
+
+    before do
+      event['payload']['subscription']['customer']['reference'] = member.membership_number
+    end
+
+    it "responds with an ok" do
+      post :chargify_verify, event
+      expect(response).to be_success
+    end
+
+    it "checks the customers details and marks them as verified" do
+      change_values_of(member, valid_data)
+      post :chargify_verify, event
+      member.reload
+      expect(member).to be_chargify_data_verified
+    end
+
+    %w[chargify_payment_id chargify_subscription_id chargify_customer_id].each do |param|
+      it "checks the customers details and marks them as failed verification for bad #{param}" do
+        change_values_of(member, valid_data.merge(param.to_sym => 99))
+        post :chargify_verify, event
+        member.reload
+        expect(member).to_not be_chargify_data_verified
+      end
+    end
+
+    it "reconstructs the address field from chargify details" do
+      post :chargify_verify, event
+      member.reload
+      address = [
+        "123 Main St",
+        "Apt 123",
+        "Pleasantville",
+        "US",
+        "12345"].join("\n")
+      expect(member.address).to eq(address)
+    end
+
+    it 'responds with an ok to a test webhook' do
+      post :chargify_verify, event: "test", id: rand(1000), payload: { chargify: "test" }
+      expect(response).to be_success
+    end
+
+    def change_values_of(member, data)
+      data.each do |k, v|
+        member.update_attribute(k, v)
+      end
+      member.save!(validate: false)
+    end
+  end
+
 end

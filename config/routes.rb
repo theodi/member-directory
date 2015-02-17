@@ -31,6 +31,7 @@ MemberDirectory::Application.routes.draw do
     end
     collection do
       get 'right-to-cancel', to: :right_to_cancel, as: :right_to_cancel
+      post :chargify_verify
     end
   end
 
