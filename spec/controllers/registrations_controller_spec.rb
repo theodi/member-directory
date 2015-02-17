@@ -145,10 +145,10 @@ describe RegistrationsController do
 
     let!(:member) { Member.last }
 
-    let!(:response) do
+    let(:response) do
       # chargify return parameters template
-      # reference={customer_reference}&customer_id={customer_id}&subscription_id={subscription_id}&payment_id={signup_payment_id}&product_id={product_id}
-      get :chargify_return, reference: member.membership_number, customer_id: 1, subscription_id: 2, payment_id: 3, product_id: 4
+      # reference={customer_reference}&customer_id={customer_id}&subscription_id={subscription_id}&payment_id={signup_payment_id}
+      get :chargify_return, reference: member.membership_number, customer_id: 1, subscription_id: 2, payment_id: 3
     end
 
     it 'redirects to member/edit page' do
@@ -169,6 +169,34 @@ describe RegistrationsController do
   end
 
   describe 'invoice signup' do
+    let(:response) do
+      post :create, :member => {
+        product_name: "supporter",
+        contact_name: "Test Person",
+        email: 'test@example.com',
+        organization_name: "Test Org",
+        organization_size: "251-1000",
+        organization_type: "non_commercial",
+        organization_sector: "Education",
+        password: 'testtest',
+        password_confirmation: 'testtest',
+        agreed_to_terms: "1",
+        payment_method: "invoice"
+      }
+    end
+
+    let(:member) { Member.last }
+
+    it 'does not redirect to chargify' do
+      expect(response).to be_redirect
+      expect(response.location).to eq(member_url(member))
+    end
+
+    it 'enqueues a background job to set up invoice in chargify' do
+      expect_any_instance_of(Member).to receive(:setup_chargify_subscription!)
+      response
+    end
+
   end
 
 end

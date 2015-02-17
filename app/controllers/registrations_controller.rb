@@ -5,12 +5,22 @@ class RegistrationsController < Devise::RegistrationsController
 
   # copied from https://github.com/plataformatec/devise/blob/v2.2.8/app/controllers/devise/registrations_controller.rb
   # because can't use super as that would cause a double render
+  def new
+    resource = build_resource({product_name: params[:level]})
+    respond_with resource
+  end
+
   def create
     build_resource
 
     if resource.save
       sign_up(resource_name, resource)
-      redirect_to resource.chargify_product_link
+      if resource.paid_with_card?
+        redirect_to resource.chargify_product_link
+      else
+        current_member.setup_chargify_subscription!
+        redirect_to member_path(current_member)
+      end
     else
       clean_up_passwords resource
       respond_with resource
@@ -25,8 +35,7 @@ class RegistrationsController < Devise::RegistrationsController
   protected
 
   def check_product_name
-    @product_name = params[:level].to_s
-    redirect_to 'http://www.theodi.org/join-us' unless Member.is_current_supporter_level?(@product_name)
+    redirect_to 'http://www.theodi.org/join-us' unless Member.is_current_supporter_level?(params[:level])
   end
 
   def set_title
@@ -34,7 +43,7 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
   def individual?
-    resource.try(:individual?) || Member.is_individual_level?(params[:level])
+    resource.individual?
   end
 
 end

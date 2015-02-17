@@ -5,6 +5,18 @@ class Member < ActiveRecord::Base
   SUPPORTER_LEVELS = %w[supporter member partner sponsor individual]
   CURRENT_SUPPORTER_LEVELS = %w[supporter individual]
 
+  ORGANISATION_TYPES = {
+    "Corporate" => "commercial",
+    "Nonprofit / Government" => "non_commercial"
+  }
+  ORGANISATION_SIZES = {
+    "less than 10 employees" => '<10',
+    "10 - 50 employees" => '10-50',
+    "51 - 250 employees" => '51-250',
+    "251 - 1000 employees" => '251-1000',
+    "more than 1000 employees" => '>1000'
+  }
+  LARGE_CORPORATE = %w[251-1000 >1000]
   CHARGIFY_PRODUCT_LINKS = {}
 
   has_one :organization
@@ -350,7 +362,7 @@ class Member < ActiveRecord::Base
     if individual?
       'individual_supporter'
     else
-      if %w{251-1000 >1000}.include?(organization_size) && organization_type == 'commercial'
+      if LARGE_CORPORATE.include?(organization_size) && organization_type == 'commercial'
         'corporate_supporter_annual'
       else
         'supporter_annual'
@@ -431,7 +443,7 @@ class Member < ActiveRecord::Base
   end
 
   def set_defaults
-    self.payment_method = "credit_card" if individual?
+    self.payment_method ||= "credit_card"
   end
 
 end
