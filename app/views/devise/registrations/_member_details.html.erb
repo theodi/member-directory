@@ -21,7 +21,8 @@
     <div class="control-group">
     	<%= f.label :organization_name, :class => 'control-label' %>
     	<div class="controls">
-    		<%= f.text_field :organization_name %>
+            <%= f.text_field :organization_name, :required => 'required' %>
+            <span class="help-inline">(required)</span>
     	</div>
     </div>
 
@@ -99,32 +100,45 @@
     	</div>
     </div>
 
-    <div id='invoice-details' class="control-group">
-      <%= f.label :purchase_order_number, :class => 'control-label' %>
-      <div class="controls">
-        <%= f.text_field :purchase_order_number %>
-      </div>
-      <%= f.label :street_address, :class => 'control-label' %>
-      <div class="controls">
-        <%= f.text_field :street_address %>
-      </div>
-      <%= f.label :address_locality, :class => 'control-label' %>
-      <div class="controls">
-        <%= f.text_field :address_locality %>
-      </div>
-      <%= f.label :address_region, :class => 'control-label' %>
-      <div class="controls">
-        <%= f.text_field :address_region %>
-      </div>
-      <%= f.label :address_country, :class => 'control-label' %>
-      <div class="controls">
-        <%= f.text_field :address_country %>
-      </div>
-      <%= f.label :postal_code, :class => 'control-label' %>
-      <div class="controls">
-        <%= f.text_field :postal_code %>
-      </div>
-    </div>
+    <fieldset id='invoice-details'>
+        <legend>Invoice billing details</legend>
+        <div class="control-group">
+            <%= f.label :purchase_order_number, :class => 'control-label' %>
+            <div class="controls">
+                <%= f.text_field :purchase_order_number %>
+            </div>
+        </div>
+        <div class="control-group">
+            <%= f.label :street_address, :class => 'control-label' %>
+            <div class="controls">
+                <%= f.text_field :street_address %>
+            </div>
+        </div>
+        <div class="control-group">
+            <%= f.label :address_locality, :class => 'control-label' %>
+            <div class="controls">
+                <%= f.text_field :address_locality %>
+            </div>
+        </div>
+        <div class="control-group">
+            <%= f.label :address_region, :class => 'control-label' %>
+            <div class="controls">
+                <%= f.text_field :address_region %>
+            </div>
+        </div>
+        <div class="control-group">
+            <%= f.label :address_country, :class => 'control-label' %>
+            <div class="controls">
+                <%= f.country_select :address_country, priority_countries: ["GB"], prompt: true %>
+            </div>
+        </div>
+        <div class="control-group">
+            <%= f.label :postal_code, :class => 'control-label' %>
+            <div class="controls">
+                <%= f.text_field :postal_code %>
+            </div>
+        </div>
+    </fieldset>
 
   </fieldset>
 <% end %>
