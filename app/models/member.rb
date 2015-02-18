@@ -87,11 +87,11 @@ class Member < ActiveRecord::Base
 	# validations
   validates :product_name, presence: true, inclusion: SUPPORTER_LEVELS, on: :create
   validates :contact_name, presence: true, on: :create
-  #validates :street_address, presence: true, on: :create
-  #validates :address_locality, presence: true, on: :create
-  #validates :address_country, presence: true, on: :create
-  #validates :postal_code, presence: true, on: :create
-  #validates :payment_method, presence: true, on: :create
+  validates :street_address, presence: true, on: :create, if: :paid_by_invoice?
+  validates :address_locality, presence: true, on: :create, if: :paid_by_invoice?
+  validates :address_country, presence: true, on: :create, if: :paid_by_invoice?
+  validates :postal_code, presence: true, on: :create, if: :paid_by_invoice?
+  validates :payment_method, presence: true, on: :create
   validates_acceptance_of :agreed_to_terms, on: :create
 
   #after_validation :stripe_payment
@@ -100,6 +100,10 @@ class Member < ActiveRecord::Base
 
   def paid_with_card?
     payment_method == 'credit_card'
+  end
+
+  def paid_by_invoice?
+    payment_method == 'invoice'
   end
 
   def remote
