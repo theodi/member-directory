@@ -94,8 +94,6 @@ class Member < ActiveRecord::Base
   validates :payment_method, presence: true, on: :create
   validates_acceptance_of :agreed_to_terms, on: :create
 
-  #after_validation :stripe_payment
-
   validates_with OrganizationValidator, on: :create, unless: :individual?
 
   def paid_with_card?
@@ -323,7 +321,7 @@ class Member < ActiveRecord::Base
                       }
     purchase        = {
                         'payment_method' => payment_method,
-                        'payment_ref' => stripe_customer.try(:id),
+                        'payment_ref' => chargify_payment_id,
                         'offer_category' => product_name,
                         'purchase_order_reference' => purchase_order_number,
                         'membership_id' => membership_number
@@ -354,28 +352,6 @@ class Member < ActiveRecord::Base
     end
   end
 
-  def stripe_payment
-    if new_record? && paid_with_card? && errors.empty?
-      begin
-        set_membership_number
-        customer = Stripe::Customer.create(
-          card: {
-            exp_month: card_expiry_month,
-            exp_year:  card_expiry_year,
-            number:    card_number,
-            cvc:       card_validation_code
-          },
-          plan:        get_plan,
-          description: "#{organization_name || contact_name} #{get_plan_description} membership (#{membership_number})"
-        )
-        self.stripe_customer_id = customer.id
-      rescue Stripe::CardError => e
-        body = e.json_body
-        payment_errors(body[:error])
-      end
-    end
-  end
-
   def get_plan
     if individual?
       'individual_supporter'
@@ -394,33 +370,6 @@ class Member < ActiveRecord::Base
       'corporate_supporter_annual' => 'corporate supporter',
       'supporter_annual'                => 'supporter'
     }[get_plan]
-  end
-
-  def payment_errors(err)
-    case err[:code]
-    when 'incorrect_number'
-      errors.add(:card_number, 'is incorrect')
-    when 'incorrect_cvc'
-      errors.add(:card_validation_code, 'is incorrect')
-    when 'invalid_number'
-      errors.add(:card_number, 'is incorrect')
-    when 'invalid_expiry_month'
-      errors.add(:card_expiry_month, 'is incorrect')
-    when 'invalid_expiry_year'
-      errors.add(:card_expiry_year, 'is incorrect')
-    when 'invalid_cvc'
-      errors.add(:card_validation_code, 'is incorrect')
-    when 'expired_card'
-      errors.add(:card_number, 'has expired')
-    when 'card_declined'
-      errors.add(:card_number, 'has been declined')
-    # when 'missing'
-    # 	There is no card on a customer that is being charged.
-    # when 'processing_error'
-    # 	An error occurred while processing the card.
-    # when 'rate_limit'
-    #   Rate limit was hit
-    end
   end
 
   def country_name
