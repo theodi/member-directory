@@ -197,8 +197,12 @@ class Member < ActiveRecord::Base
     CHARGIFY_PRODUCT_LINKS[plan] = url
   end
 
+  def chargify_product_handle
+    get_plan
+  end
+
   def chargify_product_link
-    if link = CHARGIFY_PRODUCT_LINKS[get_plan]
+    if link = CHARGIFY_PRODUCT_LINKS[chargify_product_handle]
       url = URI(link)
       params = {
         reference: membership_number,
@@ -208,7 +212,7 @@ class Member < ActiveRecord::Base
       url.query = params.to_query
       return url.to_s
     else
-      raise ArgumentError, "no link for #{get_plan}"
+      raise ArgumentError, "no link for #{chargify_product_handle}"
     end
   end
 
@@ -221,12 +225,22 @@ class Member < ActiveRecord::Base
   end
 
   def setup_chargify_subscription!
+    Resque.enqueue(ChargifySubscriptionWorker, id,
+      'contact_name' => contact_name,
+      'street_address' => street_address,
+      'address_locality' => address_locality,
+      'address_region' => address_region,
+      'address_country' => address_country,
+      'postal_code' => postal_code,
+      'vat_id' => organization_vat_id)
   end
 
   def verify_chargify_subscription!(subscription, customer)
     verified = chargify_subscription_id == subscription['id'] &&
-      chargify_customer_id == customer['id'] &&
-      chargify_payment_id == subscription['signup_payment_id']
+      chargify_customer_id == customer['id']
+    if chargify_payment_id.present?
+      verified = verified && chargify_payment_id == subscription['signup_payment_id']
+    end
     self.update_attribute(:chargify_data_verified, verified)
   end
 
