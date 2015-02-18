@@ -173,7 +173,7 @@ class Member < ActiveRecord::Base
   def register_embed(referrer)
     begin
       embed_stats.create(referrer: referrer)
-    rescue ActiveRecord::RecordNotUnique
+    rescue ActiveRecord::RecordNotUnique, ActiveRecord::StatementInvalid
       nil
     end
   end
