@@ -6,6 +6,8 @@ class MembersController < ApplicationController
 
   before_filter(:only => [:index, :show]) {alternate_formats [:json]}
 
+  before_filter :verify_chargify_webhook, :only => :chargify_verify
+
   def index
     @organizations = Organization.active.display_order
 
@@ -107,6 +109,14 @@ class MembersController < ApplicationController
     unless request.referer =~ /https?:\/\/#{request.host_with_port}./
       @member.register_embed(request.referer)
     end
+  end
+
+  def verify_chargify_webhook
+    key = ENV['CHARGIFY_SITE_KEY']
+    body = request.raw_post
+    provided_digest = request.headers['X-Chargify-Webhook-Signature-Hmac-Sha-256']
+    digest = OpenSSL::HMAC.hexdigest(OpenSSL::Digest::Digest.new('sha256'), key, body)
+    head :unauthorized unless Devise.secure_compare(provided_digest, digest)
   end
 
 end
