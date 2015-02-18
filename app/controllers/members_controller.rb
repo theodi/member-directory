@@ -84,6 +84,10 @@ class MembersController < ApplicationController
     @title = "Membership agreement: Right to cancel"
   end
 
+  def thanks
+    @title = "Thanks for supporting The ODI"
+  end
+
   def chargify_verify
     case(params['event'])
     when 'test'

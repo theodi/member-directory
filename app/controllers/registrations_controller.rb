@@ -19,7 +19,7 @@ class RegistrationsController < Devise::RegistrationsController
         redirect_to resource.chargify_product_link
       else
         current_member.setup_chargify_subscription!
-        redirect_to member_path(current_member)
+        redirect_to thanks_member_path(current_member)
       end
     else
       clean_up_passwords resource
@@ -29,7 +29,7 @@ class RegistrationsController < Devise::RegistrationsController
 
   def chargify_return
     current_member.update_chargify_values!(params)
-    redirect_to member_path(current_member)
+    redirect_to thanks_member_path(current_member)
   end
 
   protected

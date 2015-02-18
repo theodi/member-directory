@@ -28,6 +28,7 @@ MemberDirectory::Application.routes.draw do
   resources :members, :only => [:index, :show, :update] do
     member do
       get :badge, defaults: {format: :js}
+      get :thanks
     end
     collection do
       get 'right-to-cancel', to: :right_to_cancel, as: :right_to_cancel
