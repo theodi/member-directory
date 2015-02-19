@@ -153,7 +153,7 @@ describe RegistrationsController do
 
     it 'redirects to member/edit page' do
       expect(response).to be_redirect
-      expect(response).to redirect_to(member_path(member))
+      expect(response).to redirect_to(thanks_member_path(member))
     end
 
     {
@@ -189,7 +189,7 @@ describe RegistrationsController do
 
     it 'does not redirect to chargify' do
       expect(response).to be_redirect
-      expect(response.location).to eq(member_url(member))
+      expect(response.location).to eq(thanks_member_url(member))
     end
 
     it 'enqueues a background job to set up invoice in chargify' do
