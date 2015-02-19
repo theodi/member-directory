@@ -136,7 +136,7 @@ Then /^my description is (\d+) characters long$/ do |length|
 end
 
 When /^I should see an error telling me that my description should not be longer than (\d+) characters$/ do |characters|
-  page.should have_content "Your description cannot be longer than #{characters} characters"
+  expect(page).to have_content "Your description cannot be longer than #{characters} characters"
 end
 
 Then /^the fullsize logo should be available at the correct URL$/ do

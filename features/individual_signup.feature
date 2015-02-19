@@ -1,5 +1,8 @@
 Feature: Signup as an individual member
 
+  Background:
+    Given chargify has a registered product for the "individual_supporter" plan
+
   Scenario: Individual member does not see specific fields
 
     Given I want to sign up as an individual member
@@ -19,32 +22,28 @@ Feature: Signup as an individual member
 
     Given I want to sign up as an individual member
     When I visit the signup page
-    And I enter my details
+    And I enter my name and contact details
     Then I should see "You agree to comply with these terms and conditions"
-    And I should see "means Ian McIain of 123 Fake Street, Faketown, Fakeshire, United Kingdom, FAKE 123"
+    And I should see "means Ian McIain of (address)"
 
-  @vcr
   Scenario: Member signup
 
     Given I want to sign up as an individual member
     When I visit the signup page
-    And I enter my details
-    And I enter valid credit card details
+    And I enter my name and contact details
     And I should see a link to the right to cancel
-    Then my details should be queued for further processing
     When I click sign up
-    Then my card should be charged successfully
+    Then I pay via chargify and return to the member page
     And I should have a membership number generated
     And I should see my details
     And a welcome email should be sent to me
     And I should see "download an ODI Supporter badge" in the email body
 
-  @vcr
   Scenario: Individual members should not have an organisation assigned
 
     Given I want to sign up as an individual member
     When I visit the signup page
-    And I enter my details
-    And I enter valid credit card details
-    And I click sign up
-    Then I should not have an organisation assinged to me
+    And I enter my name and contact details
+    When I click sign up
+    Then I pay via chargify and return to the member page
+    And I should not have an organisation assinged to me

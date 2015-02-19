@@ -6,8 +6,11 @@ Feature: Add new signups to queue
 
     Given that I want to sign up as a <product_name>
     When I visit the signup page
-    And I enter my details
+    And I enter my name and contact details
     And I choose to pay by invoice
+    And I enter my company details
+    And I enter my address details
+    And I agree to the terms
     Then my details should be queued for further processing
     When I click sign up
     And I should have a membership number generated
@@ -22,7 +25,9 @@ Feature: Add new signups to queue
 
     Given that I want to sign up
     When I visit the signup page
-    And I enter my details
+    And I enter my name and contact details
+    And I enter my company details
+    And I agree to the terms
     Then my details should not be queued
     When I click sign up
     And I should see an error relating to Payment method
@@ -31,30 +36,35 @@ Feature: Add new signups to queue
 
     Given that I want to sign up
     When I visit the signup page
-    And I enter my details
+    And I enter my name and contact details
     And I choose to pay by invoice
+    And I enter my company details
+    And I enter my address details
+    And I agree to the terms
     But I leave <field> blank
     Then my details should not be queued
     When I click sign up
     And I should see an error relating to <text>
 
     Examples:
-			| field 								| text              |
-			| contact_name 					| Your Name         |
-			| street_address 				| Address           |
-			| address_locality 			| City              |
-			| postal_code 			    | Postcode          |
+      | field                 | text              |
+      | contact_name          | Your name         |
+      | street_address        | Address           |
+      | address_region        | City              |
+      | address_country       | Country           |
+      | postal_code           | Postcode          |
       | organization_size     | Organisation size |
       | organization_type     | Organisation type |
       | organization_sector   | Industry sector   |
-      | address_country       | Country           |
 
   Scenario: Member tries to sign up, but doesn't agree to the terms
 
     Given that I want to sign up
     When I visit the signup page
-    And I enter my details
+    And I enter my name and contact details
     And I choose to pay by invoice
+    And I enter my company details
+    And I enter my address details
     But I don't agree to the terms
     Then my details should not be queued
     When I click sign up
@@ -64,8 +74,11 @@ Feature: Add new signups to queue
 
     Given that I want to sign up
     When I visit the signup page
-    And I enter my details
+    And I enter my name and contact details
     And I choose to pay by invoice
+    And I enter my company details
+    And I enter my address details
+    And I agree to the terms
     But my passwords don't match
     Then my details should not be queued
     When I click sign up
@@ -78,17 +91,21 @@ Feature: Add new signups to queue
     When I visit the signup page
     And I enter my details
     And I choose to pay by invoice
+    And I enter my company details
     But I don't agree to the terms
     Then my details should not be queued
     When I click sign up
-    And I should see an error relating to Organisation Name
+    And I should see an error relating to Organisation name
 
   Scenario: Strip spaces from organisation names
 
     Given that I want to sign up as a supporter
     When I visit the signup page
-    And I enter my details
+    And I enter my name and contact details
     And I choose to pay by invoice
+    And I enter my company details
+    And I enter my address details
+    And I agree to the terms
     And my organisation name is "Doge Enterprises Inc. "
     But my organisation name is expected to be "Doge Enterprises Inc."
     Then my details should be queued for further processing
@@ -101,8 +118,10 @@ Feature: Add new signups to queue
 
     Given that I want to sign up as a supporter
     When I visit the signup page
+    And I enter my name and contact details
     When I choose to pay by invoice
-    And I enter my details
+    And I enter my company details
+    And I enter my address details
     Then I should see "means FooBar Inc being"
     And I should see "with number 012345678"
     And I should see "whose principal address is 123 Fake Street, Faketown, Fakeshire, United Kingdom, FAKE 123"

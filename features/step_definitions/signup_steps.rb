@@ -2,6 +2,11 @@ Given /^that I want to sign up as a (\w*)$/ do |product_name|
   @product_name = product_name # Required
 end
 
+Given(/^chargify has a registered product for the "(.*?)" plan$/) do |plan|
+  @chargify_product_url = "http://test.host/product/#{plan}"
+  Member.register_chargify_product_link(plan, @chargify_product_url)
+end
+
 Given /^that I want to sign up$/ do
   @product_name = 'supporter'
 end
@@ -40,28 +45,77 @@ When /^I visit the signup page$/ do
   @field_prefix = 'member'
 end
 
+When /^I enter my name and contact details$/ do
+  @contact_name = 'Ian McIain'
+  @email = 'iain@foobar.com'
+  @telephone = '0121 123 446'
+
+  fill_in('member_contact_name', :with => @contact_name)
+  fill_in('member_email', :with => @email)
+  fill_in('member_telephone', :with => @telephone)
+
+  fill_in('member_password', :with => 'p4ssw0rd')
+  fill_in('member_password_confirmation', :with => 'p4ssw0rd')
+end
+
+When /^I enter my address details$/ do
+  @street_address = '123 Fake Street'
+  @address_locality = 'Faketown'
+  @address_region = 'Fakeshire'
+  @address_country = 'United Kingdom'
+  @postal_code = 'FAKE 123'
+
+  fill_in('member_street_address', :with => @street_address)
+  fill_in('member_address_locality', :with => @address_locality)
+  fill_in('member_address_region', :with => @address_region)
+  select(@address_country, from: :member_address_country, match: :first)
+  fill_in('member_postal_code', :with => @postal_code)
+end
+
+When /^I enter my company details$/ do
+  @organization_name = 'FooBar Inc'
+  @organization_size = '251-1000'
+  @organization_type = 'commercial'
+  @organization_sector = 'Energy'
+  @organization_vat_id = '213244343'
+  @organization_company_number = '012345678'
+  @purchase_order_number = 'PO-43243242342'
+
+  fill_in('member_organization_name', :with => @organization_name)
+  select(find_by_id('member_organization_size').
+          find("option[value='#{@organization_size}']").text,
+          from: 'member_organization_size')
+  select(find_by_id('member_organization_type').
+          find("option[value='#{@organization_type}']").text,
+          from: 'member_organization_type')
+  fill_in('member_organization_company_number',
+          with: @organization_company_number)
+  select(@organization_sector, from: 'member_organization_sector')
+  fill_in('member_organization_vat_id', :with => @organization_vat_id)
+  fill_in('member_purchase_order_number', :with => @purchase_order_number)
+end
+
 When /^I enter my details$/ do
   # Store for later
   @contact_name                = 'Ian McIain'
   @email                       = 'iain@foobar.com'
   @organization_sector         = 'Energy'
   @telephone                   = '0121 123 446'
-  @street_address              = '123 Fake Street'
-  @address_locality            = 'Faketown'
-  @address_region              = 'Fakeshire'
-  @address_country             = 'United Kingdom'
-  @postal_code                 = 'FAKE 123'
+  #@street_address              = '123 Fake Street'
+  #@address_locality            = 'Faketown'
+  #@address_region              = 'Fakeshire'
+  #@address_country             = 'United Kingdom'
+  #@postal_code                 = 'FAKE 123'
 
   # Fill in form
   fill_in('member_contact_name', :with => @contact_name)
   fill_in('member_email', :with => @email)
-  select(@organization_sector, from: 'member_organization_sector')
   fill_in('member_telephone', :with => @telephone)
-  fill_in('member_street_address', :with => @street_address)
-  fill_in('member_address_locality', :with => @address_locality)
-  fill_in('member_address_region', :with => @address_region)
-  select(@address_country, from: :member_address_country, match: :first)
-  fill_in('member_postal_code', :with => @postal_code)
+  #fill_in('member_street_address', :with => @street_address)
+  #fill_in('member_address_locality', :with => @address_locality)
+  #fill_in('member_address_region', :with => @address_region)
+  #select(@address_country, from: :member_address_country, match: :first)
+  #fill_in('member_postal_code', :with => @postal_code)
   fill_in('member_password', :with => 'p4ssw0rd')
   fill_in('member_password_confirmation', :with => 'p4ssw0rd')
 
@@ -82,10 +136,15 @@ When /^I enter my details$/ do
            from: 'member_organization_type')
     fill_in('member_organization_company_number',
             with: @organization_company_number)
+    select(@organization_sector, from: 'member_organization_sector')
     fill_in('member_organization_vat_id', :with => @organization_vat_id)
     fill_in('member_purchase_order_number', :with => @purchase_order_number)
   end
 
+  check('member_agreed_to_terms')
+end
+
+When /^I agree to the terms$/ do
   check('member_agreed_to_terms')
 end
 
@@ -99,6 +158,10 @@ end
 
 When /^I click sign up$/ do
   click_button('submit')
+end
+
+When /^I pay via chargify and return to the member page$/ do
+  pending # express the regexp above with the code you wish you had
 end
 
 Then /^my details should be queued for further processing$/ do

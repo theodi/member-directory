@@ -8,8 +8,7 @@ Given(/^I sign up as an indidual member$/) do
   steps %{
     Given I want to sign up as an individual member
     When I visit the signup page
-    And I enter my details
-    And I enter valid credit card details
+    And I enter my name and contact details
   }
 end
 
