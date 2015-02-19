@@ -162,6 +162,7 @@ describe MembersController do
     subject(:member) { FactoryGirl.create :member }
 
     before do
+      allow(controller).to receive(:verify_chargify_webhook)
       event['payload']['subscription']['customer']['reference'] = member.membership_number
     end
 
