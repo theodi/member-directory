@@ -19,19 +19,19 @@ Given /^that I have signed up as a (\w*)$/ do |product_name|
 end
 
 Then /^I am redirected to submit my organization details$/ do
-  page.should have_content 'Edit your details'
+  expect(page).to have_content 'Edit your details'
 end
 
 Then /^I cannot see a logo upload$/ do
-  page.should_not have_content 'Logo'
+  expect(page).to_not have_content 'Logo'
 end
 
 Then /^the description field is limited to (\d+) characters$/ do |limit|
-  page.should have_content "Limit of #{limit} characters"
+  expect(page).to have_content "Limit of #{limit} characters"
 end
 
 Then /^I can see a logo upload$/ do
-  page.should have_content 'Logo'
+  expect(page).to have_content 'Logo'
 end
 
 Then /^I enter my organization details$/ do
@@ -88,7 +88,7 @@ When /^I click submit$/ do
 end
 
 Then /^I should see a notice that my details were saved successfully$/ do
-  page.should have_content 'You updated your account successfully.'
+  expect(page).to have_content 'You updated your account successfully.'
 end
 
 Then /^I edit my details$/ do
@@ -117,17 +117,18 @@ end
 
 Then /^I should see my changed details when I revisit the edit page$/ do
   click_link('My Account')
-  page.should have_content @changed_organization_name
-  page.should have_content @changed_organization_description
-  page.should have_content @changed_organization_url
-  page.should have_content @changed_organization_contact
-  page.should have_content @changed_organization_phone
-  page.should have_content @changed_organization_email
-  page.should have_content @changed_organization_twitter
-  page.should have_content @changed_organization_linkedin
-  page.should have_content @changed_organization_facebook
-  page.should have_content @changed_organization_tagline
-  page.find('#member_cached_newsletter').checked?.should == @newsletter
+  expect(page).to have_content @changed_organization_name
+  expect(page).to have_content @changed_organization_description
+  expect(page).to have_content @changed_organization_url
+  expect(page).to have_content @changed_organization_contact
+  expect(page).to have_content @changed_organization_phone
+  expect(page).to have_content @changed_organization_email
+  expect(page).to have_content @changed_organization_twitter
+  expect(page).to have_content @changed_organization_linkedin
+  expect(page).to have_content @changed_organization_facebook
+  expect(page).to have_content @changed_organization_tagline
+  expect(page.find('#member_cached_newsletter')).to be_checked
+  expect(page.find('#member_cached_newsletter')).to eq(@newsletter)
 end
 
 Then /^my description is (\d+) characters long$/ do |length|
@@ -177,11 +178,11 @@ Then /^my organisation details should be queued for further processing$/ do
 
   date = @member.organization.updated_at.to_s
 
-  Resque.should_receive(:enqueue).with(SendDirectoryEntryToCapsule, @member.membership_number, organization, directory_entry, date)
+  expect(Resque).to receive(:enqueue).with(SendDirectoryEntryToCapsule, @member.membership_number, organization, directory_entry, date)
 end
 
 Then /^my organisation details should not be queued for further processing$/ do
-  Resque.should_not_receive(:enqueue)
+  expect(Resque).to_not receive(:enqueue)
 end
 
 Then(/^I update my membership details$/) do
@@ -205,7 +206,7 @@ end
 
 Then(/^my membership details should be queued for updating in CapsuleCRM$/) do
   @member = Member.find_by_email(@email)
-  Resque.should_receive(:enqueue).with(SaveMembershipDetailsToCapsule, @member.membership_number, {
+  expect(Resque).to receive(:enqueue).with(SaveMembershipDetailsToCapsule, @member.membership_number, {
     'email'      => @changed_email,
     'newsletter' => @changed_newsletter,
     'size'       => @changed_size,

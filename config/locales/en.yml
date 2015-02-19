@@ -2,7 +2,7 @@
 # See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 en:
-  credit_card: "Credit / debit card"
+  credit_card: "Credit / Debit card"
   invoice: "Annual invoice"
   agreed_to_terms: I have read and agree to the terms and conditions of membership
   credit_card: Credit / Debit card
@@ -15,36 +15,36 @@ en:
     attributes:
       member:
         membership_number: "Member ID"
-        product_name: "Membership Level"
-        email: "Email Address"
-        contact_name: "Your Name"
-        organization_name: "Organisation Name"
+        product_name: "Membership level"
+        email: "Email address"
+        contact_name: "Your name"
+        organization_name: "Organisation name"
         organization_size: "Organisation size"
         organization_type: "Organisation type"
         organization_sector: "Industry sector"
-        telephone: "Contact Number"
+        telephone: "Contact number"
         street_address: "Address"
-        address_locality: "City"
-        address_region: "Region"
+        address_locality: "Address (2nd line)"
+        address_region: "City"
         address_country: "Country"
         postal_code: "Postcode"
-        organization_company_number: "Company / Charity Number"
+        organization_company_number: "Company / Charity number"
         organization_vat_id: "VAT Number (if not UK)"
-        purchase_order_number: "Purchase Order Number"
+        purchase_order_number: "Purchase order number"
         password: "Password"
-        password_confirmation: "Confirm Password"
+        password_confirmation: "Confirm password"
         cached_newsletter: "Send me the newsletter"
         card_validation_code: CVC
         card_expiry_month: Expiry month
         card_expiry_year: Expiry year
       organization:
-        name: "Organisation Name"
+        name: "Organisation name"
         url: "Homepage"
         description: "Description"
         logo: "Logo"
-        cached_contact_name: "Contact Person"
-        cached_contact_phone: "Contact Telephone"
-        cached_contact_email: "Contact Email"
+        cached_contact_name: "Contact person"
+        cached_contact_phone: "Contact telephone"
+        cached_contact_email: "Contact email"
         cached_twitter: "Twitter"
         cached_facebook: "Facebook"
         cached_linkedin: "LinkedIn"
