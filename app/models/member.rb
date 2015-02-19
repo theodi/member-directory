@@ -88,7 +88,7 @@ class Member < ActiveRecord::Base
   validates :product_name, presence: true, inclusion: SUPPORTER_LEVELS, on: :create
   validates :contact_name, presence: true, on: :create
   validates :street_address, presence: true, on: :create, if: :paid_by_invoice?
-  validates :address_locality, presence: true, on: :create, if: :paid_by_invoice?
+  validates :address_region, presence: true, on: :create, if: :paid_by_invoice?
   validates :address_country, presence: true, on: :create, if: :paid_by_invoice?
   validates :postal_code, presence: true, on: :create, if: :paid_by_invoice?
   validates :payment_method, presence: true, on: :create
