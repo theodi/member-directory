@@ -36,7 +36,7 @@ end
 
 When /^I visit the signup page$/ do
   visit("/members/new?level=#{@product_name}")
-  page.should have_content 'Become an ODI member'
+  expect(page).to have_content 'Become an ODI member'
   @field_prefix = 'member'
 end
 
@@ -150,27 +150,27 @@ And /^I should have a membership number generated$/ do
 end
 
 Then /^I should see an error relating to (.*)$/ do |text|
-  page.find(:css, "div.alert-error").should have_content(text)
+  expect(page.find(:css, "div.alert-error")).to have_content(text)
 end
 
 Then /^I should not see an error$/ do
-  page.should_not have_css("div.alert-error")
+  expect(page).to_not have_css("div.alert-error")
 end
 
 Then /^I should see that the membership level is invalid$/ do
-  page.should have_content "Membership Level is not included in the list"
+  expect(page).to have_content "Membership Level is not included in the list"
 end
 
 Then /^I should get an error telling me to accept the terms$/ do
-  page.should have_content "Agreed to terms must be accepted"
+  expect(page).to have_content "Agreed to terms must be accepted"
 end
 
 When /^I should get an error telling my passwords don't match$/ do
-  page.should have_content "Password doesn't match confirmation"
+  expect(page).to have_content "Password doesn't match confirmation"
 end
 
 Then /^my details should not be queued$/ do
-  Resque.should_not_receive(:enqueue)
+  expect(Resque).to_not receive(:enqueue)
 end
 
 Then /^a welcome email should be sent to me$/ do

@@ -23,11 +23,11 @@ Then(/^I should not see the "(.*?)" field$/) do |field|
 end
 
 Then(/the submit button should say "(.*?)"$/) do |text|
-  page.should have_selector("input[type=submit][value='#{text}']")
+  expect(page).to have_selector("input[type=submit][value='#{text}']")
 end
 
 Then(/^the terms and conditions should be correct$/) do
-  (page).should have_content("You agree to comply with these terms and conditions")
+  expect(page).to have_content("You agree to comply with these terms and conditions")
 end
 
 Then /^my individual details should be queued for further processing$/ do
@@ -71,5 +71,5 @@ Then /^I should see my details$/ do
 end
 
 Then /^I should see a link to the right to cancel$/ do
-  find_link("right to cancel").should be_visible
+  expect(find_link("right to cancel")).to be_visible
 end

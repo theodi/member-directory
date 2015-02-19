@@ -28,7 +28,7 @@ end
 
 When /^I visit the sign in page$/ do
   visit('/session/new')
-  page.should have_content 'Sign in'  
+  expect(page).to have_content 'Sign in'
 end
 
 When /^I enter my membership number and password$/ do
