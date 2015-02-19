@@ -181,7 +181,11 @@ describe RegistrationsController do
         password: 'testtest',
         password_confirmation: 'testtest',
         agreed_to_terms: "1",
-        payment_method: "invoice"
+        payment_method: "invoice",
+        street_address: Faker::Address.street_address,
+        address_region: Faker::Address.city,
+        address_country: Faker::Address.country,
+        postal_code: Faker::Address.postcode
       }
     end
 

@@ -10,7 +10,7 @@ FactoryGirl.define do
     organization_sector "Data/Technology"
     contact_name        { Faker::Name.name }
     street_address      { Faker::Address.street_address }
-    address_locality    { Faker::Address.city }
+    address_region      { Faker::Address.city }
     address_country     { Faker::Address.country }
     postal_code         { Faker::Address.postcode }
     password            'passw0rd'
