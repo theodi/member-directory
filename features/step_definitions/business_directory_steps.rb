@@ -1,4 +1,5 @@
 Given /^that I have signed up$/ do
+  pending "this needs to be improved"
   steps %Q{
     Given that I want to sign up
 		When I visit the signup page
@@ -9,6 +10,7 @@ Given /^that I have signed up$/ do
 end
 
 Given /^that I have signed up as a (\w*)$/ do |product_name|
+  pending "this needs to be improved"
   steps %Q{
     Given that I want to sign up as a #{product_name}
 		When I visit the signup page

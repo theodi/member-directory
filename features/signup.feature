@@ -11,7 +11,8 @@ Feature: Add new signups to queue
     And I enter my company details
     And I enter my address details
     And I agree to the terms
-    Then my details should be queued for further processing
+    Then an invoice should be created in chargify
+    And my details should be queued for further processing
     When I click sign up
     And I should have a membership number generated
     And a welcome email should be sent to me
@@ -29,6 +30,7 @@ Feature: Add new signups to queue
     And I enter my company details
     And I agree to the terms
     Then my details should not be queued
+    And I should not be redirected to chargify
     When I click sign up
     And I should see an error relating to Payment method
 
@@ -108,7 +110,8 @@ Feature: Add new signups to queue
     And I agree to the terms
     And my organisation name is "Doge Enterprises Inc. "
     But my organisation name is expected to be "Doge Enterprises Inc."
-    Then my details should be queued for further processing
+    Then an invoice should be created in chargify
+    And my details should be queued for further processing
     When I click sign up
     And I should have a membership number generated
     And my organisation name should be "Doge Enterprises Inc."
