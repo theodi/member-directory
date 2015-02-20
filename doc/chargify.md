@@ -1,6 +1,23 @@
 Chargify integration
 ===========================
 
+Xero integration
+----------------
+
+This needs to be set up in Chargify. Be aware that it adds tax rates to Xero as well.
+
+Credit Card payments should come through as paid invoices, and invoice payments should come through as unpaid invoices.
+They will not be marked as repeating invoices, instead Chargify will create a new invoice when the renewal comes around.
+
+MailChimp integration
+---------------------
+
+This needs to be set up in Chargify. You choose a `list` that subscribers will
+be synced to.  You can’t remove or add other members to this list as it will be
+kept in sync with the subscriptions in Chargify.
+
+So mail outs may want to use a combination of lists or subsets based on product.
+
 Product setup
 -------------
 
@@ -17,8 +34,9 @@ You can then set up the `Recurring Period and Price` for each of these
 products. `Initial/Setup Fee` can be left blank as Chargify starts billing
 immediately for the recurring payment.
 
-Everytime you create a product you need to set up a `Public Signup Page` for
-the product with the `Return url` and `Return parameters` set to these values:
+Everytime you create a product you need to make sure there is a `Public Signup
+Page` set up for the product with the `Return url` and `Return parameters` set
+to these values:
 
 ### Return url
 
@@ -28,6 +46,25 @@ the product with the `Return url` and `Return parameters` set to these values:
 
     reference={customer_reference}&customer_id={customer_id}&subscription_id={subscription_id}&payment_id={signup_payment_id}
 
+
+Discounts
+---------
+
+Coupon codes can be set up in Chargify too, the coupon code you choose needs to
+be appened to the new member url so instead of the usual:
+
+    https://directory.theodi.org/members/new?level=individual
+
+or
+
+    https://directory.theodi.org/members/new?level=supporter
+
+You will need to append `&coupon={COUPONCODE}` on the end. eg:
+
+    https://directory.theodi.org/members/new?level=individual&coupon=COUPONCODE
+
+or
+    https://directory.theodi.org/members/new?level=supporter&coupon=COUPONCODE
 
 Deployment setup
 ================
