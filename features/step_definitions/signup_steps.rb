@@ -20,6 +20,7 @@ Given /^there is already an organization with the name '(.*?)'$/ do |org_name|
 end
 
 Given(/^I have a (sponsor|partner) account$/) do |level|
+  pending
 
   @password = 'password'
   @email = Faker::Internet.email
