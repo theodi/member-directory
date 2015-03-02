@@ -168,10 +168,6 @@ class Member < ActiveRecord::Base
     self.phone = value if individual?
   end
 
-  def stripe_customer
-    Stripe::Customer.retrieve(stripe_customer_id) if stripe_customer_id
-  end
-
   def membership_description
     if founding_partner?
       'Founding partner'
