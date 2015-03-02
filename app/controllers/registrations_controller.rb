@@ -15,12 +15,7 @@ class RegistrationsController < Devise::RegistrationsController
 
     if resource.save
       sign_up(resource_name, resource)
-      if resource.paid_with_card?
-        redirect_to resource.chargify_product_link(params[:coupon])
-      else
-        current_member.setup_chargify_subscription!
-        redirect_to thanks_member_path(current_member)
-      end
+      redirect_to resource.chargify_product_link(params[:coupon])
     else
       clean_up_passwords resource
       respond_with resource
