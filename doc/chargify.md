@@ -1,14 +1,6 @@
 Chargify integration
 ===========================
 
-Xero integration
-----------------
-
-This needs to be set up in Chargify. Be aware that it adds tax rates to Xero as well.
-
-Credit Card payments should come through as paid invoices, and invoice payments should come through as unpaid invoices.
-They will not be marked as repeating invoices, instead Chargify will create a new invoice when the renewal comes around.
-
 MailChimp integration
 ---------------------
 
