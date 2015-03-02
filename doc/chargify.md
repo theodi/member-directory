@@ -38,6 +38,13 @@ to these values:
 
     reference={customer_reference}&customer_id={customer_id}&subscription_id={subscription_id}&payment_id={signup_payment_id}
 
+Webhook setup
+-------------
+
+A webhook for `signup success` needs to be set up to verify that payments are
+recorded correctly using this url:
+
+    https://directory.theodi.org/members/chargify_verify
 
 Discounts
 ---------
