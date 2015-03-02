@@ -87,10 +87,10 @@ class Member < ActiveRecord::Base
 	# validations
   validates :product_name, presence: true, inclusion: SUPPORTER_LEVELS, on: :create
   validates :contact_name, presence: true, on: :create
-  validates :street_address, presence: true, on: :create, if: :paid_by_invoice?
-  validates :address_region, presence: true, on: :create, if: :paid_by_invoice?
-  validates :address_country, presence: true, on: :create, if: :paid_by_invoice?
-  validates :postal_code, presence: true, on: :create, if: :paid_by_invoice?
+  validates :street_address, presence: true, on: :create
+  validates :address_region, presence: true, on: :create
+  validates :address_country, presence: true, on: :create
+  validates :postal_code, presence: true, on: :create
   validates :payment_method, presence: true, on: :create
   validates_acceptance_of :agreed_to_terms, on: :create
 
@@ -200,7 +200,13 @@ class Member < ActiveRecord::Base
       url = URI(link)
       params = {
         reference: membership_number,
-        email: email
+        email: email,
+        billing_address: street_address,
+        billing_address_2: address_locality,
+        billing_city: address_region,
+        billing_country: address_country,
+        billing_state: "London", #this doesn't actually prefil but it makes chargify calculate tax based on country
+        billing_zip: postal_code
       }
       params[:organization] = organization_name if organization?
       params[:coupon_code] = coupon if coupon.present?

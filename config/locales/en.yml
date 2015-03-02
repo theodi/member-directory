@@ -24,7 +24,7 @@ en:
         organization_sector: "Industry sector"
         telephone: "Contact number"
         street_address: "Address"
-        address_locality: "Address (2nd line)"
+        address_locality: ""
         address_region: "City"
         address_country: "Country"
         postal_code: "Postcode"

@@ -37,6 +37,11 @@ describe RegistrationsController do
         product_name: "individual",
         contact_name: "Test Person",
         email: 'test@example.com',
+        street_address: "1 Street Over",
+        address_locality: "Townplace",
+        address_region: "London",
+        address_country: "GB",
+        postal_code: "EC1 1TT",
         password: 'testtest',
         password_confirmation: 'testtest',
         agreed_to_terms: "1"
@@ -62,6 +67,30 @@ describe RegistrationsController do
     it 'includes email' do
       expect(params).to include("email" => "test@example.com")
     end
+
+    it 'includes street address as billing_address' do
+      expect(params).to include("billing_address" => "1 Street Over")
+    end
+
+    it 'includes address locality as billing_address_2' do
+      expect(params).to include("billing_address_2" => "Townplace")
+    end
+
+    it 'includes address region as billing_city' do
+      expect(params).to include("billing_city" => "London")
+    end
+
+    it 'includes address country as billing_country' do
+      expect(params).to include("billing_country" => "GB")
+    end
+
+    it 'includes postal code as billing_zip' do
+      expect(params).to include("billing_zip" => "EC1 1TT")
+    end
+
+    it 'includes London as the billing_state as a hack to get tax to update in chargify' do
+      expect(params).to include("billing_state" => "London")
+    end
   end
 
   describe 'organisation credit card signup via chargify' do
@@ -78,6 +107,11 @@ describe RegistrationsController do
         organization_size: "251-1000",
         organization_type: "commercial",
         organization_sector: "Energy",
+        street_address: "1 Street Over",
+        address_locality: "Townplace",
+        address_region: "London",
+        address_country: "GB",
+        postal_code: "EC1 1TT",
         password: 'testtest',
         password_confirmation: 'testtest',
         agreed_to_terms: "1"
@@ -119,6 +153,11 @@ describe RegistrationsController do
         organization_size: "251-1000",
         organization_type: "non_commercial",
         organization_sector: "Energy",
+        street_address: "1 Street Over",
+        address_locality: "Townplace",
+        address_region: "London",
+        address_country: "GB",
+        postal_code: "EC1 1TT",
         password: 'testtest',
         password_confirmation: 'testtest',
         agreed_to_terms: "1"
@@ -137,6 +176,11 @@ describe RegistrationsController do
         product_name: "individual",
         contact_name: "Test Person",
         email: 'test@example.com',
+        street_address: "1 Street Over",
+        address_locality: "Townplace",
+        address_region: "London",
+        address_country: "GB",
+        postal_code: "EC1 1TT",
         password: 'testtest',
         password_confirmation: 'testtest',
         agreed_to_terms: "1"
@@ -167,40 +211,4 @@ describe RegistrationsController do
       end
     end
   end
-
-  describe 'invoice signup' do
-    let(:response) do
-      post :create, :member => {
-        product_name: "supporter",
-        contact_name: "Test Person",
-        email: 'test@example.com',
-        organization_name: "Test Org",
-        organization_size: "251-1000",
-        organization_type: "non_commercial",
-        organization_sector: "Education",
-        password: 'testtest',
-        password_confirmation: 'testtest',
-        agreed_to_terms: "1",
-        payment_method: "invoice",
-        street_address: Faker::Address.street_address,
-        address_region: Faker::Address.city,
-        address_country: Faker::Address.country,
-        postal_code: Faker::Address.postcode
-      }
-    end
-
-    let(:member) { Member.last }
-
-    it 'does not redirect to chargify' do
-      expect(response).to be_redirect
-      expect(response.location).to eq(thanks_member_url(member))
-    end
-
-    it 'enqueues a background job to set up invoice in chargify' do
-      expect_any_instance_of(Member).to receive(:setup_chargify_subscription!)
-      response
-    end
-
-  end
-
 end

@@ -82,84 +82,44 @@
 
   </fieldset>
 
-  <fieldset>
-
-    <legend>How would you like to pay?</legend>
-
-    <div class="control-group">
-    	<%= f.label :payment_method, :class => 'control-label' %>
-    	<div class="controls">
-        <%= f.label :payment_method, t(:credit_card), :value => :credit_card do %>
-          <%= f.radio_button :payment_method, :credit_card %>
-          <%= t(:credit_card) %>
-        <% end %>
-        <%= f.label :payment_method, t(:invoice), :value => :invoice do %>
-          <%= f.radio_button :payment_method, :invoice %>
-          <%= t(:invoice) %>
-        <% end %>
-    	</div>
-    </div>
-
-    <fieldset id='invoice-details'>
-        <legend>Invoice billing details</legend>
-        <div class="control-group">
-            <%= f.label :purchase_order_number, :class => 'control-label' %>
-            <div class="controls">
-                <%= f.text_field :purchase_order_number %>
-            </div>
-        </div>
-        <div class="control-group">
-            <%= f.label :street_address, :class => 'control-label' %>
-            <div class="controls">
-                <%= f.text_field :street_address %>
-            </div>
-        </div>
-        <div class="control-group">
-            <%= f.label :address_locality, :class => 'control-label' %>
-            <div class="controls">
-                <%= f.text_field :address_locality %>
-            </div>
-        </div>
-        <div class="control-group">
-            <%= f.label :address_region, :class => 'control-label' %>
-            <div class="controls">
-                <%= f.text_field :address_region %>
-            </div>
-        </div>
-        <div class="control-group">
-            <%= f.label :address_country, :class => 'control-label' %>
-            <div class="controls">
-                <%= f.country_select :address_country, priority_countries: ["GB"], prompt: true %>
-            </div>
-        </div>
-        <div class="control-group">
-            <%= f.label :postal_code, :class => 'control-label' %>
-            <div class="controls">
-                <%= f.text_field :postal_code %>
-            </div>
-        </div>
-    </fieldset>
-
-  </fieldset>
 <% end %>
 
-<script>
+<fieldset>
 
-  function show_payment_options() {
-    switch($('input:radio[name="member[payment_method]"]:checked').val()) {
-    case "invoice":
-      $('#invoice-details').slideDown();
-      break;
-    case "credit_card":
-      $('#invoice-details').slideUp();
-      break;
-    }
-  }
+  <legend>Address details</legend>
 
-  $(document).ready(function() {
-    $('#invoice-details').hide();
-    show_payment_options();
+  <div class="control-group">
+    <%= f.label :street_address, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :street_address %>
+    </div>
+  </div>
 
-    $('input[name="member[payment_method]"]:radio').change(show_payment_options);
-  });
-</script>
+  <div class="control-group">
+    <%= f.label :address_locality, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :address_locality %>
+    </div>
+  </div>
+
+  <div class="control-group">
+    <%= f.label :address_region, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :address_region %>
+    </div>
+  </div>
+
+  <div class="control-group">
+    <%= f.label :address_country, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.country_select :address_country, selected: resource.address_country || 'GB', priority_countries: ["GB"] %>
+    </div>
+  </div>
+
+  <div class="control-group">
+    <%= f.label :postal_code, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :postal_code %>
+    </div>
+  </div>
+</fieldset>
