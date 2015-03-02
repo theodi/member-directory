@@ -93,14 +93,6 @@ class Member < ActiveRecord::Base
 
   validates_with OrganizationValidator, on: :create, unless: :individual?
 
-  def paid_with_card?
-    payment_method == 'credit_card'
-  end
-
-  def paid_by_invoice?
-    payment_method == 'invoice'
-  end
-
   def remote?
     @remote || false
   end
