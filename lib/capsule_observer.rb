@@ -36,7 +36,7 @@ class CapsuleObserver
         member.cached_newsletter = membership['newsletter']
         member.organization_size = membership['size'] if membership['size']
         member.organization_sector = membership['sector'] if membership['sector']
-        member.remote            = true
+        member.remote!
         # We don't store email here, that's only for new accounts
         member.save(:validate => false)
         # Update organization data
@@ -45,7 +45,7 @@ class CapsuleObserver
           # We don't update the description, as capsuleCRM breaks it currently
           #org.description          = directory_entry['description']
           org.url                  = directory_entry['url']
-          org.remote               = true
+          org.remote!
           org.cached_contact_name  = directory_entry['contact']
           org.cached_contact_phone = directory_entry['phone']
           org.cached_contact_email = directory_entry['email']

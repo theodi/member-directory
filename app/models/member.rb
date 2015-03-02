@@ -59,7 +59,6 @@ class Member < ActiveRecord::Base
                   :purchase_order_number,
                   :agreed_to_terms,
                   :payment_method,
-                  :remote,
                   :address
 
   attr_accessor :organization_name,
@@ -78,8 +77,6 @@ class Member < ActiveRecord::Base
                 :purchase_order_number,
                 :agreed_to_terms,
                 :payment_method
-
-  attr_writer :remote
 
   # allow admins to edit access key
   attr_accessible :access_key, as: :admin
@@ -104,8 +101,12 @@ class Member < ActiveRecord::Base
     payment_method == 'invoice'
   end
 
-  def remote
+  def remote?
     @remote || false
+  end
+
+  def remote!
+    @remote = true
   end
 
   def check_organization_names
@@ -292,10 +293,9 @@ class Member < ActiveRecord::Base
     ].compact.join("\n")
   end
 
-  after_create :add_to_queue, :setup_organization, :save_membership_id_in_capsule
-
-  skip_callback :create, :after, :add_to_queue, :if => lambda { self.remote === true }
-  skip_callback :create, :after, :save_membership_id_in_capsule, :unless => lambda { self.remote === true }
+  after_create :setup_organization
+  after_create :add_to_queue, unless: :remote?
+  after_create :save_membership_id_in_capsule, if: :remote?
 
   def add_to_queue
 
@@ -338,11 +338,10 @@ class Member < ActiveRecord::Base
   end
 
   def setup_organization
-    self.create_organization(:name => organization_name, :remote => remote) unless individual?
+    self.create_organization(:name => organization_name, :remote => remote?) unless individual?
   end
 
-  after_update :save_to_capsule
-  skip_callback :update, :after, :save_to_capsule, :if => lambda { self.remote === true }
+  after_update :save_to_capsule, unless: :remote?
 
   def save_to_capsule
     if unconfirmed_email_changed? || cached_newsletter_changed? || organization_size_changed? || organization_sector_changed?
