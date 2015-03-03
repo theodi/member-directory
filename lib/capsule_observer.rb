@@ -45,7 +45,6 @@ class CapsuleObserver
           # We don't update the description, as capsuleCRM breaks it currently
           #org.description          = directory_entry['description']
           org.url                  = directory_entry['url']
-          org.remote!
           org.cached_contact_name  = directory_entry['contact']
           org.cached_contact_phone = directory_entry['phone']
           org.cached_contact_email = directory_entry['email']

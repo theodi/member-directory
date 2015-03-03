@@ -58,11 +58,7 @@ class Organization < ActiveRecord::Base
   end
 
   def remote?
-    @remote || false
-  end
-
-  def remote!
-    @remote = true
+    member.try(:remote?)
   end
 
   def supporter?
