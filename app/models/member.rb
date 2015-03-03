@@ -29,8 +29,7 @@ class Member < ActiveRecord::Base
   before_validation :set_defaults
 
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable,
-         :confirmable
+         :recoverable, :rememberable, :trackable, :validatable
 
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email,
@@ -336,9 +335,9 @@ class Member < ActiveRecord::Base
   after_update :save_to_capsule, unless: :remote?
 
   def save_to_capsule
-    if unconfirmed_email_changed? || cached_newsletter_changed? || organization_size_changed? || organization_sector_changed?
+    if email_changed? || cached_newsletter_changed? || organization_size_changed? || organization_sector_changed?
       Resque.enqueue(SaveMembershipDetailsToCapsule, membership_number, {
-        'email'      => unconfirmed_email || email,
+        'email'      => email,
         'newsletter' => cached_newsletter,
         'size'       => organization_size,
         'sector'     => organization_sector

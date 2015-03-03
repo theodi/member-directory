@@ -43,10 +43,6 @@
         </div>
     <% end %>
 
-    <% if @member.pending_reconfirmation? %>
-      <div>Currently waiting confirmation for: <%= @member.unconfirmed_email %></div>
-    <% end %>
-
     <% if @member.organization? %>
     <div class="control-group">
       <%= f.label :organization_size, :class => 'control-label' %>
