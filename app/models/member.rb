@@ -217,17 +217,6 @@ class Member < ActiveRecord::Base
     }, without_protection: true)
   end
 
-  def setup_chargify_subscription!
-    Resque.enqueue(ChargifySubscriptionWorker, id,
-      'contact_name' => contact_name,
-      'street_address' => street_address,
-      'address_locality' => address_locality,
-      'address_region' => address_region,
-      'address_country' => address_country,
-      'postal_code' => postal_code,
-      'vat_id' => organization_vat_id)
-  end
-
   def verify_chargify_subscription!(subscription, customer)
     verified = chargify_subscription_id == subscription['id'] &&
       chargify_customer_id == customer['id']
