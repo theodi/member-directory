@@ -18,6 +18,7 @@ class Member < ActiveRecord::Base
   }
   LARGE_CORPORATE = %w[251-1000 >1000]
   CHARGIFY_PRODUCT_LINKS = {}
+  CHARGIFY_PRODUCT_PRICES = {}
 
   has_one :organization
   has_many :embed_stats
@@ -164,6 +165,9 @@ class Member < ActiveRecord::Base
 
   def self.initialize_chargify_links!
     Chargify::Product.all.each do |product|
+      # yep, this is how good the chargify API naming is
+      # also no way to find the currency of a Site either
+      CHARGIFY_PRODUCT_PRICES[product.handle] = product.price_in_cents
       page = product.public_signup_pages.first
       if page
         register_chargify_product_link(product.handle, page.url)

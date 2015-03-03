@@ -71,12 +71,14 @@ describe Member do
   context 'setting up chargify links' do
     before do
       Member::CHARGIFY_PRODUCT_LINKS.clear
+      Member::CHARGIFY_PRODUCT_PRICES.clear
     end
 
     it 'assigns the api handle and first public signup page' do
       product = double('product')
       page = double('page')
       allow(page).to receive(:url).and_return("http://i.am/an/url")
+      allow(product).to receive(:price_in_cents)
       allow(product).to receive(:handle).and_return("plan_name")
       allow(product).to receive(:public_signup_pages).and_return([page])
       expect(Chargify::Product).to receive(:all).and_return([product])
@@ -86,11 +88,23 @@ describe Member do
 
     it 'handles a missing signup page' do
       product = double('product')
+      allow(product).to receive(:price_in_cents)
       allow(product).to receive(:handle).and_return("plan_name")
       allow(product).to receive(:public_signup_pages).and_return([])
       expect(Chargify::Product).to receive(:all).and_return([product])
       Member.initialize_chargify_links!
       expect(Member::CHARGIFY_PRODUCT_LINKS["plan_name"]).to be_nil
+    end
+
+    it 'stores the price of the product' do
+      product = double('product')
+      page = double('page')
+      allow(product).to receive(:price_in_cents).and_return(80000)
+      allow(product).to receive(:handle).and_return("plan_name")
+      allow(product).to receive(:public_signup_pages).and_return([])
+      expect(Chargify::Product).to receive(:all).and_return([product])
+      Member.initialize_chargify_links!
+      expect(Member::CHARGIFY_PRODUCT_PRICES["plan_name"]).to eq(80000)
     end
   end
 
