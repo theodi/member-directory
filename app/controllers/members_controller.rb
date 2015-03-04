@@ -3,6 +3,7 @@ class MembersController < ApplicationController
 
   before_filter :get_member, :except => [:index, :right_to_cancel, :chargify_verify]
   before_filter :set_formats, :log_embed, :only => [:badge]
+  before_filter :individual_signed_in, :only => :show
 
   before_filter(:only => [:index, :show]) {alternate_formats [:json]}
 
@@ -113,6 +114,11 @@ class MembersController < ApplicationController
     unless request.referer =~ /https?:\/\/#{request.host_with_port}./
       @member.register_embed(request.referer)
     end
+  end
+
+
+  def individual_signed_in
+    authenticate_member! if @member.individual?
   end
 
   def verify_chargify_webhook
