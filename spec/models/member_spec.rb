@@ -104,7 +104,7 @@ describe Member do
       allow(product).to receive(:public_signup_pages).and_return([])
       expect(Chargify::Product).to receive(:all).and_return([product])
       Member.initialize_chargify_links!
-      expect(Member::CHARGIFY_PRODUCT_PRICES["plan_name"]).to eq(80000)
+      expect(Member::CHARGIFY_PRODUCT_PRICES["plan_name"]).to eq(800)
     end
   end
 

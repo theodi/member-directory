@@ -10,24 +10,11 @@ class RegistrationsController < Devise::RegistrationsController
     respond_with resource
   end
 
-  def create
-    build_resource
-
-    if resource.save
-      sign_up(resource_name, resource)
-      redirect_to resource.chargify_product_link(params[:coupon])
-    else
-      clean_up_passwords resource
-      respond_with resource
-    end
-  end
-
-  def chargify_return
-    current_member.update_chargify_values!(params)
-    redirect_to thanks_member_path(current_member)
-  end
-
   protected
+
+  def after_sign_up_path_for(resource)
+    payment_member_path(resource)
+  end
 
   def check_product_name
     redirect_to 'http://www.theodi.org/join-us' unless Member.is_current_supporter_level?(params[:level])

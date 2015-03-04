@@ -1,0 +1,11 @@
+<p class="lead">
+Thanks for signing up to become a supporter of The Open Data Institute.
+</p>
+
+<p>Being <%= indefinite_article(@member.get_plan_description) %> is <%= @member.get_plan_price %> per year.</p>
+
+<p>
+<%= form_tag payment_member_path(@member), method: 'post' do %>
+  <input type="submit" class="btn btn-primary btn-large" value="Pay now">
+<% end %>
+</p>

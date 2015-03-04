@@ -1,8 +1,9 @@
 class MembersController < ApplicationController
   respond_to :html, :json
 
-  before_filter :get_member, :except => [:index, :right_to_cancel, :chargify_verify]
+  before_filter :get_member, :except => [:index, :right_to_cancel, :chargify_return]
   before_filter :set_formats, :log_embed, :only => [:badge]
+  before_filter :authenticate_member!, :only => [:payment, :thanks, :chargify_return]
   before_filter :individual_signed_in, :only => :show
 
   before_filter(:only => [:index, :show]) {alternate_formats [:json]}
@@ -89,6 +90,26 @@ class MembersController < ApplicationController
     @title = "Thanks for supporting The ODI"
   end
 
+  def payment
+    if current_member.current?
+      redirect_to member_path(current_member)
+    elsif request.post?
+      redirect_to current_member.chargify_product_link(params[:coupon])
+    else
+      @member = current_member
+      render template: "members/payment"
+    end
+  end
+
+  def chargify_return
+    Member.transaction do
+      current_member.current!
+      current_member.update_chargify_values!(params)
+    end
+    current_member.deliver_welcome_email!
+    redirect_to thanks_member_path(current_member)
+  end
+
   def chargify_verify
     case(params['event'])
     when 'test'
@@ -97,7 +118,7 @@ class MembersController < ApplicationController
       customer = subscription['customer']
       member = Member.find_by_membership_number!(customer['reference'])
       member.verify_chargify_subscription!(subscription, customer)
-      member.update_address_from_chargify(customer)
+      member.add_to_capsule
     end
     head :ok
   end
