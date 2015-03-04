@@ -119,7 +119,6 @@ class MembersController < ApplicationController
       customer = subscription['customer']
       member = Member.find_by_membership_number!(customer['reference'])
       member.verify_chargify_subscription!(subscription, customer)
-      member.add_to_capsule
     end
     head :ok
   end
