@@ -165,7 +165,7 @@ class Member < ActiveRecord::Base
     Chargify::Product.all.each do |product|
       # yep, this is how good the chargify API naming is
       # also no way to find the currency of a Site either
-      CHARGIFY_PRODUCT_PRICES[product.handle] = product.price_in_cents / 100
+      CHARGIFY_PRODUCT_PRICES[product.handle] = product.price_in_cents.to_i / 100
       page = product.public_signup_pages.first
       if page
         register_chargify_product_link(product.handle, page.url)
