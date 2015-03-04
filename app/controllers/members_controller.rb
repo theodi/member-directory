@@ -9,6 +9,7 @@ class MembersController < ApplicationController
   before_filter(:only => [:index, :show]) {alternate_formats [:json]}
 
   before_filter :verify_chargify_webhook, :only => :chargify_verify
+  before_filter :ensure_current, :only => :show
 
   def index
     @organizations = Organization.active.display_order
@@ -137,6 +138,9 @@ class MembersController < ApplicationController
     end
   end
 
+  def ensure_current
+    redirect_to payment_member_path(@member) unless @member.current?
+  end
 
   def individual_signed_in
     authenticate_member! if @member.individual?
