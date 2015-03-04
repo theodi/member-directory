@@ -95,7 +95,7 @@ class MembersController < ApplicationController
     if current_member.current?
       redirect_to member_path(current_member)
     elsif request.post?
-      redirect_to current_member.chargify_product_link(params[:coupon])
+      redirect_to current_member.chargify_product_link
     else
       @member = current_member
       render template: "members/payment"

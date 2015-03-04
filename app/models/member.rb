@@ -181,7 +181,7 @@ class Member < ActiveRecord::Base
     get_plan
   end
 
-  def chargify_product_link(coupon=nil)
+  def chargify_product_link
     if link = CHARGIFY_PRODUCT_LINKS[chargify_product_handle]
       url = URI(link)
       params = {
@@ -195,7 +195,6 @@ class Member < ActiveRecord::Base
         billing_zip: postal_code
       }
       params[:organization] = organization_name if organization?
-      params[:coupon_code] = coupon if coupon.present?
       url.query = params.to_query
       return url.to_s
     else
