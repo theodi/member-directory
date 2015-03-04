@@ -2,6 +2,10 @@ require 'spec_helper'
 
 describe MembersController do
 
+  before :each do
+    request.env['devise.mapping'] = Devise.mappings[:member]
+  end
+
   describe "GET 'index'" do
 
     before :each do
@@ -35,13 +39,13 @@ describe MembersController do
   describe "GET 'show'" do
 
     it "returns http success if member is active" do
-      member = FactoryGirl.create :member, :cached_active => true
+      member = FactoryGirl.create :current_member, :cached_active => true
       get 'show', :id => member.membership_number
       expect(response).to be_success
     end
 
     it "redirects to login if member is not active" do
-      member = FactoryGirl.create :member, :cached_active => false
+      member = FactoryGirl.create :current_member, :cached_active => false
       get 'show', :id => member.membership_number
       expect(response).to be_redirect
     end
@@ -51,7 +55,7 @@ describe MembersController do
   describe "GET 'badge'" do
 
     before :each do
-      @member = FactoryGirl.create :member, :cached_active => true, :product_name => 'member'
+      @member = FactoryGirl.create :current_active_member, :product_name => 'member'
     end
 
     it "allows specific sizes to be specified" do
@@ -120,30 +124,27 @@ describe MembersController do
   end
 
   describe "content locations" do
+    let!(:member) { FactoryGirl.create :current_active_member }
 
     it "includes query parameters" do
-      member = FactoryGirl.create :member, :cached_active => true
       get 'index', :page => 3
       expect(response.headers['Content-Type']).to include('text/html')
       expect(response.headers['Content-Location']).to eq("http://test.host/members.html?page=3")
     end
 
     it "shows HTML extension" do
-      member = FactoryGirl.create :member, :cached_active => true
       get 'show', :id => member.membership_number
       expect(response.headers['Content-Type']).to include('text/html')
       expect(response.headers['Content-Location']).to eq("http://test.host/members/#{member.membership_number}.html")
     end
 
     it "includes JSON extension if requesting JSON via format in URI" do
-      member = FactoryGirl.create :member, :cached_active => true
       get 'show', :id => member.membership_number, :format => 'json'
       expect(response.headers['Content-Type']).to include('application/json')
       expect(response.headers['Content-Location']).to eq("http://test.host/members/#{member.membership_number}.json")
     end
 
     it "includes JSON extension if requesting JSON via content negotiation" do
-      member = FactoryGirl.create :member, :cached_active => true
       @request.accept = 'application/json'
       get 'show', :id => member.membership_number
       expect(response.headers['Content-Type']).to include('application/json')
@@ -187,18 +188,6 @@ describe MembersController do
       end
     end
 
-    it "reconstructs the address field from chargify details" do
-      post :chargify_verify, event
-      member.reload
-      address = [
-        "123 Main St",
-        "Apt 123",
-        "Pleasantville",
-        "US",
-        "12345"].join("\n")
-      expect(member.address).to eq(address)
-    end
-
     it 'responds with an ok to a test webhook' do
       post :chargify_verify, event: "test", id: rand(1000), payload: { chargify: "test" }
       expect(response).to be_success
@@ -212,4 +201,60 @@ describe MembersController do
     end
   end
 
+  describe 'individual return from chargify' do
+    let!(:member) { FactoryGirl.create(:individual_member) }
+
+    let(:response) do
+      sign_in(member)
+      # chargify return parameters template
+      # reference={customer_reference}&customer_id={customer_id}&subscription_id={subscription_id}&payment_id={signup_payment_id}
+      get :chargify_return, reference: member.membership_number, customer_id: 1, subscription_id: 2, payment_id: 3
+    end
+
+    it 'redirects to thanks page' do
+      expect(response).to be_redirect
+      expect(response).to redirect_to(thanks_member_path(member))
+    end
+
+    {
+      chargify_customer_id: 1,
+      chargify_subscription_id: 2,
+      chargify_payment_id: 3,
+    }.each do |chargify_param, id|
+      it "updates #{chargify_param} on member record" do
+        response
+        expect(member.reload.send(chargify_param)).to eq(id.to_s)
+      end
+    end
+  end
+
+  describe 'payment page' do
+
+    let!(:member) do
+      FactoryGirl.create(:individual_member)
+    end
+
+    it 'renders the payment page for a newly created user' do
+      sign_in(member)
+      response = get :payment, id: member.to_param
+      expect(response).to be_success
+      expect(response).to render_template("members/payment")
+    end
+
+    it 'redirects to member page if already paid' do
+      sign_in(member)
+      member.update_attribute(:current, true)
+      response = get :payment, id: member.to_param
+      expect(response).to be_redirect
+      expect(response).to redirect_to(member_path(member))
+    end
+
+    it 'redirects to chargify link on post' do
+      allow_any_instance_of(Member).to receive(:chargify_product_link).and_return("http://chargify.com/buy/this")
+      sign_in(member)
+      response = post :payment, id: member.to_param
+      expect(response).to be_redirect
+      expect(response).to redirect_to("http://chargify.com/buy/this")
+    end
+  end
 end

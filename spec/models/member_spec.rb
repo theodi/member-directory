@@ -108,4 +108,149 @@ describe Member do
     end
   end
 
+  describe 'chargify redirect link' do
+    before do
+      Member.register_chargify_product_link('individual_supporter', 'https://chargify.com/individual')
+    end
+
+    let(:member) do
+      Member.create!(
+        product_name: "individual",
+        contact_name: "Test Person",
+        email: 'test@example.com',
+        street_address: "1 Street Over",
+        address_locality: "Townplace",
+        address_region: "London",
+        address_country: "GB",
+        postal_code: "EC1 1TT",
+        password: 'testtest',
+        password_confirmation: 'testtest',
+        agreed_to_terms: "1"
+      )
+    end
+
+    let(:url) { URI.parse(member.chargify_product_link) }
+
+    let(:params) do
+      Rack::Utils.parse_nested_query(url.query)
+    end
+
+    it 'links to the individiual product page' do
+      expect(url.host).to eq("chargify.com")
+      expect(url.path).to eq("/individual")
+    end
+    
+    it 'includes membership number as customer reference' do
+      expect(params).to include("reference" => member.membership_number)
+    end
+    
+    it 'includes email' do
+      expect(params).to include("email" => "test@example.com")
+    end
+
+    it 'includes street address as billing_address' do
+      expect(params).to include("billing_address" => "1 Street Over")
+    end
+
+    it 'includes address locality as billing_address_2' do
+      expect(params).to include("billing_address_2" => "Townplace")
+    end
+
+    it 'includes address region as billing_city' do
+      expect(params).to include("billing_city" => "London")
+    end
+
+    it 'includes address country as billing_country' do
+      expect(params).to include("billing_country" => "GB")
+    end
+
+    it 'includes postal code as billing_zip' do
+      expect(params).to include("billing_zip" => "EC1 1TT")
+    end
+
+    it 'includes London as the billing_state as a hack to get tax to update in chargify' do
+      expect(params).to include("billing_state" => "London")
+    end
+  end
+
+  describe 'chargify redirect link for a organisation' do
+    before do
+      Member.register_chargify_product_link('corporate_supporter_annual', 'https://chargify.com/corporate')
+      Member.register_chargify_product_link('supporter_annual', 'https://chargify.com/non-profit')
+    end
+
+    let(:member) do
+      Member.create!(
+        product_name: "supporter",
+        contact_name: "Test Person",
+        email: 'test@example.com',
+        organization_name: "Test Org",
+        organization_size: "251-1000",
+        organization_type: "commercial",
+        organization_sector: "Energy",
+        street_address: "1 Street Over",
+        address_locality: "Townplace",
+        address_region: "London",
+        address_country: "GB",
+        postal_code: "EC1 1TT",
+        password: 'testtest',
+        password_confirmation: 'testtest',
+        agreed_to_terms: "1"
+      )
+    end
+
+    let(:url) { URI.parse(member.chargify_product_link) }
+
+    let(:params) do
+      Rack::Utils.parse_nested_query(url.query)
+    end
+    
+    it 'links to the corporate product page' do
+      expect(url.host).to eq("chargify.com")
+      expect(url.path).to eq("/corporate")
+    end
+    
+    it 'includes organization_name' do
+      expect(params).to include("organization" => "Test Org")
+    end
+  end
+
+  describe 'chargify redirect link for a non-commercial organisation' do
+    before do
+      Member.register_chargify_product_link('supporter_annual', 'https://chargify.com/non-profit')
+      Member.register_chargify_product_link('corporate_supporter_annual', 'https://chargify.com/corporate')
+    end
+
+    let(:member) do
+      Member.create!(
+        product_name: "supporter",
+        contact_name: "Test Person",
+        email: 'test@example.com',
+        organization_name: "Test Org",
+        organization_size: "251-1000",
+        organization_type: "non_commercial",
+        organization_sector: "Energy",
+        street_address: "1 Street Over",
+        address_locality: "Townplace",
+        address_region: "London",
+        address_country: "GB",
+        postal_code: "EC1 1TT",
+        password: 'testtest',
+        password_confirmation: 'testtest',
+        agreed_to_terms: "1"
+      )
+    end
+
+    let(:url) { URI.parse(member.chargify_product_link) }
+
+    let(:params) do
+      Rack::Utils.parse_nested_query(url.query)
+    end
+    
+    it 'links to the corporate product page' do
+      expect(url.host).to eq("chargify.com")
+      expect(url.path).to eq("/non-profit")
+    end
+  end
+
 end
