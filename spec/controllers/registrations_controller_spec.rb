@@ -53,4 +53,43 @@ describe RegistrationsController do
     end
   end
 
+  describe 'member origin tracking' do
+    let(:member) { Member.last }
+
+    it 'defaults member origin to odihq' do
+      post :create, :member => {
+        product_name: "individual",
+        contact_name: "Test Person",
+        email: 'test@example.com',
+        street_address: "1 Street Over",
+        address_locality: "Townplace",
+        address_region: "London",
+        address_country: "GB",
+        postal_code: "EC1 1TT",
+        password: 'testtest',
+        password_confirmation: 'testtest',
+        agreed_to_terms: "1"
+      }
+      expect(member.origin).to eq('odihq')
+    end
+
+    it 'tracks origin field on member' do
+      post :create, :member => {
+        product_name: "individual",
+        contact_name: "Test Person",
+        email: 'test@example.com',
+        street_address: "1 Street Over",
+        address_locality: "Townplace",
+        address_region: "London",
+        address_country: "GB",
+        postal_code: "EC1 1TT",
+        password: 'testtest',
+        password_confirmation: 'testtest',
+        agreed_to_terms: "1",
+        origin: 'odi-leeds'
+      }
+      expect(member.origin).to eq('odi-leeds')
+    end
+  end
+
 end

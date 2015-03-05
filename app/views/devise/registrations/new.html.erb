@@ -7,7 +7,7 @@
 	  This won't take longer than a couple of minutes!
   </p>
 
-  <%= hidden_field_tag(:coupon, params[:coupon]) if params[:coupon].present? %>
+  <%= hidden_field_tag(:origin, params[:origin]) if params[:origin].present? %>
   <%= f.hidden_field :product_name %>
 
   <%= render :partial => 'member_details', :locals => { :f => f } %>

@@ -46,11 +46,10 @@ recorded correctly using this url:
 
     https://directory.theodi.org/members/chargify_verify
 
-Discounts
----------
+Tracking origin of members
+--------------------------
 
-Coupon codes can be set up in Chargify too, the coupon code you choose needs to
-be appened to the new member url so instead of the usual:
+Tracking codes can be appened to the new member url so instead of the usual:
 
     https://directory.theodi.org/members/new?level=individual
 
@@ -58,12 +57,15 @@ or
 
     https://directory.theodi.org/members/new?level=supporter
 
-You will need to append `&coupon={COUPONCODE}` on the end. eg:
+You can append `&origin={CODE}` on the end. eg:
 
-    https://directory.theodi.org/members/new?level=individual&coupon=COUPONCODE
+    https://directory.theodi.org/members/new?level=individual&origin=CODE
 
 or
-    https://directory.theodi.org/members/new?level=supporter&coupon=COUPONCODE
+    https://directory.theodi.org/members/new?level=supporter&origin=CODE
+
+In the database we will now be able to track where members came from, it
+will default to `odihq` if nothing is supplied.
 
 Deployment setup
 ================

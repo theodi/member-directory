@@ -54,7 +54,8 @@ class Member < ActiveRecord::Base
                   :organization_vat_id,
                   :organization_company_number,
                   :agreed_to_terms,
-                  :address
+                  :address,
+                  :origin
 
   attr_accessor :agreed_to_terms
 
