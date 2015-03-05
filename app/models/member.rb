@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 class Member < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,
