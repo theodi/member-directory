@@ -2,13 +2,16 @@ Given /^that I want to sign up as a (\w*)$/ do |product_name|
   @product_name = product_name # Required
 end
 
-Given(/^chargify has a registered product for the "(.*?)" plan$/) do |plan|
-  @chargify_product_url = "http://test.host/product/#{plan}"
-  Member.register_chargify_product_link(plan, @chargify_product_url)
-end
-
 Given /^that I want to sign up$/ do
   @product_name = 'supporter'
+end
+
+Given /^product information has been setup for "(.*?)"$/ do |plan|
+  @plan = plan
+  @chargify_product_url = "http://test.host/product/#{plan}"
+  @chargify_product_price = 800
+  Member.register_chargify_product_link(plan, @chargify_product_url)
+  Member.register_chargify_product_price(plan, @chargify_product_price*100)
 end
 
 Given /^there is already an organization with the name I want to use$/ do
@@ -80,7 +83,6 @@ When /^I enter my company details$/ do
   @organization_sector = 'Energy'
   @organization_vat_id = '213244343'
   @organization_company_number = '012345678'
-  @purchase_order_number = 'PO-43243242342'
 
   fill_in('member_organization_name', :with => @organization_name)
   select(find_by_id('member_organization_size').
@@ -93,7 +95,6 @@ When /^I enter my company details$/ do
           with: @organization_company_number)
   select(@organization_sector, from: 'member_organization_sector')
   fill_in('member_organization_vat_id', :with => @organization_vat_id)
-  fill_in('member_purchase_order_number', :with => @purchase_order_number)
 end
 
 When /^I enter my details$/ do
@@ -126,7 +127,6 @@ When /^I enter my details$/ do
     @organization_type = 'commercial'
     @organization_vat_id = '213244343'
     @organization_company_number = '012345678'
-    @purchase_order_number = 'PO-43243242342'
 
     fill_in('member_organization_name', :with => @organization_name)
     select(find_by_id('member_organization_size').
@@ -139,7 +139,6 @@ When /^I enter my details$/ do
             with: @organization_company_number)
     select(@organization_sector, from: 'member_organization_sector')
     fill_in('member_organization_vat_id', :with => @organization_vat_id)
-    fill_in('member_purchase_order_number', :with => @purchase_order_number)
   end
 
   check('member_agreed_to_terms')
@@ -158,11 +157,50 @@ When /^my passwords don't match$/ do
 end
 
 When /^I click sign up$/ do
+  @payment_method = 'credit_card'
   click_button('submit')
 end
 
-When /^I pay via chargify and return to the member page$/ do
-  pending # express the regexp above with the code you wish you had
+When /^I click pay now$/ do
+  click_button('Pay now')
+end
+
+Then /^I am redirected to the payment page$/ do
+  member = Member.find_by_email(@email)
+  expect(current_path).to eq(payment_member_path(member))
+end
+
+Then /^am returned to the thanks page$/ do
+  member = Member.find_by_email(@email)
+  expect(current_path).to eq(thanks_member_path(member))
+end 
+
+Then /^I am processed through chargify$/ do
+  # hack to pretend we've gone via chargify and back
+  member = Member.find_by_email(@email)
+  @payment_ref = "3"
+  params = {
+    reference: member.membership_number,
+    subscription_id: "1",
+    customer_id: "2",
+    payment_id: @payment_ref
+  }
+  Member.register_chargify_product_link(@plan, chargify_return_members_path(params))
+end
+
+When(/^chargify verifies the payment$/) do
+  member = Member.find_by_email(@email)
+  MembersController.skip_before_filter :verify_chargify_webhook
+  post chargify_verify_members_path, event: 'signup_success', payload: {
+    subscription: {
+      id: 1,
+      signup_payment_id: @payment_ref,
+      customer: {
+        id: 2,
+        reference: member.membership_number
+      }
+    }
+  }
 end
 
 Then /^my details should be queued for further processing$/ do
@@ -199,18 +237,17 @@ Then /^my details should be queued for further processing$/ do
     expect(args[2]).to eql contact_person
     expect(args[3]).to eql billing
     expect(args[4]['payment_method']).to eql @payment_method
-    expect(args[4]['payment_ref']).to match @payment_ref if @payment_ref
+    expect(args[4]['payment_ref']).to eql @payment_ref
     expect(args[4]['offer_category']).to eql @product_name
     expect(args[4]['membership_id']).not_to eql nil
-    expect(args[4]['purchase_order_reference']).to eql @purchase_order_number
   end
 end
 
 And /^I should have a membership number generated$/ do
-  @member         = Member.find_by_email(@email)
+  @member = Member.find_by_email(@email)
   @membership_number = @member.membership_number
-  @membership_number.should_not be_nil
-  @membership_number.should match(/[A-Z]{2}[0-9]{4}[A-Z]{2}/)
+  expect(@membership_number).to_not be_nil
+  expect(@membership_number).to match(/[A-Z]{2}[0-9]{4}[A-Z]{2}/)
 end
 
 Then /^I should see an error relating to (.*)$/ do |text|

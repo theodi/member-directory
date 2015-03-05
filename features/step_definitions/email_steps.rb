@@ -49,7 +49,7 @@ end
 #
 
 Then /^(?:I|they|"([^"]*?)") should receive (an|no|\d+) emails?$/ do |address, amount|
-  unread_emails_for(address).size.should == parse_email_count(amount)
+  expect(unread_emails_for(address).size).to eq(parse_email_count(amount))
 end
 
 Then /^(?:I|they|"([^"]*?)") should have (an|no|\d+) emails?$/ do |address, amount|
@@ -98,27 +98,27 @@ end
 #
 
 Then /^(?:I|they) should see "([^"]*?)" in the email subject$/ do |text|
-  current_email.should have_subject(text)
+  expect(current_email).to have_subject(text)
 end
 
 Then /^(?:I|they) should see \/([^"]*?)\/ in the email subject$/ do |text|
-  current_email.should have_subject(Regexp.new(text))
+  expect(current_email).to have_subject(Regexp.new(text))
 end
 
 Then /^(?:I|they) should see "([^"]*?)" in the email body$/ do |text|
-  current_email.default_part_body.to_s.should include(text)
+  expect(current_email.default_part_body).to include(text)
 end
 
 Then /^(?:I|they) should not see "([^"]*?)" in the email body$/ do |text|
-  current_email.default_part_body.to_s.should_not include(text)
+  expect(current_email.default_part_body).to_not include(text)
 end
 
 Then /^(?:I|they) should see \/([^"]*?)\/ in the email body$/ do |text|
-  current_email.default_part_body.to_s.should =~ Regexp.new(text)
+  expect(current_email.default_part_body).to match(Regexp.new(text))
 end
 
 Then /^(?:I|they) should see the email delivered from "([^"]*?)"$/ do |text|
-  current_email.should be_delivered_from(text)
+  expect(current_email).to be_delivered_from(text)
 end
 
 Then /^(?:I|they) should see "([^\"]*)" in the email "([^"]*?)" header$/ do |text, name|

@@ -12,9 +12,9 @@ Given(/^I sign up as an indidual member$/) do
   }
 end
 
-Then(/^I should not have an organisation assinged to me$/) do
+Then(/^I should not have an organisation assigned to me$/) do
   member = Member.where(email: @email).first
-  (member.organization).should be_nil
+  expect(member.organization).to be_nil
 end
 
 Then(/^I should not see the "(.*?)" field$/) do |field|
@@ -59,7 +59,6 @@ Then /^my individual details should be queued for further processing$/ do
     args[4]['payment_ref'].should =~ @payment_ref if @payment_ref
     args[4]['offer_category'].should == @product_name
     args[4]['membership_id'].should_not be_nil
-    args[4]['purchase_order_reference'].should == @purchase_order_number
   end
 end
 

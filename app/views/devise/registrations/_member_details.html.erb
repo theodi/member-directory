@@ -112,7 +112,7 @@
   <div class="control-group">
     <%= f.label :address_country, :class => 'control-label' %>
     <div class="controls">
-      <%= f.country_select :address_country, selected: resource.address_country || 'GB', priority_countries: ["GB"] %>
+      <%= f.country_select :address_country, priority_countries: ["GB"], prompt: "Please select" %>
     </div>
   </div>
 

@@ -143,12 +143,12 @@ class Member < ActiveRecord::Base
 
   def contact_name=(value)
     @contact_name = value
-    self.name = value if individual?
+    self.name = value
   end
 
   def telephone=(value)
     @telephone = value
-    self.phone = value if individual?
+    self.phone = value
   end
 
   def membership_description
@@ -165,7 +165,7 @@ class Member < ActiveRecord::Base
     Chargify::Product.all.each do |product|
       # yep, this is how good the chargify API naming is
       # also no way to find the currency of a Site either
-      CHARGIFY_PRODUCT_PRICES[product.handle] = product.price_in_cents.to_i / 100
+      register_chargify_product_price(product.handle, product.price_in_cents)
       page = product.public_signup_pages.first
       if page
         register_chargify_product_link(product.handle, page.url)
@@ -175,6 +175,10 @@ class Member < ActiveRecord::Base
 
   def self.register_chargify_product_link(plan, url)
     CHARGIFY_PRODUCT_LINKS[plan] = url
+  end
+
+  def self.register_chargify_product_price(plan, cents_that_are_pence)
+    CHARGIFY_PRODUCT_PRICES[plan] = cents_that_are_pence.to_i / 100
   end
 
   def chargify_product_handle
@@ -203,20 +207,19 @@ class Member < ActiveRecord::Base
   end
 
   def update_chargify_values!(params)
-    update_attributes!({
-      chargify_customer_id: params[:customer_id],
-      chargify_subscription_id: params[:subscription_id],
-      chargify_payment_id: params[:payment_id],
-    }, without_protection: true)
+    self.chargify_customer_id ||= params[:customer_id]
+    self.chargify_subscription_id ||= params[:subscription_id]
+    self.chargify_payment_id ||= params[:payment_id]
+    save!
   end
 
   def verify_chargify_subscription!(subscription, customer)
-    verified = chargify_subscription_id == subscription['id'] &&
-      chargify_customer_id == customer['id']
-    if chargify_payment_id.present?
-      verified = verified && chargify_payment_id == subscription['signup_payment_id']
-    end
-    self.update_attribute(:chargify_data_verified, verified)
+    update_attributes!({
+      chargify_customer_id: customer['id'],
+      chargify_subscription_id: subscription['id'],
+      chargify_payment_id: subscription['signup_payment_id'],
+      chargify_data_verified: true
+    }, without_protection: true)
     add_to_capsule
   end
 
