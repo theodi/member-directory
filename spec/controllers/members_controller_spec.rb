@@ -173,19 +173,12 @@ describe MembersController do
     end
 
     it "checks the customers details and marks them as verified" do
-      change_values_of(member, valid_data)
       post :chargify_verify, event
       member.reload
+      expect(member.chargify_subscription_id).to eq("14")
+      expect(member.chargify_customer_id).to eq("15")
+      expect(member.chargify_payment_id).to eq("30")
       expect(member).to be_chargify_data_verified
-    end
-
-    %w[chargify_payment_id chargify_subscription_id chargify_customer_id].each do |param|
-      it "checks the customers details and marks them as failed verification for bad #{param}" do
-        change_values_of(member, valid_data.merge(param.to_sym => 99))
-        post :chargify_verify, event
-        member.reload
-        expect(member).to_not be_chargify_data_verified
-      end
     end
 
     it 'responds with an ok to a test webhook' do
@@ -193,12 +186,6 @@ describe MembersController do
       expect(response).to be_success
     end
 
-    def change_values_of(member, data)
-      data.each do |k, v|
-        member.update_attribute(k, v)
-      end
-      member.save!(validate: false)
-    end
   end
 
   describe 'individual return from chargify' do
