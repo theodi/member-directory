@@ -47,6 +47,12 @@ describe Member do
       expect(member.errors[:organization_name]).to include("is already taken")
     end
 
+    it 'strips spaces from organization name' do
+      member = FactoryGirl.create(:member, :organization_name => '  Acme  ')
+      expect(member.organization_name).to eq("Acme")
+      expect(member.organization.name).to eq("Acme")
+    end
+
     it "does not need organization details for an individual" do
       member = Member.new(product_name: 'individual')
       organization_errors = member.errors.select {|k,_| k.to_s.starts_with?('organization_') }
