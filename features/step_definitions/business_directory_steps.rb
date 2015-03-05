@@ -1,22 +1,43 @@
 Given /^that I have signed up$/ do
-  pending "this needs to be improved"
   steps %Q{
-    Given that I want to sign up
-		When I visit the signup page
-		And I enter my details
-    And I choose to pay by invoice
-		And I click sign up
+    Given that I have signed up as a supporter
   }
 end
 
 Given /^that I have signed up as a (\w*)$/ do |product_name|
-  pending "this needs to be improved"
+  @email = 'iain@foobar.com'
+  @member = Member.new(
+    :product_name => product_name,
+    :organization_name => 'FooBar Inc',
+    :contact_name => 'Ian McIain',
+    :email => @email,
+    :telephone => '0121 123 446',
+    :street_address => '123 Fake Street',
+    :address_locality => 'Faketown',
+    :address_region => 'Fakeshire',
+    :address_country => 'United Kingdom',
+    :postal_code => 'FAKE 123',
+    :organization_name => "Test Org",
+    :organization_size => "251-1000",
+    :organization_type => "commercial",
+    :organization_sector => "Energy",
+    :organization_vat_id => '213244343',
+    :password => 'p4ssw0rd',
+    :password_confirmation => 'p4ssw0rd',
+    :agreed_to_terms => '1')
+  # Skip Capsule and Xero Callback
+  @member.remote!
+  @member.save!
+  @member.current!
+
+  @membership_number = @member.membership_number
+  @password = 'p4ssw0rd'
+
   steps %Q{
-    Given that I want to sign up as a #{product_name}
-		When I visit the signup page
-		And I enter my details
-    And I choose to pay by invoice
-		And I click sign up
+    When I visit the sign in page
+    And I enter my membership number and password
+    And the password is correct
+    When I click sign in
   }
 end
 
@@ -129,8 +150,6 @@ Then /^I should see my changed details when I revisit the edit page$/ do
   expect(page).to have_content @changed_organization_linkedin
   expect(page).to have_content @changed_organization_facebook
   expect(page).to have_content @changed_organization_tagline
-  expect(page.find('#member_cached_newsletter')).to be_checked
-  expect(page.find('#member_cached_newsletter')).to eq(@newsletter)
 end
 
 Then /^my description is (\d+) characters long$/ do |length|
@@ -143,15 +162,15 @@ end
 
 Then /^the fullsize logo should be available at the correct URL$/ do
   @member = Member.find_by_email(@email)
-  @member.organization.logo.url.should eq @fullsize_url.gsub(/<MEMBERSHIP_NUMBER>/, @member.membership_number)
+  expect(@member.organization.logo.url).to eq @fullsize_url.gsub(/<MEMBERSHIP_NUMBER>/, @member.membership_number)
 end
 
 Then /^the rectangular logo should be available at the correct URL$/ do
-  @member.organization.logo.rectangular.url.should eq @rectangular_url.gsub(/<MEMBERSHIP_NUMBER>/, @member.membership_number)
+  expect(@member.organization.logo.rectangular.url).to eq @rectangular_url.gsub(/<MEMBERSHIP_NUMBER>/, @member.membership_number)
 end
 
 Then /^the square logo should be available at the correct URL$/ do
-  @member.organization.logo.square.url.should eq @square_url.gsub(/<MEMBERSHIP_NUMBER>/, @member.membership_number)
+  expect(@member.organization.logo.square.url).to eq @square_url.gsub(/<MEMBERSHIP_NUMBER>/, @member.membership_number)
 end
 
 Then /^my organisation details should be queued for further processing$/ do
@@ -217,10 +236,11 @@ Then(/^my membership details should be queued for updating in CapsuleCRM$/) do
 end
 
 When(/^I should see my changed membership details when I revisit the edit page$/) do
-  page.should have_content(@changed_email)
-  (page.find('#member_cached_newsletter').checked? == 'checked').should == @changed_newsletter
-  page.find('#member_organization_size').value.should == @changed_size
-  page.find('#member_organization_sector').value.should == @changed_sector
+  #expect(page).to have_content(@changed_email)
+  expect(page.find('#member_email').value).to eq @changed_email
+  expect(page.find('#member_cached_newsletter').checked? == 'checked').to eq @changed_newsletter
+  expect(page.find('#member_organization_size').value).to eq @changed_size
+  expect(page.find('#member_organization_sector').value).to eq @changed_sector
 end
 
 Given(/^there are (\d+) active partners in the directory$/) do |num|
@@ -242,7 +262,7 @@ When(/^I visit the members list$/) do
 end
 
 Then(/^I should be listed as a founding partner$/) do
-  all("h2").first.text.should match /Founding partner/
+  expect(all("h2").first.text).to match /Founding partner/
 end
 
 Given(/^I have entered my organization details$/) do
@@ -260,6 +280,6 @@ Given(/^my listing is active$/) do
 end
 
 Then(/^my listing should appear first in the list$/) do
-  all("h2").count.should == 6
-  all("h2").first.text.should match /#{@organization_name}/
+  expect(all("h2").count).to eq 6
+  expect(all("h2").first.text).to match /#{@organization_name}/
 end

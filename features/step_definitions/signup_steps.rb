@@ -23,13 +23,13 @@ Given /^there is already an organization with the name '(.*?)'$/ do |org_name|
 end
 
 Given(/^I have a (sponsor|partner) account$/) do |level|
-  pending
-
   @password = 'password'
   @email = Faker::Internet.email
-  @member = FactoryGirl.create :member, :product_name => level, :organization_name => Faker::Company.name,
+  @member = FactoryGirl.build :member, :product_name => level, :organization_name => Faker::Company.name,
                          :password => @password, :password_confirmation => @password, :email => @email
-  @member.confirm!
+  @member.remote!
+  @member.save!
+  @member.current!
   @membership_number = @member.membership_number
   steps %{
     When I visit the sign in page
