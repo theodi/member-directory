@@ -6,7 +6,7 @@ Feature: Add new signups to queue
   Background:
 
     Given that I want to sign up as a supporter
-    And product information has been setup for "corporate_supporter_annual"
+    And product information has been setup for "corporate-supporter_annual"
     When I visit the signup page
 
   Scenario: Member signup
@@ -18,7 +18,7 @@ Feature: Add new signups to queue
     When I click sign up
     Then I am redirected to the payment page
     And I should have a membership number generated
-    And I am processed through chargify
+    And I am processed through chargify for the "corporate-supporter_annual" option
     When I click pay now
     And am returned to the thanks page
     And a welcome email should be sent to me

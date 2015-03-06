@@ -240,18 +240,22 @@ class Member < ActiveRecord::Base
 
   def get_plan_description
     {
-      'individual_supporter'            => 'individual supporter',
-      'corporate_supporter_annual' => 'corporate supporter',
-      'supporter_annual'                => 'supporter'
+      'individual-supporter'            => 'individual supporter',
+      'corporate-supporter_annual' => 'corporate supporter',
+      'supporter_annual'                => 'supporter',
+      'supporter_monthly'                => 'supporter'
     }[get_plan]
   end
 
   def get_plan_price
     amount = CHARGIFY_PRODUCT_PRICES[get_plan]
-    inc_vat = 1.2
-    vat = 0.2
     if address_country == 'GB'
-      "£%.2f including £%.2f VAT" % [amount * inc_vat, amount * vat]
+      if individual?
+        inc_vat, vat = amount * 1.2, amount * 0.2
+        "£%.2f including £%.2f VAT" % [inc_vat, vat]
+      else
+        "£%.2f + VAT" % amount
+      end
     else
       "£%.2f" % amount
     end
