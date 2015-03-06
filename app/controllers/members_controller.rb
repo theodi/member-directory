@@ -98,7 +98,6 @@ class MembersController < ApplicationController
       redirect_to current_member.chargify_product_link
     else
       @member = current_member
-      render template: "members/payment"
     end
   end
 
