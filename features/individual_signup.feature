@@ -2,7 +2,7 @@ Feature: Signup as an individual member
 
   Background:
     Given I want to sign up as an individual member
-    And product information has been setup for "individual_supporter"
+    And product information has been setup for "individual-supporter"
     When I visit the signup page
 
   Scenario: Individual member signup

@@ -243,5 +243,14 @@ describe MembersController do
       expect(response).to be_redirect
       expect(response).to redirect_to("http://chargify.com/buy/this")
     end
+
+    it 'updates payment frequency to monthly if provided' do
+      allow_any_instance_of(Member).to receive(:chargify_product_link).and_return("http://chargify.com/buy/this")
+      sign_in(member)
+      response = post :payment, id: member.to_param, payment_frequency: 'monthly'
+      expect(response).to be_redirect
+      expect(response).to redirect_to("http://chargify.com/buy/this")
+      expect(member.reload.payment_frequency).to eq("monthly")
+    end
   end
 end

@@ -18,9 +18,10 @@ setup in Chargify that maps to it by setting the `API Handle`.
 
 Currently the system expects there to be products for
 
-  1. `individual_supporter`
-  2. `supporter_annual`
-  3. `corporate_supporter_annual`
+  1. `individual-supporter`
+  2. `supporter_monthly`
+  3. `supporter_annual`
+  4. `corporate-supporter_annual`
 
 You can then set up the `Recurring Period and Price` for each of these
 products. `Initial/Setup Fee` can be left blank as Chargify starts billing

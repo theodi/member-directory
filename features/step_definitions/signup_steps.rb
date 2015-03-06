@@ -7,7 +7,6 @@ Given /^that I want to sign up$/ do
 end
 
 Given /^product information has been setup for "(.*?)"$/ do |plan|
-  @plan = plan
   @chargify_product_url = "http://test.host/product/#{plan}"
   @chargify_product_price = 800
   Member.register_chargify_product_link(plan, @chargify_product_url)
@@ -83,6 +82,27 @@ When /^I enter my company details$/ do
   @organization_sector = 'Energy'
   @organization_vat_id = '213244343'
   @organization_company_number = '012345678'
+
+  fill_in('member_organization_name', :with => @organization_name)
+  select(find_by_id('member_organization_size').
+          find("option[value='#{@organization_size}']").text,
+          from: 'member_organization_size')
+  select(find_by_id('member_organization_type').
+          find("option[value='#{@organization_type}']").text,
+          from: 'member_organization_type')
+  fill_in('member_organization_company_number',
+          with: @organization_company_number)
+  select(@organization_sector, from: 'member_organization_sector')
+  fill_in('member_organization_vat_id', :with => @organization_vat_id)
+end
+
+When /^I enter my non-profit organization details$/ do
+  @organization_name = 'FooBar Inc'
+  @organization_size = '10-50'
+  @organization_type = 'non_commercial'
+  @organization_sector = 'Media'
+  @organization_vat_id = '413444343'
+  @organization_company_number = '087654321'
 
   fill_in('member_organization_name', :with => @organization_name)
   select(find_by_id('member_organization_size').
@@ -175,7 +195,16 @@ Then /^am returned to the thanks page$/ do
   expect(current_path).to eq(thanks_member_path(member))
 end 
 
-Then /^I am processed through chargify$/ do
+Then /^there are payment frequency options$/ do
+  expect(page).to have_css("input[type=radio][id=payment_frequency_monthly][value=monthly]")
+  expect(page).to have_css("input[type=radio][id=payment_frequency_annual][value=annual]")
+end
+
+Then /^I choose to pay "(.*?)"$/ do |option|
+  choose(option)
+end
+
+Then /^I am processed through chargify for the "(.*?)" option$/ do |plan|
   # hack to pretend we've gone via chargify and back
   member = Member.find_by_email(@email)
   @payment_ref = "3"
@@ -185,7 +214,7 @@ Then /^I am processed through chargify$/ do
     customer_id: "2",
     payment_id: @payment_ref
   }
-  Member.register_chargify_product_link(@plan, chargify_return_members_path(params))
+  Member.register_chargify_product_link(plan, chargify_return_members_path(params))
 end
 
 When(/^chargify verifies the payment$/) do

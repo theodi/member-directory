@@ -6,6 +6,25 @@ Thanks for signing up to become a supporter of The Open Data Institute.
 
 <p>
 <%= form_tag payment_member_path(@member), method: 'post' do %>
-  <input type="submit" class="btn btn-primary btn-large" value="Pay now">
+  <% if @member.monthly_payment_option? %>
+    How would you like to pay?
+    <div class="control-group">
+      <div class='controls'>
+        <%= label_tag :payment_frequency_monthly, :class => 'radio inline' do %>
+          <%= radio_button_tag :payment_frequency, 'monthly' %>
+          Monthly
+        <% end %>
+        <%= label_tag :payment_frequency_annual, :class => 'radio inline' do %>
+          <%= radio_button_tag :payment_frequency, 'annual', :true %>
+          Annually
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+  <div class="control-group">
+    <div class="controls">
+      <input type="submit" class="btn btn-primary btn-large" value="Pay now">
+    </div>
+  </div>
 <% end %>
 </p>

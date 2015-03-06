@@ -26,6 +26,21 @@ Feature: Add new signups to queue
     And my details should be queued for further processing
     When chargify verifies the payment
 
+  Scenario: Monthly paying member signup
+
+    Given product information has been setup for "supporter_annual"
+    And product information has been setup for "supporter_monthly"
+    When I enter my name and contact details
+    And I enter my non-profit organization details
+    And I enter my address details
+    And I agree to the terms
+    When I click sign up
+    Then I am redirected to the payment page
+    And there are payment frequency options
+    And I choose to pay "Monthly"
+    And I am processed through chargify for the "supporter_monthly" option
+    When I click pay now
+
   Scenario Outline: Member tries to sign up, but misses a mandatory field
     
     When I enter my name and contact details

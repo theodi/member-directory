@@ -114,6 +114,14 @@ class Member < ActiveRecord::Base
     %w[partner sponsor supporter].include?(product_name)
   end
 
+  def large_corporate_organization?
+    LARGE_CORPORATE.include?(organization_size) && organization_type == 'commercial'
+  end
+
+  def monthly_payment_option?
+    organization? && !large_corporate_organization?
+  end
+
   def founding_partner?
     if founding_parter_id = ENV['FOUNDING_PARTNER_ID']
       membership_number == founding_parter_id
@@ -347,10 +355,12 @@ class Member < ActiveRecord::Base
 
   def get_plan
     if individual?
-      'individual_supporter'
+      'individual-supporter'
     else
-      if LARGE_CORPORATE.include?(organization_size) && organization_type == 'commercial'
-        'corporate_supporter_annual'
+      if large_corporate_organization?
+        'corporate-supporter_annual'
+      elsif payment_frequency == 'monthly'
+        'supporter_monthly'
       else
         'supporter_annual'
       end
