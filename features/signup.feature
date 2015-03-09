@@ -37,7 +37,7 @@ Feature: Add new signups to queue
     When I click sign up
     Then I am redirected to the payment page
     And there are payment frequency options
-    And I choose to pay "Monthly"
+    And I choose to pay "payment_frequency_monthly"
     And I am processed through chargify for the "supporter_monthly" option
     When I click pay now
 

@@ -269,6 +269,16 @@ class Member < ActiveRecord::Base
     end
   end
 
+  def get_monthly_plan_price
+    amount = CHARGIFY_PRODUCT_PRICES[get_plan]
+    pcm = (amount / 12)
+    if address_country == 'GB'
+      "£%.2f + VAT" % pcm
+    else
+      "£%.2f" % pcm
+    end
+  end
+
 	private
 
   def generate_membership_number

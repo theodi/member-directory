@@ -12,8 +12,12 @@ Thanks for signing up to become a supporter of The Open Data Institute.
       <div class='controls'>
         <%= label_tag :payment_frequency_monthly, :class => 'radio inline' do %>
           <%= radio_button_tag :payment_frequency, 'monthly' %>
-          Monthly
+          12 monthly installments of <%= @member.get_monthly_plan_price %>
         <% end %>
+        </div>
+    </div>
+    <div class="control-group">
+      <div class='controls'>
         <%= label_tag :payment_frequency_annual, :class => 'radio inline' do %>
           <%= radio_button_tag :payment_frequency, 'annual', :true %>
           Annually

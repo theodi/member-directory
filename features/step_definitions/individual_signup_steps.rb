@@ -4,14 +4,6 @@ Given(/^I want to sign up as an individual member$/) do
   @payment_ref = /cus_[0-9A-Za-z]{14}/
 end
 
-Given(/^I sign up as an indidual member$/) do
-  steps %{
-    Given I want to sign up as an individual member
-    When I visit the signup page
-    And I enter my name and contact details
-  }
-end
-
 Then(/^I should not have an organisation assigned to me$/) do
   member = Member.where(email: @email).first
   expect(member.organization).to be_nil

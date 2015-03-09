@@ -1,3 +1,4 @@
+# encoding: utf-8
 require 'spec_helper'
 
 describe Member do
@@ -112,6 +113,43 @@ describe Member do
       Member.initialize_chargify_links!
       expect(Member::CHARGIFY_PRODUCT_PRICES["plan_name"]).to eq(800)
     end
+  end
+
+  describe 'price helpers for plan' do
+    before do
+      Member.register_chargify_product_link('individual-supporter', 'https://chargify.com/individiual')
+      Member.register_chargify_product_price('individual-supporter', 9000)
+      Member.register_chargify_product_link('supporter_annual', 'https://chargify.com/non-profit')
+      Member.register_chargify_product_price('supporter_annual', 72000)
+      Member.register_chargify_product_link('supporter_monthly', 'https://chargify.com/monthly-non-profit')
+      Member.register_chargify_product_price('supporter_monthly', 6000)
+    end
+
+    it 'returns the price of the plan without vat' do
+      m = Member.new(product_name: 'supporter')
+      expect(m.get_plan_price).to eq("£720.00")
+    end
+
+    it 'returns the price with +VAT if in UK' do
+      m = Member.new(product_name: 'supporter', address_country: 'GB')
+      expect(m.get_plan_price).to eq("£720.00 + VAT")
+    end
+
+    it 'returns the price inclusive of vat for individuals' do
+      m = Member.new(product_name: 'individual', address_country: 'GB')
+      expect(m.get_plan_price).to eq("£108.00 including £18.00 VAT")
+    end
+
+    it 'returns a 12th of the yearly price for monthly price' do
+      m = Member.new(product_name: 'supporter')
+      expect(m.get_monthly_plan_price).to eq("£60.00")
+    end
+
+    it 'returns a 12th of the yearly price for monthly price +VAT if in UK' do
+      m = Member.new(product_name: 'supporter', address_country: 'GB')
+      expect(m.get_monthly_plan_price).to eq("£60.00 + VAT")
+    end
+
   end
 
   describe 'chargify redirect link' do
