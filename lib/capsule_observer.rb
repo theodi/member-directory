@@ -36,7 +36,7 @@ class CapsuleObserver
         member.cached_newsletter = membership['newsletter']
         member.organization_size = membership['size'] if membership['size']
         member.organization_sector = membership['sector'] if membership['sector']
-        member.remote            = true
+        member.remote!
         # We don't store email here, that's only for new accounts
         member.save(:validate => false)
         # Update organization data
@@ -45,7 +45,6 @@ class CapsuleObserver
           # We don't update the description, as capsuleCRM breaks it currently
           #org.description          = directory_entry['description']
           org.url                  = directory_entry['url']
-          org.remote               = true
           org.cached_contact_name  = directory_entry['contact']
           org.cached_contact_phone = directory_entry['phone']
           org.cached_contact_email = directory_entry['email']
@@ -61,13 +60,11 @@ class CapsuleObserver
       member = Member.new(
         :email             => membership['email'],
         :organization_name => directory_entry['name'],
-        :product_name      => membership['product_name'],
-        :remote            => true # Disable callbacks
+        :product_name      => membership['product_name']
       )
+      member.remote! # Disable callbacks
       member.cached_active = false # We always set this false on create so that
                                    # incomplete entries don't go immediately live
-      # Skip email confirmation
-      member.skip_confirmation!
       # Generate a password reset token but don't sent straight away
       member.send :generate_reset_password_token
       # Save without validation

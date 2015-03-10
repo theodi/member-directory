@@ -128,6 +128,8 @@ GEM
       mime-types (>= 1.16)
     celluloid (0.16.0)
       timers (~> 4.0.0)
+    chargify_api_ares (1.3.1)
+      activeresource (>= 3.2.16)
     cliver (0.3.2)
     coderay (1.1.0)
     coffee-rails (3.2.2)
@@ -542,6 +544,7 @@ DEPENDENCIES
   alternate_rails!
   capsulecrm!
   carrierwave
+  chargify_api_ares
   coffee-rails (~> 3.2.1)
   country_select!
   csvlint

@@ -1,0 +1,34 @@
+<p class="lead">
+Thanks for signing up to become a Supporter of The Open Data Institute.
+</p>
+
+<p>Being <%= indefinite_article(@member.get_plan_description) %> is <%= @member.get_plan_price %> per year.</p>
+
+<p>
+<%= form_tag payment_member_path(@member), method: 'post' do %>
+  <% if @member.monthly_payment_option? %>
+    How would you like to pay?
+    <div class="control-group">
+      <div class='controls'>
+        <%= label_tag :payment_frequency_monthly, :class => 'radio inline' do %>
+          <%= radio_button_tag :payment_frequency, 'monthly' %>
+          12 monthly installments of <%= @member.get_monthly_plan_price %>
+        <% end %>
+        </div>
+    </div>
+    <div class="control-group">
+      <div class='controls'>
+        <%= label_tag :payment_frequency_annual, :class => 'radio inline' do %>
+          <%= radio_button_tag :payment_frequency, 'annual', :true %>
+          Annually
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+  <div class="control-group">
+    <div class="controls">
+      <input type="submit" class="btn btn-primary btn-large" value="Pay now">
+    </div>
+  </div>
+<% end %>
+</p>

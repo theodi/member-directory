@@ -26,7 +26,11 @@ class ApplicationController < ActionController::Base
   end
 
   def after_sign_out_path_for(resource_or_scope)
-    request.referrer || root_path
+    if resource_or_scope == :member && (current_member.individual? || !current_member.cached_active)
+      root_path
+    else
+      request.referrer || root_path
+    end
   end
 
   def editable?(member)

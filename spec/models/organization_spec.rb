@@ -9,7 +9,7 @@ describe Organization do
 
     it "should strip prefix from twitter handles before saving" do
       org = FactoryGirl.create :organization, :cached_twitter => "@test1", :member => @member
-      org.cached_twitter.should == "test1"
+      expect(org.cached_twitter).to eq("test1")
       org = FactoryGirl.create :organization, :cached_twitter => "test2", :member => @member
       expect(org.cached_twitter).to eq("test2")
     end

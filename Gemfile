@@ -14,6 +14,7 @@ gem 'mini_magick'
 gem 'rabl'
 gem 'alternate_rails', :git => 'https://github.com/theodi/alternate-rails.git'
 gem 'rails_admin'
+gem 'chargify_api_ares'
 
 # Lock ruby-openid to a particular version to resolve login problems.
 # Reasons described in https://github.com/sishen/omniauth-google-apps/issues/6.

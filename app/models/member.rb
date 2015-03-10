@@ -1,9 +1,26 @@
+# encoding: utf-8
+
 class Member < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,
   # :lockable, :timeoutable and :omniauthable
-  SUPPORTER_LEVELS = %w(supporter member partner sponsor individual)
-  CURRENT_SUPPORTER_LEVELS = SUPPORTER_LEVELS - %w(member)
+  SUPPORTER_LEVELS = %w[supporter member partner sponsor individual]
+  CURRENT_SUPPORTER_LEVELS = %w[supporter individual]
+
+  ORGANISATION_TYPES = {
+    "Corporate" => "commercial",
+    "Nonprofit / Government" => "non_commercial"
+  }
+  ORGANISATION_SIZES = {
+    "less than 10 employees" => '<10',
+    "10 - 50 employees" => '10-50',
+    "51 - 250 employees" => '51-250',
+    "251 - 1000 employees" => '251-1000',
+    "more than 1000 employees" => '>1000'
+  }
+  LARGE_CORPORATE = %w[251-1000 >1000]
+  CHARGIFY_PRODUCT_LINKS = {}
+  CHARGIFY_PRODUCT_PRICES = {}
 
   has_one :organization
   has_many :embed_stats
@@ -12,11 +29,9 @@ class Member < ActiveRecord::Base
   attr_accessible :organization_attributes
 
   before_create :set_membership_number, :set_address
-  before_validation :set_defaults
 
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable,
-         :confirmable
+         :recoverable, :rememberable, :trackable, :validatable
 
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email,
@@ -38,34 +53,11 @@ class Member < ActiveRecord::Base
                   :postal_code,
                   :organization_vat_id,
                   :organization_company_number,
-                  :card_number,
-                  :card_validation_code,
-                  :card_expiry_month,
-                  :card_expiry_year,
-                  :purchase_order_number,
                   :agreed_to_terms,
-                  :payment_method,
-                  :remote,
-                  :address
+                  :address,
+                  :origin
 
-  attr_accessor :organization_name,
-                :organization_type,
-                :street_address,
-                :address_locality,
-                :address_region,
-                :address_country,
-                :postal_code,
-                :organization_vat_id,
-                :organization_company_number,
-                :card_number,
-                :card_validation_code,
-                :card_expiry_month,
-                :card_expiry_year,
-                :purchase_order_number,
-                :agreed_to_terms,
-                :payment_method
-
-  attr_writer :remote
+  attr_accessor :agreed_to_terms
 
   # allow admins to edit access key
   attr_accessible :access_key, as: :admin
@@ -74,22 +66,28 @@ class Member < ActiveRecord::Base
   validates :product_name, presence: true, inclusion: SUPPORTER_LEVELS, on: :create
   validates :contact_name, presence: true, on: :create
   validates :street_address, presence: true, on: :create
-  validates :address_locality, presence: true, on: :create
+  validates :address_region, presence: true, on: :create
   validates :address_country, presence: true, on: :create
   validates :postal_code, presence: true, on: :create
-  validates :payment_method, presence: true, on: :create
   validates_acceptance_of :agreed_to_terms, on: :create
-
-  after_validation :stripe_payment
 
   validates_with OrganizationValidator, on: :create, unless: :individual?
 
-  def paid_with_card?
-    payment_method == 'credit_card'
+  def remote?
+    @remote || false
   end
 
-  def remote
-    @remote || false
+  def remote!
+    @remote = true
+  end
+
+  def current!
+    update_attribute(:cached_active, true) if organization?
+    update_attribute(:current, true)
+  end
+
+  def deliver_welcome_email!
+    send_devise_notification(:confirmation_instructions)
   end
 
   def check_organization_names
@@ -116,6 +114,14 @@ class Member < ActiveRecord::Base
     %w[partner sponsor supporter].include?(product_name)
   end
 
+  def large_corporate_organization?
+    LARGE_CORPORATE.include?(organization_size) && organization_type == 'commercial'
+  end
+
+  def monthly_payment_option?
+    organization? && !large_corporate_organization?
+  end
+
   def founding_partner?
     if founding_parter_id = ENV['FOUNDING_PARTNER_ID']
       membership_number == founding_parter_id
@@ -128,6 +134,10 @@ class Member < ActiveRecord::Base
     else
       "supporter"
     end
+  end
+
+  def organization_name
+    organization.try(:name) || @organization_name
   end
 
   def organization_name=(value)
@@ -144,16 +154,12 @@ class Member < ActiveRecord::Base
 
   def contact_name=(value)
     @contact_name = value
-    self.name = value if individual?
+    self.name = value
   end
 
   def telephone=(value)
     @telephone = value
-    self.phone = value if individual?
-  end
-
-  def stripe_customer
-    Stripe::Customer.retrieve(stripe_customer_id) if stripe_customer_id
+    self.phone = value
   end
 
   def membership_description
@@ -166,6 +172,68 @@ class Member < ActiveRecord::Base
     end
   end
 
+  def self.initialize_chargify_links!
+    Chargify::Product.all.each do |product|
+      # yep, this is how good the chargify API naming is
+      # also no way to find the currency of a Site either
+      register_chargify_product_price(product.handle, product.price_in_cents)
+      page = product.public_signup_pages.first
+      if page
+        register_chargify_product_link(product.handle, page.url)
+      end
+    end
+  end
+
+  def self.register_chargify_product_link(plan, url)
+    CHARGIFY_PRODUCT_LINKS[plan] = url
+  end
+
+  def self.register_chargify_product_price(plan, cents_that_are_pence)
+    CHARGIFY_PRODUCT_PRICES[plan] = cents_that_are_pence.to_i / 100
+  end
+
+  def chargify_product_handle
+    get_plan
+  end
+
+  def chargify_product_link
+    if link = CHARGIFY_PRODUCT_LINKS[chargify_product_handle]
+      url = URI(link)
+      params = {
+        reference: membership_number,
+        email: email,
+        billing_address: street_address,
+        billing_address_2: address_locality,
+        billing_city: address_region,
+        billing_country: address_country,
+        billing_state: "London", #this doesn't actually prefil but it makes chargify calculate tax based on country
+        billing_zip: postal_code
+      }
+      params[:organization] = organization_name if organization?
+      url.query = params.to_query
+      return url.to_s
+    else
+      raise ArgumentError, "no link for #{chargify_product_handle}"
+    end
+  end
+
+  def update_chargify_values!(params)
+    self.chargify_customer_id ||= params[:customer_id]
+    self.chargify_subscription_id ||= params[:subscription_id]
+    self.chargify_payment_id ||= params[:payment_id]
+    save!
+  end
+
+  def verify_chargify_subscription!(subscription, customer)
+    update_attributes!({
+      chargify_customer_id: customer['id'],
+      chargify_subscription_id: subscription['id'],
+      chargify_payment_id: subscription['signup_payment_id'],
+      chargify_data_verified: true
+    }, without_protection: true)
+    add_to_capsule
+  end
+
   def self.founding_partner_id
     ENV['FOUNDING_PARTNER_ID']
   end
@@ -175,6 +243,39 @@ class Member < ActiveRecord::Base
       embed_stats.create(referrer: referrer)
     rescue ActiveRecord::RecordNotUnique, ActiveRecord::StatementInvalid
       nil
+    end
+  end
+
+  def get_plan_description
+    {
+      'individual-supporter'            => 'Individual Supporter',
+      'corporate-supporter_annual' => 'Corporate Supporter',
+      'supporter_annual'                => 'Supporter',
+      'supporter_monthly'                => 'Supporter'
+    }[get_plan]
+  end
+
+  def get_plan_price
+    amount = CHARGIFY_PRODUCT_PRICES[get_plan]
+    if address_country == 'GB'
+      if individual?
+        inc_vat, vat = amount * 1.2, amount * 0.2
+        "£%.2f including £%.2f VAT" % [inc_vat, vat]
+      else
+        "£%.2f + VAT" % amount
+      end
+    else
+      "£%.2f" % amount
+    end
+  end
+
+  def get_monthly_plan_price
+    amount = CHARGIFY_PRODUCT_PRICES[get_plan]
+    pcm = (amount / 12)
+    if address_country == 'GB'
+      "£%.2f + VAT" % pcm
+    else
+      "£%.2f" % pcm
     end
   end
 
@@ -198,17 +299,15 @@ class Member < ActiveRecord::Base
       street_address,
       address_locality,
       address_region,
-      address_country,
+      country_name,
       postal_code
     ].compact.join("\n")
   end
 
-  after_create :add_to_queue, :setup_organization, :save_membership_id_in_capsule
+  after_create :setup_organization
+  after_create :save_membership_id_in_capsule, if: :remote?
 
-  skip_callback :create, :after, :add_to_queue, :if => lambda { self.remote === true }
-  skip_callback :create, :after, :save_membership_id_in_capsule, :unless => lambda { self.remote === true }
-
-  def add_to_queue
+  def add_to_capsule
 
     # construct hashes for signup processor
     # some of the naming of purchase order and membership id needs updating for consistency
@@ -234,31 +333,21 @@ class Member < ActiveRecord::Base
                         }
                       }
     purchase        = {
-                        'payment_method' => payment_method,
-                        'payment_ref' => stripe_customer.try(:id),
+                        'payment_method' => 'credit_card',
+                        'payment_ref' => chargify_payment_id,
                         'offer_category' => product_name,
-                        'purchase_order_reference' => purchase_order_number,
                         'membership_id' => membership_number
                       }
 
     Resque.enqueue(SignupProcessor, organization, contact_person, billing, purchase)
   end
 
-  def save_membership_id_in_capsule
-    Resque.enqueue(SaveMembershipIdInCapsule, organization_name, membership_number)
-  end
+  after_update :save_updates_to_capsule, unless: :remote?
 
-  def setup_organization
-    self.create_organization(:name => organization_name, :remote => remote) unless individual?
-  end
-
-  after_update :save_to_capsule
-  skip_callback :update, :after, :save_to_capsule, :if => lambda { self.remote === true }
-
-  def save_to_capsule
-    if unconfirmed_email_changed? || cached_newsletter_changed? || organization_size_changed? || organization_sector_changed?
+  def save_updates_to_capsule
+    unless (changed & %w[email cached_newsletter organization_size organization_sector]).empty?
       Resque.enqueue(SaveMembershipDetailsToCapsule, membership_number, {
-        'email'      => unconfirmed_email || email,
+        'email'      => email,
         'newsletter' => cached_newsletter,
         'size'       => organization_size,
         'sector'     => organization_sector
@@ -266,72 +355,25 @@ class Member < ActiveRecord::Base
     end
   end
 
-  def stripe_payment
-    if new_record? && paid_with_card? && errors.empty?
-      begin
-        set_membership_number
-        customer = Stripe::Customer.create(
-          card: {
-            exp_month: card_expiry_month,
-            exp_year:  card_expiry_year,
-            number:    card_number,
-            cvc:       card_validation_code
-          },
-          plan:        get_plan,
-          description: "#{organization_name || contact_name} #{get_plan_description} membership (#{membership_number})"
-        )
-        self.stripe_customer_id = customer.id
-      rescue Stripe::CardError => e
-        body = e.json_body
-        payment_errors(body[:error])
-      end
-    end
+  def save_membership_id_in_capsule
+    Resque.enqueue(SaveMembershipIdInCapsule, organization_name, membership_number)
+  end
+
+  def setup_organization
+    self.create_organization(:name => organization_name) unless individual?
   end
 
   def get_plan
     if individual?
-      'individual_supporter'
+      'individual-supporter'
     else
-      if %w{251-1000 >1000}.include?(organization_size) && organization_type == 'commercial'
-        '2015_corporate_supporter_annual'
+      if large_corporate_organization?
+        'corporate-supporter_annual'
+      elsif payment_frequency == 'monthly'
+        'supporter_monthly'
       else
         'supporter_annual'
       end
-    end
-  end
-
-  def get_plan_description
-    {
-      'individual_supporter'            => 'individual supporter',
-      '2015_corporate_supporter_annual' => 'corporate supporter',
-      'supporter_annual'                => 'supporter'
-    }[get_plan]
-  end
-
-  def payment_errors(err)
-    case err[:code]
-    when 'incorrect_number'
-      errors.add(:card_number, 'is incorrect')
-    when 'incorrect_cvc'
-      errors.add(:card_validation_code, 'is incorrect')
-    when 'invalid_number'
-      errors.add(:card_number, 'is incorrect')
-    when 'invalid_expiry_month'
-      errors.add(:card_expiry_month, 'is incorrect')
-    when 'invalid_expiry_year'
-      errors.add(:card_expiry_year, 'is incorrect')
-    when 'invalid_cvc'
-      errors.add(:card_validation_code, 'is incorrect')
-    when 'expired_card'
-      errors.add(:card_number, 'has expired')
-    when 'card_declined'
-      errors.add(:card_number, 'has been declined')
-    # when 'missing'
-    # 	There is no card on a customer that is being charged.
-    # when 'processing_error'
-    # 	An error occurred while processing the card.
-    # when 'rate_limit'
-    #   Rate limit was hit
     end
   end
 
@@ -370,10 +412,6 @@ class Member < ActiveRecord::Base
       "Transportation",
       "Other"
     ]
-  end
-
-  def set_defaults
-    self.payment_method = "credit_card" if individual?
   end
 
 end

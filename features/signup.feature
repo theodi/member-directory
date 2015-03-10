@@ -1,108 +1,102 @@
 Feature: Add new signups to queue
 
-  As a potential member, when I fill in my details, I want my details to be queued for further processing
+  As a potential member, when I fill in my details and those of my organization
+  I want my payment to be processed by chargify and sent in the background to capsule
 
-  Scenario Outline: Member signup
+  Background:
 
-    Given that I want to sign up as a <product_name>
+    Given that I want to sign up as a supporter
+    And product information has been setup for "corporate-supporter_annual"
     When I visit the signup page
-    And I enter my details
-    And I choose to pay by invoice
-    Then my details should be queued for further processing
+
+  Scenario: Member signup
+
+    When I enter my name and contact details
+    And I enter my company details
+    And I enter my address details
+    And I agree to the terms
     When I click sign up
+    Then I am redirected to the payment page
     And I should have a membership number generated
+    And I am processed through chargify for the "corporate-supporter_annual" option
+    When I click pay now
+    And am returned to the thanks page
     And a welcome email should be sent to me
     And I should see "Welcome Pack" in the email body
+    And my details should be queued for further processing
+    When chargify verifies the payment
 
-    Examples:
-      | product_name |
-      | supporter    |
+  Scenario: Monthly paying member signup
 
-  Scenario: Member signs up but does not choose a payment method
-
-    Given that I want to sign up
-    When I visit the signup page
-    And I enter my details
-    Then my details should not be queued
+    Given product information has been setup for "supporter_annual"
+    And product information has been setup for "supporter_monthly"
+    When I enter my name and contact details
+    And I enter my non-profit organization details
+    And I enter my address details
+    And I agree to the terms
     When I click sign up
-    And I should see an error relating to Payment method
+    Then I am redirected to the payment page
+    And there are payment frequency options
+    And I choose to pay "payment_frequency_monthly"
+    And I am processed through chargify for the "supporter_monthly" option
+    When I click pay now
 
   Scenario Outline: Member tries to sign up, but misses a mandatory field
-
-    Given that I want to sign up
-    When I visit the signup page
-    And I enter my details
-    And I choose to pay by invoice
+    
+    When I enter my name and contact details
+    And I enter my company details
+    And I enter my address details
+    And I agree to the terms
     But I leave <field> blank
-    Then my details should not be queued
     When I click sign up
     And I should see an error relating to <text>
 
     Examples:
-			| field 								| text              |
-			| contact_name 					| Your Name         |
-			| street_address 				| Address           |
-			| address_locality 			| City              |
-			| postal_code 			    | Postcode          |
+      | field                 | text              |
+      | contact_name          | Your name         |
+      | street_address        | Address           |
+      | address_region        | City              |
+      | address_country       | Country           |
+      | postal_code           | Postcode          |
       | organization_size     | Organisation size |
       | organization_type     | Organisation type |
       | organization_sector   | Industry sector   |
-#			| address_country 			| Country           |
 
   Scenario: Member tries to sign up, but doesn't agree to the terms
 
-    Given that I want to sign up
-    When I visit the signup page
-    And I enter my details
-    And I choose to pay by invoice
+    When I enter my name and contact details
+    And I enter my company details
+    And I enter my address details
     But I don't agree to the terms
-    Then my details should not be queued
     When I click sign up
-    And I should get an error telling me to accept the terms
+    Then I should get an error telling me to accept the terms
 
   Scenario: Member tries to sign up, but their password doesn't match
-
-    Given that I want to sign up
-    When I visit the signup page
-    And I enter my details
-    And I choose to pay by invoice
+  
+    When I enter my name and contact details
+    And I enter my company details
+    And I enter my address details
+    And I agree to the terms
     But my passwords don't match
-    Then my details should not be queued
     When I click sign up
-    And I should get an error telling my passwords don't match
+    Then I should get an error telling my passwords don't match
 
   Scenario: Member tries to sign up, but enters an organization name that already exists
 
-    Given that I want to sign up
+    When I enter my name and contact details
+    And I enter my company details
     But there is already an organization with the name I want to use
-    When I visit the signup page
-    And I enter my details
-    And I choose to pay by invoice
-    But I don't agree to the terms
-    Then my details should not be queued
+    And I enter my address details
+    And I agree to the terms
     When I click sign up
-    And I should see an error relating to Organisation Name
-
-  Scenario: Strip spaces from organisation names
-
-    Given that I want to sign up as a supporter
-    When I visit the signup page
-    And I enter my details
-    And I choose to pay by invoice
-    And my organisation name is "Doge Enterprises Inc. "
-    But my organisation name is expected to be "Doge Enterprises Inc."
-    Then my details should be queued for further processing
-    When I click sign up
-    And I should have a membership number generated
-    And my organisation name should be "Doge Enterprises Inc."
+    Then I should see an error relating to Organisation name
 
   @javascript
   Scenario: Auto-update terms based on user input
 
-    Given that I want to sign up as a supporter
-    When I visit the signup page
-    When I choose to pay by invoice
-    And I enter my details
+    When I enter my name and contact details
+    And I enter my company details
+    And I enter my address details
     Then I should see "means FooBar Inc being"
     And I should see "with number 012345678"
     And I should see "whose principal address is 123 Fake Street, Faketown, Fakeshire, United Kingdom, FAKE 123"

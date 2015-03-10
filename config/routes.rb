@@ -27,9 +27,13 @@ MemberDirectory::Application.routes.draw do
   resources :members, :only => [:index, :show, :update] do
     member do
       get :badge, defaults: {format: :js}
+      get :thanks
+      match :payment, via: [:get, :post]
     end
     collection do
       get 'right-to-cancel', to: :right_to_cancel, as: :right_to_cancel
+      post :chargify_verify
+      get :chargify_return
     end
   end
 

@@ -5,7 +5,7 @@
   <div class="control-group">
     <%= f.label :membership_number, :class => 'control-label' %>
     <div class='controls'>
-      <%= f.text_field :membership_number, :autofocus => true %>
+      <%= f.text_field :membership_number, :value => params[:membership_number], :autofocus => true %>
     </div>
   </div>
 
@@ -18,9 +18,11 @@
 
   <% if devise_mapping.rememberable? -%>
     <div class="control-group">
-      <%= f.label :remember_me, :class => 'control-label' %>
       <div class='controls'>
-        <%= f.check_box :remember_me %>
+        <%= f.label :remember_me, :class => 'checkbox' do %>
+          <%= f.check_box :remember_me %>
+          Remember me
+        <% end %>
       </div>
     </div>
   <% end -%>
@@ -31,9 +33,3 @@
   </div>
 
 <% end %>
-
-<div><small>
-  <%= link_to "Didn't receive confirmation instructions?", new_confirmation_path(resource_name) %>
-</small></div>
-
-

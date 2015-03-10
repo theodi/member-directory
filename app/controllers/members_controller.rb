@@ -1,10 +1,15 @@
 class MembersController < ApplicationController
   respond_to :html, :json
 
-  before_filter :get_member, :except => [:index, :right_to_cancel]
+  before_filter :get_member, :except => [:index, :right_to_cancel, :chargify_verify, :chargify_return]
   before_filter :set_formats, :log_embed, :only => [:badge]
+  before_filter :authenticate_member!, :only => [:payment, :thanks, :chargify_return]
+  before_filter :individual_signed_in, :only => :show
 
   before_filter(:only => [:index, :show]) {alternate_formats [:json]}
+
+  before_filter :verify_chargify_webhook, :only => :chargify_verify
+  before_filter :ensure_current, :only => :show
 
   def index
     @organizations = Organization.active.display_order
@@ -82,6 +87,42 @@ class MembersController < ApplicationController
     @title = "Membership agreement: Right to cancel"
   end
 
+  def thanks
+    @title = "Thanks for supporting The ODI"
+  end
+
+  def payment
+    if current_member.current?
+      redirect_to member_path(current_member)
+    elsif request.post?
+      current_member.update_attribute(:payment_frequency, params[:payment_frequency]) if params[:payment_frequency].present?
+      redirect_to current_member.chargify_product_link
+    else
+      @member = current_member
+    end
+  end
+
+  def chargify_return
+    Member.transaction do
+      current_member.current!
+      current_member.update_chargify_values!(params)
+    end
+    current_member.deliver_welcome_email!
+    redirect_to thanks_member_path(current_member)
+  end
+
+  def chargify_verify
+    case(params['event'])
+    when 'test'
+    when 'signup_success'
+      subscription = params['payload']['subscription']
+      customer = subscription['customer']
+      member = Member.find_by_membership_number!(customer['reference'])
+      member.verify_chargify_subscription!(subscription, customer)
+    end
+    head :ok
+  end
+
   private
 
   def get_member
@@ -94,6 +135,22 @@ class MembersController < ApplicationController
     unless request.referer =~ /https?:\/\/#{request.host_with_port}./
       @member.register_embed(request.referer)
     end
+  end
+
+  def ensure_current
+    redirect_to payment_member_path(@member) unless @member.current?
+  end
+
+  def individual_signed_in
+    authenticate_member! if @member.individual?
+  end
+
+  def verify_chargify_webhook
+    key = ENV['CHARGIFY_SITE_KEY']
+    body = request.raw_post
+    provided_digest = request.headers['X-Chargify-Webhook-Signature-Hmac-Sha-256']
+    digest = OpenSSL::HMAC.hexdigest(OpenSSL::Digest::Digest.new('sha256'), key, body)
+    head :unauthorized unless Devise.secure_compare(provided_digest, digest)
   end
 
 end

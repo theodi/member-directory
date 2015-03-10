@@ -85,6 +85,15 @@ module MemberDirectory
 
     config.action_dispatch.rescue_responses.merge!('ActiveResource::UnauthorizedAccess' => :unauthorized)
 
+    config.after_initialize do
+      Member.initialize_chargify_links! unless Rails.env.test?
+    end
+
+    # this should remove the need to turn cache_classes back to false
+    # but it doesn't work
+    config.to_prepare do
+      Member.initialize_chargify_links! unless Rails.env.test?
+    end
     
   end
 end

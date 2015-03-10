@@ -10,7 +10,6 @@ Feature: Sync from capsule
     When I am set as a member in CapsuleCRM
     And the sync task runs
     Then a membership should be created for me
-    And that membership should have a confirmed email address
     And that membership should not be shown in the directory
     And a welcome email should be sent to me
     And I should not see "Welcome Pack" in the email body

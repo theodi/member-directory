@@ -6,6 +6,13 @@ Given /^that I want to sign up$/ do
   @product_name = 'supporter'
 end
 
+Given /^product information has been setup for "(.*?)"$/ do |plan|
+  @chargify_product_url = "http://test.host/product/#{plan}"
+  @chargify_product_price = 800
+  Member.register_chargify_product_link(plan, @chargify_product_url)
+  Member.register_chargify_product_price(plan, @chargify_product_price*100)
+end
+
 Given /^there is already an organization with the name I want to use$/ do
   FactoryGirl.create :member, :organization_name => 'FooBar Inc'
 end
@@ -15,12 +22,13 @@ Given /^there is already an organization with the name '(.*?)'$/ do |org_name|
 end
 
 Given(/^I have a (sponsor|partner) account$/) do |level|
-
   @password = 'password'
   @email = Faker::Internet.email
-  @member = FactoryGirl.create :member, :product_name => level, :organization_name => Faker::Company.name,
+  @member = FactoryGirl.build :member, :product_name => level, :organization_name => Faker::Company.name,
                          :password => @password, :password_confirmation => @password, :email => @email
-  @member.confirm!
+  @member.remote!
+  @member.save!
+  @member.current!
   @membership_number = @member.membership_number
   steps %{
     When I visit the sign in page
@@ -36,8 +44,77 @@ end
 
 When /^I visit the signup page$/ do
   visit("/members/new?level=#{@product_name}")
-  page.should have_content 'Become an ODI member'
+  expect(page).to have_content 'Become an ODI member'
   @field_prefix = 'member'
+end
+
+When /^I enter my name and contact details$/ do
+  @contact_name = 'Ian McIain'
+  @email = 'iain@foobar.com'
+  @telephone = '0121 123 446'
+
+  fill_in('member_contact_name', :with => @contact_name)
+  fill_in('member_email', :with => @email)
+  fill_in('member_telephone', :with => @telephone)
+
+  fill_in('member_password', :with => 'p4ssw0rd')
+  fill_in('member_password_confirmation', :with => 'p4ssw0rd')
+end
+
+When /^I enter my address details$/ do
+  @street_address = '123 Fake Street'
+  @address_locality = 'Faketown'
+  @address_region = 'Fakeshire'
+  @address_country = 'United Kingdom'
+  @postal_code = 'FAKE 123'
+
+  fill_in('member_street_address', :with => @street_address)
+  fill_in('member_address_locality', :with => @address_locality)
+  fill_in('member_address_region', :with => @address_region)
+  select(@address_country, from: :member_address_country, match: :first)
+  fill_in('member_postal_code', :with => @postal_code)
+end
+
+When /^I enter my company details$/ do
+  @organization_name = 'FooBar Inc'
+  @organization_size = '251-1000'
+  @organization_type = 'commercial'
+  @organization_sector = 'Energy'
+  @organization_vat_id = '213244343'
+  @organization_company_number = '012345678'
+
+  fill_in('member_organization_name', :with => @organization_name)
+  select(find_by_id('member_organization_size').
+          find("option[value='#{@organization_size}']").text,
+          from: 'member_organization_size')
+  select(find_by_id('member_organization_type').
+          find("option[value='#{@organization_type}']").text,
+          from: 'member_organization_type')
+  fill_in('member_organization_company_number',
+          with: @organization_company_number)
+  select(@organization_sector, from: 'member_organization_sector')
+  fill_in('member_organization_vat_id', :with => @organization_vat_id)
+end
+
+When /^I enter my non-profit organization details$/ do
+  @organization_name = 'FooBar Inc'
+  @organization_size = '10-50'
+  @organization_type = 'non_commercial'
+  @organization_sector = 'Media'
+  @organization_vat_id = '413444343'
+  @organization_company_number = '087654321'
+
+  fill_in('member_organization_name', :with => @organization_name)
+  select(find_by_id('member_organization_size').
+          find("option[value='#{@organization_size}']").text,
+          from: 'member_organization_size')
+  select(find_by_id('member_organization_type').
+          find("option[value='#{@organization_type}']").text,
+          from: 'member_organization_type')
+  fill_in('member_organization_company_number',
+          with: @organization_company_number)
+  select(@organization_sector, from: 'member_organization_sector')
+  fill_in('member_organization_vat_id', :with => @organization_vat_id)
 end
 
 When /^I enter my details$/ do
@@ -46,22 +123,21 @@ When /^I enter my details$/ do
   @email                       = 'iain@foobar.com'
   @organization_sector         = 'Energy'
   @telephone                   = '0121 123 446'
-  @street_address              = '123 Fake Street'
-  @address_locality            = 'Faketown'
-  @address_region              = 'Fakeshire'
-  @address_country             = 'United Kingdom'
-  @postal_code                 = 'FAKE 123'
+  #@street_address              = '123 Fake Street'
+  #@address_locality            = 'Faketown'
+  #@address_region              = 'Fakeshire'
+  #@address_country             = 'United Kingdom'
+  #@postal_code                 = 'FAKE 123'
 
   # Fill in form
   fill_in('member_contact_name', :with => @contact_name)
   fill_in('member_email', :with => @email)
-  select(@organization_sector, from: 'member_organization_sector')
   fill_in('member_telephone', :with => @telephone)
-  fill_in('member_street_address', :with => @street_address)
-  fill_in('member_address_locality', :with => @address_locality)
-  fill_in('member_address_region', :with => @address_region)
-  select(@address_country, from: :member_address_country, match: :first)
-  fill_in('member_postal_code', :with => @postal_code)
+  #fill_in('member_street_address', :with => @street_address)
+  #fill_in('member_address_locality', :with => @address_locality)
+  #fill_in('member_address_region', :with => @address_region)
+  #select(@address_country, from: :member_address_country, match: :first)
+  #fill_in('member_postal_code', :with => @postal_code)
   fill_in('member_password', :with => 'p4ssw0rd')
   fill_in('member_password_confirmation', :with => 'p4ssw0rd')
 
@@ -71,7 +147,6 @@ When /^I enter my details$/ do
     @organization_type = 'commercial'
     @organization_vat_id = '213244343'
     @organization_company_number = '012345678'
-    @purchase_order_number = 'PO-43243242342'
 
     fill_in('member_organization_name', :with => @organization_name)
     select(find_by_id('member_organization_size').
@@ -82,10 +157,14 @@ When /^I enter my details$/ do
            from: 'member_organization_type')
     fill_in('member_organization_company_number',
             with: @organization_company_number)
+    select(@organization_sector, from: 'member_organization_sector')
     fill_in('member_organization_vat_id', :with => @organization_vat_id)
-    fill_in('member_purchase_order_number', :with => @purchase_order_number)
   end
 
+  check('member_agreed_to_terms')
+end
+
+When /^I agree to the terms$/ do
   check('member_agreed_to_terms')
 end
 
@@ -98,7 +177,59 @@ When /^my passwords don't match$/ do
 end
 
 When /^I click sign up$/ do
+  @payment_method = 'credit_card'
   click_button('submit')
+end
+
+When /^I click pay now$/ do
+  click_button('Pay now')
+end
+
+Then /^I am redirected to the payment page$/ do
+  member = Member.find_by_email(@email)
+  expect(current_path).to eq(payment_member_path(member))
+end
+
+Then /^am returned to the thanks page$/ do
+  member = Member.find_by_email(@email)
+  expect(current_path).to eq(thanks_member_path(member))
+end 
+
+Then /^there are payment frequency options$/ do
+  expect(page).to have_css("input[type=radio][id=payment_frequency_monthly][value=monthly]")
+  expect(page).to have_css("input[type=radio][id=payment_frequency_annual][value=annual]")
+end
+
+Then /^I choose to pay "(.*?)"$/ do |option|
+  choose(option)
+end
+
+Then /^I am processed through chargify for the "(.*?)" option$/ do |plan|
+  # hack to pretend we've gone via chargify and back
+  member = Member.find_by_email(@email)
+  @payment_ref = "3"
+  params = {
+    reference: member.membership_number,
+    subscription_id: "1",
+    customer_id: "2",
+    payment_id: @payment_ref
+  }
+  Member.register_chargify_product_link(plan, chargify_return_members_path(params))
+end
+
+When(/^chargify verifies the payment$/) do
+  member = Member.find_by_email(@email)
+  MembersController.skip_before_filter :verify_chargify_webhook
+  post chargify_verify_members_path, event: 'signup_success', payload: {
+    subscription: {
+      id: 1,
+      signup_payment_id: @payment_ref,
+      customer: {
+        id: 2,
+        reference: member.membership_number
+      }
+    }
+  }
 end
 
 Then /^my details should be queued for further processing$/ do
@@ -135,42 +266,41 @@ Then /^my details should be queued for further processing$/ do
     expect(args[2]).to eql contact_person
     expect(args[3]).to eql billing
     expect(args[4]['payment_method']).to eql @payment_method
-    expect(args[4]['payment_ref']).to match @payment_ref if @payment_ref
+    expect(args[4]['payment_ref']).to eql @payment_ref
     expect(args[4]['offer_category']).to eql @product_name
     expect(args[4]['membership_id']).not_to eql nil
-    expect(args[4]['purchase_order_reference']).to eql @purchase_order_number
   end
 end
 
 And /^I should have a membership number generated$/ do
-  @member         = Member.find_by_email(@email)
+  @member = Member.find_by_email(@email)
   @membership_number = @member.membership_number
-  @membership_number.should_not be_nil
-  @membership_number.should match(/[A-Z]{2}[0-9]{4}[A-Z]{2}/)
+  expect(@membership_number).to_not be_nil
+  expect(@membership_number).to match(/[A-Z]{2}[0-9]{4}[A-Z]{2}/)
 end
 
 Then /^I should see an error relating to (.*)$/ do |text|
-  page.find(:css, "div.alert-error").should have_content(text)
+  expect(page.find(:css, "div.alert-error")).to have_content(text)
 end
 
 Then /^I should not see an error$/ do
-  page.should_not have_css("div.alert-error")
+  expect(page).to_not have_css("div.alert-error")
 end
 
 Then /^I should see that the membership level is invalid$/ do
-  page.should have_content "Membership Level is not included in the list"
+  expect(page).to have_content "Membership Level is not included in the list"
 end
 
 Then /^I should get an error telling me to accept the terms$/ do
-  page.should have_content "Agreed to terms must be accepted"
+  expect(page).to have_content "Agreed to terms must be accepted"
 end
 
 When /^I should get an error telling my passwords don't match$/ do
-  page.should have_content "Password doesn't match confirmation"
+  expect(page).to have_content "Password doesn't match confirmation"
 end
 
 Then /^my details should not be queued$/ do
-  Resque.should_not_receive(:enqueue)
+  expect(Resque).to_not receive(:enqueue)
 end
 
 Then /^a welcome email should be sent to me$/ do

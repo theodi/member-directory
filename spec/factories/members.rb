@@ -10,10 +10,28 @@ FactoryGirl.define do
     organization_sector "Data/Technology"
     contact_name        { Faker::Name.name }
     street_address      { Faker::Address.street_address }
-    address_locality    { Faker::Address.city }
+    address_region      { Faker::Address.city }
     address_country     { Faker::Address.country }
     postal_code         { Faker::Address.postcode }
     password            'passw0rd'
-    payment_method      :invoice
+  end
+
+  factory :current_member, parent: :member do
+    current true
+  end
+  
+  factory :current_active_member, parent: :current_member do
+    cached_active true
+  end
+
+  factory :individual_member, class: Member do
+    email               { Faker::Internet.email }
+    product_name        'individual'
+    contact_name        { Faker::Name.name }
+    street_address      { Faker::Address.street_address }
+    address_region      { Faker::Address.city }
+    address_country     { Faker::Address.country }
+    postal_code         { Faker::Address.postcode }
+    password            'passw0rd'
   end
 end

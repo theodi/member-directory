@@ -3,16 +3,13 @@ class Organization < ActiveRecord::Base
   
   mount_uploader :logo, ImageObjectUploader
   
-  attr_accessible :name, :description, :url, :logo, :logo_cache, :remote,
+  attr_accessible :name, :description, :url, :logo, :logo_cache,
                   :cached_contact_name, :cached_contact_phone, :cached_contact_email,
                   :cached_twitter, :cached_linkedin, :cached_facebook, :cached_tagline
   
-  attr_writer     :remote
-  
   # Using after_save here so we get the right image urls
   before_save :strip_twitter_prefix
-  after_save :send_to_capsule
-  skip_callback :save, :after, :send_to_capsule, :if => lambda { self.remote === true }
+  after_save :send_to_capsule, unless: :remote?
   
   validates :name, :presence => true, :on => :update
   validates :name, :uniqueness => true, :allow_nil => true
@@ -60,8 +57,8 @@ class Organization < ActiveRecord::Base
     letter.between?('A', 'Z') ? letter : '#'
   end
 
-  def remote
-    @remote || false
+  def remote?
+    member.try(:remote?)
   end
 
   def supporter?

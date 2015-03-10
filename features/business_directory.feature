@@ -38,7 +38,7 @@ Feature: Adding details to the organization directory
 
 		Examples:
 			| field       | text         |
-			| name        | Name		     |
+			| name        | name		     |
 			| description | Description  |
 
 
@@ -71,7 +71,7 @@ Feature: Adding details to the organization directory
     But there is already an organization with the name 'ACME Explosives Ltd'
     Then my organisation details should not be queued for further processing
 		When I click submit
-		And I should see an error relating to Organisation Name
+		And I should see an error relating to Organisation name
 
 	Scenario: Supporter cannot upload images
 

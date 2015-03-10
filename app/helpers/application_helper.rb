@@ -38,5 +38,13 @@ module ApplicationHelper
       "Good #{time_of_day}"
     end
   end
+
+  def indefinite_article(phrase)
+    if phrase =~ /^[aeiou]/
+      "an #{phrase}"
+    else
+      "a #{phrase}"
+    end
+  end
   
 end

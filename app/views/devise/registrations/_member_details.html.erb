@@ -1,6 +1,6 @@
 <fieldset>
 
-  <legend>Your details</legend>
+  <legend>We just need a few of your details</legend>
 
   <div class="control-group">
   	<%= f.label :contact_name, :class => 'control-label' %>
@@ -13,7 +13,7 @@
   	<%= f.label :email, :class => 'control-label' %>
   	<div class="controls">
   		<%= f.email_field :email, :required => 'required' %>
-		<span class="help-inline">(required)</span>
+      <span class="help-inline">(required)</span>
   	</div>
   </div>
 
@@ -21,20 +21,15 @@
     <div class="control-group">
     	<%= f.label :organization_name, :class => 'control-label' %>
     	<div class="controls">
-    		<%= f.text_field :organization_name %>
+            <%= f.text_field :organization_name, :required => 'required' %>
+            <span class="help-inline">(required)</span>
     	</div>
     </div>
 
     <div class="control-group">
       <%= f.label :organization_size, :class => 'control-label' %>
       <div class="controls">
-        <%= f.select(:organization_size, {
-            "less than 10 employees"   => '<10',
-            "10 - 50 employees"        => '10-50',
-            "51 - 250 employees"       => '51-250',
-            "251 - 1000 employees"     => '251-1000',
-            "more than 1000 employees" => '>1000'
-          }, prompt: "Please select") %>
+        <%= f.select(:organization_size, Member::ORGANISATION_SIZES, prompt: "Please select") %>
         <span class="help-inline">(required)</span>
       </div>
     </div>
@@ -42,72 +37,25 @@
     <div class="control-group">
       <%= f.label :organization_type, :class => 'control-label'  %>
       <div class="controls">
-        <%= f.select(:organization_type, {
-            "Corporate"                => "commercial",
-            "Nonprofit / Government"   => "non_commercial"
-          }, prompt: "Please select") %>
+        <%= f.select(:organization_type, Member::ORGANISATION_TYPES, prompt: "Please select") %>
         <span class="help-inline">(required)</span>
       </div>
     </div>
-  <% end %>
 
-  <div class="control-group">
-    <%= f.label :organization_sector, :class => 'control-label'  %>
-    <div class="controls">
-      <%= f.select(:organization_sector, Member.sectors, prompt: "Please select") %>
-      <span class="help-inline">(required)</span>
+    <div class="control-group">
+      <%= f.label :organization_sector, :class => 'control-label'  %>
+      <div class="controls">
+        <%= f.select(:organization_sector, Member.sectors, prompt: "Please select") %>
+        <span class="help-inline">(required)</span>
+      </div>
     </div>
-  </div>
+
+  <% end %>
 
   <div class="control-group">
   	<%= f.label :telephone, :class => 'control-label' %>
   	<div class="controls">
   		<%= f.text_field :telephone %>
-  	</div>
-  </div>
-
-</fieldset>
-
-<fieldset>
-
-  <legend>Billing Address</legend>
-
-  <div class="control-group">
-  	<%= f.label :street_address, :class => 'control-label' %>
-  	<div class="controls">
-  		<%= f.text_field :street_address, :required => 'required' %>
-		<span class="help-inline">(required)</span>
-  	</div>
-  </div>
-
-  <div class="control-group">
-  	<%= f.label :address_locality, :class => 'control-label' %>
-  	<div class="controls">
-  		<%= f.text_field :address_locality, :required => 'required' %>
-		<span class="help-inline">(required)</span>
-  	</div>
-  </div>
-
-  <div class="control-group">
-  	<%= f.label :address_region, :class => 'control-label' %>
-  	<div class="controls">
-  		<%= f.text_field :address_region %>
-  	</div>
-  </div>
-
-  <div class="control-group">
-  	<%= f.label :address_country, :class => 'control-label', :required => 'required' %>
-  	<div class="controls">
-  		<%= f.country_select :address_country, priority_countries: ["GB"], prompt: true %>
-		<span class="help-inline">(required)</span>
-  	</div>
-  </div>
-
-  <div class="control-group">
-  	<%= f.label :postal_code, :class => 'control-label', :required => 'required' %>
-  	<div class="controls">
-  		<%= f.text_field :postal_code %>
-		<span class="help-inline">(required)</span>
   	</div>
   </div>
 
@@ -133,103 +81,45 @@
     </div>
 
   </fieldset>
+
 <% end %>
 
 <fieldset>
 
-  <legend>Payment Details</legend>
+  <legend>Address details</legend>
 
-  <% unless individual? %>
-
-    <div class="control-group">
-    	<%= f.label :payment_method, :class => 'control-label' %>
-    	<div class="controls">
-        <%= f.label :payment_method, t(:credit_card), :value => :credit_card do %>
-          <%= f.radio_button :payment_method, :credit_card %>
-          <%= t(:credit_card) %>
-        <% end %>
-        <%= f.label :payment_method, t(:invoice), :value => :invoice do %>
-          <%= f.radio_button :payment_method, :invoice %>
-          <%= t(:invoice) %>
-        <% end %>
-    	</div>
+  <div class="control-group">
+    <%= f.label :street_address, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :street_address %>
     </div>
-
-  <% end %>
-
-  <script>
-    function show_payment_options() {
-      selected = $('input:radio[name="member[payment_method]"]:checked').val();
-      if (selected == undefined) {
-        $('#card-details').slideDown();
-      } else {
-        $('#card-details').slideUp();
-        $('#invoice-details').slideUp();
-        if (selected == "invoice") {
-          $('#invoice-details').slideDown();
-        }
-        if (selected == "credit_card") {
-          $('#card-details').slideDown();
-        }
-      }
-    }
-
-    $(document).ready(function() {
-      $('#card-details').hide();
-      $('#invoice-details').hide();
-      show_payment_options();
-
-      $('input[name="member[payment_method]"]:radio').change(function () {
-        show_payment_options();
-      });
-    });
-  </script>
-
-  <div id='card-details'>
-
-    <div class="control-group">
-      <%= f.label :card_number, :class => 'control-label' %>
-      <div class="controls">
-        <%= f.text_field :card_number %>
-      </div>
-    </div>
-
-    <div class="control-group">
-      <%= f.label :card_validation_code, :class => 'control-label' %>
-      <div class="controls">
-        <%= f.text_field :card_validation_code %>
-      </div>
-    </div>
-
-    <div class="control-group">
-      <%= f.label :card_expiry_month, :class => 'control-label' %>
-      <div class="controls">
-        <%= f.text_field :card_expiry_month %>
-      </div>
-    </div>
-
-    <div class="control-group">
-      <%= f.label :card_expiry_year, :class => 'control-label' %>
-      <div class="controls">
-        <%= f.text_field :card_expiry_year %>
-      </div>
-    </div>
-
   </div>
 
-  <% unless individual? %>
-
-    <div id='invoice-details'>
-
-      <div class="control-group">
-        <%= f.label :purchase_order_number, :class => 'control-label' %>
-        <div class="controls">
-          <%= f.text_field :purchase_order_number %>
-        </div>
-      </div>
-
+  <div class="control-group">
+    <%= f.label :address_locality, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :address_locality %>
     </div>
+  </div>
 
-  <% end %>
+  <div class="control-group">
+    <%= f.label :address_region, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :address_region %>
+    </div>
+  </div>
 
+  <div class="control-group">
+    <%= f.label :address_country, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.country_select :address_country, priority_countries: ["GB"], prompt: "Please select" %>
+    </div>
+  </div>
+
+  <div class="control-group">
+    <%= f.label :postal_code, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :postal_code %>
+    </div>
+  </div>
 </fieldset>

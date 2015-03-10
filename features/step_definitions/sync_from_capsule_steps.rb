@@ -2,7 +2,7 @@ Given /^I am not currently a member$/ do
 end
 
 Given /^I am already signed up$/ do
-  @membership = FactoryGirl.create :member
+  @membership = FactoryGirl.create :current_active_member
   @old_description = @membership.organization.description
 end
 
@@ -70,38 +70,34 @@ end
 
 Then /^a membership should be created for me$/ do
   @membership = Member.where(:email => @email).first
-  @membership.should be_present
+  expect(@membership).to be_present
   @membership_number = @membership.membership_number
-  @membership_number.should be_present
+  expect(@membership_number).to be_present
   @old_description = @membership.organization.description
-end
-
-Then(/^that membership should have a confirmed email address$/) do
-  @membership.should be_confirmed
 end
 
 Then(/^that membership should not be shown in the directory$/) do
   @active = false
-  @membership.cached_active.should == @active
+  expect(@membership.cached_active).to eq(@active)
 end
 
 Then /^my details should be cached correctly$/ do
   @membership = Member.where(membership_number: @membership_number).first
-  @membership.cached_active.should                     == (@active == "true")
-  @membership.product_name.should                      == @product_name
-  @membership.cached_newsletter.should                 == @newsletter
-  @membership.organization_size.should                 == @organization_size
-  @membership.organization_sector.should               == @organization_sector
-  @membership.organization.name.should                 == @organization_name
-  @membership.organization.description.should          == @old_description # description should not change when synced
-  @membership.organization.url.should                  == @url
-  @membership.organization.cached_contact_name.should  == @contact_name
-  @membership.organization.cached_contact_phone.should == @contact_phone
-  @membership.organization.cached_contact_email.should == @contact_email
-  @membership.organization.cached_twitter.should       == @twitter
-  @membership.organization.cached_linkedin.should      == @linkedin
-  @membership.organization.cached_facebook.should      == @facebook
-  @membership.organization.cached_tagline.should       == @tagline
+  expect(@membership.cached_active).to                     eq (@active == "true")
+  expect(@membership.product_name).to                      eq @product_name
+  expect(@membership.cached_newsletter).to                 eq @newsletter
+  expect(@membership.organization_size).to                 eq @organization_size
+  expect(@membership.organization_sector).to               eq @organization_sector
+  expect(@membership.organization.name).to                 eq @organization_name
+  expect(@membership.organization.description).to          eq @old_description # description should not change when synced
+  expect(@membership.organization.url).to                  eq @url
+  expect(@membership.organization.cached_contact_name).to  eq @contact_name
+  expect(@membership.organization.cached_contact_phone).to eq @contact_phone
+  expect(@membership.organization.cached_contact_email).to eq @contact_email
+  expect(@membership.organization.cached_twitter).to       eq @twitter
+  expect(@membership.organization.cached_linkedin).to      eq @linkedin
+  expect(@membership.organization.cached_facebook).to      eq @facebook
+  expect(@membership.organization.cached_tagline).to       eq @tagline
 end
 
 Then /^nothing should be placed on the queue$/ do

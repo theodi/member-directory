@@ -4,18 +4,9 @@ Given(/^I want to sign up as an individual member$/) do
   @payment_ref = /cus_[0-9A-Za-z]{14}/
 end
 
-Given(/^I sign up as an indidual member$/) do
-  steps %{
-    Given I want to sign up as an individual member
-    When I visit the signup page
-    And I enter my details
-    And I enter valid credit card details
-  }
-end
-
-Then(/^I should not have an organisation assinged to me$/) do
+Then(/^I should not have an organisation assigned to me$/) do
   member = Member.where(email: @email).first
-  (member.organization).should be_nil
+  expect(member.organization).to be_nil
 end
 
 Then(/^I should not see the "(.*?)" field$/) do |field|
@@ -23,11 +14,11 @@ Then(/^I should not see the "(.*?)" field$/) do |field|
 end
 
 Then(/the submit button should say "(.*?)"$/) do |text|
-  page.should have_selector("input[type=submit][value='#{text}']")
+  expect(page).to have_selector("input[type=submit][value='#{text}']")
 end
 
 Then(/^the terms and conditions should be correct$/) do
-  (page).should have_content("You agree to comply with these terms and conditions")
+  expect(page).to have_content("You agree to comply with these terms and conditions")
 end
 
 Then /^my individual details should be queued for further processing$/ do
@@ -60,7 +51,6 @@ Then /^my individual details should be queued for further processing$/ do
     args[4]['payment_ref'].should =~ @payment_ref if @payment_ref
     args[4]['offer_category'].should == @product_name
     args[4]['membership_id'].should_not be_nil
-    args[4]['purchase_order_reference'].should == @purchase_order_number
   end
 end
 
@@ -71,5 +61,5 @@ Then /^I should see my details$/ do
 end
 
 Then /^I should see a link to the right to cancel$/ do
-  find_link("right to cancel").should be_visible
+  expect(find_link("right to cancel")).to be_visible
 end

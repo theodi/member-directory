@@ -6,37 +6,90 @@ describe RegistrationsController do
     request.env['devise.mapping'] = Devise.mappings[:member]
   end
   
-  it 'should show form for supporter level signups' do
-    get :new, :level => 'supporter'
-    expect(response).to be_success
+  %w[supporter individual].each do |level|
+    it "does not allow a level of #{level}" do
+      get :new, :level => level
+      expect(response).to be_success
+    end
   end
   
-  it 'should no longer show form for member level signups' do
-    get :new, :level => 'member'
-    expect(response).to be_redirect
-    expect(response).to redirect_to('http://www.theodi.org/join-us')
+  %w[member partner sponsor spaceman].each do |level|
+    it "does not allow a level of #{level}" do
+      get :new, :level => level
+      expect(response).to be_redirect
+      expect(response).to redirect_to('http://www.theodi.org/join-us')
+    end
   end
   
-  it 'should show form for partner level signups' do
-    get :new, :level => 'partner'
-    expect(response).to be_success
-  end
-  
-  it 'should show form for sponsor level signups' do
-    get :new, :level => 'sponsor'
-    expect(response).to be_success
-  end
-
-  it 'should redirect back to join us page for any other level' do
-    get :new, :level => 'spaceman'
-    expect(response).to be_redirect
-    expect(response).to redirect_to('http://www.theodi.org/join-us')
-  end
-
   it 'should redirect back to join us page for no level' do
     get :new
     expect(response).to be_redirect
     expect(response).to redirect_to('http://www.theodi.org/join-us')
+  end
+
+  describe 'credit card signup via chargify' do
+
+    let!(:response) do
+      post :create, :member => {
+        product_name: "individual",
+        contact_name: "Test Person",
+        email: 'test@example.com',
+        street_address: "1 Street Over",
+        address_locality: "Townplace",
+        address_region: "London",
+        address_country: "GB",
+        postal_code: "EC1 1TT",
+        password: 'testtest',
+        password_confirmation: 'testtest',
+        agreed_to_terms: "1"
+      }
+    end
+
+    let!(:member) { Member.last }
+
+    it 'redirects to payment page' do
+      expect(response).to be_redirect
+      expect(response.location).to eq(payment_member_url(member))
+    end
+  end
+
+  describe 'member origin tracking' do
+    let(:member) { Member.last }
+
+    it 'defaults member origin to odihq' do
+      post :create, :member => {
+        product_name: "individual",
+        contact_name: "Test Person",
+        email: 'test@example.com',
+        street_address: "1 Street Over",
+        address_locality: "Townplace",
+        address_region: "London",
+        address_country: "GB",
+        postal_code: "EC1 1TT",
+        password: 'testtest',
+        password_confirmation: 'testtest',
+        agreed_to_terms: "1"
+      }
+      expect(member.origin).to eq('odihq')
+    end
+
+    it 'tracks origin field on member' do
+      post :create, :member => {
+        product_name: "individual",
+        contact_name: "Test Person",
+        email: 'test@example.com',
+        street_address: "1 Street Over",
+        address_locality: "Townplace",
+        address_region: "London",
+        address_country: "GB",
+        postal_code: "EC1 1TT",
+        password: 'testtest',
+        password_confirmation: 'testtest',
+        agreed_to_terms: "1",
+        origin: 'odi-leeds'
+      }
+      expect(member.origin).to eq('odi-leeds')
+    end
   end
 
 end

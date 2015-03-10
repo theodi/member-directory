@@ -7,13 +7,14 @@
 	  This won't take longer than a couple of minutes!
   </p>
 
-	<%= f.hidden_field :product_name, :value => params[:level] || @member.product_name %>
+  <%= hidden_field_tag(:origin, params[:origin]) if params[:origin].present? %>
+  <%= f.hidden_field :product_name %>
 
   <%= render :partial => 'member_details', :locals => { :f => f } %>
 
   <fieldset>
 
-    <legend>Password</legend>
+    <legend>Please choose a password</legend>
 
     <div class="control-group">
   		<%= f.label :password, :class => 'control-label' %>
@@ -101,7 +102,7 @@
 
   <div class="form-actions">
     <p>
-    <%= f.submit (individual? ? "Pay now" : "Become an ODI member"), :id => 'submit', :class => 'btn btn-primary btn-large' %>
+    <%= f.submit "Become an ODI member", :id => 'submit', :class => 'btn btn-primary btn-large' %>
     </p>
     <% if individual? %>
       <p>You have the <%= link_to 'right to cancel', right_to_cancel_members_path %> within the first 14 days of your membership.</p>
