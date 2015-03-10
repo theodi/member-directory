@@ -40,7 +40,7 @@ module ApplicationHelper
   end
 
   def indefinite_article(phrase)
-    if phrase =~ /^[aeiou]/
+    if phrase =~ /^[aeiou]/i
       "an #{phrase}"
     else
       "a #{phrase}"
