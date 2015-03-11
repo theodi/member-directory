@@ -43,6 +43,8 @@ MemberDirectory::Application.routes.draw do
   get '/logos/:level/:size/:colour.png', defaults: {format: :png}, to: 'badge#badge'
   get 'embed_stats.csv', to: 'embed_stats#index'
 
+  get 'terms/:product' => 'home#terms'
+
   match '/401', :to => 'errors#unauthorized'
   match '/404', :to => 'errors#not_found'
   match '/500', :to => 'errors#server_error'
