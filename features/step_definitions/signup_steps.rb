@@ -335,3 +335,12 @@ When(/^I choose to pay by invoice$/) do
   choose('Annual invoice')
   @payment_method = 'invoice'
 end
+
+When(/^I visit the signup page with an origin of "(.*?)"$/) do |origin|
+  visit("/members/new?level=#{@product_name}&origin=#{origin}")
+end
+
+Then(/^I should have an origin of "(.*?)"$/) do |origin|
+  member = Member.find_by_email(@email)
+  expect(member.origin).to eq(origin)
+end

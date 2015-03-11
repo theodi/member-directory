@@ -41,6 +41,16 @@ Feature: Add new signups to queue
     And I am processed through chargify for the "supporter_monthly" option
     When I click pay now
 
+  Scenario: Tracking user origin
+
+    When I visit the signup page with an origin of "odi-leeds"
+    And I enter my name and contact details
+    And I enter my company details
+    And I enter my address details
+    And I agree to the terms
+    When I click sign up
+    Then I should have an origin of "odi-leeds"
+
   Scenario Outline: Member tries to sign up, but misses a mandatory field
     
     When I enter my name and contact details
