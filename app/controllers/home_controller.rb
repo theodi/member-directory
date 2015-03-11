@@ -4,7 +4,7 @@ class HomeController < ApplicationController
   end
 
   def terms
-    @title = ""
+    @title = "Terms & conditions"
     @terms = case params[:product]
     when 'individual'
       'individual_terms'
