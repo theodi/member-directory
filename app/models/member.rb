@@ -199,7 +199,10 @@ class Member < ActiveRecord::Base
   def chargify_product_link
     if link = CHARGIFY_PRODUCT_LINKS[chargify_product_handle]
       url = URI(link)
+      first_name, last_name = contact_name.split(/\s+/, 2)
       params = {
+        first_name: first_name,
+        last_name: last_name,
         reference: membership_number,
         email: email,
         billing_address: street_address,

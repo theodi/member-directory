@@ -215,6 +215,14 @@ describe Member do
     it 'includes London as the billing_state as a hack to get tax to update in chargify' do
       expect(params).to include("billing_state" => "London")
     end
+
+    it 'guesses and includes the first name' do
+      expect(params).to include("first_name" => "Test")
+    end
+
+    it 'guesses and includes the last name' do
+      expect(params).to include("last_name" => "Person")
+    end
   end
 
   describe 'chargify redirect link for a organisation' do
