@@ -91,7 +91,8 @@
   <div class="control-group">
     <%= f.label :street_address, :class => 'control-label' %>
     <div class="controls">
-      <%= f.text_field :street_address %>
+      <%= f.text_field :street_address, :required => :required %>
+      <span class="help-inline">(required)</span>
     </div>
   </div>
 
@@ -105,21 +106,24 @@
   <div class="control-group">
     <%= f.label :address_region, :class => 'control-label' %>
     <div class="controls">
-      <%= f.text_field :address_region %>
+      <%= f.text_field :address_region, :required => :required %>
+      <span class="help-inline">(required)</span>
     </div>
   </div>
 
   <div class="control-group">
     <%= f.label :address_country, :class => 'control-label' %>
     <div class="controls">
-      <%= f.country_select :address_country, priority_countries: ["GB"], prompt: "Please select" %>
+      <%= f.country_select :address_country, priority_countries: ["GB"], prompt: "Please select", :required => :required %>
+      <span class="help-inline">(required)</span>
     </div>
   </div>
 
   <div class="control-group">
     <%= f.label :postal_code, :class => 'control-label' %>
     <div class="controls">
-      <%= f.text_field :postal_code %>
+      <%= f.text_field :postal_code, :required => :required %>
+      <span class="help-inline">(required)</span>
     </div>
   </div>
 </fieldset>
