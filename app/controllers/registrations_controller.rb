@@ -12,6 +12,13 @@ class RegistrationsController < Devise::RegistrationsController
 
   protected
 
+  def set_flash_message(key, kind, options = {})
+    if kind == :signed_up
+      kind = :"signed_up_#{resource.product_name}"
+    end
+    super(key, kind, options)
+  end
+
   def after_sign_up_path_for(resource)
     payment_member_path(resource)
   end

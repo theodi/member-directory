@@ -344,3 +344,11 @@ Then(/^I should have an origin of "(.*?)"$/) do |origin|
   member = Member.find_by_email(@email)
   expect(member.origin).to eq(origin)
 end
+
+Then(/^I should not see a message including "(.*?)"$/) do |flash|
+  expect(page.body).to_not include(flash)
+end
+
+Then(/^I should see a message including "(.*?)"$/) do |flash|
+  expect(page.body).to include(flash)
+end
