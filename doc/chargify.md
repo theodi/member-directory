@@ -68,6 +68,14 @@ or
 In the database we will now be able to track where members came from, it
 will default to `odihq` if nothing is supplied.
 
+Discount codes
+--------------
+
+Discount codes can also be added to the url by appending `&coupon={CODE}` to the url. eg:
+
+    https://directory.theodi.org/members/new?level=individual&coupon=CODE
+
+
 Deployment setup
 ================
 
