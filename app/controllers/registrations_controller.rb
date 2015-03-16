@@ -20,7 +20,7 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
   def after_sign_up_path_for(resource)
-    payment_member_path(resource)
+    payment_member_path(resource, coupon: params[:coupon].presence)
   end
 
   def check_product_name

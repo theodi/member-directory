@@ -217,6 +217,10 @@ Then /^I am processed through chargify for the "(.*?)" option$/ do |plan|
   Member.register_chargify_product_link(plan, chargify_return_members_path(params))
 end
 
+Then(/^the coupon code "(.*?)" is supplied$/) do |coupon|
+  expect_any_instance_of(Member).to receive(:chargify_product_link).with(coupon).and_call_original
+end
+
 When(/^chargify verifies the payment$/) do
   member = Member.find_by_email(@email)
   MembersController.skip_before_filter :verify_chargify_webhook
@@ -338,6 +342,10 @@ end
 
 When(/^I visit the signup page with an origin of "(.*?)"$/) do |origin|
   visit("/members/new?level=#{@product_name}&origin=#{origin}")
+end
+
+When(/^I visit the signup page with a coupon of "(.*?)"$/) do |coupon|
+  visit("/members/new?level=#{@product_name}&coupon=#{coupon}")
 end
 
 Then(/^I should have an origin of "(.*?)"$/) do |origin|

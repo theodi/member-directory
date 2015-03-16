@@ -6,6 +6,7 @@ Thanks for signing up to become a Supporter of The Open Data Institute.
 
 <p>
 <%= form_tag payment_member_path(@member), method: 'post' do %>
+  <%= hidden_field_tag(:coupon, params[:coupon]) if params[:coupon].present? %>
   <% if @member.monthly_payment_option? %>
     How would you like to pay?
     <div class="control-group">

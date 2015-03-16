@@ -52,6 +52,19 @@ Feature: Add new signups to queue
     When I click sign up
     Then I should have an origin of "odi-leeds"
 
+  Scenario: Coupon discount codes
+
+    When I visit the signup page with a coupon of "ODIALUMNI"
+    And I enter my name and contact details
+    And I enter my company details
+    And I enter my address details
+    And I agree to the terms
+    When I click sign up
+    Then I am redirected to the payment page
+    And I am processed through chargify for the "corporate-supporter_annual" option
+    And the coupon code "ODIALUMNI" is supplied
+    When I click pay now
+
   Scenario Outline: Member tries to sign up, but misses a mandatory field
     
     When I enter my name and contact details
