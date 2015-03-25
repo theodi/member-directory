@@ -3,25 +3,25 @@ require 'spec_helper'
 
 describe Member do
 
-  before(:each) do
-    @member = FactoryGirl.create(:member)
+  let(:member) do
+    FactoryGirl.create(:member)
   end
 
   it "creates an embed stat" do
-    @member.register_embed("http://www.example.com/page")
+    member.register_embed("http://www.example.com/page")
 
-    stat = @member.embed_stats.first
+    stat = member.embed_stats.first
 
     expect(stat.referrer).to eq("http://www.example.com/page")
-    expect(stat.member).to eq(@member)
+    expect(stat.member).to eq(member)
   end
 
   it "only creates one embed stat per referrer" do
     2.times do
-      @member.register_embed("http://www.example.com/page")
+      member.register_embed("http://www.example.com/page")
     end
 
-    expect(@member.embed_stats.count).to eq(1)
+    expect(member.embed_stats.count).to eq(1)
   end
 
   context "creating a member" do
@@ -369,6 +369,29 @@ describe Member do
       member.update_attribute(:payment_frequency, "monthly")
       expect(url.host).to eq("chargify.com")
       expect(url.path).to eq("/monthly-non-profit")
+    end
+  end
+
+  describe 'summary' do
+    it 'counts the total current members' do
+      FactoryGirl.create_list(:current_member, 5)
+      FactoryGirl.create_list(:member, 2, current: false)
+
+      expect(Member.summary[:total]).to eq 5
+      expect(Member.summary[:all][:total]).to eq 7
+    end
+
+    it 'breaks down count of current members by product_name' do
+      FactoryGirl.create_list(:current_individual_member, 2)
+      FactoryGirl.create_list(:individual_member, 1)
+      breakdown = {supporter: 3, member: 2, partner: 1, sponsor: 4}
+      breakdown.each do |product_name, count|
+        FactoryGirl.build_list(:current_member, count, :product_name => product_name).map {|m| m.save(validate: false)}
+        FactoryGirl.build_list(:member, 1, :product_name => product_name).map {|m| m.save(validate: false)}
+      end
+
+      expect(Member.summary[:breakdown]).to eq breakdown.merge(individual: 2).stringify_keys
+      expect(Member.summary[:all][:breakdown]).to eq({individual: 3, supporter: 4, member: 3, partner: 2, sponsor: 5}.stringify_keys)
     end
   end
 

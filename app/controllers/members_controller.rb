@@ -1,7 +1,7 @@
 class MembersController < ApplicationController
   respond_to :html, :json
 
-  before_filter :get_member, :except => [:index, :right_to_cancel, :chargify_verify, :chargify_return]
+  before_filter :get_member, :except => [:index, :right_to_cancel, :chargify_verify, :chargify_return, :summary]
   before_filter :set_formats, :log_embed, :only => [:badge]
   before_filter :authenticate_member!, :only => [:payment, :thanks, :chargify_return]
   before_filter :individual_signed_in, :only => :show
@@ -122,6 +122,10 @@ class MembersController < ApplicationController
       member.verify_chargify_subscription!(subscription, customer)
     end
     head :ok
+  end
+
+  def summary
+    render xml: Member.summary.to_xml(:root => :summary)
   end
 
   private
