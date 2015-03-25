@@ -2,7 +2,26 @@
 Thanks for signing up to become a Supporter of The Open Data Institute.
 </p>
 
+<% case @discount %>
+<% when :free %>
+<p>
+    As part of this sign-up process we need to take your credit or debit card
+    details. Don’t worry, you’re still getting the first twelve months of
+    membership for free.
+</p>
+<p>
+    After twelve months you’ll only be charged if you decide
+    to renew. We’ll give you plenty of notice before taking any payment from the
+    card and you are under absolutely no obligation to renew.
+</p>
+<% when :discount %>
+<p>
+    Congratulations! You’re receiving a discount on your ODI membership. The
+    discount will be applied on the next page.
+</p>
+<% else %>
 <p>Being <%= indefinite_article(@member.get_plan_description) %> is <%= @member.get_plan_price %> per year.</p>
+<% end %>
 
 <p>
 <%= form_tag payment_member_path(@member), method: 'post' do %>
@@ -28,7 +47,7 @@ Thanks for signing up to become a Supporter of The Open Data Institute.
   <% end %>
   <div class="control-group">
     <div class="controls">
-      <input type="submit" class="btn btn-primary btn-large" value="Pay now">
+      <input type="submit" class="btn btn-primary btn-large" value="<%= @discount == :free ? 'Enter card details' : 'Pay now' %>">
     </div>
   </div>
 <% end %>

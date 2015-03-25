@@ -79,6 +79,7 @@ describe Member do
     before do
       Member::CHARGIFY_PRODUCT_LINKS.clear
       Member::CHARGIFY_PRODUCT_PRICES.clear
+      allow(Chargify::Coupon).to receive(:all).and_return([])
     end
 
     it 'assigns the api handle and first public signup page' do
@@ -112,6 +113,26 @@ describe Member do
       expect(Chargify::Product).to receive(:all).and_return([product])
       Member.initialize_chargify_links!
       expect(Member::CHARGIFY_PRODUCT_PRICES["plan_name"]).to eq(800)
+    end
+
+    it 'stores coupon discounts' do
+      full = double('coupon')
+      half = double('coupon')
+      amount = double('coupon')
+      allow(full).to receive(:percentage).and_return(100)
+      allow(full).to receive(:code).and_return("FULL")
+      allow(half).to receive(:percentage).and_return(50)
+      allow(half).to receive(:code).and_return("HALF")
+      allow(amount).to receive(:percentage).and_return(nil)
+      allow(amount).to receive(:code).and_return("AMOUNT")
+      allow(Chargify::Product).to receive(:all).and_return([])
+      expect(Chargify::Coupon).to receive(:all).and_return([full, half, amount])
+      Member.initialize_chargify_links!
+      expect(Member::CHARGIFY_COUPON_DISCOUNTS).to eq({
+        "FULL" => :free,
+        "HALF" => :discount,
+        "AMOUNT" => :discount
+      })
     end
   end
 

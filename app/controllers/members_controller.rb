@@ -92,6 +92,7 @@ class MembersController < ApplicationController
   end
 
   def payment
+    @discount = Member::CHARGIFY_COUPON_DISCOUNTS[params[:coupon]]
     if current_member.current?
       redirect_to member_path(current_member)
     elsif request.post?

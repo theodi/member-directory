@@ -21,6 +21,7 @@ class Member < ActiveRecord::Base
   LARGE_CORPORATE = %w[251-1000 >1000]
   CHARGIFY_PRODUCT_LINKS = {}
   CHARGIFY_PRODUCT_PRICES = {}
+  CHARGIFY_COUPON_DISCOUNTS = {}
 
   has_one :organization
   has_many :embed_stats
@@ -182,6 +183,9 @@ class Member < ActiveRecord::Base
         register_chargify_product_link(product.handle, page.url)
       end
     end
+    Chargify::Coupon.all.each do |coupon|
+      register_chargify_coupon_code(coupon.code, coupon.percentage)
+    end
   end
 
   def self.register_chargify_product_link(plan, url)
@@ -190,6 +194,10 @@ class Member < ActiveRecord::Base
 
   def self.register_chargify_product_price(plan, cents_that_are_pence)
     CHARGIFY_PRODUCT_PRICES[plan] = cents_that_are_pence.to_i / 100
+  end
+
+  def self.register_chargify_coupon_code(code, percentage)
+    CHARGIFY_COUPON_DISCOUNTS[code] = percentage == 100 ? :free : :discount
   end
 
   def chargify_product_handle
