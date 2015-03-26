@@ -376,12 +376,14 @@ describe Member do
     it 'counts the total current members' do
       FactoryGirl.create_list(:current_member, 5)
       FactoryGirl.create_list(:member, 2, current: false)
+      FactoryGirl.build(:member, product_name: nil).save(validate: false)
 
       expect(Member.summary[:total]).to eq 5
       expect(Member.summary[:all][:total]).to eq 7
     end
 
     it 'breaks down count of current members by product_name' do
+      FactoryGirl.build(:member, product_name: nil).save(validate: false)
       FactoryGirl.create_list(:current_individual_member, 2)
       FactoryGirl.create_list(:individual_member, 1)
       breakdown = {supporter: 3, member: 2, partner: 1, sponsor: 4}
