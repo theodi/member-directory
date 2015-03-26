@@ -1,1 +1,3 @@
+<% if @member.current? %>
 document.write('<%= j render(:partial => 'badge').squish.html_safe  %>');
+<% end %>
