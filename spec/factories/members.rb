@@ -34,4 +34,8 @@ FactoryGirl.define do
     postal_code         { Faker::Address.postcode }
     password            'passw0rd'
   end
+
+  factory :current_individual_member, parent: :individual_member do
+    current true
+  end
 end

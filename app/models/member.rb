@@ -74,6 +74,8 @@ class Member < ActiveRecord::Base
 
   validates_with OrganizationValidator, on: :create, unless: :individual?
 
+  scope :current, where(:current => true)
+
   def remote?
     @remote || false
   end
@@ -424,6 +426,17 @@ class Member < ActiveRecord::Base
       "Transportation",
       "Other"
     ]
+  end
+
+  def self.summary
+    {
+      total: Member.current.count,
+      breakdown: Member.current.group(:product_name).count,
+      all: {
+        total: Member.count,
+        breakdown: Member.group(:product_name).count
+      }
+    }
   end
 
 end
