@@ -17,7 +17,6 @@ Feature: Add new signups to queue
     And I agree to the terms
     When I click sign up
     Then I am redirected to the payment page
-    And I should see a message including "Once you have paid please take time to edit your organisation details"
     And I should have a membership number generated
     And I am processed through chargify for the "corporate-supporter_annual" option
     When I click pay now
