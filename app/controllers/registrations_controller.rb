@@ -12,6 +12,10 @@ class RegistrationsController < Devise::RegistrationsController
 
   protected
 
+  def is_navigational_format?
+    false
+  end
+
   def set_flash_message(key, kind, options = {})
     if kind == :signed_up
       kind = :"signed_up_#{resource.product_name}"

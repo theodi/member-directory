@@ -13,7 +13,6 @@ Feature: Signup as an individual member
     When I click sign up
     Then I am redirected to the payment page
     And I should have a membership number generated
-    And I should not see a message including "edit your organisation details"
     And I am processed through chargify for the "individual-supporter" option
     When I click pay now
     And am returned to the thanks page
