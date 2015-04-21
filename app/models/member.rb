@@ -190,7 +190,7 @@ class Member < ActiveRecord::Base
     end
     product_family_ids.each do |product_family_id|
       Chargify::Coupon.all(params: {product_family_id: product_family_id}).each do |coupon|
-        register_chargify_coupon_code(coupon.code, coupon.percentage)
+        register_chargify_coupon_code(coupon.code, coupon.percentage) unless coupon.archived_at.present?
       end
     end
   end

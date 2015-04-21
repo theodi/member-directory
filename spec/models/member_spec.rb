@@ -79,6 +79,7 @@ describe Member do
     before do
       Member::CHARGIFY_PRODUCT_LINKS.clear
       Member::CHARGIFY_PRODUCT_PRICES.clear
+      Member::CHARGIFY_COUPON_DISCOUNTS.clear
       allow(Chargify::Coupon).to receive(:all).and_return([])
     end
 
@@ -119,9 +120,9 @@ describe Member do
     end
 
     it 'stores coupon discounts' do
-      full = double('coupon')
-      half = double('coupon')
-      amount = double('coupon')
+      full = double('coupon', archived_at: nil)
+      half = double('coupon', archived_at: nil)
+      amount = double('coupon', archived_at: nil)
       allow(full).to receive(:percentage).and_return(100)
       allow(full).to receive(:code).and_return("FULL")
       allow(half).to receive(:percentage).and_return(50)
@@ -138,6 +139,22 @@ describe Member do
         "FULL" => :free,
         "HALF" => :discount,
         "AMOUNT" => :discount
+      })
+    end
+
+    it 'ignores archived coupons' do
+      present = double('coupon', archived_at: nil)
+      archived = double('coupon', archived_at: 3.days.ago)
+      allow(present).to receive(:percentage).and_return(100)
+      allow(present).to receive(:code).and_return("PRESENT")
+      allow(archived).to receive(:percentage).and_return(nil)
+      allow(archived).to receive(:code).and_return("ARCHIVED")
+      product1 = double('product', product_family: double(:id => 1), handle: 'a', public_signup_pages: [], price_in_cents: 1)
+      allow(Chargify::Product).to receive(:all).and_return([product1])
+      expect(Chargify::Coupon).to receive(:all).with(params: {product_family_id: 1}).and_return([present, archived])
+      Member.initialize_chargify_links!
+      expect(Member::CHARGIFY_COUPON_DISCOUNTS).to eq({
+        "PRESENT" => :free
       })
     end
   end
