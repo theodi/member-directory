@@ -120,15 +120,18 @@ describe Member do
     end
 
     it 'stores coupon discounts' do
-      full = double('coupon', archived_at: nil)
-      half = double('coupon', archived_at: nil)
-      amount = double('coupon', archived_at: nil)
-      allow(full).to receive(:percentage).and_return(100)
-      allow(full).to receive(:code).and_return("FULL")
-      allow(half).to receive(:percentage).and_return(50)
-      allow(half).to receive(:code).and_return("HALF")
-      allow(amount).to receive(:percentage).and_return(nil)
-      allow(amount).to receive(:code).and_return("AMOUNT")
+      full = double('coupon',
+        archived_at: nil,
+        percentage: 100,
+        code: "FULL")
+      half = double('coupon',
+        archived_at: nil,
+        percentage: 50,
+        code: "HALF")
+      amount = double('coupon',
+        archived_at: nil,
+        percentage: nil,
+        code: "AMOUNT")
       product1 = double('product', product_family: double(:id => 1), handle: 'a', public_signup_pages: [], price_in_cents: 1)
       product2 = double('product', product_family: double(:id => 2), handle: 'b', public_signup_pages: [], price_in_cents: 1)
       allow(Chargify::Product).to receive(:all).and_return([product1, product2])
@@ -143,14 +146,16 @@ describe Member do
     end
 
     it 'ignores archived coupons' do
-      present = double('coupon', archived_at: nil)
-      archived = double('coupon', archived_at: 3.days.ago)
-      allow(present).to receive(:percentage).and_return(100)
-      allow(present).to receive(:code).and_return("PRESENT")
-      allow(archived).to receive(:percentage).and_return(nil)
-      allow(archived).to receive(:code).and_return("ARCHIVED")
-      product1 = double('product', product_family: double(:id => 1), handle: 'a', public_signup_pages: [], price_in_cents: 1)
-      allow(Chargify::Product).to receive(:all).and_return([product1])
+      present = double('coupon',
+        archived_at: nil,
+        percentage: 100,
+        code: "PRESENT")
+      archived = double('coupon',
+        archived_at: 3.days.ago,
+        percentage: nil,
+        code: "ARCHIVED")
+      product = double('product', product_family: double(:id => 1), handle: 'a', public_signup_pages: [], price_in_cents: 1)
+      allow(Chargify::Product).to receive(:all).and_return([product])
       expect(Chargify::Coupon).to receive(:all).with(params: {product_family_id: 1}).and_return([present, archived])
       Member.initialize_chargify_links!
       expect(Member::CHARGIFY_COUPON_DISCOUNTS).to eq({
