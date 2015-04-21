@@ -87,6 +87,7 @@ describe Member do
       page = double('page')
       allow(page).to receive(:url).and_return("http://i.am/an/url")
       allow(product).to receive(:price_in_cents)
+      allow(product).to receive(:product_family).and_return(double('pf', id: 1))
       allow(product).to receive(:handle).and_return("plan_name")
       allow(product).to receive(:public_signup_pages).and_return([page])
       expect(Chargify::Product).to receive(:all).and_return([product])
@@ -97,6 +98,7 @@ describe Member do
     it 'handles a missing signup page' do
       product = double('product')
       allow(product).to receive(:price_in_cents)
+      allow(product).to receive(:product_family).and_return(double('pf', id: 1))
       allow(product).to receive(:handle).and_return("plan_name")
       allow(product).to receive(:public_signup_pages).and_return([])
       expect(Chargify::Product).to receive(:all).and_return([product])
@@ -108,6 +110,7 @@ describe Member do
       product = double('product')
       page = double('page')
       allow(product).to receive(:price_in_cents).and_return(80000)
+      allow(product).to receive(:product_family).and_return(double('pf', id: 1))
       allow(product).to receive(:handle).and_return("plan_name")
       allow(product).to receive(:public_signup_pages).and_return([])
       expect(Chargify::Product).to receive(:all).and_return([product])
@@ -125,8 +128,11 @@ describe Member do
       allow(half).to receive(:code).and_return("HALF")
       allow(amount).to receive(:percentage).and_return(nil)
       allow(amount).to receive(:code).and_return("AMOUNT")
-      allow(Chargify::Product).to receive(:all).and_return([])
-      expect(Chargify::Coupon).to receive(:all).and_return([full, half, amount])
+      product1 = double('product', product_family: double(:id => 1), handle: 'a', public_signup_pages: [], price_in_cents: 1)
+      product2 = double('product', product_family: double(:id => 2), handle: 'b', public_signup_pages: [], price_in_cents: 1)
+      allow(Chargify::Product).to receive(:all).and_return([product1, product2])
+      expect(Chargify::Coupon).to receive(:all).with(params: {product_family_id: 1}).and_return([full, amount])
+      expect(Chargify::Coupon).to receive(:all).with(params: {product_family_id: 2}).and_return([half])
       Member.initialize_chargify_links!
       expect(Member::CHARGIFY_COUPON_DISCOUNTS).to eq({
         "FULL" => :free,
