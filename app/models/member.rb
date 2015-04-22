@@ -177,6 +177,7 @@ class Member < ActiveRecord::Base
   end
 
   def self.initialize_chargify_links!
+    product_family_ids = Set.new
     Chargify::Product.all.each do |product|
       # yep, this is how good the chargify API naming is
       # also no way to find the currency of a Site either
@@ -185,9 +186,12 @@ class Member < ActiveRecord::Base
       if page
         register_chargify_product_link(product.handle, page.url)
       end
+      product_family_ids.add(product.product_family.id)
     end
-    Chargify::Coupon.all.each do |coupon|
-      register_chargify_coupon_code(coupon.code, coupon.percentage)
+    product_family_ids.each do |product_family_id|
+      Chargify::Coupon.all(params: {product_family_id: product_family_id}).each do |coupon|
+        register_chargify_coupon_code(coupon.code, coupon.percentage) unless coupon.archived_at.present?
+      end
     end
   end
 
