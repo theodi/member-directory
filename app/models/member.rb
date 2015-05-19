@@ -85,6 +85,14 @@ class Member < ActiveRecord::Base
     @remote = true
   end
 
+  def login=(login)
+    @login = login
+  end
+
+  def login
+    @login || self.username || self.email
+  end
+
   def current!
     update_attribute(:cached_active, true) if organization?
     update_attribute(:current, true)
