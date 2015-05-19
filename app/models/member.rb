@@ -93,6 +93,15 @@ class Member < ActiveRecord::Base
     @login || self.username || self.email
   end
 
+  def self.find_for_database_authentication(warden_conditions)
+    conditions = warden_conditions.dup
+    if login = conditions.delete(:login)
+      where(conditions.to_h).where(["lower(membership_number) = :value OR lower(email) = :value", { :value => login.downcase }]).first
+    else
+      where(conditions.to_h).first
+    end
+  end
+
   def current!
     update_attribute(:cached_active, true) if organization?
     update_attribute(:current, true)
