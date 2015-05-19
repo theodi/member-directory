@@ -24,10 +24,15 @@ class RegistrationsController < Devise::RegistrationsController
         respond_with resource, :location => after_inactive_sign_up_path_for(resource)
       end
     else
+      if resource.abandoned_signup?
+        new_resource = resource.class.where(email: resource.email).first
+        redirect_to(payment_member_path new_resource, coupon: params[:coupon].presence) and return
+      end
       clean_up_passwords resource
       respond_with resource
     end
   end
+
   protected
 
   def is_navigational_format?
@@ -55,6 +60,10 @@ class RegistrationsController < Devise::RegistrationsController
 
   def individual?
     resource.individual?
+  end
+
+  def sign_up_params
+    devise_parameter_sanitizer.sanitize(:sign_up)
   end
 
 end
