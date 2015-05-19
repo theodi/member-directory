@@ -3,9 +3,9 @@
 <%= form_for(resource, :as => resource_name, :url => member_session_path, :html => {:class => 'form-horizontal'}) do |f| %>
 
   <div class="control-group">
-    <%= f.label :membership_number, :class => 'control-label' %>
+    <%= f.label :login, :class => 'control-label' %>
     <div class='controls'>
-      <%= f.text_field :membership_number, :value => params[:membership_number], :autofocus => true %>
+      <%= f.text_field :login, :value => params[:login], :autofocus => true %>
     </div>
   </div>
 
@@ -28,7 +28,7 @@
   <% end -%>
 
   <div class="form-actions">
-    <%= f.submit "Sign in", :id => 'submit', :class => 'btn btn-primary btn-large' %> 
+    <%= f.submit "Sign in", :id => 'submit', :class => 'btn btn-primary btn-large' %>
     or <%= link_to "Become an ODI member", 'http://theodi.org/join-us' %>
   </div>
 
