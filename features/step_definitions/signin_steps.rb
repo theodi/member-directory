@@ -23,9 +23,10 @@ Given /^that I have a membership number and password$/ do
   member.remote!
   member.save!
   member.current!
-  
+
   @membership_number = member.membership_number
   @password = 'p4ssw0rd'
+  @email = 'iain@foobar.com'
 end
 
 When /^I visit the sign in page$/ do
@@ -34,7 +35,11 @@ When /^I visit the sign in page$/ do
 end
 
 When /^I enter my membership number and password$/ do
-  fill_in('member_membership_number', :with => @membership_number)
+  fill_in('member_login', :with => @membership_number)
+end
+
+When /^I enter my email address and password$/ do
+  fill_in('member_login', :with => @email)
 end
 
 And /^the password is correct$/ do
@@ -54,11 +59,11 @@ And /^the password is incorrect$/ do
 end
 
 And /^the membership number is incorrect$/ do
-  fill_in('member_membership_number', :with => '42342342342342')
+  fill_in('member_login', :with => '42342342342342')
 end
 
 Then /^I should have recieve an error$/ do
-  expect(page).to have_content "Invalid membership number or password"
+  expect(page).to have_content "Invalid login or password"
 end
 
 Given(/^my size and sector are not set$/) do
