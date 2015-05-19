@@ -193,7 +193,7 @@ end
 Then /^am returned to the thanks page$/ do
   member = Member.find_by_email(@email)
   expect(current_path).to eq(thanks_member_path(member))
-end 
+end
 
 Then /^there are payment frequency options$/ do
   expect(page).to have_css("input[type=radio][id=payment_frequency_monthly][value=monthly]")
@@ -351,4 +351,27 @@ end
 Then(/^I should have an origin of "(.*?)"$/) do |origin|
   member = Member.find_by_email(@email)
   expect(member.origin).to eq(origin)
+end
+
+Given(/^I have signed up, but haven't paid$/) do
+  steps %{
+    When I enter my name and contact details
+    And I enter my company details
+    And I enter my address details
+    And I agree to the terms
+    And I click sign up
+  }
+end
+
+Given(/^I try to sign up again$/) do
+  steps %{
+    Given that I want to sign up as a supporter
+    And product information has been setup for "corporate-supporter_annual"
+    When I visit the signup page
+    When I enter my name and contact details
+    And I enter my company details
+    And I enter my address details
+    And I agree to the terms
+    And I click sign up
+  }
 end
