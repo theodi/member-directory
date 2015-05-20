@@ -150,7 +150,7 @@ class Member < ActiveRecord::Base
   end
 
   def abandoned_signup?
-    errors.messages[:email] && errors.messages[:email].include?("has already been taken") && chargify_customer_id.nil?
+    errors.messages[:email] && errors.messages[:email].include?("has already been taken") && !current?
   end
 
   def badge_class
