@@ -26,7 +26,9 @@ class RegistrationsController < Devise::RegistrationsController
     else
       if resource.abandoned_signup?
         new_resource = resource.class.where(email: resource.email).first
-        redirect_to(payment_member_path new_resource, coupon: params[:coupon].presence) and return
+        if new_resource.valid_password?(resource.password)
+          redirect_to(payment_member_path new_resource, coupon: params[:coupon].presence) and return
+        end
       end
       clean_up_passwords resource
       respond_with resource
