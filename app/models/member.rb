@@ -149,6 +149,10 @@ class Member < ActiveRecord::Base
     end
   end
 
+  def abandoned_signup?
+    errors.messages[:email] && errors.messages[:email].include?("has already been taken") && !current?
+  end
+
   def badge_class
     if %w[partner sponsor].include?(product_name)
       "partner"

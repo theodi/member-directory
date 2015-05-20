@@ -65,7 +65,7 @@ Feature: Add new signups to queue
     When I click pay now
 
   Scenario Outline: Member tries to sign up, but misses a mandatory field
-    
+
     When I enter my name and contact details
     And I enter my company details
     And I enter my address details
@@ -95,7 +95,7 @@ Feature: Add new signups to queue
     Then I should get an error telling me to accept the terms
 
   Scenario: Member tries to sign up, but their password doesn't match
-  
+
     When I enter my name and contact details
     And I enter my company details
     And I enter my address details
@@ -113,6 +113,36 @@ Feature: Add new signups to queue
     And I agree to the terms
     When I click sign up
     Then I should see an error relating to Organisation name
+
+  Scenario: Member abandons signup before chargify processes, and returns to sign up again
+
+    Given I have signed up, but haven't paid
+    And I should have a membership number generated
+    And I try to sign up again
+    Then I am redirected to the payment page
+    And I am processed through chargify for the "corporate-supporter_annual" option
+    When I click pay now
+    And am returned to the thanks page
+    And a welcome email should be sent to me
+    And I should see "Welcome Pack" in the email body
+    And my details should be queued for further processing
+    When chargify verifies the payment
+
+  Scenario: User tries to sign up with an email that has an abandonned account, but passwords don't match
+    Given there is an abandoned account with the email "test@foo.bar" and the password "p4ssw0rd"
+    And I try to sign up with the email "test@foo.bar" and the password "s3cr3tc0d3z"
+    When I click sign up
+    Then I should be redirected to the login page
+    And I should see an error telling me I need to login
+    And I log in
+    Then I am redirected to the payment page
+    And I am processed through chargify for the "corporate-supporter_annual" option
+    When I click pay now
+    And am returned to the thanks page
+    And a welcome email should be sent to me
+    And I should see "Welcome Pack" in the email body
+    And my details should be queued for further processing
+    When chargify verifies the payment
 
   @javascript
   Scenario: Auto-update terms based on user input

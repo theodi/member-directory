@@ -50,15 +50,15 @@ end
 
 When /^I enter my name and contact details$/ do
   @contact_name = 'Ian McIain'
-  @email = 'iain@foobar.com'
+  @email ||= 'iain@foobar.com'
   @telephone = '0121 123 446'
 
   fill_in('member_contact_name', :with => @contact_name)
   fill_in('member_email', :with => @email)
   fill_in('member_telephone', :with => @telephone)
 
-  fill_in('member_password', :with => 'p4ssw0rd')
-  fill_in('member_password_confirmation', :with => 'p4ssw0rd')
+  fill_in('member_password', :with => @password || 'p4ssw0rd')
+  fill_in('member_password_confirmation', :with => @password || 'p4ssw0rd')
 end
 
 When /^I enter my address details$/ do
@@ -193,7 +193,7 @@ end
 Then /^am returned to the thanks page$/ do
   member = Member.find_by_email(@email)
   expect(current_path).to eq(thanks_member_path(member))
-end 
+end
 
 Then /^there are payment frequency options$/ do
   expect(page).to have_css("input[type=radio][id=payment_frequency_monthly][value=monthly]")
@@ -351,4 +351,68 @@ end
 Then(/^I should have an origin of "(.*?)"$/) do |origin|
   member = Member.find_by_email(@email)
   expect(member.origin).to eq(origin)
+end
+
+Given(/^I have signed up, but haven't paid$/) do
+  steps %{
+    When I enter my name and contact details
+    And I enter my company details
+    And I enter my address details
+    And I agree to the terms
+    And I click sign up
+  }
+end
+
+Given(/^I try to sign up again$/) do
+  steps %{
+    Given that I want to sign up as a supporter
+    And product information has been setup for "corporate-supporter_annual"
+    When I visit the signup page
+    When I enter my name and contact details
+    And I enter my company details
+    And I enter my address details
+    And I agree to the terms
+    And I click sign up
+  }
+end
+
+
+Given(/^there is an abandoned account with the email "(.*?)" and the password "(.*?)"$/) do |email, password|
+  @email = email
+  @password = password
+  @original_password = password
+  steps %{
+    When I visit the signup page
+    And I enter my name and contact details
+    And I enter my company details
+    And I enter my address details
+    And I agree to the terms
+    And I click sign up
+  }
+  @membership_number = Member.last.membership_number
+end
+
+Given(/^I try to sign up with the email "(.*?)" and the password "(.*?)"$/) do |email, password|
+  @email = email
+  @password = password
+  steps %{
+    When I visit the signup page
+    And I enter my name and contact details
+    And I enter my company details
+    And I enter my address details
+    And I agree to the terms
+  }
+end
+
+Then(/^I should be redirected to the login page$/) do
+  expect(current_path).to eq(new_member_session_path)
+end
+
+Then(/^I should see an error telling me I need to login$/) do
+  expect(page.body).to include("You have already started the signup process, to continue to payment, please login.")
+end
+
+Then(/^I log in$/) do
+  fill_in('member_password', :with => @original_password)
+  click_button('submit')
 end
