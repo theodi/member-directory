@@ -128,6 +128,22 @@ Feature: Add new signups to queue
     And my details should be queued for further processing
     When chargify verifies the payment
 
+  Scenario: User tries to sign up with an email that has an abandonned account, but passwords don't match
+    Given there is an abandoned account with the email "test@foo.bar" and the password "p4ssw0rd"
+    And I try to sign up with the email "test@foo.bar" and the password "s3cr3tc0d3z"
+    When I click sign up
+    Then I should be redirected to the login page
+    And I should see an error telling me I need to login
+    And I log in
+    Then I am redirected to the payment page
+    And I am processed through chargify for the "corporate-supporter_annual" option
+    When I click pay now
+    And am returned to the thanks page
+    And a welcome email should be sent to me
+    And I should see "Welcome Pack" in the email body
+    And my details should be queued for further processing
+    When chargify verifies the payment
+
   @javascript
   Scenario: Auto-update terms based on user input
 

@@ -31,6 +31,9 @@ class RegistrationsController < Devise::RegistrationsController
         resource.delete
         if new_resource.valid_password?(password)
           redirect_to(payment_member_path new_resource, coupon: params[:coupon].presence) and return
+        else
+          flash.alert = "You have already started the signup process, to continue to payment, please login.<br /> Forgotten your password? Just click the \"Forgotten password?\" link and we'll send you a link to reset it.".html_safe
+          redirect_to(new_member_session_path(login: new_resource.membership_number)) and return
         end
       end
       clean_up_passwords resource
