@@ -96,9 +96,9 @@ class Member < ActiveRecord::Base
   def self.find_for_database_authentication(warden_conditions)
     conditions = warden_conditions.dup
     if login = conditions.delete(:login)
-      where(conditions.to_h).where(["lower(membership_number) = :value OR lower(email) = :value", { :value => login.downcase }]).first
+      where(conditions.to_hash).where(["lower(membership_number) = :value OR lower(email) = :value", { :value => login.downcase }]).first
     else
-      where(conditions.to_h).first
+      where(conditions.to_hash).first
     end
   end
 
