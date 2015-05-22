@@ -56,7 +56,8 @@ class Member < ActiveRecord::Base
                   :organization_company_number,
                   :agreed_to_terms,
                   :address,
-                  :origin
+                  :origin,
+                  :coupon
 
   attr_accessor :agreed_to_terms
 
