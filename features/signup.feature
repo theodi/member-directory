@@ -61,7 +61,7 @@ Feature: Add new signups to queue
     When I click sign up
     Then I am redirected to the payment page
     And I am processed through chargify for the "corporate-supporter_annual" option
-    And the coupon code "ODIALUMNI" is supplied
+    And the coupon code "ODIALUMNI" is saved against my membership
     When I click pay now
 
   Scenario Outline: Member tries to sign up, but misses a mandatory field
