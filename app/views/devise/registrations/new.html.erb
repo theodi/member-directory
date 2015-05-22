@@ -7,7 +7,7 @@
 	  This won't take longer than a couple of minutes!
   </p>
 
-  <%= hidden_field_tag(:coupon, params[:coupon]) if params[:coupon].present? %>
+  <%= f.hidden_field :coupon, value: params[:coupon] if params[:coupon].present? %>
   <%= f.hidden_field :origin, value: params[:origin] if params[:origin].present? %>
   <%= f.hidden_field :product_name %>
 
@@ -40,7 +40,7 @@
   	<h2>Terms and conditions</h2>
 
   	<p>
-      Please read the terms and conditions below and tick to say you accept them. 
+      Please read the terms and conditions below and tick to say you accept them.
       <% unless individual? %>
         As an open organisation we publish who funds us and what our relationships are. As part of this agreement you are agreeing that we can publish your membership and our contract.
       <% end %>
