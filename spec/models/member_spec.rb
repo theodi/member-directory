@@ -232,11 +232,11 @@ describe Member do
       expect(url.host).to eq("chargify.com")
       expect(url.path).to eq("/individual")
     end
-    
+
     it 'includes membership number as customer reference' do
       expect(params).to include("reference" => member.membership_number)
     end
-    
+
     it 'includes email' do
       expect(params).to include("email" => "test@example.com")
     end
@@ -305,12 +305,12 @@ describe Member do
     let(:params) do
       Rack::Utils.parse_nested_query(url.query)
     end
-    
+
     it 'links to the corporate product page' do
       expect(url.host).to eq("chargify.com")
       expect(url.path).to eq("/corporate")
     end
-    
+
     it 'includes organization_name' do
       expect(params).to include("organization" => "Test Org")
     end
@@ -347,7 +347,7 @@ describe Member do
     let(:params) do
       Rack::Utils.parse_nested_query(url.query)
     end
-    
+
     it 'links to the non profit product page' do
       expect(url.host).to eq("chargify.com")
       expect(url.path).to eq("/non-profit")
@@ -397,6 +397,47 @@ describe Member do
       member.update_attribute(:payment_frequency, "monthly")
       expect(url.host).to eq("chargify.com")
       expect(url.path).to eq("/monthly-non-profit")
+    end
+  end
+
+  describe 'chargify redirect link for member with a coupon code' do
+    before do
+      Member.register_chargify_product_link('supporter_annual', 'https://chargify.com/non-profit')
+      Member.register_chargify_product_link('supporter_monthly', 'https://chargify.com/monthly-non-profit')
+      Member.register_chargify_product_link('corporate-supporter_annual', 'https://chargify.com/corporate')
+    end
+
+    let(:member) do
+      Member.create!(
+        product_name: "supporter",
+        contact_name: "Test Person",
+        email: 'test@example.com',
+        organization_name: "Test Org",
+        organization_size: "251-1000",
+        organization_type: "non_commercial",
+        organization_sector: "Energy",
+        street_address: "1 Street Over",
+        address_locality: "Townplace",
+        address_region: "London",
+        address_country: "GB",
+        postal_code: "EC1 1TT",
+        password: 'testtest',
+        password_confirmation: 'testtest',
+        agreed_to_terms: "1",
+        coupon: "ODIALUMNI"
+      )
+    end
+
+    let(:url) { URI.parse(member.chargify_product_link) }
+
+    let(:params) do
+      Rack::Utils.parse_nested_query(url.query)
+    end
+
+    it 'appends a coupon code' do
+      query = Rack::Utils.parse_query url.query
+      expect(member.coupon).to eq("ODIALUMNI")
+      expect(query["coupon_code"]).to eq("ODIALUMNI")
     end
   end
 

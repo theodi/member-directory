@@ -56,7 +56,8 @@ class Member < ActiveRecord::Base
                   :organization_company_number,
                   :agreed_to_terms,
                   :address,
-                  :origin
+                  :origin,
+                  :coupon
 
   attr_accessor :agreed_to_terms
 
@@ -232,7 +233,7 @@ class Member < ActiveRecord::Base
     get_plan
   end
 
-  def chargify_product_link(coupon=nil)
+  def chargify_product_link
     if link = CHARGIFY_PRODUCT_LINKS[chargify_product_handle]
       url = URI(link)
       first_name, last_name = contact_name.split(/\s+/, 2)

@@ -221,6 +221,11 @@ Then(/^the coupon code "(.*?)" is supplied$/) do |coupon|
   expect_any_instance_of(Member).to receive(:chargify_product_link).with(coupon).and_call_original
 end
 
+Then(/^the coupon code "(.*?)" is saved against my membership$/) do |coupon|
+  member = Member.find_by_email(@email)
+  expect(member.coupon).to eq(coupon)
+end
+
 When(/^chargify verifies the payment$/) do
   member = Member.find_by_email(@email)
   MembersController.skip_before_filter :verify_chargify_webhook
