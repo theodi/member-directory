@@ -196,7 +196,7 @@ Then /^I am redirected to the payment page$/ do
   expect(current_path).to eq(payment_member_path(member))
 end
 
-Then /^am returned to the thanks page$/ do
+Then /^I ?am returned to the thanks page$/ do
   member = Member.find_by_email(@email)
   expect(current_path).to eq(thanks_member_path(member))
 end

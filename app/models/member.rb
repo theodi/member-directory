@@ -57,7 +57,8 @@ class Member < ActiveRecord::Base
                   :agreed_to_terms,
                   :address,
                   :origin,
-                  :coupon
+                  :coupon,
+                  :invoice
 
   attr_accessor :agreed_to_terms
 

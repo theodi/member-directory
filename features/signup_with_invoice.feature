@@ -8,3 +8,13 @@ Feature: Signup and pay by invoice
     When I visit the signup page with the invoice flag set
     Then the signup page should have a hidden field called "invoice"
     And the hidden field should have the value "1"
+
+  Scenario: Member signing up with invoice does not get redirected to chargify
+    When I visit the signup page with the invoice flag set
+    And I enter my name and contact details
+    And I enter my company details
+    And I enter my address details
+    And I agree to the terms
+    When I click sign up
+    Then I am returned to the thanks page
+    And I should have a membership number generated
