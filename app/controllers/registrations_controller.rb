@@ -57,7 +57,7 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
   def after_sign_up_path_for(resource)
-    if resource.invoice === true && resource.product_name == "supporter"
+    if resource.invoiced_member?
       thanks_member_path(resource)
     else
       payment_member_path(resource, coupon: params[:coupon].presence)

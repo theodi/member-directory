@@ -155,6 +155,10 @@ class Member < ActiveRecord::Base
     errors.messages[:email] && errors.messages[:email].include?("has already been taken") && !current?
   end
 
+  def invoiced_member?
+    self.invoice === true && self.product_name == "supporter"
+  end
+
   def badge_class
     if %w[partner sponsor].include?(product_name)
       "partner"
