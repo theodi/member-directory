@@ -18,3 +18,13 @@ Feature: Signup and pay by invoice
     When I click sign up
     Then I am returned to the thanks page
     And I should have a membership number generated
+
+  Scenario: Individual member setting invoice flag still gets redirected to chargify
+    Given I want to sign up as an individual member
+    And product information has been setup for "individual-supporter"
+    When I visit the signup page with the invoice flag set
+    When I enter my name and contact details
+    And I enter my address details
+    And I agree to the terms
+    When I click sign up
+    Then I am redirected to the payment page
