@@ -89,6 +89,10 @@ class MembersController < ApplicationController
 
   def thanks
     @title = "Thanks for supporting The ODI"
+    if current_member.invoice === true && current_member.product_name == "supporter"
+      current_member.send(:add_to_capsule)
+      current_member.deliver_welcome_email!
+    end
   end
 
   def payment

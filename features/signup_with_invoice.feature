@@ -15,9 +15,11 @@ Feature: Signup and pay by invoice
     And I enter my company details
     And I enter my address details
     And I agree to the terms
+    Then my details should be queued for further processing
     When I click sign up
     Then I am returned to the thanks page
     And I should have a membership number generated
+    And a welcome email should be sent to me
 
   Scenario: Individual member setting invoice flag still gets redirected to chargify
     Given I want to sign up as an individual member
