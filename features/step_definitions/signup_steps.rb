@@ -48,6 +48,12 @@ When /^I visit the signup page$/ do
   @field_prefix = 'member'
 end
 
+When(/^I visit the signup page with the invoice flag set$/) do
+  visit("/members/new?level=#{@product_name}&invoice=true")
+  expect(page).to have_content 'Become an ODI member'
+  @field_prefix = 'member'
+end
+
 When /^I enter my name and contact details$/ do
   @contact_name = 'Ian McIain'
   @email ||= 'iain@foobar.com'
@@ -420,4 +426,13 @@ end
 Then(/^I log in$/) do
   fill_in('member_password', :with => @original_password)
   click_button('submit')
+end
+
+Then(/^the signup page should have a hidden field called "(.*?)"$/) do |name|
+  expect(page).to have_selector("input[name='member[#{name}]']")
+  @field = page.find("input[name='member[#{name}]']")
+end
+
+Then(/^the hidden field should have the value "(.*?)"$/) do |value|
+  expect(@field.value).to eq(value)
 end
