@@ -89,6 +89,9 @@ class MembersController < ApplicationController
 
   def thanks
     @title = "Thanks for supporting The ODI"
+    if current_member.invoiced_member?
+      current_member.process_invoiced_member!
+    end
   end
 
   def payment

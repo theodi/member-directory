@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150520144034) do
+ActiveRecord::Schema.define(:version => 20150609084647) do
 
   create_table "admins", :force => true do |t|
     t.string   "email",              :default => "", :null => false
@@ -75,6 +75,7 @@ ActiveRecord::Schema.define(:version => 20150520144034) do
     t.string   "origin",                                   :default => "odihq",  :null => false
     t.string   "payment_frequency",                        :default => "annual", :null => false
     t.string   "coupon"
+    t.boolean  "invoice",                                  :default => false
   end
 
   add_index "members", ["email"], :name => "index_members_on_email", :unique => true
@@ -103,7 +104,7 @@ ActiveRecord::Schema.define(:version => 20150520144034) do
     t.integer  "item"
     t.string   "table"
     t.integer  "month",      :limit => 2
-    t.integer  "year",       :limit => 5
+    t.integer  "year",       :limit => 8
     t.datetime "created_at",              :null => false
     t.datetime "updated_at",              :null => false
   end

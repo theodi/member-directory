@@ -70,6 +70,7 @@ gem 'zeroclipboard-rails'
 
 # To use debugger
 # gem 'debugger'
+gem 'mysql2'
 
 
 group :development, :test do
@@ -98,5 +99,4 @@ end
 group :production do
   gem 'foreman', '< 0.65.0'
   gem 'thin'
-  gem 'mysql2'
 end

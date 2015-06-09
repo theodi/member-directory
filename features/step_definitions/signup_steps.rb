@@ -48,6 +48,12 @@ When /^I visit the signup page$/ do
   @field_prefix = 'member'
 end
 
+When(/^I visit the signup page with the invoice flag set$/) do
+  visit("/members/new?level=#{@product_name}&invoice=true")
+  expect(page).to have_content 'Become an ODI member'
+  @field_prefix = 'member'
+end
+
 When /^I enter my name and contact details$/ do
   @contact_name = 'Ian McIain'
   @email ||= 'iain@foobar.com'
@@ -190,7 +196,7 @@ Then /^I am redirected to the payment page$/ do
   expect(current_path).to eq(payment_member_path(member))
 end
 
-Then /^am returned to the thanks page$/ do
+Then /^I ?am returned to the thanks page$/ do
   member = Member.find_by_email(@email)
   expect(current_path).to eq(thanks_member_path(member))
 end
@@ -420,4 +426,18 @@ end
 Then(/^I log in$/) do
   fill_in('member_password', :with => @original_password)
   click_button('submit')
+end
+
+Then(/^the signup page should have a hidden field called "(.*?)"$/) do |name|
+  expect(page).to have_selector("input[name='member[#{name}]']")
+  @field = page.find("input[name='member[#{name}]']")
+end
+
+Then(/^the hidden field should have the value "(.*?)"$/) do |value|
+  expect(@field.value).to eq(value)
+end
+
+Then(/^I should be marked as active$/) do
+  expect(@member.cached_active).to eq(true)
+  expect(@member.current).to eq(true)
 end

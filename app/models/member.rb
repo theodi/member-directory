@@ -57,7 +57,8 @@ class Member < ActiveRecord::Base
                   :agreed_to_terms,
                   :address,
                   :origin,
-                  :coupon
+                  :coupon,
+                  :invoice
 
   attr_accessor :agreed_to_terms
 
@@ -112,6 +113,12 @@ class Member < ActiveRecord::Base
     send_devise_notification(:confirmation_instructions)
   end
 
+  def process_invoiced_member!
+    current!
+    add_to_capsule
+    deliver_welcome_email!
+  end
+
   def check_organization_names
     if new_record? # Only validate on create
       unless Organization.where(:name => organization_name).empty?
@@ -152,6 +159,10 @@ class Member < ActiveRecord::Base
 
   def abandoned_signup?
     errors.messages[:email] && errors.messages[:email].include?("has already been taken") && !current?
+  end
+
+  def invoiced_member?
+    self.invoice === true && self.product_name == "supporter"
   end
 
   def badge_class
