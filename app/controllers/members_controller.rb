@@ -90,8 +90,7 @@ class MembersController < ApplicationController
   def thanks
     @title = "Thanks for supporting The ODI"
     if current_member.invoiced_member?
-      current_member.send(:add_to_capsule)
-      current_member.deliver_welcome_email!
+      current_member.process_invoiced_member!
     end
   end
 

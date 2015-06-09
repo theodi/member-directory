@@ -113,6 +113,11 @@ class Member < ActiveRecord::Base
     send_devise_notification(:confirmation_instructions)
   end
 
+  def process_invoiced_member!
+    add_to_capsule
+    deliver_welcome_email!
+  end
+
   def check_organization_names
     if new_record? # Only validate on create
       unless Organization.where(:name => organization_name).empty?
