@@ -436,3 +436,8 @@ end
 Then(/^the hidden field should have the value "(.*?)"$/) do |value|
   expect(@field.value).to eq(value)
 end
+
+Then(/^I should be marked as active$/) do
+  expect(@member.cached_active).to eq(true)
+  expect(@member.current).to eq(true)
+end

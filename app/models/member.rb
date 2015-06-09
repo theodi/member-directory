@@ -114,6 +114,7 @@ class Member < ActiveRecord::Base
   end
 
   def process_invoiced_member!
+    current!
     add_to_capsule
     deliver_welcome_email!
   end

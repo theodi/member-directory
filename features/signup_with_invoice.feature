@@ -20,6 +20,7 @@ Feature: Signup and pay by invoice
     Then I am returned to the thanks page
     And I should have a membership number generated
     And a welcome email should be sent to me
+    And I should be marked as active
 
   Scenario: Individual member setting invoice flag still gets redirected to chargify
     Given I want to sign up as an individual member
