@@ -9,8 +9,11 @@
         <td>
             <ul>
                 <li>Your membership number is <strong><%= @resource.membership_number %></strong></li>
-
-                <li>Sign in to your account <%= link_to 'here', new_member_session_url(membership_number: @resource.membership_number) %></li>
+                <% if @resource.reset_password_token %>
+                  <li>To activate your account click <%= link_to 'here', edit_password_url(@resource, :reset_password_token => @resource.reset_password_token) %></li>
+                <% else %>
+                  <li>Sign in to your account <%= link_to 'here', new_member_session_url(membership_number: @resource.membership_number) %></li>
+                <% end %>
 
                 <li>You will then be able to download an ODI Supporter badge which you can display on your website and on your print collateral</li>
             </ul>

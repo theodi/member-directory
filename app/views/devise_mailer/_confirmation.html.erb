@@ -8,7 +8,9 @@
 
 <p>- We are drawing up your invoice and it will be sent to you shortly.</p>
 
-<p>- You will soon receive your Welcome Pack to help you get started with your ODI membership and make the most of ODI communications.</p>
+<% unless @type == "capsule" %>
+  <p>- You will soon receive your Welcome Pack to help you get started with your ODI membership and make the most of ODI communications.</p>
+<% end %>
 
 <p>- You will receive our monthly membership newsletter (let us know if you want to add any colleagues to the mailing list) and invites to the quarterly ODI Connect member networking events and the annual Summit.</p>
 
