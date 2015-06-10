@@ -1,6 +1,10 @@
 Given /^I am not currently a member$/ do
 end
 
+Given /^I am not currently an individual member$/ do
+  @product_name = "individual"
+end
+
 Given /^I am already signed up$/ do
   @membership = FactoryGirl.create :current_active_member
   @old_description = @membership.organization.description
@@ -9,7 +13,7 @@ end
 When /^I am set as a member in CapsuleCRM$/ do
   @active            = "true"
   @email             = Faker::Internet.email
-  @product_name      = 'partner'
+  @product_name    ||= 'partner'
   @newsletter        = false
   @capsule_id        = 1234
 end
@@ -74,6 +78,14 @@ Then /^a membership should be created for me$/ do
   @membership_number = @membership.membership_number
   expect(@membership_number).to be_present
   @old_description = @membership.organization.description
+end
+
+Then(/^an individual membership should be created for me$/) do
+  @membership = Member.where(:email => @email).first
+  expect(@membership).to be_present
+  @membership_number = @membership.membership_number
+  expect(@membership_number).to be_present
+  expect(@membership.individual?).to eq(true)
 end
 
 Then(/^that membership should not be shown in the directory$/) do

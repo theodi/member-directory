@@ -63,8 +63,11 @@ class CapsuleObserver
         :product_name      => membership['product_name']
       )
       member.remote! # Disable callbacks
-      member.cached_active = false # We always set this false on create so that
+      if member.individual?
+        member.cached_active = false # We always set this false on create so that
                                    # incomplete entries don't go immediately live
+      end
+      member.current = true
       # Generate a password reset token but don't sent straight away
       member.send :generate_reset_password_token
       # Save without validation
