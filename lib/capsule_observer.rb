@@ -1,11 +1,11 @@
 class CapsuleObserver
-  
+
   def self.register
     SyncCapsuleData.add_observer(self)
   end
-  
+
   # Receives data updates from CapsuleCRM
-  # 
+  #
   # membership      -  hash of membership data from CapsuleCRM
   #                 email         => The contact email for the membership
   #                 product_name  => The membership level
@@ -63,22 +63,25 @@ class CapsuleObserver
         :product_name      => membership['product_name']
       )
       member.remote! # Disable callbacks
-      member.cached_active = false # We always set this false on create so that
+      if member.individual?
+        member.cached_active = false # We always set this false on create so that
                                    # incomplete entries don't go immediately live
+      end
+      member.current = true
       # Generate a password reset token but don't sent straight away
       member.send :generate_reset_password_token
       # Save without validation
       begin
         member.save(:validate => false)
         # Send welcome email
-        CapsuleSignupMailer.confirmation(member).deliver
+        DeviseMailer.send(:new).confirmation_instructions(member, {capsule: true}).deliver
       rescue ActiveRecord::StatementInvalid
         # Send error email
         ErrorMailer.membership_number_generation_failed(capsule_id).deliver
       end
     end
   end
-  
+
 end
 
 CapsuleObserver.register

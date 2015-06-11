@@ -11,6 +11,7 @@ class DeviseMailer < Devise::Mailer
   end
 
   def confirmation_instructions(record, opts)
+    @type = "capsule" if opts[:capsule].present?
     if record.individual?
       document_renderer = DocumentRenderer.new
       attachments.inline['supporter.png'] = {

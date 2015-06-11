@@ -20,7 +20,7 @@ Feature: Add new signups to queue
     And I should have a membership number generated
     And I am processed through chargify for the "corporate-supporter_annual" option
     When I click pay now
-    And am returned to the thanks page
+    And I am returned to the thanks page
     And a welcome email should be sent to me
     And I should see "Welcome Pack" in the email body
     And my details should be queued for further processing
@@ -122,7 +122,7 @@ Feature: Add new signups to queue
     Then I am redirected to the payment page
     And I am processed through chargify for the "corporate-supporter_annual" option
     When I click pay now
-    And am returned to the thanks page
+    And I am returned to the thanks page
     And a welcome email should be sent to me
     And I should see "Welcome Pack" in the email body
     And my details should be queued for further processing
@@ -138,7 +138,7 @@ Feature: Add new signups to queue
     Then I am redirected to the payment page
     And I am processed through chargify for the "corporate-supporter_annual" option
     When I click pay now
-    And am returned to the thanks page
+    And I am returned to the thanks page
     And a welcome email should be sent to me
     And I should see "Welcome Pack" in the email body
     And my details should be queued for further processing
