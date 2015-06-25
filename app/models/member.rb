@@ -385,7 +385,7 @@ class Member < ActiveRecord::Base
                         }
                       }
     purchase        = {
-                        'payment_method' => 'credit_card',
+                        'payment_method' => invoiced_member? ? 'invoice' : 'credit_card',
                         'payment_ref' => chargify_payment_id,
                         'offer_category' => product_name,
                         'membership_id' => membership_number

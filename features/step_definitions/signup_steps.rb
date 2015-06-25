@@ -52,6 +52,7 @@ When(/^I visit the signup page with the invoice flag set$/) do
   visit("/members/new?level=#{@product_name}&invoice=true")
   expect(page).to have_content 'Become an ODI member'
   @field_prefix = 'member'
+  @payment_method = 'invoice'
 end
 
 When /^I enter my name and contact details$/ do
