@@ -184,7 +184,7 @@ When /^my passwords don't match$/ do
 end
 
 When /^I click sign up$/ do
-  @payment_method = 'credit_card'
+  @payment_method ||= 'credit_card'
   click_button('submit')
 end
 
