@@ -124,7 +124,7 @@ Then /^my membership number should be stored in CapsuleCRM$/ do
     expect(args[0]).to eql SaveMembershipIdInCapsule
     if @product_name == "individual"
       expect(args[1]).to eql nil
-      expect(args[2]).to eql @contact_email
+      expect(args[2]).to eql @email
     else
       expect(args[1]).to eql @organization_name
       expect(args[2]).to eql nil
