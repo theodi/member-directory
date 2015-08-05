@@ -8,12 +8,16 @@
   </p>
 
   <%= f.hidden_field :coupon, value: params[:coupon] if params[:coupon].present? %>
-  <%= f.hidden_field :origin, value: params[:origin] if params[:origin].present? %>
+  <%= f.hidden_field :origin, value: origin_value %>
   <%= f.hidden_field :invoice, value: 1 if params[:invoice].present? || @member.invoice == true %>
 
   <%= f.hidden_field :product_name %>
 
   <%= render :partial => 'member_details', :locals => { :f => f } %>
+
+  <% if individual? %>
+    <%= render :partial => 'affiliated_node', :locals => { :f => f } %>
+  <% end %>
 
   <fieldset>
 

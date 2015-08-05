@@ -1,0 +1,11 @@
+<fieldset>
+  <legend>Are you affiliated with an ODI Node?</legend>
+
+  <div class="control-group">
+    <%= f.label :origin, "Yes, the Node is", :class => 'control-label' %>
+    <div class="controls">
+      <%= f.select :origin, Member::ORIGINS, :selected => origin_value, :include_blank => true %>
+    </div>
+  </div>
+</fieldset>
+

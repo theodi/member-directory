@@ -18,6 +18,27 @@ class Member < ActiveRecord::Base
     "251 - 1000 employees" => '251-1000',
     "more than 1000 employees" => '>1000'
   }
+  ORIGINS = {
+    "Athens" => "odi-athens",
+    "Belfast" => "odi-belfast",
+    "Buenos Aires" => "odi-buenos-aires",
+    "Cairo" => "odi-cairo",
+    "Chicago" => "odi-chicago",
+    "Devon" => "odi-devon",
+    "Dubai" => "odi-dubai",
+    "Gothenburg" => "odi-gothenburg",
+    "Hampshire" => "odi-hampshire",
+    "Leeds" => "odi-leeds",
+    "Osaka" => "odi-osaka",
+    "Paris" => "odi-paris",
+    "Queensland" => "odi-queensland",
+    "Rio" => "odi-rio",
+    "Seoul" => "odi-seoul",
+    "Sheffield" => "odi-sheffield",
+    "St Petersburg/Moscow" => "odi-st-petersburg-moscow",
+    "Toronto" => "odi-toronto",
+    "Trento" => "odi-trento"
+  }
   LARGE_CORPORATE = %w[251-1000 >1000]
   CHARGIFY_PRODUCT_LINKS = {}
   CHARGIFY_PRODUCT_PRICES = {}

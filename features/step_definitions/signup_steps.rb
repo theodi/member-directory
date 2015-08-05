@@ -6,6 +6,10 @@ Given /^that I want to sign up$/ do
   @product_name = 'supporter'
 end
 
+Given(/^that I want to sign up as an individual supporter$/) do
+  @product_name = "individual"
+end
+
 Given /^product information has been setup for "(.*?)"$/ do |plan|
   @chargify_product_url = "http://test.host/product/#{plan}"
   @chargify_product_price = 800
@@ -442,3 +446,24 @@ Then(/^I should be marked as active$/) do
   expect(@member.cached_active).to eq(true)
   expect(@member.current).to eq(true)
 end
+
+Then(/^I should see an affiliated node section$/) do
+  expect(page.body).to include("Are you affiliated with an ODI Node?")
+  expect(page).to have_selector("select[name='member[origin]']")
+end
+
+Then(/^the dropdown should be pre\-selected with "(.*?)"$/) do |origin|
+  field = page.find("select[name='member[origin]']")
+  expect(field.value).to eq(origin)
+end
+
+Then(/^if I navigate away and then return$/) do
+  visit "/members" # path is not relevant, just away from the signup page
+  visit("/members/new?level=#{@product_name}")
+end
+
+Then(/^the original origin value should be still be "(.*?)"$/) do |origin|
+  field = page.find("select[name='member[origin]']")
+  expect(field.value).to eq(origin)
+end
+
