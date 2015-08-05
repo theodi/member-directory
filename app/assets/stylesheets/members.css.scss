@@ -13,3 +13,10 @@
     vertical-align: middle;
   }
 }
+
+#what-are-nodes {
+  &:hover, &:focus {
+    text-decoration: none;
+  }
+}
+
