@@ -30,6 +30,28 @@ class Member < ActiveRecord::Base
     "251 - 1000 employees" => '251-1000',
     "more than 1000 employees" => '>1000'
   }
+
+  SECTORS = [
+    "Business & Legal Services",
+    "Data/Technology",
+    "Education",
+    "Energy",
+    "Environment & Weather",
+    "Finance & Investment",
+    "Food & Agriculture",
+    "Geospatial/Mapping",
+    "Governance",
+    "Healthcare",
+    "Housing/Real Estate",
+    "Insurance",
+    "Lifestyle & Consumer",
+    "Media",
+    "Research & Consulting",
+    "Scientific Research",
+    "Transportation",
+    "Other"
+  ]
+
   ORIGINS = {
     "Athens" => "odi-athens",
     "Belfast" => "odi-belfast",
@@ -492,26 +514,7 @@ class Member < ActiveRecord::Base
   end
 
   def self.sectors
-    [
-      "Business & Legal Services",
-      "Data/Technology",
-      "Education",
-      "Energy",
-      "Environment & Weather",
-      "Finance & Investment",
-      "Food & Agriculture",
-      "Geospatial/Mapping",
-      "Governance",
-      "Healthcare",
-      "Housing/Real Estate",
-      "Insurance",
-      "Lifestyle & Consumer",
-      "Media",
-      "Research & Consulting",
-      "Scientific Research",
-      "Transportation",
-      "Other"
-    ]
+    SECTORS
   end
 
   def self.summary
