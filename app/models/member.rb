@@ -4,13 +4,25 @@ class Member < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,
   # :lockable, :timeoutable and :omniauthable
-  SUPPORTER_LEVELS = %w[supporter member partner sponsor individual]
-  CURRENT_SUPPORTER_LEVELS = %w[supporter individual]
+
+  SUPPORTER_LEVELS = %w[
+    supporter
+    member
+    partner
+    sponsor
+    individual
+  ]
+
+  CURRENT_SUPPORTER_LEVELS = %w[
+    supporter
+    individual
+  ]
 
   ORGANISATION_TYPES = {
     "Corporate" => "commercial",
     "Nonprofit / Government" => "non_commercial"
   }
+
   ORGANISATION_SIZES = {
     "less than 10 employees" => '<10',
     "10 - 50 employees" => '10-50',
@@ -39,9 +51,13 @@ class Member < ActiveRecord::Base
     "Toronto" => "odi-toronto",
     "Trento" => "odi-trento"
   }
+
   LARGE_CORPORATE = %w[251-1000 >1000]
+
   CHARGIFY_PRODUCT_LINKS = {}
+
   CHARGIFY_PRODUCT_PRICES = {}
+
   CHARGIFY_COUPON_DISCOUNTS = {}
 
   has_one :organization
@@ -86,7 +102,7 @@ class Member < ActiveRecord::Base
   # allow admins to edit access key
   attr_accessible :access_key, as: :admin
 
-	# validations
+  # validations
   validates :product_name, presence: true, inclusion: SUPPORTER_LEVELS, on: :create
   validates :contact_name, presence: true, on: :create
   validates :street_address, presence: true, on: :create
@@ -384,33 +400,40 @@ class Member < ActiveRecord::Base
 
     # construct hashes for signup processor
     # some of the naming of purchase order and membership id needs updating for consistency
-    organization    = {
-                        'name' => organization_name,
-                        'vat_id' => organization_vat_id,
-                        'company_number' => organization_company_number,
-                        'size' => organization_size,
-                        'type' => organization_type,
-                        'sector' => organization_sector
-                      }
-    contact_person  = {'name' => contact_name, 'email' => email, 'telephone' => telephone}
-    billing         = {
-                        'name' => contact_name,
-                        'email' => email,
-                        'telephone' => telephone,
-                        'address' => {
-                          'street_address' => street_address,
-                          'address_locality' => address_locality,
-                          'address_region' => address_region,
-                          'address_country' => country_name,
-                          'postal_code' => postal_code
-                        }
-                      }
-    purchase        = {
-                        'payment_method' => invoiced_member? ? 'invoice' : 'credit_card',
-                        'payment_ref' => chargify_payment_id,
-                        'offer_category' => product_name,
-                        'membership_id' => membership_number
-                      }
+    organization = {
+      'name' => organization_name,
+      'vat_id' => organization_vat_id,
+      'company_number' => organization_company_number,
+      'size' => organization_size,
+      'type' => organization_type,
+      'sector' => organization_sector
+    }
+
+    contact_person  = {
+      'name' => contact_name,
+      'email' => email,
+      'telephone' => telephone
+    }
+
+    billing = {
+      'name' => contact_name,
+      'email' => email,
+      'telephone' => telephone,
+      'address' => {
+        'street_address' => street_address,
+        'address_locality' => address_locality,
+        'address_region' => address_region,
+        'address_country' => country_name,
+        'postal_code' => postal_code
+      }
+    }
+
+    purchase = {
+      'payment_method' => invoiced_member? ? 'invoice' : 'credit_card',
+      'payment_ref' => chargify_payment_id,
+      'offer_category' => product_name,
+      'membership_id' => membership_number
+    }
 
     Resque.enqueue(SignupProcessor, organization, contact_person, billing, purchase)
   end
@@ -501,5 +524,5 @@ class Member < ActiveRecord::Base
       }
     }
   end
-
 end
+

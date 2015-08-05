@@ -253,30 +253,31 @@ When(/^chargify verifies the payment$/) do
 end
 
 Then /^my details should be queued for further processing$/ do
-
-  organization   = {
-    'name'           => @organization_name,
-    'vat_id'         => @organization_vat_id,
+  organization = {
+    'name' => @organization_name,
+    'vat_id' => @organization_vat_id,
     'company_number' => @organization_company_number,
-    'size'           => @organization_size,
-    'type'           => @organization_type,
-    'sector'         => @organization_sector
+    'size' => @organization_size,
+    'type' => @organization_type,
+    'sector' => @organization_sector
   }
+
   contact_person = {
-    'name'      => @contact_name,
-    'email'     => @email,
+    'name' => @contact_name,
+    'email' => @email,
     'telephone' => @telephone
   }
-  billing        = {
-    'name'           => @contact_name,
-    'email'          => @email,
-    'telephone'      => @telephone,
-    'address'        => {
-      'street_address'   => @street_address,
+
+  billing = {
+    'name' => @contact_name,
+    'email' => @email,
+    'telephone' => @telephone,
+    'address' => {
+      'street_address' => @street_address,
       'address_locality' => @address_locality,
-      'address_region'   => @address_region,
-      'address_country'  => @address_country,
-      'postal_code'      => @postal_code
+      'address_region' => @address_region,
+      'address_country' => @address_country,
+      'postal_code' => @postal_code
     }
   }
 
