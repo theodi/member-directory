@@ -174,7 +174,7 @@ class Member < ActiveRecord::Base
 
   def process_invoiced_member!
     current!
-    add_to_capsule
+    process_signup
     deliver_welcome_email!
   end
 
@@ -342,7 +342,7 @@ class Member < ActiveRecord::Base
       chargify_payment_id: subscription['signup_payment_id'],
       chargify_data_verified: true
     }, without_protection: true)
-    add_to_capsule
+    process_signup
   end
 
   def self.founding_partner_id
@@ -418,7 +418,7 @@ class Member < ActiveRecord::Base
   after_create :setup_organization
   after_create :save_membership_id_in_capsule, if: :remote?
 
-  def add_to_capsule
+  def process_signup
 
     # construct hashes for signup processor
     # some of the naming of purchase order and membership id needs updating for consistency
