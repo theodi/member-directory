@@ -272,8 +272,8 @@ class Member < ActiveRecord::Base
   end
 
   def founding_partner?
-    if founding_parter_id = ENV['FOUNDING_PARTNER_ID']
-      membership_number == founding_parter_id
+    if founding_partner_id = self.class.founding_partner_id
+      membership_number == founding_partner_id
     end
   end
 
