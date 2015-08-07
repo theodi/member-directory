@@ -59,6 +59,14 @@ When(/^I visit the signup page with the invoice flag set$/) do
   @payment_method = 'invoice'
 end
 
+When(/^I visit the signup page with an origin of "(.*?)"$/) do |origin|
+  visit("/members/new?level=#{@product_name}&origin=#{origin}")
+end
+
+When(/^I visit the signup page with a coupon of "(.*?)"$/) do |coupon|
+  visit("/members/new?level=#{@product_name}&coupon=#{coupon}")
+end
+
 When /^I enter my name and contact details$/ do
   @contact_name = 'Ian McIain'
   @email ||= 'iain@foobar.com'
@@ -355,14 +363,6 @@ end
 When(/^I choose to pay by invoice$/) do
   choose('Annual invoice')
   @payment_method = 'invoice'
-end
-
-When(/^I visit the signup page with an origin of "(.*?)"$/) do |origin|
-  visit("/members/new?level=#{@product_name}&origin=#{origin}")
-end
-
-When(/^I visit the signup page with a coupon of "(.*?)"$/) do |coupon|
-  visit("/members/new?level=#{@product_name}&coupon=#{coupon}")
 end
 
 Then(/^I should have an origin of "(.*?)"$/) do |origin|
