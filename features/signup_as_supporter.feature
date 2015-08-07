@@ -38,19 +38,6 @@ Feature: Signup as a supporter member
     And I am processed through chargify for the "supporter_monthly" option
     When I click pay now
 
-  Scenario: Member signup with an affiliated node
-    Given that I want to sign up as an individual supporter
-    When I visit the signup page
-    Then I should see an affiliated node section
-
-  Scenario: Member signup with an affiliated node and origin
-    Given that I want to sign up as an individual supporter
-    When I visit the signup page with an origin of "odi-leeds"
-    Then I should see an affiliated node section
-    And the dropdown should be pre-selected with "odi-leeds"
-    And if I navigate away and then return
-    Then the original origin value should be still be "odi-leeds"
-
   Scenario: Member signup with origin
     When I visit the signup page with an origin of "odi-leeds"
     And I enter my name and contact details

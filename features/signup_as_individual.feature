@@ -34,6 +34,19 @@ Feature: Signup as an individual member
     And the submit button should say "Become an ODI member"
     And I should see a link to the right to cancel
 
+  Scenario: Member signup with an affiliated node
+    Given that I want to sign up as an individual supporter
+    When I visit the signup page
+    Then I should see an affiliated node section
+
+  Scenario: Member signup with an affiliated node and origin
+    Given that I want to sign up as an individual supporter
+    When I visit the signup page with an origin of "odi-leeds"
+    Then I should see an affiliated node section
+    And the dropdown should be pre-selected with "odi-leeds"
+    And if I navigate away and then return
+    Then the original origin value should be still be "odi-leeds"
+
   @javascript
   Scenario: Auto-update terms based on user input
     Given I want to sign up as an individual member
