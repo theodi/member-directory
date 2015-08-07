@@ -428,7 +428,8 @@ class Member < ActiveRecord::Base
       'company_number' => organization_company_number,
       'size' => organization_size,
       'type' => organization_type,
-      'sector' => organization_sector
+      'sector' => organization_sector,
+      'origin' => origin.empty? ? nil : origin
     }
 
     contact_person  = {

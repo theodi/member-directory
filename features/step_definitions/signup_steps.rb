@@ -60,6 +60,7 @@ When(/^I visit the signup page with the invoice flag set$/) do
 end
 
 When(/^I visit the signup page with an origin of "(.*?)"$/) do |origin|
+  @origin = origin
   visit("/members/new?level=#{@product_name}&origin=#{origin}")
 end
 
@@ -267,7 +268,8 @@ Then /^my details should be queued for further processing$/ do
     'company_number' => @organization_company_number,
     'size' => @organization_size,
     'type' => @organization_type,
-    'sector' => @organization_sector
+    'sector' => @organization_sector,
+    'origin' => @origin
   }
 
   contact_person = {
