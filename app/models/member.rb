@@ -89,6 +89,9 @@ class Member < ActiveRecord::Base
   attr_accessible :organization_attributes
 
   before_create :set_membership_number, :set_address
+  after_create  :setup_organization
+  after_create  :save_membership_id_in_capsule, if: :remote?
+  after_update  :save_updates_to_capsule, unless: :remote?
 
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
@@ -415,9 +418,6 @@ class Member < ActiveRecord::Base
     ].compact.join("\n")
   end
 
-  after_create :setup_organization
-  after_create :save_membership_id_in_capsule, if: :remote?
-
   def process_signup
     Resque.enqueue(SignupProcessor, *process_signup_attributes)
   end
@@ -461,8 +461,6 @@ class Member < ActiveRecord::Base
 
     [organization, contact_person, billing, purchase]
   end
-
-  after_update :save_updates_to_capsule, unless: :remote?
 
   def save_updates_to_capsule
     unless (changed & %w[email cached_newsletter organization_size organization_sector]).empty?
