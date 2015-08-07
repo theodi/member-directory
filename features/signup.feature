@@ -1,4 +1,4 @@
-Feature: Add new signups to queue
+Feature: Signup as a supporter member
   As a potential member
   When I fill in my details and those of my organization
   I want my payment to be processed by chargify and sent in the background to capsule
