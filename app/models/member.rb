@@ -419,46 +419,47 @@ class Member < ActiveRecord::Base
   after_create :save_membership_id_in_capsule, if: :remote?
 
   def process_signup
+    Resque.enqueue(SignupProcessor, *process_signup_attributes)
+  end
 
-    # construct hashes for signup processor
-    # some of the naming of purchase order and membership id needs updating for consistency
+  def process_signup_attributes
     organization = {
-      'name' => organization_name,
-      'vat_id' => organization_vat_id,
+      'name'           => organization_name,
+      'vat_id'         => organization_vat_id,
       'company_number' => organization_company_number,
-      'size' => organization_size,
-      'type' => organization_type,
-      'sector' => organization_sector,
-      'origin' => origin.empty? ? nil : origin
+      'size'           => organization_size,
+      'type'           => organization_type,
+      'sector'         => organization_sector,
+      'origin'         => origin.empty? ? nil : origin
     }
 
-    contact_person  = {
-      'name' => contact_name,
-      'email' => email,
+    contact_person = {
+      'name'      => contact_name,
+      'email'     => email,
       'telephone' => telephone
     }
 
     billing = {
-      'name' => contact_name,
-      'email' => email,
+      'name'      => contact_name,
+      'email'     => email,
       'telephone' => telephone,
-      'address' => {
-        'street_address' => street_address,
+      'address'   => {
+        'street_address'   => street_address,
         'address_locality' => address_locality,
-        'address_region' => address_region,
-        'address_country' => country_name,
-        'postal_code' => postal_code
+        'address_region'   => address_region,
+        'address_country'  => country_name,
+        'postal_code'      => postal_code
       }
     }
 
     purchase = {
       'payment_method' => invoiced_member? ? 'invoice' : 'credit_card',
-      'payment_ref' => chargify_payment_id,
+      'payment_ref'    => chargify_payment_id,
       'offer_category' => product_name,
-      'membership_id' => membership_number
+      'membership_id'  => membership_number
     }
 
-    Resque.enqueue(SignupProcessor, organization, contact_person, billing, purchase)
+    [organization, contact_person, billing, purchase]
   end
 
   after_update :save_updates_to_capsule, unless: :remote?
