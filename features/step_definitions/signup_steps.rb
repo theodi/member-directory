@@ -2,10 +2,6 @@ Given /^that I want to sign up as a (\w*)$/ do |product_name|
   @product_name = product_name # Required
 end
 
-Given /^that I want to sign up$/ do
-  @product_name = 'supporter'
-end
-
 Given(/^that I want to sign up as an individual supporter$/) do
   @product_name = "individual"
 end
@@ -137,53 +133,6 @@ When /^I enter my non-profit organization details$/ do
   fill_in('member_organization_vat_id', :with => @organization_vat_id)
 end
 
-When /^I enter my details$/ do
-  # Store for later
-  @contact_name                = 'Ian McIain'
-  @email                       = 'iain@foobar.com'
-  @organization_sector         = 'Energy'
-  @telephone                   = '0121 123 446'
-  #@street_address              = '123 Fake Street'
-  #@address_locality            = 'Faketown'
-  #@address_region              = 'Fakeshire'
-  #@address_country             = 'United Kingdom'
-  #@postal_code                 = 'FAKE 123'
-
-  # Fill in form
-  fill_in('member_contact_name', :with => @contact_name)
-  fill_in('member_email', :with => @email)
-  fill_in('member_telephone', :with => @telephone)
-  #fill_in('member_street_address', :with => @street_address)
-  #fill_in('member_address_locality', :with => @address_locality)
-  #fill_in('member_address_region', :with => @address_region)
-  #select(@address_country, from: :member_address_country, match: :first)
-  #fill_in('member_postal_code', :with => @postal_code)
-  fill_in('member_password', :with => 'p4ssw0rd')
-  fill_in('member_password_confirmation', :with => 'p4ssw0rd')
-
-  unless @product_name == 'individual'
-    @organization_name = 'FooBar Inc'
-    @organization_size = '251-1000'
-    @organization_type = 'commercial'
-    @organization_vat_id = '213244343'
-    @organization_company_number = '012345678'
-
-    fill_in('member_organization_name', :with => @organization_name)
-    select(find_by_id('member_organization_size').
-           find("option[value='#{@organization_size}']").text,
-           from: 'member_organization_size')
-    select(find_by_id('member_organization_type').
-           find("option[value='#{@organization_type}']").text,
-           from: 'member_organization_type')
-    fill_in('member_organization_company_number',
-            with: @organization_company_number)
-    select(@organization_sector, from: 'member_organization_sector')
-    fill_in('member_organization_vat_id', :with => @organization_vat_id)
-  end
-
-  check('member_agreed_to_terms')
-end
-
 When /^I agree to the terms$/ do
   check('member_agreed_to_terms')
 end
@@ -235,10 +184,6 @@ Then /^I am processed through chargify for the "(.*?)" option$/ do |plan|
     payment_id: @payment_ref
   }
   Member.register_chargify_product_link(plan, chargify_return_members_path(params))
-end
-
-Then(/^the coupon code "(.*?)" is supplied$/) do |coupon|
-  expect_any_instance_of(Member).to receive(:chargify_product_link).with(coupon).and_call_original
 end
 
 Then(/^the coupon code "(.*?)" is saved against my membership$/) do |coupon|
@@ -318,20 +263,12 @@ Then /^I should not see an error$/ do
   expect(page).to_not have_css("div.alert-error")
 end
 
-Then /^I should see that the membership level is invalid$/ do
-  expect(page).to have_content "Membership Level is not included in the list"
-end
-
 Then /^I should get an error telling me to accept the terms$/ do
   expect(page).to have_content "Agreed to terms must be accepted"
 end
 
 When /^I should get an error telling my passwords don't match$/ do
   expect(page).to have_content "Password doesn't match confirmation"
-end
-
-Then /^my details should not be queued$/ do
-  expect(Resque).to_not receive(:enqueue)
 end
 
 Then /^a welcome email should be sent to me$/ do
@@ -343,28 +280,6 @@ Then /^a welcome email should be sent to me$/ do
     And they should see "Your membership number is <strong>#{@membership_number}</strong>" in the email body
     And they should see "mailto:members@theodi.org" in the email body
   }
-end
-
-And (/^my organisation name is "(.*?)"$/) do |org_name|
-  @organization_name = org_name
-  fill_in('member_organization_name', :with => @organization_name)
-end
-
-And (/^my organisation name is expected to be "(.*?)"$/) do |org_name|
-  @organization_name = org_name
-end
-
-Then (/^my organisation name should be "(.*?)"$/) do |org_name|
-  @member.organization.name.should == org_name
-end
-
-Then(/^I should see today's date$/) do
-  page.body.should include(Date.today.to_formatted_s(:long_ordinal))
-end
-
-When(/^I choose to pay by invoice$/) do
-  choose('Annual invoice')
-  @payment_method = 'invoice'
 end
 
 Then(/^I should have an origin of "(.*?)"$/) do |origin|

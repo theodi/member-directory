@@ -114,30 +114,6 @@ Then /^I should see a notice that my details were saved successfully$/ do
   expect(page).to have_content 'You updated your account successfully.'
 end
 
-Then /^I edit my details$/ do
-  @changed_organization_name        = Faker::Company.name
-  @changed_organization_description = Faker::Company.bs
-  @changed_organization_url         = Faker::Internet.url
-  @changed_organization_contact     = Faker::Name.name
-  @changed_organization_phone       = Faker::PhoneNumber.phone_number
-  @changed_organization_email       = Faker::Internet.email
-  @changed_organization_twitter     = Faker::Internet.user_name
-  @changed_organization_linkedin    = Faker::Internet.url
-  @changed_organization_facebook    = Faker::Internet.url
-  @changed_organization_tagline     = Faker::Company.bs
-
-  fill_in('member_organization_attributes_name',                 :with => @changed_organization_name)
-  fill_in('member_organization_attributes_description',          :with => @changed_organization_description)
-  fill_in('member_organization_attributes_url',                  :with => @changed_organization_url)
-  fill_in('member_organization_attributes_cached_contact_name',  :with => @changed_organization_contact)
-  fill_in('member_organization_attributes_cached_contact_phone', :with => @changed_organization_phone)
-  fill_in('member_organization_attributes_cached_contact_email', :with => @changed_organization_email)
-  fill_in('member_organization_attributes_cached_twitter',       :with => @changed_organization_twitter)
-  fill_in('member_organization_attributes_cached_linkedin',      :with => @changed_organization_linkedin)
-  fill_in('member_organization_attributes_cached_facebook',      :with => @changed_organization_facebook)
-  fill_in('member_organization_attributes_cached_tagline',       :with => @changed_organization_tagline)
-end
-
 Then /^I should see my changed details when I revisit the edit page$/ do
   click_link('My Account')
   expect(page).to have_content @changed_organization_name
