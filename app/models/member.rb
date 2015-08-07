@@ -141,6 +141,73 @@ class Member < ActiveRecord::Base
   scope :current, where(:current => true)
   scope :valid, where('product_name is not null')
 
+  def self.founding_partner_id
+    ENV['FOUNDING_PARTNER_ID']
+  end
+
+  def self.find_for_database_authentication(warden_conditions)
+    conditions = warden_conditions.dup
+    if login = conditions.delete(:login)
+      where(conditions.to_hash).where(["lower(membership_number) = :value OR lower(email) = :value", { :value => login.downcase }]).first
+    else
+      where(conditions.to_hash).first
+    end
+  end
+
+  def self.is_current_supporter_level?(level)
+    CURRENT_SUPPORTER_LEVELS.include?(level)
+  end
+
+  def self.is_individual_level?(level)
+    'individual' == level
+  end
+
+  def self.sectors
+    SECTORS
+  end
+
+  def self.summary
+    {
+      total: Member.valid.current.count,
+      breakdown: Member.valid.current.group(:product_name).count,
+      all: {
+        total: Member.valid.count,
+        breakdown: Member.valid.group(:product_name).count
+      }
+    }
+  end
+
+  def self.initialize_chargify_links!
+    product_family_ids = Set.new
+    Chargify::Product.all.each do |product|
+      # yep, this is how good the chargify API naming is
+      # also no way to find the currency of a Site either
+      register_chargify_product_price(product.handle, product.price_in_cents)
+      page = product.public_signup_pages.first
+      if page
+        register_chargify_product_link(product.handle, page.url)
+      end
+      product_family_ids.add(product.product_family.id)
+    end
+    product_family_ids.each do |product_family_id|
+      Chargify::Coupon.all(params: {product_family_id: product_family_id}).each do |coupon|
+        register_chargify_coupon_code(coupon.code, coupon.percentage) unless coupon.archived_at.present?
+      end
+    end
+  end
+
+  def self.register_chargify_product_link(plan, url)
+    CHARGIFY_PRODUCT_LINKS[plan] = url
+  end
+
+  def self.register_chargify_product_price(plan, cents_that_are_pence)
+    CHARGIFY_PRODUCT_PRICES[plan] = cents_that_are_pence.to_i / 100
+  end
+
+  def self.register_chargify_coupon_code(code, percentage)
+    CHARGIFY_COUPON_DISCOUNTS[code] = percentage == 100 ? :free : :discount
+  end
+
   def remote?
     @remote || false
   end
@@ -155,15 +222,6 @@ class Member < ActiveRecord::Base
 
   def login
     @login || self.username || self.email
-  end
-
-  def self.find_for_database_authentication(warden_conditions)
-    conditions = warden_conditions.dup
-    if login = conditions.delete(:login)
-      where(conditions.to_hash).where(["lower(membership_number) = :value OR lower(email) = :value", { :value => login.downcase }]).first
-    else
-      where(conditions.to_hash).first
-    end
   end
 
   def current!
@@ -271,37 +329,6 @@ class Member < ActiveRecord::Base
     end
   end
 
-  def self.initialize_chargify_links!
-    product_family_ids = Set.new
-    Chargify::Product.all.each do |product|
-      # yep, this is how good the chargify API naming is
-      # also no way to find the currency of a Site either
-      register_chargify_product_price(product.handle, product.price_in_cents)
-      page = product.public_signup_pages.first
-      if page
-        register_chargify_product_link(product.handle, page.url)
-      end
-      product_family_ids.add(product.product_family.id)
-    end
-    product_family_ids.each do |product_family_id|
-      Chargify::Coupon.all(params: {product_family_id: product_family_id}).each do |coupon|
-        register_chargify_coupon_code(coupon.code, coupon.percentage) unless coupon.archived_at.present?
-      end
-    end
-  end
-
-  def self.register_chargify_product_link(plan, url)
-    CHARGIFY_PRODUCT_LINKS[plan] = url
-  end
-
-  def self.register_chargify_product_price(plan, cents_that_are_pence)
-    CHARGIFY_PRODUCT_PRICES[plan] = cents_that_are_pence.to_i / 100
-  end
-
-  def self.register_chargify_coupon_code(code, percentage)
-    CHARGIFY_COUPON_DISCOUNTS[code] = percentage == 100 ? :free : :discount
-  end
-
   def chargify_product_handle
     get_plan
   end
@@ -346,10 +373,6 @@ class Member < ActiveRecord::Base
       chargify_data_verified: true
     }, without_protection: true)
     process_signup
-  end
-
-  def self.founding_partner_id
-    ENV['FOUNDING_PARTNER_ID']
   end
 
   def register_embed(referrer)
@@ -503,29 +526,6 @@ class Member < ActiveRecord::Base
     country = ISO3166::Country[address_country]
     return "" if country.nil?
     country.translations[I18n.locale.to_s] || country.name
-  end
-
-  def self.is_current_supporter_level?(level)
-    CURRENT_SUPPORTER_LEVELS.include?(level)
-  end
-
-  def self.is_individual_level?(level)
-    'individual' == level
-  end
-
-  def self.sectors
-    SECTORS
-  end
-
-  def self.summary
-    {
-      total: Member.valid.current.count,
-      breakdown: Member.valid.current.group(:product_name).count,
-      all: {
-        total: Member.valid.count,
-        breakdown: Member.valid.group(:product_name).count
-      }
-    }
   end
 end
 
