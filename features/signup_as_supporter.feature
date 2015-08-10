@@ -1,16 +1,14 @@
-Feature: Add new signups to queue
-
-  As a potential member, when I fill in my details and those of my organization
+Feature: Signup as a supporter member
+  As a potential member
+  When I fill in my details and those of my organization
   I want my payment to be processed by chargify and sent in the background to capsule
 
   Background:
-
     Given that I want to sign up as a supporter
     And product information has been setup for "corporate-supporter_annual"
     When I visit the signup page
 
   Scenario: Member signup
-
     When I enter my name and contact details
     And I enter my company details
     And I enter my address details
@@ -27,7 +25,6 @@ Feature: Add new signups to queue
     When chargify verifies the payment
 
   Scenario: Monthly paying member signup
-
     Given product information has been setup for "supporter_annual"
     And product information has been setup for "supporter_monthly"
     When I enter my name and contact details
@@ -41,8 +38,7 @@ Feature: Add new signups to queue
     And I am processed through chargify for the "supporter_monthly" option
     When I click pay now
 
-  Scenario: Tracking user origin
-
+  Scenario: Member signup with origin
     When I visit the signup page with an origin of "odi-leeds"
     And I enter my name and contact details
     And I enter my company details
@@ -52,7 +48,6 @@ Feature: Add new signups to queue
     Then I should have an origin of "odi-leeds"
 
   Scenario: Coupon discount codes
-
     When I visit the signup page with a coupon of "ODIALUMNI"
     And I enter my name and contact details
     And I enter my company details
@@ -65,7 +60,6 @@ Feature: Add new signups to queue
     When I click pay now
 
   Scenario Outline: Member tries to sign up, but misses a mandatory field
-
     When I enter my name and contact details
     And I enter my company details
     And I enter my address details
@@ -86,7 +80,6 @@ Feature: Add new signups to queue
       | organization_sector   | Industry sector   |
 
   Scenario: Member tries to sign up, but doesn't agree to the terms
-
     When I enter my name and contact details
     And I enter my company details
     And I enter my address details
@@ -95,7 +88,6 @@ Feature: Add new signups to queue
     Then I should get an error telling me to accept the terms
 
   Scenario: Member tries to sign up, but their password doesn't match
-
     When I enter my name and contact details
     And I enter my company details
     And I enter my address details
@@ -105,7 +97,6 @@ Feature: Add new signups to queue
     Then I should get an error telling my passwords don't match
 
   Scenario: Member tries to sign up, but enters an organization name that already exists
-
     When I enter my name and contact details
     And I enter my company details
     But there is already an organization with the name I want to use
@@ -115,7 +106,6 @@ Feature: Add new signups to queue
     Then I should see an error relating to Organisation name
 
   Scenario: Member abandons signup before chargify processes, and returns to sign up again
-
     Given I have signed up, but haven't paid
     And I should have a membership number generated
     And I try to sign up again
@@ -146,7 +136,6 @@ Feature: Add new signups to queue
 
   @javascript
   Scenario: Auto-update terms based on user input
-
     When I enter my name and contact details
     And I enter my company details
     And I enter my address details
@@ -155,3 +144,4 @@ Feature: Add new signups to queue
     And I should see "whose principal address is 123 Fake Street, Faketown, Fakeshire, United Kingdom, FAKE 123"
     And I should see "£720 per annum + VAT for SME & Non Profit Supporters"
     And I should see "or £2,200 per annum + VAT for Corporate Supporters"
+

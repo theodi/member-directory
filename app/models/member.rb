@@ -4,13 +4,25 @@ class Member < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,
   # :lockable, :timeoutable and :omniauthable
-  SUPPORTER_LEVELS = %w[supporter member partner sponsor individual]
-  CURRENT_SUPPORTER_LEVELS = %w[supporter individual]
+
+  SUPPORTER_LEVELS = %w[
+    supporter
+    member
+    partner
+    sponsor
+    individual
+  ]
+
+  CURRENT_SUPPORTER_LEVELS = %w[
+    supporter
+    individual
+  ]
 
   ORGANISATION_TYPES = {
     "Corporate" => "commercial",
     "Nonprofit / Government" => "non_commercial"
   }
+
   ORGANISATION_SIZES = {
     "less than 10 employees" => '<10',
     "10 - 50 employees" => '10-50',
@@ -18,9 +30,56 @@ class Member < ActiveRecord::Base
     "251 - 1000 employees" => '251-1000',
     "more than 1000 employees" => '>1000'
   }
+
+  SECTORS = [
+    "Business & Legal Services",
+    "Data/Technology",
+    "Education",
+    "Energy",
+    "Environment & Weather",
+    "Finance & Investment",
+    "Food & Agriculture",
+    "Geospatial/Mapping",
+    "Governance",
+    "Healthcare",
+    "Housing/Real Estate",
+    "Insurance",
+    "Lifestyle & Consumer",
+    "Media",
+    "Research & Consulting",
+    "Scientific Research",
+    "Transportation",
+    "Other"
+  ]
+
+  ORIGINS = {
+    "Athens" => "odi-athens",
+    "Belfast" => "odi-belfast",
+    "Buenos Aires" => "odi-buenos-aires",
+    "Cairo" => "odi-cairo",
+    "Chicago" => "odi-chicago",
+    "Devon" => "odi-devon",
+    "Dubai" => "odi-dubai",
+    "Gothenburg" => "odi-gothenburg",
+    "Hampshire" => "odi-hampshire",
+    "Leeds" => "odi-leeds",
+    "Osaka" => "odi-osaka",
+    "Paris" => "odi-paris",
+    "Queensland" => "odi-queensland",
+    "Rio" => "odi-rio",
+    "Seoul" => "odi-seoul",
+    "Sheffield" => "odi-sheffield",
+    "St Petersburg/Moscow" => "odi-st-petersburg-moscow",
+    "Toronto" => "odi-toronto",
+    "Trento" => "odi-trento"
+  }
+
   LARGE_CORPORATE = %w[251-1000 >1000]
+
   CHARGIFY_PRODUCT_LINKS = {}
+
   CHARGIFY_PRODUCT_PRICES = {}
+
   CHARGIFY_COUPON_DISCOUNTS = {}
 
   has_one :organization
@@ -30,6 +89,9 @@ class Member < ActiveRecord::Base
   attr_accessible :organization_attributes
 
   before_create :set_membership_number, :set_address
+  after_create  :setup_organization
+  after_create  :save_membership_id_in_capsule, if: :remote?
+  after_update  :save_updates_to_capsule, unless: :remote?
 
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
@@ -65,7 +127,7 @@ class Member < ActiveRecord::Base
   # allow admins to edit access key
   attr_accessible :access_key, as: :admin
 
-	# validations
+  # validations
   validates :product_name, presence: true, inclusion: SUPPORTER_LEVELS, on: :create
   validates :contact_name, presence: true, on: :create
   validates :street_address, presence: true, on: :create
@@ -78,6 +140,73 @@ class Member < ActiveRecord::Base
 
   scope :current, where(:current => true)
   scope :valid, where('product_name is not null')
+
+  def self.founding_partner_id
+    ENV['FOUNDING_PARTNER_ID']
+  end
+
+  def self.find_for_database_authentication(warden_conditions)
+    conditions = warden_conditions.dup
+    if login = conditions.delete(:login)
+      where(conditions.to_hash).where(["lower(membership_number) = :value OR lower(email) = :value", { :value => login.downcase }]).first
+    else
+      where(conditions.to_hash).first
+    end
+  end
+
+  def self.is_current_supporter_level?(level)
+    CURRENT_SUPPORTER_LEVELS.include?(level)
+  end
+
+  def self.is_individual_level?(level)
+    'individual' == level
+  end
+
+  def self.sectors
+    SECTORS
+  end
+
+  def self.summary
+    {
+      total: Member.valid.current.count,
+      breakdown: Member.valid.current.group(:product_name).count,
+      all: {
+        total: Member.valid.count,
+        breakdown: Member.valid.group(:product_name).count
+      }
+    }
+  end
+
+  def self.initialize_chargify_links!
+    product_family_ids = Set.new
+    Chargify::Product.all.each do |product|
+      # yep, this is how good the chargify API naming is
+      # also no way to find the currency of a Site either
+      register_chargify_product_price(product.handle, product.price_in_cents)
+      page = product.public_signup_pages.first
+      if page
+        register_chargify_product_link(product.handle, page.url)
+      end
+      product_family_ids.add(product.product_family.id)
+    end
+    product_family_ids.each do |product_family_id|
+      Chargify::Coupon.all(params: {product_family_id: product_family_id}).each do |coupon|
+        register_chargify_coupon_code(coupon.code, coupon.percentage) unless coupon.archived_at.present?
+      end
+    end
+  end
+
+  def self.register_chargify_product_link(plan, url)
+    CHARGIFY_PRODUCT_LINKS[plan] = url
+  end
+
+  def self.register_chargify_product_price(plan, cents_that_are_pence)
+    CHARGIFY_PRODUCT_PRICES[plan] = cents_that_are_pence.to_i / 100
+  end
+
+  def self.register_chargify_coupon_code(code, percentage)
+    CHARGIFY_COUPON_DISCOUNTS[code] = percentage == 100 ? :free : :discount
+  end
 
   def remote?
     @remote || false
@@ -95,15 +224,6 @@ class Member < ActiveRecord::Base
     @login || self.username || self.email
   end
 
-  def self.find_for_database_authentication(warden_conditions)
-    conditions = warden_conditions.dup
-    if login = conditions.delete(:login)
-      where(conditions.to_hash).where(["lower(membership_number) = :value OR lower(email) = :value", { :value => login.downcase }]).first
-    else
-      where(conditions.to_hash).first
-    end
-  end
-
   def current!
     update_attribute(:cached_active, true) if organization?
     update_attribute(:current, true)
@@ -115,7 +235,7 @@ class Member < ActiveRecord::Base
 
   def process_invoiced_member!
     current!
-    add_to_capsule
+    process_signup
     deliver_welcome_email!
   end
 
@@ -152,8 +272,8 @@ class Member < ActiveRecord::Base
   end
 
   def founding_partner?
-    if founding_parter_id = ENV['FOUNDING_PARTNER_ID']
-      membership_number == founding_parter_id
+    if founding_partner_id = self.class.founding_partner_id
+      membership_number == founding_partner_id
     end
   end
 
@@ -209,37 +329,6 @@ class Member < ActiveRecord::Base
     end
   end
 
-  def self.initialize_chargify_links!
-    product_family_ids = Set.new
-    Chargify::Product.all.each do |product|
-      # yep, this is how good the chargify API naming is
-      # also no way to find the currency of a Site either
-      register_chargify_product_price(product.handle, product.price_in_cents)
-      page = product.public_signup_pages.first
-      if page
-        register_chargify_product_link(product.handle, page.url)
-      end
-      product_family_ids.add(product.product_family.id)
-    end
-    product_family_ids.each do |product_family_id|
-      Chargify::Coupon.all(params: {product_family_id: product_family_id}).each do |coupon|
-        register_chargify_coupon_code(coupon.code, coupon.percentage) unless coupon.archived_at.present?
-      end
-    end
-  end
-
-  def self.register_chargify_product_link(plan, url)
-    CHARGIFY_PRODUCT_LINKS[plan] = url
-  end
-
-  def self.register_chargify_product_price(plan, cents_that_are_pence)
-    CHARGIFY_PRODUCT_PRICES[plan] = cents_that_are_pence.to_i / 100
-  end
-
-  def self.register_chargify_coupon_code(code, percentage)
-    CHARGIFY_COUPON_DISCOUNTS[code] = percentage == 100 ? :free : :discount
-  end
-
   def chargify_product_handle
     get_plan
   end
@@ -283,11 +372,7 @@ class Member < ActiveRecord::Base
       chargify_payment_id: subscription['signup_payment_id'],
       chargify_data_verified: true
     }, without_protection: true)
-    add_to_capsule
-  end
-
-  def self.founding_partner_id
-    ENV['FOUNDING_PARTNER_ID']
+    process_signup
   end
 
   def register_embed(referrer)
@@ -356,45 +441,49 @@ class Member < ActiveRecord::Base
     ].compact.join("\n")
   end
 
-  after_create :setup_organization
-  after_create :save_membership_id_in_capsule, if: :remote?
-
-  def add_to_capsule
-
-    # construct hashes for signup processor
-    # some of the naming of purchase order and membership id needs updating for consistency
-    organization    = {
-                        'name' => organization_name,
-                        'vat_id' => organization_vat_id,
-                        'company_number' => organization_company_number,
-                        'size' => organization_size,
-                        'type' => organization_type,
-                        'sector' => organization_sector
-                      }
-    contact_person  = {'name' => contact_name, 'email' => email, 'telephone' => telephone}
-    billing         = {
-                        'name' => contact_name,
-                        'email' => email,
-                        'telephone' => telephone,
-                        'address' => {
-                          'street_address' => street_address,
-                          'address_locality' => address_locality,
-                          'address_region' => address_region,
-                          'address_country' => country_name,
-                          'postal_code' => postal_code
-                        }
-                      }
-    purchase        = {
-                        'payment_method' => invoiced_member? ? 'invoice' : 'credit_card',
-                        'payment_ref' => chargify_payment_id,
-                        'offer_category' => product_name,
-                        'membership_id' => membership_number
-                      }
-
-    Resque.enqueue(SignupProcessor, organization, contact_person, billing, purchase)
+  def process_signup
+    Resque.enqueue(SignupProcessor, *process_signup_attributes)
   end
 
-  after_update :save_updates_to_capsule, unless: :remote?
+  def process_signup_attributes
+    organization = {
+      'name'           => organization_name,
+      'vat_id'         => organization_vat_id,
+      'company_number' => organization_company_number,
+      'size'           => organization_size,
+      'type'           => organization_type,
+      'sector'         => organization_sector,
+      'origin'         => origin.empty? ? nil : origin
+    }
+
+    contact_person = {
+      'name'      => contact_name,
+      'email'     => email,
+      'telephone' => telephone
+    }
+
+    billing = {
+      'name'      => contact_name,
+      'email'     => email,
+      'telephone' => telephone,
+      'address'   => {
+        'street_address'   => street_address,
+        'address_locality' => address_locality,
+        'address_region'   => address_region,
+        'address_country'  => country_name,
+        'postal_code'      => postal_code
+      }
+    }
+
+    purchase = {
+      'payment_method' => invoiced_member? ? 'invoice' : 'credit_card',
+      'payment_ref'    => chargify_payment_id,
+      'offer_category' => product_name,
+      'membership_id'  => membership_number
+    }
+
+    [organization, contact_person, billing, purchase]
+  end
 
   def save_updates_to_capsule
     unless (changed & %w[email cached_newsletter organization_size organization_sector]).empty?
@@ -438,47 +527,5 @@ class Member < ActiveRecord::Base
     return "" if country.nil?
     country.translations[I18n.locale.to_s] || country.name
   end
-
-  def self.is_current_supporter_level?(level)
-    CURRENT_SUPPORTER_LEVELS.include?(level)
-  end
-
-  def self.is_individual_level?(level)
-    'individual' == level
-  end
-
-  def self.sectors
-    [
-      "Business & Legal Services",
-      "Data/Technology",
-      "Education",
-      "Energy",
-      "Environment & Weather",
-      "Finance & Investment",
-      "Food & Agriculture",
-      "Geospatial/Mapping",
-      "Governance",
-      "Healthcare",
-      "Housing/Real Estate",
-      "Insurance",
-      "Lifestyle & Consumer",
-      "Media",
-      "Research & Consulting",
-      "Scientific Research",
-      "Transportation",
-      "Other"
-    ]
-  end
-
-  def self.summary
-    {
-      total: Member.valid.current.count,
-      breakdown: Member.valid.current.group(:product_name).count,
-      all: {
-        total: Member.valid.count,
-        breakdown: Member.valid.group(:product_name).count
-      }
-    }
-  end
-
 end
+

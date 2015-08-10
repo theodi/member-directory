@@ -2,8 +2,8 @@ Given /^that I want to sign up as a (\w*)$/ do |product_name|
   @product_name = product_name # Required
 end
 
-Given /^that I want to sign up$/ do
-  @product_name = 'supporter'
+Given(/^that I want to sign up as an individual supporter$/) do
+  @product_name = "individual"
 end
 
 Given /^product information has been setup for "(.*?)"$/ do |plan|
@@ -53,6 +53,15 @@ When(/^I visit the signup page with the invoice flag set$/) do
   expect(page).to have_content 'Become an ODI member'
   @field_prefix = 'member'
   @payment_method = 'invoice'
+end
+
+When(/^I visit the signup page with an origin of "(.*?)"$/) do |origin|
+  @origin = origin
+  visit("/members/new?level=#{@product_name}&origin=#{origin}")
+end
+
+When(/^I visit the signup page with a coupon of "(.*?)"$/) do |coupon|
+  visit("/members/new?level=#{@product_name}&coupon=#{coupon}")
 end
 
 When /^I enter my name and contact details$/ do
@@ -124,53 +133,6 @@ When /^I enter my non-profit organization details$/ do
   fill_in('member_organization_vat_id', :with => @organization_vat_id)
 end
 
-When /^I enter my details$/ do
-  # Store for later
-  @contact_name                = 'Ian McIain'
-  @email                       = 'iain@foobar.com'
-  @organization_sector         = 'Energy'
-  @telephone                   = '0121 123 446'
-  #@street_address              = '123 Fake Street'
-  #@address_locality            = 'Faketown'
-  #@address_region              = 'Fakeshire'
-  #@address_country             = 'United Kingdom'
-  #@postal_code                 = 'FAKE 123'
-
-  # Fill in form
-  fill_in('member_contact_name', :with => @contact_name)
-  fill_in('member_email', :with => @email)
-  fill_in('member_telephone', :with => @telephone)
-  #fill_in('member_street_address', :with => @street_address)
-  #fill_in('member_address_locality', :with => @address_locality)
-  #fill_in('member_address_region', :with => @address_region)
-  #select(@address_country, from: :member_address_country, match: :first)
-  #fill_in('member_postal_code', :with => @postal_code)
-  fill_in('member_password', :with => 'p4ssw0rd')
-  fill_in('member_password_confirmation', :with => 'p4ssw0rd')
-
-  unless @product_name == 'individual'
-    @organization_name = 'FooBar Inc'
-    @organization_size = '251-1000'
-    @organization_type = 'commercial'
-    @organization_vat_id = '213244343'
-    @organization_company_number = '012345678'
-
-    fill_in('member_organization_name', :with => @organization_name)
-    select(find_by_id('member_organization_size').
-           find("option[value='#{@organization_size}']").text,
-           from: 'member_organization_size')
-    select(find_by_id('member_organization_type').
-           find("option[value='#{@organization_type}']").text,
-           from: 'member_organization_type')
-    fill_in('member_organization_company_number',
-            with: @organization_company_number)
-    select(@organization_sector, from: 'member_organization_sector')
-    fill_in('member_organization_vat_id', :with => @organization_vat_id)
-  end
-
-  check('member_agreed_to_terms')
-end
-
 When /^I agree to the terms$/ do
   check('member_agreed_to_terms')
 end
@@ -224,10 +186,6 @@ Then /^I am processed through chargify for the "(.*?)" option$/ do |plan|
   Member.register_chargify_product_link(plan, chargify_return_members_path(params))
 end
 
-Then(/^the coupon code "(.*?)" is supplied$/) do |coupon|
-  expect_any_instance_of(Member).to receive(:chargify_product_link).with(coupon).and_call_original
-end
-
 Then(/^the coupon code "(.*?)" is saved against my membership$/) do |coupon|
   member = Member.find_by_email(@email)
   expect(member.coupon).to eq(coupon)
@@ -249,30 +207,32 @@ When(/^chargify verifies the payment$/) do
 end
 
 Then /^my details should be queued for further processing$/ do
-
-  organization   = {
-    'name'           => @organization_name,
-    'vat_id'         => @organization_vat_id,
+  organization = {
+    'name' => @organization_name,
+    'vat_id' => @organization_vat_id,
     'company_number' => @organization_company_number,
-    'size'           => @organization_size,
-    'type'           => @organization_type,
-    'sector'         => @organization_sector
+    'size' => @organization_size,
+    'type' => @organization_type,
+    'sector' => @organization_sector,
+    'origin' => @origin
   }
+
   contact_person = {
-    'name'      => @contact_name,
-    'email'     => @email,
+    'name' => @contact_name,
+    'email' => @email,
     'telephone' => @telephone
   }
-  billing        = {
-    'name'           => @contact_name,
-    'email'          => @email,
-    'telephone'      => @telephone,
-    'address'        => {
-      'street_address'   => @street_address,
+
+  billing = {
+    'name' => @contact_name,
+    'email' => @email,
+    'telephone' => @telephone,
+    'address' => {
+      'street_address' => @street_address,
       'address_locality' => @address_locality,
-      'address_region'   => @address_region,
-      'address_country'  => @address_country,
-      'postal_code'      => @postal_code
+      'address_region' => @address_region,
+      'address_country' => @address_country,
+      'postal_code' => @postal_code
     }
   }
 
@@ -303,20 +263,12 @@ Then /^I should not see an error$/ do
   expect(page).to_not have_css("div.alert-error")
 end
 
-Then /^I should see that the membership level is invalid$/ do
-  expect(page).to have_content "Membership Level is not included in the list"
-end
-
 Then /^I should get an error telling me to accept the terms$/ do
   expect(page).to have_content "Agreed to terms must be accepted"
 end
 
 When /^I should get an error telling my passwords don't match$/ do
   expect(page).to have_content "Password doesn't match confirmation"
-end
-
-Then /^my details should not be queued$/ do
-  expect(Resque).to_not receive(:enqueue)
 end
 
 Then /^a welcome email should be sent to me$/ do
@@ -328,36 +280,6 @@ Then /^a welcome email should be sent to me$/ do
     And they should see "Your membership number is <strong>#{@membership_number}</strong>" in the email body
     And they should see "mailto:members@theodi.org" in the email body
   }
-end
-
-And (/^my organisation name is "(.*?)"$/) do |org_name|
-  @organization_name = org_name
-  fill_in('member_organization_name', :with => @organization_name)
-end
-
-And (/^my organisation name is expected to be "(.*?)"$/) do |org_name|
-  @organization_name = org_name
-end
-
-Then (/^my organisation name should be "(.*?)"$/) do |org_name|
-  @member.organization.name.should == org_name
-end
-
-Then(/^I should see today's date$/) do
-  page.body.should include(Date.today.to_formatted_s(:long_ordinal))
-end
-
-When(/^I choose to pay by invoice$/) do
-  choose('Annual invoice')
-  @payment_method = 'invoice'
-end
-
-When(/^I visit the signup page with an origin of "(.*?)"$/) do |origin|
-  visit("/members/new?level=#{@product_name}&origin=#{origin}")
-end
-
-When(/^I visit the signup page with a coupon of "(.*?)"$/) do |coupon|
-  visit("/members/new?level=#{@product_name}&coupon=#{coupon}")
 end
 
 Then(/^I should have an origin of "(.*?)"$/) do |origin|
@@ -442,3 +364,24 @@ Then(/^I should be marked as active$/) do
   expect(@member.cached_active).to eq(true)
   expect(@member.current).to eq(true)
 end
+
+Then(/^I should see an affiliated node section$/) do
+  expect(page.body).to include("Are you affiliated with an ODI Node?")
+  expect(page).to have_selector("select[name='member[origin]']")
+end
+
+Then(/^the dropdown should be pre\-selected with "(.*?)"$/) do |origin|
+  field = page.find("select[name='member[origin]']")
+  expect(field.value).to eq(origin)
+end
+
+Then(/^if I navigate away and then return$/) do
+  visit "/members" # path is not relevant, just away from the signup page
+  visit("/members/new?level=#{@product_name}")
+end
+
+Then(/^the original origin value should be still be "(.*?)"$/) do |origin|
+  field = page.find("select[name='member[origin]']")
+  expect(field.value).to eq(origin)
+end
+

@@ -7,6 +7,7 @@ class RegistrationsController < Devise::RegistrationsController
   # because can't use super as that would cause a double render
   def new
     resource = build_resource({product_name: params[:level]})
+    save_origin
     respond_with resource
   end
 
@@ -80,4 +81,20 @@ class RegistrationsController < Devise::RegistrationsController
     devise_parameter_sanitizer.sanitize(:sign_up)
   end
 
+  def save_origin
+    return if !params[:origin].present?
+
+    cookies[:origin] = params[:origin]
+  end
+
+  def origin_value
+    if params[:member] && params[:member][:origin].present?
+      return params[:member][:origin]
+    end
+
+    cookies[:origin]
+  end
+
+  helper_method :origin_value
 end
+

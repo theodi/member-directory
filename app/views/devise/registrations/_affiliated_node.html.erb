@@ -1,0 +1,16 @@
+<fieldset>
+  <legend>
+    Are you affiliated with an ODI Node?
+    <a href="#" id="what-are-nodes" data-toggle="tooltip" title="ODI Nodes are local franchises of the ODI which focus on promoting open data via learning and networking">
+      <span class="icon-question-sign" aria-hidden="true"></span>
+    </a>
+  </legend>
+
+  <div class="control-group">
+    <%= f.label :origin, "Yes, the Node is", :class => 'control-label' %>
+    <div class="controls">
+      <%= f.select :origin, Member::ORIGINS, :selected => origin_value, :include_blank => true %>
+    </div>
+  </div>
+</fieldset>
+

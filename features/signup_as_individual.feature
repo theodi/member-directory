@@ -6,7 +6,6 @@ Feature: Signup as an individual member
     When I visit the signup page
 
   Scenario: Individual member signup
-
     When I enter my name and contact details
     And I enter my address details
     And I agree to the terms
@@ -24,7 +23,6 @@ Feature: Signup as an individual member
     When chargify verifies the payment
 
   Scenario: Individual member does not see specific fields
-
     Then I should not see the "Organisation Name" field
     And I should not see the "Organisation size" field
     And I should not see the "Organisation type" field
@@ -36,12 +34,25 @@ Feature: Signup as an individual member
     And the submit button should say "Become an ODI member"
     And I should see a link to the right to cancel
 
+  Scenario: Member signup with an affiliated node
+    Given that I want to sign up as an individual supporter
+    When I visit the signup page
+    Then I should see an affiliated node section
+
+  Scenario: Member signup with an affiliated node and origin
+    Given that I want to sign up as an individual supporter
+    When I visit the signup page with an origin of "odi-leeds"
+    Then I should see an affiliated node section
+    And the dropdown should be pre-selected with "odi-leeds"
+    And if I navigate away and then return
+    Then the original origin value should be still be "odi-leeds"
+
   @javascript
   Scenario: Auto-update terms based on user input
-
     Given I want to sign up as an individual member
     When I visit the signup page
     And I enter my name and contact details
     And I enter my address details
     Then I should see "You agree to comply with these terms and conditions"
     And I should see "means Ian McIain of 123 Fake Street, Faketown, Fakeshire, United Kingdom, FAKE 123"
+
