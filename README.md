@@ -45,6 +45,15 @@ Under **Setup -> Products / Components / Coupons**
 Edit each product and change "Return URL after successful account update" to
 `http://<ngrok url>/members/chargify_return`
 
+### Tests
+
+The tests are made up of Cucumber features and RSpec specs.
+
+You can run everything at once using `bundle exec rake`.
+
+Or, you can run each suite individually with `bundle exec cucumber` or `bundle
+exec rspec`.
+
 ## Vagrant
 
 In order to run this in a production-alike Vagrant instance, you will first
