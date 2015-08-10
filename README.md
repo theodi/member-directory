@@ -18,11 +18,32 @@ You need to set various environment variables to tell the app where to post
 jobs for background queueing. Copy env.example to .env and edit to fit your
 purposes.
 
-## Testing Emails
+## Testing
+
+### Emails
 
 If you want to test email, you can run ```mailcatcher``` before you start the
 app in development mode. Mail will then be delivered to a preview window
 running at http://localhost:1080.
+
+### Payments
+
+You'll need [ngrok](https://ngrok.com/) (or similar) to test payments through
+the stack. This allows you to expose your development server to the Internet so
+that Chargify can redirect back and send web hook notifications.
+
+Once you have `ngrok` setup and have a URL pointing to your local server,
+you'll need to update Chargify with the URL. You can do this in the Chargify
+web interface.
+
+Under **Settings -> Webhooks**
+
+Change the web hook URL to be `http://<ngrok url>/members/chargify_verify`
+
+Under **Setup -> Products / Components / Coupons**
+
+Edit each product and change "Return URL after successful account update" to
+`http://<ngrok url>/members/chargify_return`
 
 ## Vagrant
 
