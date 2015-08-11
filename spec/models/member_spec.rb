@@ -441,6 +441,29 @@ describe Member do
     end
   end
 
+  describe 'coupon_discount' do
+    context 'member has a coupon' do
+      it 'returns the coupon discount percentage amount' do
+        stub_const("Member::CHARGIFY_COUPON_DISCOUNTS", {
+          "TOTES_FREE" => {
+            :type => :discount,
+            :percentage => 50
+          }
+        })
+
+        member.coupon = "TOTES_FREE"
+
+        expect(member.coupon_discount).to eq 50
+      end
+    end
+
+    context 'member does NOT have a coupon' do
+      it 'returns nil' do
+        expect(member.coupon_discount).to eq nil
+      end
+    end
+  end
+
   describe 'summary' do
     it 'counts the total current members' do
       FactoryGirl.create_list(:current_member, 5)

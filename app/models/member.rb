@@ -419,7 +419,14 @@ class Member < ActiveRecord::Base
     end
   end
 
-	private
+  def coupon_discount
+    return nil unless coupon
+
+    coupon = CHARGIFY_COUPON_DISCOUNTS.fetch(self.coupon)
+    coupon[:percentage]
+  end
+
+  private
 
   def generate_membership_number
     chars = ('A'..'Z').to_a
@@ -446,13 +453,6 @@ class Member < ActiveRecord::Base
 
   def process_signup
     Resque.enqueue(SignupProcessor, *process_signup_attributes)
-  end
-
-  def coupon_discount
-    return nil unless coupon
-
-    coupon = CHARGIFY_COUPON_DISCOUNTS.fetch(self.coupon)
-    coupon[:percentage]
   end
 
   def process_signup_attributes
