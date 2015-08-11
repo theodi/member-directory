@@ -139,9 +139,8 @@ describe Member do
       expect(Chargify::Coupon).to receive(:all).with(params: {product_family_id: 2}).and_return([half])
       Member.initialize_chargify_links!
       expect(Member::CHARGIFY_COUPON_DISCOUNTS).to eq({
-        "FULL"  => { :type => :free,     :percentage => 100 },
-        "HALF"  => { :type => :discount, :percentage => 50 },
-        "AMOUNT"=> { :type => :discount, :percentage => nil }
+        "FULL" => { :type => :free,     :percentage => 100 },
+        "HALF" => { :type => :discount, :percentage => 50 }
       })
     end
 
