@@ -488,7 +488,7 @@ class Member < ActiveRecord::Base
     }
 
     purchase = {
-      'payment_method' => invoiced_member? ? 'invoice' : 'credit_card',
+      'payment_method' => invoice? ? 'invoice' : 'credit_card',
       'payment_ref'    => chargify_payment_id,
       'offer_category' => product_name,
       'membership_id'  => membership_number,
@@ -496,6 +496,10 @@ class Member < ActiveRecord::Base
     }
 
     [organization, contact_person, billing, purchase]
+  end
+
+  def invoice?
+    self.invoice == true
   end
 
   def save_updates_to_capsule
