@@ -22,7 +22,7 @@ Feature: Signup and pay by invoice
     And a welcome email should be sent to me
     And I should be marked as active
 
-  Scenario: Individual member setting invoice flag still gets redirected to chargify
+  Scenario: Individual member setting invoice flag does not get redirected to Chargify
     Given I want to sign up as an individual member
     And product information has been setup for "individual-supporter"
     When I visit the signup page with the invoice flag set
@@ -30,7 +30,7 @@ Feature: Signup and pay by invoice
     And I enter my address details
     And I agree to the terms
     When I click sign up
-    Then I am redirected to the payment page
+    And I am returned to the thanks page
 
   Scenario: Member signing up with invoice retains invoive flag on redirect
     When I visit the signup page with the invoice flag set

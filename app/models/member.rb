@@ -286,10 +286,6 @@ class Member < ActiveRecord::Base
     errors.messages[:email] && errors.messages[:email].include?("has already been taken") && !current?
   end
 
-  def invoiced_member?
-    self.invoice === true && self.product_name == "supporter"
-  end
-
   def badge_class
     if %w[partner sponsor].include?(product_name)
       "partner"
@@ -428,6 +424,10 @@ class Member < ActiveRecord::Base
     coupon[:percentage]
   end
 
+  def invoiced?
+    self.invoice == true
+  end
+
   private
 
   def generate_membership_number
@@ -488,7 +488,7 @@ class Member < ActiveRecord::Base
     }
 
     purchase = {
-      'payment_method' => invoice? ? 'invoice' : 'credit_card',
+      'payment_method' => invoiced? ? 'invoice' : 'credit_card',
       'payment_ref'    => chargify_payment_id,
       'offer_category' => product_name,
       'membership_id'  => membership_number,
@@ -496,10 +496,6 @@ class Member < ActiveRecord::Base
     }
 
     [organization, contact_person, billing, purchase]
-  end
-
-  def invoice?
-    self.invoice == true
   end
 
   def save_updates_to_capsule
