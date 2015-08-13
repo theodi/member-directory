@@ -191,7 +191,9 @@ class Member < ActiveRecord::Base
     end
     product_family_ids.each do |product_family_id|
       Chargify::Coupon.all(params: {product_family_id: product_family_id}).each do |coupon|
-        register_chargify_coupon_code(coupon.code, coupon.percentage) unless coupon.archived_at.present?
+        if !coupon.archived_at.present? && coupon.percentage.present?
+          register_chargify_coupon_code(coupon)
+        end
       end
     end
   end
@@ -204,8 +206,11 @@ class Member < ActiveRecord::Base
     CHARGIFY_PRODUCT_PRICES[plan] = cents_that_are_pence.to_i / 100
   end
 
-  def self.register_chargify_coupon_code(code, percentage)
-    CHARGIFY_COUPON_DISCOUNTS[code] = percentage == 100 ? :free : :discount
+  def self.register_chargify_coupon_code(coupon)
+    CHARGIFY_COUPON_DISCOUNTS[coupon.code] = {
+      :type        => (coupon.percentage == 100 ? :free : :discount),
+      :percentage  => coupon.percentage
+    }
   end
 
   def remote?
@@ -416,7 +421,14 @@ class Member < ActiveRecord::Base
     end
   end
 
-	private
+  def coupon_discount
+    return nil unless coupon
+
+    coupon = CHARGIFY_COUPON_DISCOUNTS.fetch(self.coupon)
+    coupon[:percentage]
+  end
+
+  private
 
   def generate_membership_number
     chars = ('A'..'Z').to_a
@@ -479,7 +491,8 @@ class Member < ActiveRecord::Base
       'payment_method' => invoiced_member? ? 'invoice' : 'credit_card',
       'payment_ref'    => chargify_payment_id,
       'offer_category' => product_name,
-      'membership_id'  => membership_number
+      'membership_id'  => membership_number,
+      'discount'       => coupon_discount
     }
 
     [organization, contact_person, billing, purchase]

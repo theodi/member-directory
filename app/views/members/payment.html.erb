@@ -2,7 +2,7 @@
 To complete your registration, please continue to the payment page.
 </p>
 
-<% case @discount %>
+<% case @discount_type %>
 <% when :free %>
 <p>
     As part of this sign-up process we need to take your credit or debit card
@@ -47,7 +47,7 @@ To complete your registration, please continue to the payment page.
   <% end %>
   <div class="control-group">
     <div class="controls">
-      <input type="submit" class="btn btn-primary btn-large" value="<%= @discount == :free ? 'Enter card details' : 'Pay now' %>">
+      <input type="submit" class="btn btn-primary btn-large" value="<%= payment_button_label(@discount_type) %>">
     </div>
   </div>
 <% end %>

@@ -9,8 +9,10 @@ end
 Given /^product information has been setup for "(.*?)"$/ do |plan|
   @chargify_product_url = "http://test.host/product/#{plan}"
   @chargify_product_price = 800
+  coupon = double(:code => "ODIALUMNI", :percentage => 50)
   Member.register_chargify_product_link(plan, @chargify_product_url)
   Member.register_chargify_product_price(plan, @chargify_product_price*100)
+  Member.register_chargify_coupon_code(coupon)
 end
 
 Given /^there is already an organization with the name I want to use$/ do
@@ -187,6 +189,7 @@ Then /^I am processed through chargify for the "(.*?)" option$/ do |plan|
 end
 
 Then(/^the coupon code "(.*?)" is saved against my membership$/) do |coupon|
+  @discount = 50
   member = Member.find_by_email(@email)
   expect(member.coupon).to eq(coupon)
 end
@@ -236,6 +239,10 @@ Then /^my details should be queued for further processing$/ do
     }
   }
 
+  purchase = {
+    'discount' => @discount
+  }
+
   expect(Resque).to receive(:enqueue) do |*args|
     expect(args[0]).to eql SignupProcessor
     expect(args[1]).to eql organization
@@ -245,6 +252,7 @@ Then /^my details should be queued for further processing$/ do
     expect(args[4]['payment_ref']).to eql @payment_ref
     expect(args[4]['offer_category']).to eql @product_name
     expect(args[4]['membership_id']).not_to eql nil
+    expect(args[4]['discount']).to eq purchase['discount']
   end
 end
 

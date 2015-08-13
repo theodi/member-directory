@@ -139,9 +139,8 @@ describe Member do
       expect(Chargify::Coupon).to receive(:all).with(params: {product_family_id: 2}).and_return([half])
       Member.initialize_chargify_links!
       expect(Member::CHARGIFY_COUPON_DISCOUNTS).to eq({
-        "FULL" => :free,
-        "HALF" => :discount,
-        "AMOUNT" => :discount
+        "FULL" => { :type => :free,     :percentage => 100 },
+        "HALF" => { :type => :discount, :percentage => 50 }
       })
     end
 
@@ -159,7 +158,7 @@ describe Member do
       expect(Chargify::Coupon).to receive(:all).with(params: {product_family_id: 1}).and_return([present, archived])
       Member.initialize_chargify_links!
       expect(Member::CHARGIFY_COUPON_DISCOUNTS).to eq({
-        "PRESENT" => :free
+        "PRESENT" => { :type => :free, :percentage => 100 }
       })
     end
   end
@@ -438,6 +437,29 @@ describe Member do
       query = Rack::Utils.parse_query url.query
       expect(member.coupon).to eq("ODIALUMNI")
       expect(query["coupon_code"]).to eq("ODIALUMNI")
+    end
+  end
+
+  describe 'coupon_discount' do
+    context 'member has a coupon' do
+      it 'returns the coupon discount percentage amount' do
+        stub_const("Member::CHARGIFY_COUPON_DISCOUNTS", {
+          "TOTES_FREE" => {
+            :type => :discount,
+            :percentage => 50
+          }
+        })
+
+        member.coupon = "TOTES_FREE"
+
+        expect(member.coupon_discount).to eq 50
+      end
+    end
+
+    context 'member does NOT have a coupon' do
+      it 'returns nil' do
+        expect(member.coupon_discount).to eq nil
+      end
     end
   end
 

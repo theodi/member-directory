@@ -58,6 +58,9 @@ Feature: Signup as a supporter member
     And I am processed through chargify for the "corporate-supporter_annual" option
     And the coupon code "ODIALUMNI" is saved against my membership
     When I click pay now
+    And I am returned to the thanks page
+    And my details should be queued for further processing
+    When chargify verifies the payment
 
   Scenario Outline: Member tries to sign up, but misses a mandatory field
     When I enter my name and contact details

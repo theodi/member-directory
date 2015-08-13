@@ -40,10 +40,12 @@ Under **Settings -> Webhooks**
 
 Change the web hook URL to be `http://<ngrok url>/members/chargify_verify`
 
-Under **Setup -> Products / Components / Coupons**
+Under **Setup -> Public Signup Pages -> Edit**
 
 Edit each product and change "Return URL after successful account update" to
 `http://<ngrok url>/members/chargify_return`
+
+More in-depth information is available in [doc/charify.md](doc/charify.md).
 
 ### Tests
 
