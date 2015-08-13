@@ -288,6 +288,7 @@ Then /^a welcome email should be sent to me$/ do
     And they should see "Your membership number is <strong>#{@membership_number}</strong>" in the email body
     And they should see "mailto:members@theodi.org" in the email body
   }
+  expect(current_email).to bcc_to("members@theodi.org")
 end
 
 Then(/^I should have an origin of "(.*?)"$/) do |origin|
