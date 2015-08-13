@@ -463,6 +463,24 @@ describe Member do
     end
   end
 
+  describe 'invoiced?' do
+    context 'member has invoice flag set to true' do
+      it 'returns true' do
+        member.invoice = true
+
+        expect(member.invoiced?).to be true
+      end
+    end
+
+    context 'member does NOT have invoice flag set' do
+      it 'returns false' do
+        member.invoice = nil
+
+        expect(member.coupon_discount).to be_falsey
+      end
+    end
+  end
+
   describe 'summary' do
     it 'counts the total current members' do
       FactoryGirl.create_list(:current_member, 5)
