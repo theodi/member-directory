@@ -16,6 +16,7 @@ class Member < ActiveRecord::Base
   CURRENT_SUPPORTER_LEVELS = %w[
     supporter
     individual
+    student
   ]
 
   ORGANISATION_TYPES = {

@@ -6,7 +6,7 @@ describe RegistrationsController do
     request.env['devise.mapping'] = Devise.mappings[:member]
   end
   
-  %w[supporter individual].each do |level|
+  %w[supporter individual student].each do |level|
     it "does not allow a level of #{level}" do
       get :new, :level => level
       expect(response).to be_success
