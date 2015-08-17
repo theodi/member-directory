@@ -177,6 +177,8 @@ describe Member do
     before do
       Member.register_chargify_product_link('individual-supporter', 'https://chargify.com/individiual')
       Member.register_chargify_product_price('individual-supporter', 9000)
+      Member.register_chargify_product_link('individual-supporter-student', 'https://chargify.com/student')
+      Member.register_chargify_product_price('individual-supporter-student', 9000)
       Member.register_chargify_product_link('supporter_annual', 'https://chargify.com/non-profit')
       Member.register_chargify_product_price('supporter_annual', 72000)
       Member.register_chargify_product_link('supporter_monthly', 'https://chargify.com/monthly-non-profit')
@@ -195,6 +197,11 @@ describe Member do
 
     it 'returns the price inclusive of vat for individuals' do
       m = Member.new(product_name: 'individual', address_country: 'GB')
+      expect(m.get_plan_price).to eq("£108.00 including £18.00 VAT")
+    end
+
+    it 'returns the price inclusive of vat for students' do
+      m = Member.new(product_name: 'student', address_country: 'GB')
       expect(m.get_plan_price).to eq("£108.00 including £18.00 VAT")
     end
 

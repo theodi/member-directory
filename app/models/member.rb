@@ -331,6 +331,8 @@ class Member < ActiveRecord::Base
       'Founding partner'
     elsif organization?
       product_name.titleize
+    elsif student?
+      "Student Supporter"
     else
       "Supporter"
     end
@@ -392,10 +394,11 @@ class Member < ActiveRecord::Base
 
   def get_plan_description
     {
-      'individual-supporter'            => 'Individual Supporter',
-      'corporate-supporter_annual' => 'Corporate Supporter',
-      'supporter_annual'                => 'Supporter',
-      'supporter_monthly'                => 'Supporter'
+      'individual-supporter'         => 'Individual Supporter',
+      'individual-supporter-student' => 'Individual Student Supporter',
+      'corporate-supporter_annual'   => 'Corporate Supporter',
+      'supporter_annual'             => 'Supporter',
+      'supporter_monthly'            => 'Supporter'
     }[get_plan]
   end
 
@@ -405,7 +408,7 @@ class Member < ActiveRecord::Base
     end
 
     if address_country == 'GB'
-      if individual?
+      if individual? || student?
         inc_vat, vat = amount * 1.2, amount * 0.2
         "£%.2f including £%.2f VAT" % [inc_vat, vat]
       else
@@ -543,7 +546,9 @@ class Member < ActiveRecord::Base
   end
 
   def setup_organization
-    self.create_organization(:name => organization_name) unless individual?
+    return if individual? || student?
+
+    self.create_organization(:name => organization_name)
   end
 
   def country_name

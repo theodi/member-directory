@@ -60,7 +60,7 @@
   <% end %>
   <script>
     function update_name() {
-      <% if individual? %>
+      <% if individual? || student? %>
       $('.legal-name').text($('#member_contact_name')[0].value);
       <% else %>
       $('.legal-name').text($('#member_organization_name')[0].value);

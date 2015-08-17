@@ -53,11 +53,15 @@ module MembersHelper
     content_tag(:li, content, class: ('active' if active))
   end
 
-  def payment_button_label(discount_type)
-    if discount_type == :free
-      "Enter card details"
+  def payment_button_label(member, discount_type)
+    if member.student?
+      "Complete"
     else
-      "Pay now"
+      if discount_type == :free
+        "Enter card details"
+      else
+        "Pay now"
+      end
     end
   end
 end
