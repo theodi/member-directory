@@ -217,6 +217,44 @@ describe Member do
     end
   end
 
+  describe "#get_plan" do
+    context "member is individual" do
+      it "returns 'individual-supporter'" do
+        member = Member.new(product_name: "individual")
+
+        expect(member.get_plan).to eq("individual-supporter")
+      end
+    end
+
+    context "member is a large corporate organization" do
+      it "returns 'corporate-supporter_annual'" do
+        member = Member.new
+        member.organization_type = "commercial"
+        member.organization_size = ">1000"
+
+        expect(member.get_plan).to eq("corporate-supporter_annual")
+      end
+    end
+
+    context "member is a supporter who pays monthly" do
+      it "returns 'supporter_monthly'" do
+        member = Member.new(product_name: "supporter")
+        member.payment_frequency = "monthly"
+
+        expect(member.get_plan).to eq("supporter_monthly")
+      end
+    end
+
+    context "member is a supporter who pays annually" do
+      it "returns 'supporter_annual" do
+        member = Member.new(product_name: "supporter")
+        member.payment_frequency = nil
+
+        expect(member.get_plan).to eq("supporter_annual")
+      end
+    end
+  end
+
   describe 'chargify redirect link' do
     before do
       Member.register_chargify_product_link('individual-supporter', 'https://chargify.com/individual')

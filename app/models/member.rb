@@ -437,6 +437,20 @@ class Member < ActiveRecord::Base
     self.invoice == true
   end
 
+  def get_plan
+    if individual?
+      'individual-supporter'
+    else
+      if large_corporate_organization?
+        'corporate-supporter_annual'
+      elsif payment_frequency == 'monthly'
+        'supporter_monthly'
+      else
+        'supporter_annual'
+      end
+    end
+  end
+
   private
 
   def generate_membership_number
@@ -528,20 +542,6 @@ class Member < ActiveRecord::Base
 
   def setup_organization
     self.create_organization(:name => organization_name) unless individual?
-  end
-
-  def get_plan
-    if individual?
-      'individual-supporter'
-    else
-      if large_corporate_organization?
-        'corporate-supporter_annual'
-      elsif payment_frequency == 'monthly'
-        'supporter_monthly'
-      else
-        'supporter_annual'
-      end
-    end
   end
 
   def country_name
