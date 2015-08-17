@@ -5,14 +5,14 @@ describe RegistrationsController do
   before :each do
     request.env['devise.mapping'] = Devise.mappings[:member]
   end
-  
+
   %w[supporter individual student].each do |level|
-    it "does not allow a level of #{level}" do
+    it "does allow a level of #{level}" do
       get :new, :level => level
       expect(response).to be_success
     end
   end
-  
+
   %w[member partner sponsor spaceman].each do |level|
     it "does not allow a level of #{level}" do
       get :new, :level => level
@@ -20,7 +20,7 @@ describe RegistrationsController do
       expect(response).to redirect_to('http://www.theodi.org/join-us')
     end
   end
-  
+
   it 'should redirect back to join us page for no level' do
     get :new
     expect(response).to be_redirect
@@ -91,5 +91,5 @@ describe RegistrationsController do
       expect(member.origin).to eq('odi-leeds')
     end
   end
-
 end
+
