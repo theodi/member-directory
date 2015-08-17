@@ -208,6 +208,13 @@ describe Member do
       expect(m.get_monthly_plan_price).to eq("£60.00 + VAT")
     end
 
+    it 'raises an error if a plan price cannot be found' do
+      m = Member.new
+      # Not ideal, but a necessity at the moment
+      allow(m).to receive(:get_plan).and_return('plan-that-is-not-in-chargify')
+
+      expect { m.get_plan_price }.to raise_error(RuntimeError, /Can't get product price for plan 'plan-that-is-not-in-chargify'\. Does it exist in Chargify\?/)
+    end
   end
 
   describe 'chargify redirect link' do

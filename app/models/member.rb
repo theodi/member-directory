@@ -400,7 +400,10 @@ class Member < ActiveRecord::Base
   end
 
   def get_plan_price
-    amount = CHARGIFY_PRODUCT_PRICES[get_plan]
+    amount = CHARGIFY_PRODUCT_PRICES.fetch(get_plan) do
+      raise RuntimeError, "Can't get product price for plan '#{get_plan}'. Does it exist in Chargify?"
+    end
+
     if address_country == 'GB'
       if individual?
         inc_vat, vat = amount * 1.2, amount * 0.2
