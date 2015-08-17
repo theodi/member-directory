@@ -56,6 +56,8 @@ describe Member do
 
     it "does not need organization details for an individual" do
       member = Member.new(product_name: 'individual')
+      member.save
+
       organization_errors = member.errors.select {|k,_| k.to_s.starts_with?('organization_') }
       expect(organization_errors).to be_empty
     end
