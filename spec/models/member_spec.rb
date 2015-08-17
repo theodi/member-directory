@@ -26,7 +26,7 @@ describe Member do
 
   context "creating a member" do
     %w[organization_name organization_size organization_type organization_sector].each do |name|
-      it "requires an organisation name" do
+      it "requires an #{name}" do
         (member = Member.new).valid?
         expect(member.errors[name.to_sym]).to include("can't be blank")
       end
