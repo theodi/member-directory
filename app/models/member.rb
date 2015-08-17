@@ -11,6 +11,7 @@ class Member < ActiveRecord::Base
     partner
     sponsor
     individual
+    student
   ]
 
   CURRENT_SUPPORTER_LEVELS = %w[
@@ -137,7 +138,7 @@ class Member < ActiveRecord::Base
   validates :postal_code, presence: true, on: :create
   validates_acceptance_of :agreed_to_terms, on: :create
 
-  validates_with OrganizationValidator, on: :create, unless: :individual?
+  validates_with OrganizationValidator, on: :create, unless: Proc.new { |member| member.individual? || member.student? }
 
   scope :current, where(:current => true)
   scope :valid, where('product_name is not null')
@@ -263,6 +264,10 @@ class Member < ActiveRecord::Base
 
   def individual?
     self.class.is_individual_level?(product_name)
+  end
+
+  def student?
+    product_name == "student"
   end
 
   def organization?
