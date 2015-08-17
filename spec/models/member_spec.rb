@@ -226,6 +226,14 @@ describe Member do
       end
     end
 
+    context "member is student" do
+      it "returns 'individual-supporter-student'" do
+        member = Member.new(product_name: "student")
+
+        expect(member.get_plan).to eq("individual-supporter-student")
+      end
+    end
+
     context "member is a large corporate organization" do
       it "returns 'corporate-supporter_annual'" do
         member = Member.new

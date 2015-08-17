@@ -440,6 +440,8 @@ class Member < ActiveRecord::Base
   def get_plan
     if individual?
       'individual-supporter'
+    elsif student?
+      'individual-supporter-student'
     else
       if large_corporate_organization?
         'corporate-supporter_annual'
