@@ -11,11 +11,13 @@ class Member < ActiveRecord::Base
     partner
     sponsor
     individual
+    student
   ]
 
   CURRENT_SUPPORTER_LEVELS = %w[
     supporter
     individual
+    student
   ]
 
   ORGANISATION_TYPES = {
@@ -136,7 +138,7 @@ class Member < ActiveRecord::Base
   validates :postal_code, presence: true, on: :create
   validates_acceptance_of :agreed_to_terms, on: :create
 
-  validates_with OrganizationValidator, on: :create, unless: :individual?
+  validates_with OrganizationValidator, on: :create, unless: Proc.new { |member| member.individual? || member.student? }
 
   scope :current, where(:current => true)
   scope :valid, where('product_name is not null')
@@ -264,6 +266,10 @@ class Member < ActiveRecord::Base
     self.class.is_individual_level?(product_name)
   end
 
+  def student?
+    product_name == "student"
+  end
+
   def organization?
     %w[partner sponsor supporter].include?(product_name)
   end
@@ -325,6 +331,8 @@ class Member < ActiveRecord::Base
       'Founding partner'
     elsif organization?
       product_name.titleize
+    elsif student?
+      "Student Supporter"
     else
       "Supporter"
     end
@@ -386,17 +394,21 @@ class Member < ActiveRecord::Base
 
   def get_plan_description
     {
-      'individual-supporter'            => 'Individual Supporter',
-      'corporate-supporter_annual' => 'Corporate Supporter',
-      'supporter_annual'                => 'Supporter',
-      'supporter_monthly'                => 'Supporter'
+      'individual-supporter'         => 'Individual Supporter',
+      'individual-supporter-student' => 'ODI Student Supporter',
+      'corporate-supporter_annual'   => 'Corporate Supporter',
+      'supporter_annual'             => 'Supporter',
+      'supporter_monthly'            => 'Supporter'
     }[get_plan]
   end
 
   def get_plan_price
-    amount = CHARGIFY_PRODUCT_PRICES[get_plan]
+    amount = CHARGIFY_PRODUCT_PRICES.fetch(get_plan) do
+      raise RuntimeError, "Can't get product price for plan '#{get_plan}'. Does it exist in Chargify?"
+    end
+
     if address_country == 'GB'
-      if individual?
+      if individual? || student?
         inc_vat, vat = amount * 1.2, amount * 0.2
         "£%.2f including £%.2f VAT" % [inc_vat, vat]
       else
@@ -426,6 +438,22 @@ class Member < ActiveRecord::Base
 
   def invoiced?
     self.invoice == true
+  end
+
+  def get_plan
+    if individual?
+      'individual-supporter'
+    elsif student?
+      'individual-supporter-student'
+    else
+      if large_corporate_organization?
+        'corporate-supporter_annual'
+      elsif payment_frequency == 'monthly'
+        'supporter_monthly'
+      else
+        'supporter_annual'
+      end
+    end
   end
 
   private
@@ -518,21 +546,9 @@ class Member < ActiveRecord::Base
   end
 
   def setup_organization
-    self.create_organization(:name => organization_name) unless individual?
-  end
+    return if individual? || student?
 
-  def get_plan
-    if individual?
-      'individual-supporter'
-    else
-      if large_corporate_organization?
-        'corporate-supporter_annual'
-      elsif payment_frequency == 'monthly'
-        'supporter_monthly'
-      else
-        'supporter_annual'
-      end
-    end
+    self.create_organization(:name => organization_name)
   end
 
   def country_name

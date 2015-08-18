@@ -12,7 +12,7 @@ class DeviseMailer < Devise::Mailer
 
   def confirmation_instructions(record, opts)
     @type = "capsule" if opts[:capsule].present?
-    if record.individual?
+    if record.individual? || record.student?
       document_renderer = DocumentRenderer.new
       attachments.inline['supporter.png'] = {
         mime_type: 'image/png',
@@ -25,5 +25,5 @@ class DeviseMailer < Devise::Mailer
     end
     super
   end
-
 end
+

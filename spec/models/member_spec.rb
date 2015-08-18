@@ -26,7 +26,7 @@ describe Member do
 
   context "creating a member" do
     %w[organization_name organization_size organization_type organization_sector].each do |name|
-      it "requires an organisation name" do
+      it "requires an #{name}" do
         (member = Member.new).valid?
         expect(member.errors[name.to_sym]).to include("can't be blank")
       end
@@ -56,6 +56,16 @@ describe Member do
 
     it "does not need organization details for an individual" do
       member = Member.new(product_name: 'individual')
+      member.save
+
+      organization_errors = member.errors.select {|k,_| k.to_s.starts_with?('organization_') }
+      expect(organization_errors).to be_empty
+    end
+
+    it "does not need organization details for an student" do
+      member = Member.new(product_name: 'student')
+      member.save
+
       organization_errors = member.errors.select {|k,_| k.to_s.starts_with?('organization_') }
       expect(organization_errors).to be_empty
     end
@@ -167,6 +177,8 @@ describe Member do
     before do
       Member.register_chargify_product_link('individual-supporter', 'https://chargify.com/individiual')
       Member.register_chargify_product_price('individual-supporter', 9000)
+      Member.register_chargify_product_link('individual-supporter-student', 'https://chargify.com/student')
+      Member.register_chargify_product_price('individual-supporter-student', 9000)
       Member.register_chargify_product_link('supporter_annual', 'https://chargify.com/non-profit')
       Member.register_chargify_product_price('supporter_annual', 72000)
       Member.register_chargify_product_link('supporter_monthly', 'https://chargify.com/monthly-non-profit')
@@ -188,6 +200,11 @@ describe Member do
       expect(m.get_plan_price).to eq("£108.00 including £18.00 VAT")
     end
 
+    it 'returns the price inclusive of vat for students' do
+      m = Member.new(product_name: 'student', address_country: 'GB')
+      expect(m.get_plan_price).to eq("£108.00 including £18.00 VAT")
+    end
+
     it 'returns a 12th of the yearly price for monthly price' do
       m = Member.new(product_name: 'supporter')
       expect(m.get_monthly_plan_price).to eq("£60.00")
@@ -198,6 +215,59 @@ describe Member do
       expect(m.get_monthly_plan_price).to eq("£60.00 + VAT")
     end
 
+    it 'raises an error if a plan price cannot be found' do
+      m = Member.new
+      # Not ideal, but a necessity at the moment
+      allow(m).to receive(:get_plan).and_return('plan-that-is-not-in-chargify')
+
+      expect { m.get_plan_price }.to raise_error(RuntimeError, /Can't get product price for plan 'plan-that-is-not-in-chargify'\. Does it exist in Chargify\?/)
+    end
+  end
+
+  describe "#get_plan" do
+    context "member is individual" do
+      it "returns 'individual-supporter'" do
+        member = Member.new(product_name: "individual")
+
+        expect(member.get_plan).to eq("individual-supporter")
+      end
+    end
+
+    context "member is student" do
+      it "returns 'individual-supporter-student'" do
+        member = Member.new(product_name: "student")
+
+        expect(member.get_plan).to eq("individual-supporter-student")
+      end
+    end
+
+    context "member is a large corporate organization" do
+      it "returns 'corporate-supporter_annual'" do
+        member = Member.new
+        member.organization_type = "commercial"
+        member.organization_size = ">1000"
+
+        expect(member.get_plan).to eq("corporate-supporter_annual")
+      end
+    end
+
+    context "member is a supporter who pays monthly" do
+      it "returns 'supporter_monthly'" do
+        member = Member.new(product_name: "supporter")
+        member.payment_frequency = "monthly"
+
+        expect(member.get_plan).to eq("supporter_monthly")
+      end
+    end
+
+    context "member is a supporter who pays annually" do
+      it "returns 'supporter_annual" do
+        member = Member.new(product_name: "supporter")
+        member.payment_frequency = nil
+
+        expect(member.get_plan).to eq("supporter_annual")
+      end
+    end
   end
 
   describe 'chargify redirect link' do

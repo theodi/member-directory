@@ -1,7 +1,7 @@
 class RegistrationsController < Devise::RegistrationsController
   before_filter :check_product_name, :only => 'new'
   before_filter :set_title, :only => %w[new create]
-  helper_method :individual?
+  helper_method :individual?, :student?
 
   # copied from https://github.com/plataformatec/devise/blob/v2.2.8/app/controllers/devise/registrations_controller.rb
   # because can't use super as that would cause a double render
@@ -75,6 +75,10 @@ class RegistrationsController < Devise::RegistrationsController
 
   def individual?
     resource.individual?
+  end
+
+  def student?
+    resource.student?
   end
 
   def sign_up_params

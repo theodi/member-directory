@@ -156,6 +156,10 @@ When /^I click pay now$/ do
   click_button('Pay now')
 end
 
+When /^I click complete$/ do
+  click_button('Complete')
+end
+
 Then /^I am redirected to the payment page$/ do
   member = Member.find_by_email(@email)
   expect(current_path).to eq(payment_member_path(member))

@@ -1,5 +1,9 @@
 <p class="lead">
-To complete your registration, please continue to the payment page.
+  <% if @member.student? %>
+    To complete your registration, please continue to the next page.
+  <% else %>
+    To complete your registration, please continue to the payment page.
+  <% end %>
 </p>
 
 <% case @discount_type %>
@@ -20,7 +24,13 @@ To complete your registration, please continue to the payment page.
     discount will be applied on the next page.
 </p>
 <% else %>
-<p>Being <%= indefinite_article(@member.get_plan_description) %> is <%= @member.get_plan_price %> per year.</p>
+
+  <% if @member.student? %>
+    <p>Being <%= indefinite_article(@member.get_plan_description) %> is FREE!</p>
+  <% else %>
+    <p>Being <%= indefinite_article(@member.get_plan_description) %> is <%= @member.get_plan_price %> per year.</p>
+  <% end %>
+
 <% end %>
 
 <p>
@@ -47,7 +57,7 @@ To complete your registration, please continue to the payment page.
   <% end %>
   <div class="control-group">
     <div class="controls">
-      <input type="submit" class="btn btn-primary btn-large" value="<%= payment_button_label(@discount_type) %>">
+      <input type="submit" class="btn btn-primary btn-large" value="<%= payment_button_label(@member, @discount_type) %>">
     </div>
   </div>
 <% end %>

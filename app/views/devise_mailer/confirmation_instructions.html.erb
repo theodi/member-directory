@@ -1,5 +1,7 @@
 <% if @resource.individual? %>
   <%= render(:partial => 'individual_confirmation') %>
+<% elsif @resource.student? %>
+  <%= render(:partial => 'student_confirmation') %>
 <% else %>
   <%= render(:partial => 'confirmation') %>
 <% end %>
