@@ -395,7 +395,7 @@ class Member < ActiveRecord::Base
   def get_plan_description
     {
       'individual-supporter'         => 'Individual Supporter',
-      'individual-supporter-student' => 'Individual Student Supporter',
+      'individual-supporter-student' => 'ODI Student Supporter',
       'corporate-supporter_annual'   => 'Corporate Supporter',
       'supporter_annual'             => 'Supporter',
       'supporter_monthly'            => 'Supporter'

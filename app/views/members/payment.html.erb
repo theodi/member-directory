@@ -1,5 +1,9 @@
 <p class="lead">
-To complete your registration, please continue to the payment page.
+  <% if @member.student? %>
+    To complete your registration, please continue to the next page.
+  <% else %>
+    To complete your registration, please continue to the payment page.
+  <% end %>
 </p>
 
 <% case @discount_type %>
