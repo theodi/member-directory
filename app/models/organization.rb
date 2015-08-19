@@ -1,16 +1,16 @@
 class Organization < ActiveRecord::Base
   belongs_to :member
-  
+
   mount_uploader :logo, ImageObjectUploader
-  
+
   attr_accessible :name, :description, :url, :logo, :logo_cache,
                   :cached_contact_name, :cached_contact_phone, :cached_contact_email,
                   :cached_twitter, :cached_linkedin, :cached_facebook, :cached_tagline
-  
+
   # Using after_save here so we get the right image urls
   before_save :strip_twitter_prefix
   after_save :send_to_capsule, unless: :remote?
-  
+
   validates :name, :presence => true, :on => :update
   validates :name, :uniqueness => true, :allow_nil => true
   validates :description, :presence => true, :on => :update
@@ -21,7 +21,7 @@ class Organization < ActiveRecord::Base
   # so that we exclude things like http://localhost, which are valid
   # but undesirable
   validates :url, :url => {:allow_nil => true}, :format => {:with => /\Ahttps?:\/\/([^\.\/]+?)\.([^\.\/]+?)/, :allow_nil => true}
-  
+
   scope :active, joins(:member).where(:members => { :cached_active => true })
   scope :for_level, lambda { |level| joins(:member).where(members: { product_name: level}) }
 
@@ -68,11 +68,11 @@ class Organization < ActiveRecord::Base
   def membership_description
     member.membership_description
   end
-  
+
   def character_limit
     supporter? ? 500 : 1000 
   end
-    
+
   def strip_twitter_prefix
     self.cached_twitter = self.cached_twitter.last(-1) if self.cached_twitter.try(:starts_with?, '@')
   end
@@ -82,7 +82,7 @@ class Organization < ActiveRecord::Base
       organization = {
         :name => name
       }
-  
+
       directory_entry = {
         :description => description,
         :homepage    => url,
@@ -96,9 +96,9 @@ class Organization < ActiveRecord::Base
         :facebook    => cached_facebook,
         :tagline     => cached_tagline,
       }
-  
+
       date = updated_at.to_s
-    
+
       Resque.enqueue(SendDirectoryEntryToCapsule, member.membership_number, organization, directory_entry, date)
     end
   end
@@ -106,5 +106,5 @@ class Organization < ActiveRecord::Base
   def twitter_url
     cached_twitter ? "http://twitter.com/#{cached_twitter}" : nil
   end
-  
 end
+

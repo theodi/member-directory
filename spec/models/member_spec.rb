@@ -85,6 +85,14 @@ describe Member do
     end
   end
 
+  context "deleting a member" do
+    it "deletes the associated the organization when the member is destroyed" do
+      member = FactoryGirl.create(:member)
+
+      expect { member.destroy }.to change { Organization.count }.by(-1)
+    end
+  end
+
   context 'setting up chargify links' do
     before do
       Member::CHARGIFY_PRODUCT_LINKS.clear

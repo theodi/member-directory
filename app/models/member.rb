@@ -84,7 +84,7 @@ class Member < ActiveRecord::Base
 
   CHARGIFY_COUPON_DISCOUNTS = {}
 
-  has_one :organization
+  has_one :organization, dependent: :destroy
   has_many :embed_stats
 
   accepts_nested_attributes_for :organization
