@@ -1,11 +1,16 @@
 class RegistrationsController < Devise::RegistrationsController
   before_filter :check_product_name, :only => 'new'
   before_filter :set_title, :only => %w[new create]
-  helper_method :individual?, :student?
+  helper_method :individual?, :student?, :paying_by_invoice?, :already_signed_up?
 
   # copied from https://github.com/plataformatec/devise/blob/v2.2.8/app/controllers/devise/registrations_controller.rb
   # because can't use super as that would cause a double render
   def new
+    if paying_by_invoice? && already_signed_up?
+      current_member.update_attribute(:invoice, true)
+      return redirect_to thanks_member_url(session[:membership_number])
+    end
+
     resource = build_resource({product_name: params[:level]})
     save_origin
     respond_with resource
@@ -15,6 +20,8 @@ class RegistrationsController < Devise::RegistrationsController
     resource = build_resource
 
     if resource.save
+      session[:membership_number] = resource.membership_number
+
       if resource.active_for_authentication?
         set_flash_message :notice, :signed_up if is_navigational_format?
         sign_up(resource_name, resource)
@@ -45,6 +52,14 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
   protected
+
+  def paying_by_invoice?
+    params[:invoice].present?
+  end
+
+  def already_signed_up?
+    session[:membership_number].present?
+  end
 
   def is_navigational_format?
     false

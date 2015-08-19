@@ -24,3 +24,9 @@ end
 Then /^I should see a link to the right to cancel$/ do
   expect(find_link("right to cancel")).to be_visible
 end
+
+Then(/^I realise that I want to pay by invoice$/) do
+  # Member has been sent the invoice URL by us
+  visit("/members/new?level=#{@product_name}&invoice=true")
+end
+
