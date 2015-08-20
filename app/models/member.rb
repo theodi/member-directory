@@ -375,12 +375,15 @@ class Member < ActiveRecord::Base
   end
 
   def verify_chargify_subscription!(subscription, customer)
-    update_attributes!({
+    params = {
       chargify_customer_id: customer['id'],
       chargify_subscription_id: subscription['id'],
       chargify_payment_id: subscription['signup_payment_id'],
-      chargify_data_verified: true
-    }, without_protection: true)
+      chargify_data_verified: true,
+      coupon: subscription['coupon_code']
+    }
+
+    update_attributes!(params, without_protection: true)
     process_signup
   end
 
