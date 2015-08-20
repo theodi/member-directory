@@ -430,7 +430,7 @@ class Member < ActiveRecord::Base
   end
 
   def coupon_discount
-    return nil unless coupon
+    return nil unless coupon.present?
 
     coupon = CHARGIFY_COUPON_DISCOUNTS.fetch(self.coupon)
     coupon[:percentage]
