@@ -24,3 +24,4 @@ end
 Then /^I should see a link to the right to cancel$/ do
   expect(find_link("right to cancel")).to be_visible
 end
+
