@@ -47,17 +47,6 @@ Feature: Signup as an individual member
     And if I navigate away and then return
     Then the original origin value should be still be "odi-leeds"
 
-  Scenario: Member signs up and changes payment method half way through
-    When I enter my name and contact details
-    And I enter my address details
-    And I agree to the terms
-    When I click sign up
-    Then I am redirected to the payment page
-    And I should have a membership number generated
-    And I realise that I want to pay by invoice
-    Then I am returned to the thanks page
-    And a welcome email should be sent to me
-
   @javascript
   Scenario: Auto-update terms based on user input
     Given I want to sign up as an individual member
