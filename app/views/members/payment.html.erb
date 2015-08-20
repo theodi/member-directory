@@ -58,6 +58,12 @@
   <div class="control-group">
     <div class="controls">
       <input type="submit" class="btn btn-primary btn-large" value="<%= payment_button_label(@member, @discount_type) %>">
+
+      <% if @member.supporter? %>
+        <p class="pay-by-invoice">
+          <%= link_to("Or would you rather pay by invoice?", new_member_registration_path(:level => "supporter", :invoice => true)) %>
+        </p>
+      <% end %>
     </div>
   </div>
 <% end %>

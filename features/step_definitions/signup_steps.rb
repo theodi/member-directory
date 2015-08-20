@@ -397,3 +397,12 @@ Then(/^the original origin value should be still be "(.*?)"$/) do |origin|
   expect(field.value).to eq(origin)
 end
 
+Then(/^I realise that I want to pay by invoice$/) do
+  expect(page.find(".pay-by-invoice").text).to eq("Or would you rather pay by invoice?")
+end
+
+Then(/^I follow the pay by invoice link$/) do
+  # Member has been sent the invoice URL by us
+  visit("/members/new?level=#{@product_name}&invoice=true")
+end
+

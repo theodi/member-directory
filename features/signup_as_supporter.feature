@@ -146,6 +146,7 @@ Feature: Signup as a supporter member
     Then I am redirected to the payment page
     And I should have a membership number generated
     And I realise that I want to pay by invoice
+    And I follow the pay by invoice link
     Then I am returned to the thanks page
     And a welcome email should be sent to me
 
