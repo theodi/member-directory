@@ -9,10 +9,10 @@ end
 Given /^product information has been setup for "(.*?)"$/ do |plan|
   @chargify_product_url = "http://test.host/product/#{plan}"
   @chargify_product_price = 800
-  coupon = double(:code => "ODIALUMNI", :percentage => 50)
+  @coupon = double(:code => "ODIALUMNI", :percentage => 50)
   Member.register_chargify_product_link(plan, @chargify_product_url)
   Member.register_chargify_product_price(plan, @chargify_product_price*100)
-  Member.register_chargify_coupon_code(coupon)
+  Member.register_chargify_coupon_code(@coupon)
 end
 
 Given /^there is already an organization with the name I want to use$/ do
@@ -208,7 +208,8 @@ When(/^chargify verifies the payment$/) do
       customer: {
         id: 2,
         reference: member.membership_number
-      }
+      },
+      coupon_code: @coupon.code
     }
   }
 end
@@ -256,7 +257,6 @@ Then /^my details should be queued for further processing$/ do
     expect(args[4]['payment_ref']).to eql @payment_ref
     expect(args[4]['offer_category']).to eql @product_name
     expect(args[4]['membership_id']).not_to eql nil
-    expect(args[4]['discount']).to eq purchase['discount']
   end
 end
 
