@@ -19,6 +19,18 @@ purposes.
 
 ## Testing
 
+### Administration
+
+We're using Google's OAuth2 service to authenticate admin users. You need to
+have an **@theodi.org** email address in order to gain access.
+
+Locally, you will need to set the `GOOGLE_CLIENT_ID` and `GOOGLE_CLIENT_SECRET`
+environment variables.  The details of which can be obtained from
+https://console.developers.google.com.
+
+See https://github.com/zquestz/omniauth-google-oauth2#google-api-setup for more
+details.
+
 ### Emails
 
 If you want to test email, you can run ```mailcatcher``` before you start the

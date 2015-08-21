@@ -1,6 +1,6 @@
 class Admins::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
-  def google_apps
+  def google_oauth2
     @admin = Admin.find_for_googleapps_oauth(request.env["omniauth.auth"], current_admin)
 
     if @admin.persisted?

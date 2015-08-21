@@ -15,12 +15,7 @@ gem 'rabl'
 gem 'alternate_rails', :git => 'https://github.com/theodi/alternate-rails.git'
 gem 'rails_admin'
 gem 'chargify_api_ares'
-
-# Lock ruby-openid to a particular version to resolve login problems.
-# Reasons described in https://github.com/sishen/omniauth-google-apps/issues/6.
-# We need ruby-openid to fix https://github.com/openid/ruby-openid/issues/51 before we can go back on the mainline.
-gem "ruby-openid", github: "kendagriff/ruby-openid", :ref => "79beaa419d4754e787757f2545331509419e222e"
-gem 'omniauth-google-apps'
+gem 'omniauth-google-oauth2'
 
 # We use this version as the original gem only allows Rails up to 3.0.11
 gem 'data_migrate', github: 'doublewide/data-migrate'
