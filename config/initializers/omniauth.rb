@@ -2,6 +2,6 @@
 # are correctly redirected back to the site after
 # authenticating with Google's OAuth
 if Rails.env.production?
-  OmniAuth.config.full_host = "directory.theodi.org"
+  OmniAuth.config.full_host = "https://directory.theodi.org"
 end
 
