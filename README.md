@@ -67,6 +67,17 @@ You can run everything at once using `bundle exec rake`.
 Or, you can run each suite individually with `bundle exec cucumber` or `bundle
 exec rspec`.
 
+## Jobs
+
+The `SyncCapsuleData` (from [open-orgn-services](https://github.com/theodi/open-orgn-services))
+is run within this application to take advantage of the Member model.
+
+You can start Resque like this:
+
+    bundle exec rake resque:work VVERBOSE=1 TERM_CHILD=1 QUEUE=directory
+
+Or use Foreman with the supplied `Procfile`.
+
 ## Vagrant
 
 In order to run this in a production-alike Vagrant instance, you will first
