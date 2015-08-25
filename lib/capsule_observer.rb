@@ -67,6 +67,11 @@ class CapsuleObserver
         member.cached_active = false # We always set this false on create so that
                                    # incomplete entries don't go immediately live
       end
+
+      if member.organization?
+        member.cached_active = true
+      end
+
       member.current = true
       # Generate a password reset token but don't sent straight away
       member.send :generate_reset_password_token

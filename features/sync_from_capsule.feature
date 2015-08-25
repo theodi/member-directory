@@ -10,7 +10,7 @@ Feature: Sync from capsule
     When I am set as a member in CapsuleCRM
     And the sync task runs
     Then a membership should be created for me
-    And that membership should not be shown in the directory
+    And that membership should be shown in the directory
     And a welcome email should be sent to me
     And I should not see "Welcome Pack" in the email body
     And my details should be cached correctly
@@ -24,10 +24,12 @@ Feature: Sync from capsule
     When I am set as a member in CapsuleCRM
     And the sync task runs
     Then an individual membership should be created for me
+    And that membership should not be shown in the directory
     And a welcome email should be sent to me
     And I should see "download an ODI Supporter badge" in the email body
     When I follow "here" in the email
     Then I should see "Set your password"
+    Then my individual details should be cached correctly
 
   Scenario: Update existing organization memberships
     Given I am already signed up
