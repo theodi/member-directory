@@ -63,10 +63,6 @@ class CapsuleObserver
         :product_name      => membership['product_name']
       )
       member.remote! # Disable callbacks
-      if member.individual?
-        member.cached_active = false # We always set this false on create so that
-                                   # incomplete entries don't go immediately live
-      end
 
       if member.organization?
         member.cached_active = true
