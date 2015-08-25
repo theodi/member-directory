@@ -25,25 +25,22 @@ class CapsuleObserver
   # capsule_id      - the identifier of the organisation in CapsuleCRM
   #
   def self.update(membership, directory_entry, capsule_id)
-    # Is there a membership ID?
+
+    # Existing member
     if membership['id']
-      # If so, update the data in the appropriate member
+
       member = Member.where(:membership_number => membership['id']).first
       if member
-        # Member data
-        member.cached_active     = (directory_entry['active'] == "true")
-        member.product_name      = membership['product_name']
-        member.cached_newsletter = membership['newsletter']
-        member.organization_size = membership['size'] if membership['size']
+        member.cached_active       = (directory_entry['active'] == "true")
+        member.product_name        = membership['product_name']
+        member.cached_newsletter   = membership['newsletter']
+        member.organization_size   = membership['size'] if membership['size']
         member.organization_sector = membership['sector'] if membership['sector']
         member.remote!
-        # We don't store email here, that's only for new accounts
         member.save(:validate => false)
-        # Update organization data
+
         if org = member.organization
           org.name                 = directory_entry['name']
-          # We don't update the description, as capsuleCRM breaks it currently
-          #org.description          = directory_entry['description']
           org.url                  = directory_entry['url']
           org.cached_contact_name  = directory_entry['contact']
           org.cached_contact_phone = directory_entry['phone']
@@ -55,34 +52,32 @@ class CapsuleObserver
           org.save(:validate => false)
         end
       end
+
+    # ..if not, create a new member with the synced data
     else
-      # If not, create a new member with the synced data
       member = Member.new(
         :email             => membership['email'],
         :organization_name => directory_entry['name'],
         :product_name      => membership['product_name']
       )
-      member.remote! # Disable callbacks
+      member.remote!
 
       if member.organization?
         member.cached_active = true
       end
 
       member.current = true
-      # Generate a password reset token but don't sent straight away
       member.send :generate_reset_password_token
-      # Save without validation
+
       begin
         member.save(:validate => false)
-        # Send welcome email
         DeviseMailer.send(:new).confirmation_instructions(member, {capsule: true}).deliver
       rescue ActiveRecord::StatementInvalid
-        # Send error email
         ErrorMailer.membership_number_generation_failed(capsule_id).deliver
       end
     end
   end
-
 end
 
 CapsuleObserver.register
+
