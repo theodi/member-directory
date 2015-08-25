@@ -36,6 +36,13 @@ Feature: Sync from capsule
     And the sync task runs
     Then my details should be cached correctly
 
+  Scenario: Update existing individual memberships
+    Given I am already signed up as an individual member
+    Then nothing should be placed on the queue
+    When my information is changed in CapsuleCRM
+    And the sync task runs
+    Then my individual details should be cached correctly
+
   Scenario: Notify if membership creation fails
     Given I am not currently a member
     Then nothing should be placed on the signup queue

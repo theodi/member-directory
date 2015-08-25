@@ -38,4 +38,8 @@ FactoryGirl.define do
   factory :current_individual_member, parent: :individual_member do
     current true
   end
+
+  factory :current_active_individual_member, parent: :current_individual_member do
+    cached_active true
+  end
 end
