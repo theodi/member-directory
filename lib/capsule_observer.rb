@@ -1,5 +1,7 @@
 class CapsuleObserver
 
+  RequiredDataMissing = Class.new(StandardError)
+
   def self.register
     SyncCapsuleData.add_observer(self)
   end
@@ -25,6 +27,10 @@ class CapsuleObserver
   # capsule_id      - the identifier of the organisation in CapsuleCRM
   #
   def self.update(membership, directory_entry, capsule_id)
+
+    unless membership['email'].present? && membership['product_name'].present?
+      raise RequiredDataMissing.new("Check all required fields are present in Capsule CRM")
+    end
 
     # Existing member
     if membership['id']
@@ -63,14 +69,12 @@ class CapsuleObserver
       member.remote!
       member.current = true
       member.send :generate_reset_password_token
-
-      begin
-        member.save(:validate => false)
-        DeviseMailer.send(:new).confirmation_instructions(member, {capsule: true}).deliver
-      rescue ActiveRecord::StatementInvalid
-        ErrorMailer.membership_number_generation_failed(capsule_id).deliver
-      end
+      member.save(:validate => false)
+      DeviseMailer.send(:new).confirmation_instructions(member, {capsule: true}).deliver
     end
+
+  rescue RequiredDataMissing, ActiveRecord::StatementInvalid
+    ErrorMailer.membership_number_generation_failed(capsule_id).deliver
   end
 end
 
