@@ -549,7 +549,7 @@ class Member < ActiveRecord::Base
   end
 
   def setup_organization
-    return if individual? || student?
+    return unless organization?
 
     self.create_organization(:name => organization_name)
   end

@@ -9,7 +9,7 @@ describe MembersController do
   describe "GET 'index'" do
 
     before :each do
-      @member    = FactoryGirl.create :member, :cached_active => true, :product_name => 'member'
+      @member    = FactoryGirl.create :member, :cached_active => true, :product_name => 'supporter'
       @supporter = FactoryGirl.create :member, :cached_active => true, :product_name => 'supporter'
       @inactive  = FactoryGirl.create :member, :cached_active => false, :product_name => 'member'
     end
@@ -28,12 +28,10 @@ describe MembersController do
     end
 
     it "shows only requested levels" do
-      get 'index', :level => 'member'
+      get 'index', :level => 'supporter'
       expect(response).to be_success
       expect(assigns(:organizations)).to include(@member.organization)
-      expect(assigns(:organizations)).to_not include(@supporter.organization)
     end
-
   end
 
   describe "GET 'show'" do
