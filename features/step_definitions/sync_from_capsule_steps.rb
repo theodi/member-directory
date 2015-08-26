@@ -148,8 +148,7 @@ Then /^a warning email should be sent to the commercial team$/ do
   steps %Q(
     Then "members@theodi.org" should receive an email
     When they open the email
-    And they should see "Membership Number Error" in the email subject
-    And they should see "A membership contact email was not set for a party in CapsuleCRM." in the email body
+    And they should see "Membership creation failure" in the email subject
     And they should see "http://ukoditech.capsulecrm.com/party/#{@capsule_id}" in the email body
     And they should see the email delivered from "members@theodi.org"
   )
