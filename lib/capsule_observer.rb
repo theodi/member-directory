@@ -61,11 +61,6 @@ class CapsuleObserver
         :product_name      => membership['product_name']
       )
       member.remote!
-
-      if member.organization?
-        member.cached_active = true
-      end
-
       member.current = true
       member.send :generate_reset_password_token
 

@@ -93,11 +93,8 @@ Then(/^an individual membership should be created for me$/) do
 end
 
 Then(/^that membership should not be shown in the directory$/) do
-  @active = "false"
-end
-
-Then(/^that membership should be shown in the directory$/) do
-  @active = "true"
+  @active = false
+  expect(@membership.cached_active).to eq(@active)
 end
 
 Then /^my details should be cached correctly$/ do
