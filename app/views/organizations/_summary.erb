@@ -10,8 +10,10 @@
       <p><strong><%= organization.cached_tagline %></strong></p>
     <% end %>
 
-    <i class='icon icon-home'></i> <%= link_to organization.url, organization.url, :property => "url"%></a>
-    
+    <% if organization.url.present? %>
+      <i class='icon icon-home'></i> <%= link_to organization.url, organization.url, :property => "url"%></a>
+    <% end %>
+
     <div class='organization-description clearfix'>
       <p property="description"><%= highlight(organization_description(organization), @search) %></p>
       <%= link_to "#{editable?(organization.member) ? "Edit" : "More"} information".html_safe, organization.member, :class=>'btn pull-right', :title => "#{editable?(organization.member) ? "Edit" : "More"} information on #{organization.name}" %>
