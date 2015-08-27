@@ -29,7 +29,7 @@ class UpdateDirectoryEntry
   def update!
     return unless update_required?
 
-    Resque.enqueue(SendDirectoryEntryToCapsule, member.membership_number, organization_name, directory_entry, update_date)
+    Resque.enqueue(SendDirectoryEntryToCapsule, membership_number, organization_name, directory_entry, update_date)
   end
 
   def update_required?
@@ -38,6 +38,10 @@ class UpdateDirectoryEntry
 
   def update_date
     updated_at.to_s
+  end
+
+  def membership_number
+    member.membership_number
   end
 
   def organization_name
