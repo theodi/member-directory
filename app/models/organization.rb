@@ -78,29 +78,7 @@ class Organization < ActiveRecord::Base
   end
 
   def send_to_capsule
-    if valid? && changed?
-      organization = {
-        :name => name
-      }
-
-      directory_entry = {
-        :description => description,
-        :homepage    => url,
-        :logo        => logo.url,
-        :thumbnail   => logo.square.url,
-        :contact     => cached_contact_name,
-        :phone       => cached_contact_phone,
-        :email       => cached_contact_email,
-        :twitter     => cached_twitter,
-        :linkedin    => cached_linkedin,
-        :facebook    => cached_facebook,
-        :tagline     => cached_tagline,
-      }
-
-      date = updated_at.to_s
-
-      Resque.enqueue(SendDirectoryEntryToCapsule, member.membership_number, organization, directory_entry, date)
-    end
+    UpdateDirectoryEntry.update!(self)
   end
 
   def twitter_url
