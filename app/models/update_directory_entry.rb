@@ -26,38 +26,44 @@ class UpdateDirectoryEntry
     :updated_at,
     :member
 
+  def update!
+    if organization.valid? && organization.changed?
+      Resque.enqueue(SendDirectoryEntryToCapsule, member.membership_number, organization_name, directory_entry, update_date)
+    end
+  end
+
+  def update_date
+    updated_at.to_s
+  end
+
+  def organization_name
+    {
+      :name => name
+    }
+  end
+
+  def directory_entry
+    {
+      :description => description,
+      :homepage    => url,
+      :logo        => logo_url,
+      :thumbnail   => square_url,
+      :contact     => cached_contact_name,
+      :phone       => cached_contact_phone,
+      :email       => cached_contact_email,
+      :twitter     => cached_twitter,
+      :linkedin    => cached_linkedin,
+      :facebook    => cached_facebook,
+      :tagline     => cached_tagline
+    }
+  end
+
   def logo_url
     logo.url
   end
 
   def square_url
     logo.square.url
-  end
-
-  def update!
-    if organization.valid? && organization.changed?
-      organization = {
-        :name => name
-      }
-
-      directory_entry = {
-        :description => description,
-        :homepage    => url,
-        :logo        => logo_url,
-        :thumbnail   => square_url,
-        :contact     => cached_contact_name,
-        :phone       => cached_contact_phone,
-        :email       => cached_contact_email,
-        :twitter     => cached_twitter,
-        :linkedin    => cached_linkedin,
-        :facebook    => cached_facebook,
-        :tagline     => cached_tagline,
-      }
-
-      date = updated_at.to_s
-
-      Resque.enqueue(SendDirectoryEntryToCapsule, member.membership_number, organization, directory_entry, date)
-    end
   end
 end
 
