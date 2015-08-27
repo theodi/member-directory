@@ -27,9 +27,13 @@ class UpdateDirectoryEntry
     :member
 
   def update!
-    if organization.valid? && organization.changed?
-      Resque.enqueue(SendDirectoryEntryToCapsule, member.membership_number, organization_name, directory_entry, update_date)
-    end
+    return unless update_required?
+
+    Resque.enqueue(SendDirectoryEntryToCapsule, member.membership_number, organization_name, directory_entry, update_date)
+  end
+
+  def update_required?
+    organization.valid? && organization.changed?
   end
 
   def update_date
