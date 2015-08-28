@@ -110,8 +110,16 @@ When /^I click submit$/ do
   click_button('Save')
 end
 
+When /^I save their details$/ do
+  click_button('Save')
+end
+
 Then /^I should see a notice that my details were saved successfully$/ do
   expect(page).to have_content 'You updated your account successfully.'
+end
+
+Then /^I should see a notice that the profile was saved successfully$/ do
+  expect(page).to have_content 'Account updated successfully.'
 end
 
 Then /^I should see my changed details when I revisit the edit page$/ do
@@ -259,3 +267,12 @@ Then(/^my listing should appear first in the list$/) do
   expect(all("h2").count).to eq 6
   expect(all("h2").first.text).to match /#{@organization_name}/
 end
+
+Given(/^I am logged in as an administrator$/) do
+  OmniAuth.config.test_mode = true
+  hash = OmniAuth::AuthHash.new
+  hash[:info] = { email: 'test@example.com' }
+  OmniAuth.config.mock_auth[:google_oauth2] = hash
+  visit admin_omniauth_authorize_path(:google_oauth2)
+end
+
