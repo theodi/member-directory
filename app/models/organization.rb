@@ -9,7 +9,6 @@ class Organization < ActiveRecord::Base
 
   # Using after_save here so we get the right image urls
   before_save :strip_twitter_prefix
-  after_save :send_to_capsule, unless: :remote?
 
   validates :name, :presence => true, :on => :update
   validates :name, :uniqueness => true, :allow_nil => true
@@ -57,10 +56,6 @@ class Organization < ActiveRecord::Base
     letter.between?('A', 'Z') ? letter : '#'
   end
 
-  def remote?
-    member.try(:remote?)
-  end
-
   def supporter?
     member.supporter?
   end
@@ -75,10 +70,6 @@ class Organization < ActiveRecord::Base
 
   def strip_twitter_prefix
     self.cached_twitter = self.cached_twitter.last(-1) if self.cached_twitter.try(:starts_with?, '@')
-  end
-
-  def send_to_capsule
-    UpdateDirectoryEntry.update!(self)
   end
 
   def twitter_url

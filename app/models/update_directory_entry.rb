@@ -18,18 +18,12 @@ class UpdateDirectoryEntry
   end
 
   def update!
-    return unless update_required?
-
     Resque.enqueue(SendDirectoryEntryToCapsule,
       membership_number,
       organization_name,
       directory_entry,
       update_date
     )
-  end
-
-  def update_required?
-    organization.valid? && organization.changed?
   end
 
   def directory_entry_update
