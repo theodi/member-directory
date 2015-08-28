@@ -60,7 +60,7 @@ end
 Then /^I enter my organization details$/ do
   @organization_name        = Faker::Company.name
   @organization_description = Faker::Company.bs
-  @organization_url         = Faker::Internet.url
+  @organization_url         = "iaintgotnohttp.com"
   @organization_contact     = Faker::Name.name
   @organization_phone       = Faker::PhoneNumber.phone_number
   @organization_email       = Faker::Internet.email
@@ -169,7 +169,7 @@ Then /^my organisation details should be queued for further processing$/ do
 
   directory_entry = {
     :description => @organization_description,
-    :homepage    => @organization_url,
+    :homepage    => "http://#{@organization_url}",
     :logo        => logo,
     :thumbnail   => thumbnail,
     :contact     => @organization_contact,

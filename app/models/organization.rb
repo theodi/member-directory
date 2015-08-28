@@ -9,6 +9,7 @@ class Organization < ActiveRecord::Base
 
   # Using after_save here so we get the right image urls
   before_save :strip_twitter_prefix
+  before_validation :prefix_url
 
   validates :name, :presence => true, :on => :update
   validates :name, :uniqueness => true, :allow_nil => true
@@ -70,6 +71,12 @@ class Organization < ActiveRecord::Base
 
   def strip_twitter_prefix
     self.cached_twitter = self.cached_twitter.last(-1) if self.cached_twitter.try(:starts_with?, '@')
+  end
+
+  def prefix_url
+    return if !self.url.present? || self.url =~ /^([a-z]+):\/\//
+
+    self.url = "http://#{self.url}"
   end
 
   def twitter_url
