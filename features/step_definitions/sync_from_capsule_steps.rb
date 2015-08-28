@@ -10,6 +10,10 @@ Given /^I am already signed up$/ do
   @old_description = @membership.organization.description
 end
 
+Given(/^I am already signed up as an individual member$/) do
+  @membership = FactoryGirl.create :current_active_individual_member
+end
+
 When /^I am set as a member in CapsuleCRM$/ do
   @active            = "true"
   @email             = Faker::Internet.email
@@ -112,6 +116,13 @@ Then /^my details should be cached correctly$/ do
   expect(@membership.organization.cached_tagline).to       eq @tagline
 end
 
+Then(/^my individual details should be cached correctly$/) do
+  @membership = Member.where(membership_number: @membership_number).first
+  expect(@membership.cached_active).to                     eq (@active == "true")
+  expect(@membership.product_name).to                      eq @product_name
+  expect(@membership.cached_newsletter).to                 eq @newsletter
+end
+
 Then /^nothing should be placed on the queue$/ do
   expect(Resque).not_to receive(:enqueue)
 end
@@ -137,8 +148,7 @@ Then /^a warning email should be sent to the commercial team$/ do
   steps %Q(
     Then "members@theodi.org" should receive an email
     When they open the email
-    And they should see "Membership Number Error" in the email subject
-    And they should see "A membership contact email was not set for a party in CapsuleCRM." in the email body
+    And they should see "Membership creation failure" in the email subject
     And they should see "http://ukoditech.capsulecrm.com/party/#{@capsule_id}" in the email body
     And they should see the email delivered from "members@theodi.org"
   )

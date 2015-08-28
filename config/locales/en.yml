@@ -67,4 +67,4 @@ en:
       subject: "Welcome to the ODI network!"
   error_mailer:
     membership_number_generation_failed:
-      subject: "Membership Number Error"
+      subject: "Membership creation failure"
