@@ -69,31 +69,35 @@ module MemberDirectory
 
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
-    
+
     # Use GA middleware
     if ENV['GOOGLE_ANALYTICS_TRACKER']
       config.middleware.use("Rack::GoogleAnalytics", :tracker => ENV['GOOGLE_ANALYTICS_TRACKER'])
     end
-    
+
     # Create factories instead of fixtures
     config.generators do |g|
       g.fixture_replacement :factory_girl
     end
-   
+
     # Render better error pages. See https://makandracards.com/makandra/12807-custom-error-pages-in-rails-3-2
     config.exceptions_app = self.routes
 
     config.action_dispatch.rescue_responses.merge!('ActiveResource::UnauthorizedAccess' => :unauthorized)
 
     config.after_initialize do
-      Member.initialize_chargify_links! unless Rails.env.test?
+      if ENV['CHARGIFY_API_KEY']
+        Member.initialize_chargify_links! unless Rails.env.test?
+      end
     end
 
     # this should remove the need to turn cache_classes back to false
     # but it doesn't work
     config.to_prepare do
-      Member.initialize_chargify_links! unless Rails.env.test?
+      if ENV['CHARGIFY_API_KEY']
+        Member.initialize_chargify_links! unless Rails.env.test?
+      end
     end
-    
+
   end
 end

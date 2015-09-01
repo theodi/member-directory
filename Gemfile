@@ -5,7 +5,6 @@ source 'https://rubygems.org'
 
 gem 'rails', '~> 3.2.18'
 
-gem 'sqlite3'
 gem 'devise', '~> 2.2.4'
 gem 'dotenv'
 gem 'fog', '~> 1.12.1'
@@ -43,7 +42,7 @@ group :assets do
   gem 'coffee-rails', '~> 3.2.1'
 
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
-  # gem 'therubyracer', :platforms => :ruby
+  gem 'therubyracer', :platforms => :ruby
 
   gem 'uglifier', '>= 1.0.3'
 end
@@ -69,6 +68,7 @@ gem 'mysql2'
 
 
 group :development, :test do
+  gem 'sqlite3'
   gem 'cucumber-rails', require: false
   gem 'database_cleaner'
   gem 'rspec-rails'
