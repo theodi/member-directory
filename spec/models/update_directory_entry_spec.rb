@@ -40,7 +40,7 @@ describe UpdateDirectoryEntry do
       :cached_linkedin      => "linkedin",
       :cached_facebook      => "facebook",
       :cached_tagline       => "We are the best!",
-      :updated_at           => Time.new(2015, 8, 28, 12, 35),
+      :updated_at           => Time.new(2015, 8, 28, 12, 35, 0, "+01:00"),
       :member               => member
     )
   end
