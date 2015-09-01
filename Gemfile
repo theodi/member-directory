@@ -7,7 +7,7 @@ gem 'rails', '~> 3.2.18'
 
 gem 'devise', '~> 2.2.4'
 gem 'dotenv'
-gem 'fog', '~> 1.12.1'
+gem 'fog' #, '~> 1.12.1'
 gem 'carrierwave'
 gem 'mini_magick'
 gem 'rabl'
