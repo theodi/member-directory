@@ -233,6 +233,13 @@ When(/^chargify verifies the payment$/) do
   }
 end
 
+Then /^my organization should be made active in Capsule$/ do
+  expect(Resque).to receive(:enqueue) do |*args|
+    expect(args[0]).to eql SendDirectoryEntryToCapsule
+    expect(args[3][:active]).to eq(true)
+  end
+end
+
 Then /^my details should be queued for further processing$/ do
   organization = {
     'name' => @organization_name,

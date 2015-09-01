@@ -234,6 +234,10 @@ class Member < ActiveRecord::Base
   def current!
     update_attribute(:cached_active, true) if organization?
     update_attribute(:current, true)
+
+    if organization?
+      UpdateDirectoryEntry.update!(self.organization)
+    end
   end
 
   def deliver_welcome_email!
@@ -371,7 +375,7 @@ class Member < ActiveRecord::Base
     self.chargify_customer_id ||= params[:customer_id]
     self.chargify_subscription_id ||= params[:subscription_id]
     self.chargify_payment_id ||= params[:payment_id]
-    save!
+    save(:validate => false)
   end
 
   def verify_chargify_subscription!(subscription, customer)

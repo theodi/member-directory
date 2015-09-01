@@ -41,6 +41,10 @@ class UpdateDirectoryEntry
     updated_at.to_s
   end
 
+  def active
+    member.cached_active
+  end
+
   def membership_number
     member.membership_number
   end
@@ -53,6 +57,7 @@ class UpdateDirectoryEntry
 
   def directory_entry
     {
+      :active      => active,
       :description => description,
       :homepage    => url,
       :logo        => logo_url,

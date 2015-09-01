@@ -168,6 +168,7 @@ Then /^my organisation details should be queued for further processing$/ do
   }
 
   directory_entry = {
+    :active      => true,
     :description => @organization_description,
     :homepage    => "http://#{@organization_url}",
     :logo        => logo,

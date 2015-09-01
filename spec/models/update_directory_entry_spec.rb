@@ -11,7 +11,8 @@ describe UpdateDirectoryEntry do
   let(:member) do
     double(
       "Member",
-      :membership_number => "12345"
+      :membership_number => "12345",
+      :cached_active     => true
     )
   end
 
@@ -56,6 +57,7 @@ describe UpdateDirectoryEntry do
       }
 
       expected_directory_entry = {
+        :active      => true,
         :description => "Organization description",
         :homepage    => "http://test.example.com",
         :logo        => "http://path/to/image",
