@@ -28,3 +28,4 @@ config/database.yml
 /coverage/
 /db/test.sqlite3-journal
 dump.rdb
+.chef/
