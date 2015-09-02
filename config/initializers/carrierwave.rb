@@ -4,7 +4,7 @@ if ENV['RACKSPACE_USERNAME'].present?
       :provider           => 'Rackspace',
       :rackspace_username => ENV['RACKSPACE_USERNAME'],
       :rackspace_api_key  => ENV['RACKSPACE_API_KEY'],
-      :rackspace_auth_url => ENV['RACKSPACE_API_ENDPOINT']
+      :rackspace_region => ENV['RACKSPACE_API_REGION']
     }
     config.fog_directory = ENV['RACKSPACE_DIRECTORY_CONTAINER']
     config.asset_host = ENV['RACKSPACE_DIRECTORY_ASSET_HOST']
