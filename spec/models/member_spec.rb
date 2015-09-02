@@ -584,4 +584,38 @@ describe Member do
     end
   end
 
+  describe "#current!" do
+    before do
+      allow(member).to receive(:organization?).and_return(false)
+    end
+
+    it "sets the current flag" do
+      member.current!
+
+      expect(member.current).to eq(true)
+    end
+
+    context "member is an organization" do
+      let(:organization) { double("Organization") }
+
+      before do
+        allow(member).to receive(:organization?).and_return(true)
+        allow(member).to receive(:organization).and_return(organization)
+      end
+
+      it "sets the members #cached_active flag" do
+        allow(UpdateDirectoryEntry).to receive(:update!).with(organization)
+
+        member.current!
+
+        expect(member.cached_active).to eq(true)
+      end
+
+      it "queues the directory entry if an organization" do
+        expect(UpdateDirectoryEntry).to receive(:update!).with(organization)
+
+        member.current!
+      end
+    end
+  end
 end

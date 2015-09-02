@@ -9,7 +9,7 @@ class Organization < ActiveRecord::Base
 
   # Using after_save here so we get the right image urls
   before_save :strip_twitter_prefix
-  after_save :send_to_capsule, unless: :remote?
+  before_validation :prefix_url
 
   validates :name, :presence => true, :on => :update
   validates :name, :uniqueness => true, :allow_nil => true
@@ -57,10 +57,6 @@ class Organization < ActiveRecord::Base
     letter.between?('A', 'Z') ? letter : '#'
   end
 
-  def remote?
-    member.try(:remote?)
-  end
-
   def supporter?
     member.supporter?
   end
@@ -77,30 +73,10 @@ class Organization < ActiveRecord::Base
     self.cached_twitter = self.cached_twitter.last(-1) if self.cached_twitter.try(:starts_with?, '@')
   end
 
-  def send_to_capsule
-    if valid? && changed?
-      organization = {
-        :name => name
-      }
+  def prefix_url
+    return if !self.url.present? || self.url =~ /^([a-z]+):\/\//
 
-      directory_entry = {
-        :description => description,
-        :homepage    => url,
-        :logo        => logo.url,
-        :thumbnail   => logo.square.url,
-        :contact     => cached_contact_name,
-        :phone       => cached_contact_phone,
-        :email       => cached_contact_email,
-        :twitter     => cached_twitter,
-        :linkedin    => cached_linkedin,
-        :facebook    => cached_facebook,
-        :tagline     => cached_tagline,
-      }
-
-      date = updated_at.to_s
-
-      Resque.enqueue(SendDirectoryEntryToCapsule, member.membership_number, organization, directory_entry, date)
-    end
+    self.url = "http://#{self.url}"
   end
 
   def twitter_url

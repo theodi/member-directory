@@ -12,11 +12,13 @@
       <span class="label <%= organization.member.product_name %>"><%= organization.member.product_name.capitalize %></span>
     </p>
 
-    <p>
-      <span class='contact-detail'>
-        <i class='icon icon-home'></i> <a property="url" data-bind="text: url, attr: {href: url}" href='<%= organization.url %>'><%= organization.url%></a>
-      </span>
-    </p>
+    <% if organization.url.present? %>
+      <p>
+        <span class='contact-detail'>
+          <i class='icon icon-home'></i> <a property="url" data-bind="text: url, attr: {href: url}" href='<%= organization.url %>'><%= organization.url%></a>
+        </span>
+      </p>
+    <% end %>
 
     <p property='contactPoint' typeOf="ContactPoint">
 

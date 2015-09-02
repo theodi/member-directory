@@ -23,6 +23,21 @@ Given /^there is already an organization with the name '(.*?)'$/ do |org_name|
   FactoryGirl.create :member, :organization_name => org_name
 end
 
+Given(/^a sponsor account already exists$/) do
+  @password = 'password'
+  @email = Faker::Internet.email
+  @member = FactoryGirl.build(:member,
+    :product_name          => "supporter",
+    :organization_name     => Faker::Company.name,
+    :password              => @password,
+    :password_confirmation => @password,
+    :email                 => @email
+  )
+
+  @member.save!
+  @member.current!
+end
+
 Given(/^I have a (sponsor|partner) account$/) do |level|
   @password = 'password'
   @email = Faker::Internet.email
@@ -41,6 +56,10 @@ Given(/^I have a (sponsor|partner) account$/) do |level|
 end
 
 Given(/^I visit my account page$/) do
+  visit member_path(@member)
+end
+
+Given(/^I visit their account page$/) do
   visit member_path(@member)
 end
 
@@ -212,6 +231,13 @@ When(/^chargify verifies the payment$/) do
       coupon_code: @coupon.code
     }
   }
+end
+
+Then /^my organization should be made active in Capsule$/ do
+  expect(Resque).to receive(:enqueue) do |*args|
+    expect(args[0]).to eql SendDirectoryEntryToCapsule
+    expect(args[3][:active]).to eq(true)
+  end
 end
 
 Then /^my details should be queued for further processing$/ do
