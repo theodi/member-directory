@@ -47,6 +47,6 @@ Feature: Sync from capsule
     Given I am not currently a member
     Then nothing should be placed on the signup queue
     When I am set as a member in CapsuleCRM without an email address
-    And the sync task runs
+    And the sync task runs it should raise an error
     Then a warning email should be sent to the commercial team
 

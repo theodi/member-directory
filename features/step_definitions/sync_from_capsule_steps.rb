@@ -76,6 +76,32 @@ When /^the sync task runs$/ do
   CapsuleObserver.update(membership, directory_entry, @capsule_id)
 end
 
+When(/^the sync task runs it should raise an error$/) do
+  membership = {
+    'email'         => @email,
+    'product_name'  => @product_name,
+    'id'            => @membership_number,
+    'newsletter'    => @newsletter,
+    'size'          => @organization_size,
+    'sector'        => @organization_sector,
+  }.compact
+  directory_entry = {
+    'active'        => @active,
+    'name'          => @organization_name,
+    'description'   => @description,
+    'url'           => @url,
+    'contact'       => @contact_name,
+    'phone'         => @contact_phone,
+    'email'         => @contact_email,
+    'twitter'       => @twitter,
+    'linkedin'      => @linkedin,
+    'facebook'      => @facebook,
+    'tagline'       => @tagline,
+  }.compact
+
+  expect { CapsuleObserver.update(membership, directory_entry, @capsule_id) }.to raise_error
+end
+
 Then /^a membership should be created for me$/ do
   @membership = Member.where(:email => @email).first
   expect(@membership).to be_present

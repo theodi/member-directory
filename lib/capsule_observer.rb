@@ -2,6 +2,15 @@ class CapsuleObserver
 
   RequiredDataMissing = Class.new(StandardError)
 
+  class SyncCapsuleDataFailure < StandardError
+    attr_reader :original
+
+    def initialize(msg, original = nil)
+      super(msg)
+      @original = original
+    end
+  end
+
   def self.register
     SyncCapsuleData.add_observer(self)
   end
@@ -73,8 +82,10 @@ class CapsuleObserver
       DeviseMailer.send(:new).confirmation_instructions(member, {capsule: true}).deliver
     end
 
-  rescue RequiredDataMissing, ActiveRecord::StatementInvalid
+  rescue RequiredDataMissing, ActiveRecord::StatementInvalid => error
     ErrorMailer.membership_number_generation_failed(capsule_id).deliver
+
+    raise SyncCapsuleDataFailure.new("Syncing Capsule data failed", error)
   end
 end
 
