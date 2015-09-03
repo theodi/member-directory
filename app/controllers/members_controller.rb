@@ -65,16 +65,19 @@ class MembersController < ApplicationController
 
   def update
     if current_admin
-      if @member.update_attributes params[:member]
-        UpdateDirectoryEntry.update!(@member.organization)
+      if updated = @member.update_attributes(params[:member])
         flash[:notice] = "Account updated successfully."
       end
     elsif @member == current_member
-      if @member.update_with_password params[:member]
-        UpdateDirectoryEntry.update!(@member.organization)
+      if updated = @member.update_with_password(params[:member])
         flash[:notice] = "You updated your account successfully."
       end
     end
+
+    if updated && @member.organization?
+      UpdateDirectoryEntry.update!(@member.organization)
+    end
+
     respond_with(@member)
   end
 
