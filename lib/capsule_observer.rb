@@ -9,6 +9,10 @@ class CapsuleObserver
       super(msg)
       @original = original
     end
+
+    def to_s
+      "#{super} '#{original.message}'"
+    end
   end
 
   def self.register
