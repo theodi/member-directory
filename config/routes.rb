@@ -31,7 +31,6 @@ MemberDirectory::Application.routes.draw do
       match :payment, via: [:get, :post]
     end
     collection do
-      get 'right-to-cancel', to: :right_to_cancel, as: :right_to_cancel
       post :chargify_verify
       get :chargify_return
       get :summary, to: :summary, as: :summary, format: :xml
