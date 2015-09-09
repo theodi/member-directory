@@ -1,16 +1,17 @@
 <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => {:class => 'form-horizontal'}) do |f| %>
   <%= devise_error_messages! %>
+
   <p class="lead">
-	 We're delighted that you would like to join the ODI. We just need a few details from you before we can confirm your membership.
+    We're delighted that you would like to join the ODI. We just need a few details from you before we can confirm your membership.
   </p>
+
   <p class="lead">
-	  This won't take longer than a couple of minutes!
+    This won't take longer than a couple of minutes!
   </p>
 
   <%= f.hidden_field :coupon, value: params[:coupon] if params[:coupon].present? %>
   <%= f.hidden_field :origin, value: origin_value %>
   <%= f.hidden_field :invoice, value: 1 if params[:invoice].present? || @member.invoice == true %>
-
   <%= f.hidden_field :product_name %>
 
   <%= render :partial => 'member_details', :locals => { :f => f } %>
@@ -20,46 +21,47 @@
   <% end %>
 
   <fieldset>
-
     <legend>Please choose a password</legend>
 
     <div class="control-group">
-  		<%= f.label :password, :class => 'control-label' %>
-  		<div class="controls">
-            <%= f.password_field :password, :required => :required %>
-            <span class="help-inline">(required)</span>
-            <span class="help-block"><small>Password must be at least eight characters</small></span>
-  		</div>
-  	</div>
+      <%= f.label :password, :class => 'control-label' %>
+      <div class="controls">
+        <%= f.password_field :password, :required => :required %>
+        <span class="help-inline">(required)</span>
+        <span class="help-block"><small>Password must be at least eight characters</small></span>
+      </div>
+    </div>
 
     <div class="control-group">
-  		<%= f.label :password_confirmation, :class => 'control-label' %>
-  		<div class="controls">
-            <%= f.password_field :password_confirmation, :required => :required %>
-            <span class="help-inline">(required)</span>
-  		</div>
-  	</div>
-
+      <%= f.label :password_confirmation, :class => 'control-label' %>
+      <div class="controls">
+        <%= f.password_field :password_confirmation, :required => :required %>
+        <span class="help-inline">(required)</span>
+      </div>
+    </div>
   </fieldset>
 
   <hr class="heavy">
 
-  	<h2>Terms and conditions</h2>
+  <h2>Terms and conditions</h2>
 
-  	<p>
-      Please read the terms and conditions below and tick to say you accept them.
-      <% unless individual? || student? %>
-        As an open organisation we publish who funds us and what our relationships are. As part of this agreement you are agreeing that we can publish your membership and our contract.
-      <% end %>
-    </p>
+  <p>
+    Please read the terms and conditions below and tick to say you accept them.
 
-<div id="terms" class="well">
-  <% if individual? || student? %>
-    <%= render :partial => 'individual_terms', :locals => {:member => PlaceholderPresenter.new} %>
-  <% else %>
-    <%= render :partial => 'terms', :locals => {:member => PlaceholderPresenter.new} %>
-  <% end %>
-  <script>
+    <% unless individual? || student? %>
+      As an open organisation we publish who funds us and what our relationships are. As part of this agreement you are agreeing that we can publish your membership and our contract.
+    <% end %>
+  </p>
+
+  <div id="terms" class="well">
+
+    <% if individual? || student? %>
+      <%= render :partial => 'individual_terms', :locals => {:member => PlaceholderPresenter.new} %>
+    <% else %>
+      <%= render :partial => 'terms', :locals => {:member => PlaceholderPresenter.new} %>
+    <% end %>
+
+    <script>
     function update_name() {
       <% if individual? || student? %>
       $('.legal-name').text($('#member_contact_name')[0].value);
@@ -96,27 +98,25 @@
       update_address();
       <% end %>
     });
-  </script>
-</div>
+    </script>
+  </div>
 
-
-
-    <div class="control-group">
-      <div class="controls">
-  		  <label class='checkbox'>
-          <%= f.check_box :agreed_to_terms %> <%= t(:agreed_to_terms) %>
-        </label>
-  	</div>
-
-  </fieldset>
+  <div class="control-group">
+    <div class="controls">
+      <label class='checkbox'>
+      <%= f.check_box :agreed_to_terms %> <%= t(:agreed_to_terms) %>
+    </label>
+  </div>
 
   <div class="form-actions">
     <p>
-    <%= f.submit "Become an ODI member", :id => 'submit', :class => 'btn btn-primary btn-large' %>
+      <%= f.submit "Become an ODI member", :id => 'submit', :class => 'btn btn-primary btn-large' %>
     </p>
+
     <% if individual? || student? %>
       <p>You have the <%= link_to 'right to cancel', "https://docs.google.com/document/d/1CmSGI-hQjcIa0husreVntsxA-5CId3H_BWjRzRmZR6A/edit?usp=sharing" %> within the first 14 days of your membership.</p>
     <% end %>
   </div>
 
 <% end %>
+
