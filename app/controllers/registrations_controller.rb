@@ -40,7 +40,12 @@ class RegistrationsController < Devise::RegistrationsController
 
         if new_resource.valid_password?(password)
           sign_in(new_resource)
-          redirect_to(payment_member_path new_resource, coupon: params[:coupon].presence) and return
+
+          if params[:member].present? && params[:member][:coupon].present?
+            current_member.update_attribute(:coupon, params[:member][:coupon])
+          end
+
+          redirect_to(payment_member_path new_resource) and return
         else
           flash.alert = "You have already started the signup process, to continue to payment, please login.<br /> Forgotten your password? Just click the \"Forgotten password?\" link and we'll send you a link to reset it.".html_safe
           redirect_to(new_member_session_path(login: new_resource.membership_number)) and return
