@@ -10,6 +10,7 @@ describe NewsletterSubscriptionsController do
         :cached_newsletter => true
       )
     end
+
     let(:params) do
       {
         type: "unsubscribe",
