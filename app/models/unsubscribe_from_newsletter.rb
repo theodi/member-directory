@@ -7,7 +7,7 @@ class UnsubscribeFromNewsletter
   end
 
   def unsubscribe
-    member.update_attribute(:cached_newsletter, false)
+    member.unsubscribe_from_newsletter!
   end
 
   def member

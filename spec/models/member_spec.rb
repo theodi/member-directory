@@ -618,4 +618,20 @@ describe Member do
       end
     end
   end
+
+  describe "#unsubscribe_from_newsletter!" do
+
+    let(:member) do
+      FactoryGirl.create(
+        :member,
+        :cached_newsletter => true
+      )
+    end
+
+    it "sets the member's newsletter flag to false" do
+      member.unsubscribe_from_newsletter!
+
+      expect(member.cached_newsletter).to eq(false)
+    end
+  end
 end

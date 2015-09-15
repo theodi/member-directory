@@ -43,8 +43,7 @@ describe UnsubscribeFromNewsletter do
           .with(email: "test@example.com")
           .and_return([member_instance])
 
-        expect(member_instance).to receive(:update_attribute)
-          .with(:cached_newsletter, false)
+        expect(member_instance).to receive(:unsubscribe_from_newsletter!)
 
         subject.unsubscribe
       end
