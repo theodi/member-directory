@@ -7,11 +7,18 @@ class UnsubscribeFromNewsletter
   end
 
   def unsubscribe
-    member = model.where(email: params[:data][:email]).first
     member.update_attribute(:cached_newsletter, false)
   end
 
+  def member
+    model.where(email: member_email).first
+  end
+
   private
+
+  def member_email
+    params[:data][:email]
+  end
 
   def model
     @model ||= Member
