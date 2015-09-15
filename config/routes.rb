@@ -24,6 +24,8 @@ MemberDirectory::Application.routes.draw do
       end
   end
 
+  match '/members/newsletter', :to => 'newsletter_subscriptions#unsubscribe'
+
   resources :members, :only => [:index, :show, :update] do
     member do
       get :badge, defaults: {format: :js}
