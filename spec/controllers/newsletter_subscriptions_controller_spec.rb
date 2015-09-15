@@ -10,9 +10,8 @@ describe NewsletterSubscriptionsController do
         :cached_newsletter => true
       )
     end
-
-    it "sets the member's newsletter preference" do
-      post :unsubscribe,
+    let(:params) do
+      {
         type: "unsubscribe",
         fired_at: "2015-09-15 13:21:27",
         data: {
@@ -30,6 +29,11 @@ describe NewsletterSubscriptionsController do
           }
         },
         :list_id => "0faf82f65e"
+      }
+    end
+
+    it "sets the member's newsletter preference" do
+      post :unsubscribe, params
 
       expect(response).to have_http_status(200)
       expect(member.reload.cached_newsletter).to eq(false)
