@@ -28,7 +28,7 @@ describe NewsletterSubscriptionsController do
             LNAME: ""
           }
         },
-        :list_id => "0faf82f65e"
+        list_id: "0faf82f65e"
       }
     end
 
