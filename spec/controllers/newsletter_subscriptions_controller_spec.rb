@@ -29,8 +29,13 @@ describe NewsletterSubscriptionsController do
             LNAME: ""
           }
         },
-        list_id: "0faf82f65e"
+        list_id: "0faf82f65e",
+        token: "CORRECT"
       }
+    end
+
+    before do
+      ENV["MAILCHIMP_WEBHOOK_TOKEN"] = "CORRECT"
     end
 
     it "sets the member's newsletter preference" do
@@ -38,6 +43,12 @@ describe NewsletterSubscriptionsController do
 
       expect(response).to have_http_status(200)
       expect(member.reload.cached_newsletter).to eq(false)
+    end
+
+    it "authenticates the request" do
+      post :unsubscribe, params.merge!({ token: "INCORRECT" })
+
+      expect(response).to have_http_status(401)
     end
   end
 end
