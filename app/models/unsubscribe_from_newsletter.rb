@@ -2,10 +2,11 @@ class UnsubscribeFromNewsletter
   Unauthorized = Class.new(StandardError)
 
   attr_writer :model
-  attr_reader :params
+  attr_reader :params, :auth_token
 
-  def initialize(params)
-    @params = params
+  def initialize(params, auth_token = AuthToken.new(params))
+    @params     = params
+    @auth_token = auth_token
   end
 
   def unsubscribe
@@ -25,17 +26,7 @@ class UnsubscribeFromNewsletter
   end
 
   def authorize!
-    raise Unauthorized if !authorized?
-  end
-
-  def authorized?
-    params[:token] == auth_token
-  end
-
-  def auth_token
-    ENV.fetch("MAILCHIMP_WEBHOOK_TOKEN") do
-      raise ArgumentError, "MAILCHIMP_WEBHOOK_TOKEN is missing"
-    end
+    raise Unauthorized if auth_token.invalid?
   end
 
   def model

@@ -25,18 +25,21 @@ describe UnsubscribeFromNewsletter do
   end
 
   subject do
-    UnsubscribeFromNewsletter.new(params)
+    UnsubscribeFromNewsletter.new(params, auth_token)
   end
 
   let(:member_model) { double("Member model") }
 
   let(:member_instance) { double("Member instance") }
 
+  let(:auth_token) { double("Auth Token", invalid?: false) }
+
   before do
     subject.model = member_model
   end
 
   describe "#unsubscribe" do
+
     context "member's email exists" do
       it "should update the member's newsletter preference" do
         allow(member_model).to receive(:where)
@@ -46,6 +49,16 @@ describe UnsubscribeFromNewsletter do
         expect(member_instance).to receive(:unsubscribe_from_newsletter!)
 
         subject.unsubscribe
+      end
+    end
+
+    context "authorization token is bad" do
+      it "should raise an exception" do
+        allow(auth_token).to receive(:invalid?).and_return(true)
+
+        expect { subject.unsubscribe }.to raise_error(
+          UnsubscribeFromNewsletter::Unauthorized
+        )
       end
     end
   end
