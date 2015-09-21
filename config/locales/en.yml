@@ -34,7 +34,7 @@ en:
         purchase_order_number: "Purchase order number"
         password: "Password"
         password_confirmation: "Confirm password"
-        cached_newsletter: "Send me the newsletter"
+        cached_newsletter: "To receive the member newsletter and member events emails from the ODI please tick this box"
         card_validation_code: CVC
         card_expiry_month: Expiry month
         card_expiry_year: Expiry year
