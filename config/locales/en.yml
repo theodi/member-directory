@@ -5,6 +5,7 @@ en:
   credit_card: "Credit / Debit card"
   invoice: "Annual invoice"
   agreed_to_terms: I have read and agree to the terms and conditions of membership
+  receive_newsletter: "To receive the member newsletter and member events emails from the ODI please tick this box"
   credit_card: Credit / Debit card
   formats:
     json: JSON
