@@ -6,28 +6,16 @@
 
 <p>- To activate your account click <%= link_to 'here', edit_password_url(@member, :reset_password_token => @member.reset_password_token) %> and enter your company profile for the Member Directory.</p>
 
-<p>- We are drawing up your invoice and it will be sent to you shortly.</p>
-
 <% unless @type == "capsule" %>
   <p>- You will soon receive your Welcome Pack to help you get started with your ODI membership and make the most of ODI communications.</p>
 <% end %>
-
-<p>- You will receive our monthly membership newsletter (let us know if you want to add any colleagues to the mailing list) and invites to the quarterly ODI Connect member networking events and the annual Summit.</p>
-
-<p>We also run a free to attend lecture series every Friday highlighting some of the awe inspiring work going on using Open Data - everything from data as art, through to the CTO of the World Bank giving a 'fireside chat' about his experience at the White House. You can register for upcoming talks <a href="http://www.theodi.org/lunchtime-lectures">here</a>.</p>
 
 <p>Please do get in touch with the team (details below) if you have any questions or suggestions.</p>
 
 <p>Best wishes,</p>
 
 <p>
-  Georgia, Carl, Andrea, Patrik and Clara
+  Rachel, Andrea, Carl and Patrik
   <br/>
   The ODI Membership team
-</p>
-
-<p>
-  <%= mail_to 'andrea.cox@theodi.org', 'Andrea Cox' %> Andrea Cox For member network, events and newsletter<br/>
-  <%= mail_to 'carl.rodrigues@theodi.org', 'Carl Rodrigues' %> For new Supporter queries<br/>
-  <%= mail_to 'members@theodi.org', 'Membership' %> For general queries<br/>
 </p>
