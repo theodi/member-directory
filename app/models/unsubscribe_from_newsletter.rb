@@ -11,17 +11,20 @@ class UnsubscribeFromNewsletter
 
   def unsubscribe
     authorize!
+    return false unless member
 
     member.unsubscribe_from_newsletter!
   end
 
   def member
-    model.where(email: member_email).first
+    Array(model.where(email: member_email)).first
   end
 
   private
 
   def member_email
+    return nil unless params[:data]
+
     params[:data][:email]
   end
 

@@ -61,6 +61,17 @@ describe UnsubscribeFromNewsletter do
         )
       end
     end
+
+    context "params are missing" do
+      let(:params) { {} }
+
+      it "should return false" do
+        allow(member_model).to receive(:where)
+          .with(email: nil)
+
+        expect(subject.unsubscribe).to eq(false)
+      end
+    end
   end
 end
 
