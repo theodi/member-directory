@@ -378,6 +378,10 @@ class Member < ActiveRecord::Base
     save(:validate => false)
   end
 
+  def unsubscribe_from_newsletter!
+    self.update_attribute(:cached_newsletter, false)
+  end
+
   def verify_chargify_subscription!(subscription, customer)
     params = {
       chargify_customer_id: customer['id'],

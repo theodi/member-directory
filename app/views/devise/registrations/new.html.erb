@@ -21,6 +21,18 @@
   <% end %>
 
   <fieldset>
+    <legend>Newsletter</legend>
+
+    <div class="control-group newsletter">
+      <div class="controls">
+        <label>
+          <%= t(:receive_newsletter) %> <%= f.check_box :cached_newsletter %>
+        </label>
+      </div>
+    </div>
+  </fieldset>
+
+  <fieldset>
     <legend>Please choose a password</legend>
 
     <div class="control-group">
