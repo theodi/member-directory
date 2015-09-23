@@ -1,4 +1,4 @@
-# Member Directory
+# Member Directory 
 
 [![Build Status](http://jenkins.theodi.org/job/member-directory-master/badge/icon)](http://jenkins.theodi.org/job/member-directory-master/)
 [![Dependency Status](https://gemnasium.com/theodi/member-directory.png)](https://gemnasium.com/theodi/member-directory)
