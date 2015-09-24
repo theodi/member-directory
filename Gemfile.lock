@@ -655,6 +655,3 @@ DEPENDENCIES
   validate_url
   webmock
   zeroclipboard-rails
-
-BUNDLED WITH
-   1.10.5
