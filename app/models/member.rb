@@ -504,7 +504,8 @@ class Member < ActiveRecord::Base
       'size'           => organization_size,
       'type'           => organization_type,
       'sector'         => organization_sector,
-      'origin'         => origin.empty? ? nil : origin
+      'origin'         => (origin.empty? ? nil : origin),
+      'newsletter'     => cached_newsletter
     }
 
     contact_person = {
