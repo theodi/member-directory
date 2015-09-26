@@ -1,6 +1,6 @@
 require_relative "../../app/models/update_directory_entry"
 
-SendDirectoryEntryToCapsule = Class.new
+SendDirectoryEntryToCapsule = Class.new unless defined?(SendDirectoryEntryToCapsule)
 
 describe UpdateDirectoryEntry do
 
