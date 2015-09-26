@@ -2,45 +2,44 @@
   <%= error_messages(@member) %>
 
   <fieldset>
-
     <legend>Account Details</legend>
 
     <div class="control-group">
-  		<%= f.label :membership_number, :class => 'control-label' %>
-  		<div class="controls">
-  			<span class="input-large uneditable-input"><%= @member.membership_number %></span>
+      <%= f.label :membership_number, :class => 'control-label' %>
+      <div class="controls">
+        <span class="input-large uneditable-input"><%= @member.membership_number %></span>
         <span class="help-inline">(your login name)</span>
-  		</div>
-  	</div>
+      </div>
+    </div>
 
     <div class="control-group">
-  		<%= f.label :email, :class => 'control-label' %>
-  		<div class="controls">
-  			<%= f.email_field :email %>
-  		</div>
-  	</div>
+      <%= f.label :email, :class => 'control-label' %>
+      <div class="controls">
+        <%= f.email_field :email %>
+      </div>
+    </div>
 
     <% if @member.individual? %>
-        <div class="control-group">
-            <%= f.label :contact_name, :class => 'control-label' %>
-            <div class="controls">
-                <%= f.text_field :contact_name %>
-            </div>
+      <div class="control-group">
+        <%= f.label :contact_name, :class => 'control-label' %>
+        <div class="controls">
+          <%= f.text_field :contact_name %>
         </div>
+      </div>
 
-        <div class="control-group">
-            <%= f.label :telephone, :class => 'control-label' %>
-            <div class="controls">
-                <%= f.telephone_field :telephone %>
-            </div>
+      <div class="control-group">
+        <%= f.label :telephone, :class => 'control-label' %>
+        <div class="controls">
+          <%= f.telephone_field :telephone %>
         </div>
+      </div>
 
-        <div class="control-group">
-            <%= f.label :address, :class => 'control-label' %>
-            <div class="controls">
-                <%= f.text_area :address, :rows => 5 %>
-            </div>
+      <div class="control-group">
+        <%= f.label :address, :class => 'control-label' %>
+        <div class="controls">
+          <%= f.text_area :address, :rows => 5 %>
         </div>
+      </div>
     <% end %>
 
     <% if @member.organization? %>
@@ -67,10 +66,11 @@
 
     <div class="control-group">
       <div class="controls">
-  		  <label class='checkbox'>
+        <label class='checkbox'>
           <%= f.check_box :cached_newsletter %> <%= t(:receive_newsletter) %>
         </label>
-  	</div>
+      </div>
+    </div>
 
     <div class="control-group">
       <div class="controls">
@@ -111,7 +111,7 @@
     <% end %>
 
     <div class="control-group">
-  		<div class="controls">
+      <div class="controls">
         <section class='preview'>
           <%= render :partial => 'organizations/organization', :locals => { :organization => @member.organization } %>
         </section>
@@ -128,18 +128,18 @@
       <legend>Change Password</legend>
 
       <div class="control-group">
-    		<%= f.label :password, :class => 'control-label' %>
-    		<div class="controls">
-    			<%= f.password_field :password %>
-    		</div>
-    	</div>
+        <%= f.label :password, :class => 'control-label' %>
+        <div class="controls">
+          <%= f.password_field :password %>
+        </div>
+      </div>
 
       <div class="control-group">
-    		<%= f.label :password_confirmation, :class => 'control-label' %>
-    		<div class="controls">
-    			<%= f.password_field :password_confirmation %>
-    		</div>
-    	</div>
+        <%= f.label :password_confirmation, :class => 'control-label' %>
+        <div class="controls">
+          <%= f.password_field :password_confirmation %>
+        </div>
+      </div>
 
     </fieldset>
 
@@ -155,7 +155,7 @@
         <%= f.label :current_password, :class => 'control-label' %>
         <div class="controls">
           <%= f.password_field :current_password, :required => 'required' %>
-  		<span class="help-inline">(required)</span>
+          <span class="help-inline">(required)</span>
         </div>
       </div>
 
@@ -172,3 +172,4 @@
     <%= f.submit "Save", :id => 'save', :class => 'btn btn-primary btn-large' %>
   </div>
 <% end %>
+
