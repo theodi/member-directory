@@ -90,6 +90,7 @@ When /^I enter my name and contact details$/ do
   @email ||= 'iain@foobar.com'
   @telephone = '0121 123 446'
   @newsletter = false
+  @share_with_third_parties = false
 
   fill_in('member_contact_name', :with => @contact_name)
   fill_in('member_email', :with => @email)
@@ -250,7 +251,8 @@ Then /^my details should be queued for further processing$/ do
     'type' => @organization_type,
     'sector' => @organization_sector,
     'origin' => @origin,
-    'newsletter' => @newsletter
+    'newsletter' => @newsletter,
+    'share_with_third_parties' => @share_with_third_parties
   }
 
   contact_person = {

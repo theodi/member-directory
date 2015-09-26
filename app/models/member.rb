@@ -105,6 +105,7 @@ class Member < ActiveRecord::Base
                   :remember_me,
                   :product_name,
                   :cached_newsletter,
+                  :cached_share_with_third_parties,
                   :organization_name,
                   :organization_size,
                   :organization_type,
@@ -498,14 +499,15 @@ class Member < ActiveRecord::Base
 
   def process_signup_attributes
     organization = {
-      'name'           => organization_name,
-      'vat_id'         => organization_vat_id,
-      'company_number' => organization_company_number,
-      'size'           => organization_size,
-      'type'           => organization_type,
-      'sector'         => organization_sector,
-      'origin'         => (origin.empty? ? nil : origin),
-      'newsletter'     => cached_newsletter
+      'name'                     => organization_name,
+      'vat_id'                   => organization_vat_id,
+      'company_number'           => organization_company_number,
+      'size'                     => organization_size,
+      'type'                     => organization_type,
+      'sector'                   => organization_sector,
+      'origin'                   => (origin.empty? ? nil : origin),
+      'newsletter'               => cached_newsletter,
+      'share_with_third_parties' => cached_share_with_third_parties
     }
 
     contact_person = {
@@ -541,10 +543,11 @@ class Member < ActiveRecord::Base
   def save_updates_to_capsule
     unless (changed & %w[email cached_newsletter organization_size organization_sector]).empty?
       Resque.enqueue(SaveMembershipDetailsToCapsule, membership_number, {
-        'email'      => email,
-        'newsletter' => cached_newsletter,
-        'size'       => organization_size,
-        'sector'     => organization_sector
+        'email'                    => email,
+        'newsletter'               => cached_newsletter,
+        'share_with_third_parties' => cached_share_with_third_parties,
+        'size'                     => organization_size,
+        'sector'                   => organization_sector
       })
     end
   end

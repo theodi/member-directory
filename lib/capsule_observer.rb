@@ -50,11 +50,12 @@ class CapsuleObserver
 
       member = Member.where(:membership_number => membership['id']).first
       if member
-        member.cached_active       = (directory_entry['active'] == "true")
-        member.product_name        = membership['product_name']
-        member.cached_newsletter   = membership['newsletter']
-        member.organization_size   = membership['size'] if membership['size']
-        member.organization_sector = membership['sector'] if membership['sector']
+        member.cached_active                    = (directory_entry['active'] == "true")
+        member.product_name                     = membership['product_name']
+        member.cached_newsletter                = membership['newsletter']
+        member.cached_share_with_third_parties  = membership['share_with_third_parties']
+        member.organization_size                = membership['size'] if membership['size']
+        member.organization_sector              = membership['sector'] if membership['sector']
         member.remote!
         member.save(:validate => false)
 
