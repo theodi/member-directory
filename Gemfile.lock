@@ -23,7 +23,7 @@ GIT
 
 GIT
   remote: git://github.com/theodi/open-orgn-services.git
-  revision: 0f58081ce0c68c643bbc269d7c32cb13a2ef2cbe
+  revision: 779243742de3c9fb2b40101d0fd9c3283de301ba
   specs:
     open-orgn-services (0.1.3)
       activemodel (~> 3.2, >= 3.2.12)
@@ -32,6 +32,7 @@ GIT
       curb (~> 0.8, >= 0.8.6)
       eventbrite-client (~> 0.1, >= 0.1.3)
       fog (~> 1.12, >= 1.12.1)
+      gibbon (~> 1.2)
       httparty
       pony (~> 1.6, >= 1.6.2)
       rake (~> 10.0, >= 10.0.3)
@@ -303,6 +304,9 @@ GEM
       net-http-pipeline
     gherkin (2.12.2)
       multi_json (~> 1.3)
+    gibbon (1.2.1)
+      httparty
+      multi_json (>= 1.9.0)
     guard (2.10.4)
       formatador (>= 0.2.4)
       listen (~> 2.7)
@@ -590,7 +594,7 @@ GEM
     websocket-driver (0.6.2)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.2)
-    xeroizer (2.15.9)
+    xeroizer (2.16.1)
       activesupport
       builder (>= 2.1.2)
       i18n
@@ -657,4 +661,4 @@ DEPENDENCIES
   zeroclipboard-rails
 
 BUNDLED WITH
-   1.10.5
+   1.10.6

@@ -89,6 +89,7 @@ When /^I enter my name and contact details$/ do
   @contact_name = 'Ian McIain'
   @email ||= 'iain@foobar.com'
   @telephone = '0121 123 446'
+  @newsletter = false
 
   fill_in('member_contact_name', :with => @contact_name)
   fill_in('member_email', :with => @email)
@@ -248,7 +249,8 @@ Then /^my details should be queued for further processing$/ do
     'size' => @organization_size,
     'type' => @organization_type,
     'sector' => @organization_sector,
-    'origin' => @origin
+    'origin' => @origin,
+    'newsletter' => @newsletter
   }
 
   contact_person = {
