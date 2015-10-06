@@ -21,12 +21,20 @@
   <% end %>
 
   <fieldset>
-    <legend>Newsletter</legend>
+    <legend>Your Communication Preferences</legend>
 
     <div class="control-group newsletter">
       <div class="controls">
         <label>
           <%= t(:receive_newsletter) %> <%= f.check_box :cached_newsletter %>
+        </label>
+      </div>
+    </div>
+
+    <div class="control-group newsletter">
+      <div class="controls">
+        <label>
+          <%= t(:share_with_third_parties) %> <%= f.check_box :cached_share_with_third_parties %>
         </label>
       </div>
     </div>

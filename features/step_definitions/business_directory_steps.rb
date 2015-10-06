@@ -194,12 +194,19 @@ end
 Then(/^I update my membership details$/) do
   @changed_email      = Faker::Internet.email
   @changed_newsletter = true
+  @changed_share_with_third_parties = true
 
   fill_in('member_email', :with => @changed_email)
   if @changed_newsletter
     check('member_cached_newsletter')
   else
     uncheck('member_cached_newsletter')
+  end
+
+  if @changed_share_with_third_parties
+    check('member_cached_share_with_third_parties')
+  else
+    uncheck('member_cached_share_with_third_parties')
   end
   
   @changed_size = ">1000"
@@ -215,6 +222,7 @@ Then(/^my membership details should be queued for updating in CapsuleCRM$/) do
   expect(Resque).to receive(:enqueue).with(SaveMembershipDetailsToCapsule, @member.membership_number, {
     'email'      => @changed_email,
     'newsletter' => @changed_newsletter,
+    'share_with_third_parties' => @changed_share_with_third_parties,
     'size'       => @changed_size,
     'sector'     => @changed_sector,
   })

@@ -5,7 +5,8 @@ en:
   credit_card: "Credit / Debit card"
   invoice: "Annual invoice"
   agreed_to_terms: I have read and agree to the terms and conditions of membership
-  receive_newsletter: "To receive the member newsletter and member events emails from the ODI please tick this box"
+  receive_newsletter: "To receive invitations to ODI events and the quarterly member newsletter please tick this box"
+  share_with_third_parties: "If you are happy for us to share your personal details with third parties please tick this box"
   credit_card: Credit / Debit card
   formats:
     json: JSON
@@ -35,7 +36,6 @@ en:
         purchase_order_number: "Purchase order number"
         password: "Password"
         password_confirmation: "Confirm password"
-        cached_newsletter: "To receive the member newsletter and member events emails from the ODI please tick this box"
         card_validation_code: CVC
         card_expiry_month: Expiry month
         card_expiry_year: Expiry year
