@@ -137,7 +137,9 @@ class Member < ActiveRecord::Base
                   :university_qualification,
                   :university_qualification_other,
                   :university_course_start_date,
-                  :university_course_end_date
+                  :university_course_end_date,
+                  :twitter,
+                  :dob
 
   attr_accessor :agreed_to_terms
 
@@ -168,6 +170,7 @@ class Member < ActiveRecord::Base
   validates :university_qualification_other, presence: true, if: Proc.new { |member| member.student? && member.university_qualification == "Other (please specify)" }
   validates :university_course_start_date,   presence: true, if: Proc.new { |member| member.student? }
   validates :university_course_end_date,     presence: true, if: Proc.new { |member| member.student? }
+  validates :dob,                            presence: true, if: Proc.new { |member| member.student? }
 
   scope :current, where(:current => true)
   scope :valid, where('product_name is not null')

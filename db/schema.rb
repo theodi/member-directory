@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20151004141452) do
+ActiveRecord::Schema.define(:version => 20151006101809) do
 
   create_table "admins", :force => true do |t|
     t.string   "email",              :default => "", :null => false
@@ -91,6 +91,8 @@ ActiveRecord::Schema.define(:version => 20151004141452) do
     t.string   "university_qualification_other"
     t.date     "university_course_start_date"
     t.date     "university_course_end_date"
+    t.string   "twitter"
+    t.date     "dob"
   end
 
   add_index "members", ["email"], :name => "index_members_on_email", :unique => true

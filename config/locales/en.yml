@@ -52,6 +52,8 @@ en:
         university_course_name: "Course name"
         university_course_start_date: "Course start date"
         university_course_end_date: "Course end date"
+        twitter: "Twitter"
+        dob: "Date of birth"
       organization:
         name: "Organisation name"
         url: "Homepage"

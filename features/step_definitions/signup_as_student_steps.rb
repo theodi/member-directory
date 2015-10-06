@@ -39,6 +39,9 @@ When(/^I enter my university details$/) do
   select("BSc - Bachelor of Science", from: :member_university_qualification, match: :first)
   fill_in("member_university_course_start_date", :with => "04/10/2015")
   fill_in("member_university_course_end_date", :with => "04/10/2015")
+
+  # Date of birth
+  fill_in("member_dob", :with => "01/01/1989")
 end
 
 When(/^my student details should be saved$/) do
@@ -54,5 +57,6 @@ When(/^my student details should be saved$/) do
   expect(@member.university_qualification).to eq("BSc - Bachelor of Science")
   expect(@member.university_course_start_date.to_s).to eq("2015-10-04")
   expect(@member.university_course_end_date.to_s).to eq("2015-10-04")
+  expect(@member.dob.to_s).to eq("1989-01-01")
 end
 
