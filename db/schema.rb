@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150924145207) do
+ActiveRecord::Schema.define(:version => 20151004141452) do
 
   create_table "admins", :force => true do |t|
     t.string   "email",              :default => "", :null => false
@@ -77,6 +77,20 @@ ActiveRecord::Schema.define(:version => 20150924145207) do
     t.string   "coupon"
     t.boolean  "invoice",                                      :default => false
     t.boolean  "cached_share_with_third_parties",              :default => false
+    t.string   "university_email"
+    t.string   "university_street_address"
+    t.string   "university_address_locality"
+    t.string   "university_address_region"
+    t.string   "university_address_country"
+    t.string   "university_postal_code"
+    t.string   "university_country"
+    t.string   "university_name"
+    t.string   "university_name_other"
+    t.string   "university_course_name"
+    t.string   "university_qualification"
+    t.string   "university_qualification_other"
+    t.date     "university_course_start_date"
+    t.date     "university_course_end_date"
   end
 
   add_index "members", ["email"], :name => "index_members_on_email", :unique => true

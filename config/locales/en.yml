@@ -27,7 +27,7 @@ en:
         organization_sector: "Industry sector"
         telephone: "Contact number"
         street_address: "Address"
-        address_locality: ""
+        address_locality: "Locality"
         address_region: "City"
         address_country: "Country"
         postal_code: "Postcode"
@@ -39,6 +39,19 @@ en:
         card_validation_code: CVC
         card_expiry_month: Expiry month
         card_expiry_year: Expiry year
+        university_email: "Email address"
+        university_street_address: "Address"
+        university_address_locality: "Locality"
+        university_address_region: "City"
+        university_address_country: "Country"
+        university_postal_code: "Postcode"
+        university_name: "University name"
+        university_name_other: ""
+        university_qualification: "Qualification"
+        university_qualification_other: ""
+        university_course_name: "Course name"
+        university_course_start_date: "Course start date"
+        university_course_end_date: "Course end date"
       organization:
         name: "Organisation name"
         url: "Homepage"

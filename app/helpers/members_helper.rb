@@ -64,4 +64,10 @@ module MembersHelper
       end
     end
   end
+
+  def field_visibility(field)
+    unless params[:member] && params[:member][field] == "Other (please specify)"
+      'style="display: none"'.html_safe
+    end
+  end
 end

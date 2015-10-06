@@ -8,6 +8,7 @@ Feature: Signup as an student member
   Scenario: Signup as a student supporter
     When I enter my name and contact details
     And I enter my address details
+    And I enter my university details
     Then I should not be asked for financial information
     And I should not be asked for organization details
     And I agree to the terms
@@ -17,6 +18,7 @@ Feature: Signup as an student member
     And I am processed through chargify for the "individual-supporter-student" option
     When I click complete
     And I am returned to the thanks page
+    And my student details should be saved
     And I should not have an organisation assigned to me
     And a welcome email should be sent to me
     And I should see "Dear Student" in the email body

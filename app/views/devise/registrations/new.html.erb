@@ -16,6 +16,125 @@
 
   <%= render :partial => 'member_details', :locals => { :f => f } %>
 
+  <% if student? %>
+
+  <fieldset>
+    <legend>University Details</legend>
+
+    <div class="control-group">
+      <%= f.label :university_name, :class => 'control-label' %>
+      <div class="controls">
+        <%= f.select(:university_name, University.names + ["Other (please specify)"], { prompt: "Please select" }, :required => "required") %>
+        <span class="help-inline">(required)</span>
+      </div>
+    </div>
+
+    <div class="control-group" <%= field_visibility(:university_name) %>>
+      <%= f.label :university_name_other, :class => 'control-label' %>
+      <div class="controls">
+        <%= f.text_field :university_name_other %>
+        <span class="help-inline">(required)</span>
+      </div>
+    </div>
+
+    <div class="control-group">
+      <%= f.label :university_email, :class => 'control-label'%>
+      <div class="controls">
+        <%= f.email_field :university_email, :required => 'required' %>
+        <span class="help-inline">(required)</span>
+        <span class="help-block"><small>Your University issued email address</small></span>
+      </div>
+    </div>
+
+    <div class="control-group">
+      <%= f.label :university_street_address, :class => 'control-label' %>
+      <div class="controls">
+        <%= f.text_field :university_street_address, :required => :required %>
+        <span class="help-inline">(required)</span>
+        <span class="help-block"><small>Your address whilst at University</small></span>
+      </div>
+    </div>
+
+    <div class="control-group">
+      <%= f.label :university_address_locality, :class => 'control-label' %>
+      <div class="controls">
+        <%= f.text_field :university_address_locality %>
+      </div>
+    </div>
+
+    <div class="control-group">
+      <%= f.label :university_address_region, :class => 'control-label' %>
+      <div class="controls">
+        <%= f.text_field :university_address_region, :required => :required %>
+        <span class="help-inline">(required)</span>
+      </div>
+    </div>
+
+    <div class="control-group">
+      <%= f.label :university_address_country, :class => 'control-label' %>
+      <div class="controls">
+        <%= f.country_select :university_address_country, priority_countries: ["GB"], prompt: "Please select", :required => :required %>
+        <span class="help-inline">(required)</span>
+      </div>
+    </div>
+
+    <div class="control-group">
+      <%= f.label :university_postal_code, :class => 'control-label' %>
+      <div class="controls">
+        <%= f.text_field :university_postal_code, :required => :required %>
+        <span class="help-inline">(required)</span>
+      </div>
+    </div>
+
+    <%= f.hidden_field :university_country, value: "GB" %>
+  </fieldset>
+
+  <fieldset>
+    <legend>Course</legend>
+
+    <div class="control-group">
+      <%= f.label :university_qualification, :class => 'control-label' %>
+      <div class="controls">
+        <%= f.select(:university_qualification, Qualification.names + ["Other (please specify)"], { prompt: "Please select" }, :required => "required") %>
+        <span class="help-inline">(required)</span>
+      </div>
+    </div>
+
+    <div class="control-group" <%= field_visibility(:university_qualification) %>>
+      <%= f.label :university_qualification_other, :class => 'control-label' %>
+      <div class="controls">
+        <%= f.text_field :university_qualification_other %>
+        <span class="help-inline">(required)</span>
+      </div>
+    </div>
+
+    <div class="control-group">
+      <%= f.label :university_course_name, :class => 'control-label' %>
+      <div class="controls">
+        <%= f.text_field :university_course_name %>
+        <span class="help-inline">(required)</span>
+      </div>
+    </div>
+
+    <div class="control-group">
+      <%= f.label :university_course_start_date, :class => 'control-label' %>
+      <div class="controls">
+        <%= f.text_field :university_course_start_date, :required => :required, :class => "datepicker" %>
+        <span class="help-inline">(required)</span>
+      </div>
+    </div>
+
+    <div class="control-group">
+      <%= f.label :university_course_end_date, :class => 'control-label' %>
+      <div class="controls">
+        <%= f.text_field :university_course_end_date, :required => :required, :class => "datepicker" %>
+        <span class="help-inline">(required)</span>
+      </div>
+    </div>
+  </fieldset>
+
+  <% end %>
+
   <% if individual? %>
     <%= render :partial => 'affiliated_node', :locals => { :f => f } %>
   <% end %>

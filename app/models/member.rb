@@ -123,7 +123,21 @@ class Member < ActiveRecord::Base
                   :address,
                   :origin,
                   :coupon,
-                  :invoice
+                  :invoice,
+                  :university_email,
+                  :university_street_address,
+                  :university_address_locality,
+                  :university_address_region,
+                  :university_address_country,
+                  :university_postal_code,
+                  :university_country,
+                  :university_name,
+                  :university_name_other,
+                  :university_course_name,
+                  :university_qualification,
+                  :university_qualification_other,
+                  :university_course_start_date,
+                  :university_course_end_date
 
   attr_accessor :agreed_to_terms
 
@@ -140,6 +154,20 @@ class Member < ActiveRecord::Base
   validates_acceptance_of :agreed_to_terms, on: :create
 
   validates_with OrganizationValidator, on: :create, unless: Proc.new { |member| member.individual? || member.student? }
+
+  validates :university_email,               presence: true, if: Proc.new { |member| member.student? }
+  validates :university_street_address,      presence: true, if: Proc.new { |member| member.student? }
+  validates :university_address_region,      presence: true, if: Proc.new { |member| member.student? }
+  validates :university_address_country,     presence: true, if: Proc.new { |member| member.student? }
+  validates :university_postal_code,         presence: true, if: Proc.new { |member| member.student? }
+  validates :university_country,             presence: true, if: Proc.new { |member| member.student? }
+  validates :university_name,                presence: true, if: Proc.new { |member| member.student? }
+  validates :university_name_other,          presence: true, if: Proc.new { |member| member.student? && member.university_name == "Other (please specify)" }
+  validates :university_course_name,         presence: true, if: Proc.new { |member| member.student? }
+  validates :university_qualification,       presence: true, if: Proc.new { |member| member.student? }
+  validates :university_qualification_other, presence: true, if: Proc.new { |member| member.student? && member.university_qualification == "Other (please specify)" }
+  validates :university_course_start_date,   presence: true, if: Proc.new { |member| member.student? }
+  validates :university_course_end_date,     presence: true, if: Proc.new { |member| member.student? }
 
   scope :current, where(:current => true)
   scope :valid, where('product_name is not null')
