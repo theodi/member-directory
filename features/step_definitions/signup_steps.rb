@@ -262,6 +262,7 @@ Then /^my details should be queued for further processing$/ do
     'telephone'                      => @telephone,
     'twitter'                        => @twitter,
     'dob'                            => @dob,
+    'country'                        => @address_country,
     'university_email'               => @university_email,
     'university_street_address'      => @university_street_address,
     'university_address_locality'    => @university_address_locality,

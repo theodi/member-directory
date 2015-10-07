@@ -547,6 +547,7 @@ class Member < ActiveRecord::Base
       'telephone'                      => telephone,
       'twitter'                        => twitter,
       'dob'                            => dob,
+      'country'                        => country_name,
       'university_email'               => university_email,
       'university_street_address'      => university_street_address,
       'university_address_locality'    => university_address_locality,
