@@ -22,26 +22,41 @@ Then(/^I should not be asked for financial information$/) do
 end
 
 When(/^I enter my university details$/) do
+  @dob                            = Date.parse("01/01/1989")
+  @university_street_address      = "1 Some Street"
+  @university_address_country     = "GB"
+  @university_address_locality    = "Some town"
+  @university_address_region      = "Some region"
+  @university_country             = "GB"
+  @university_course_end_date     = Date.parse("04/10/2015") # Sun, 04 Oct 2015
+  @university_course_name         = "Course name"
+  @university_course_start_date   = Date.parse("04/10/2015") # Sun, 04 Oct 2015
+  @university_email               = "test@example.com"
+  @university_name                = "York"
+  @university_name_other          = ""
+  @university_postal_code         = "WC1E 6BT"
+  @university_qualification       = "BSc - Bachelor of Science"
+  @university_qualification_other = ""
 
   # University email address
-  fill_in('member_university_email', :with => "test@example.com")
+  fill_in('member_university_email', :with => @university_email)
 
   # University details
-  select("York", from: :member_university_name, match: :first)
-  fill_in('member_university_street_address', :with => "1 Some Street")
-  fill_in('member_university_address_locality', :with => "Some town")
-  fill_in('member_university_address_region', :with => "Some region")
+  select(@university_name, from: :member_university_name, match: :first)
+  fill_in('member_university_street_address', :with => @university_street_address)
+  fill_in('member_university_address_locality', :with => @university_address_locality)
+  fill_in('member_university_address_region', :with => @university_address_region)
   select("United Kingdom", from: :member_university_address_country, match: :first)
-  fill_in('member_university_postal_code', :with => "WC1E 6BT")
+  fill_in('member_university_postal_code', :with => @university_postal_code)
 
   # University course and qualification
-  fill_in(:member_university_course_name, :with => "Course name")
-  select("BSc - Bachelor of Science", from: :member_university_qualification, match: :first)
-  fill_in("member_university_course_start_date", :with => "04/10/2015")
-  fill_in("member_university_course_end_date", :with => "04/10/2015")
+  fill_in(:member_university_course_name, :with => @university_course_name)
+  select(@university_qualification, from: :member_university_qualification, match: :first)
+  fill_in("member_university_course_start_date", :with => @university_course_start_date)
+  fill_in("member_university_course_end_date", :with => @university_course_end_date)
 
   # Date of birth
-  fill_in("member_dob", :with => "01/01/1989")
+  fill_in("member_dob", :with => @dob)
 end
 
 When(/^my student details should be saved$/) do

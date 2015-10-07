@@ -542,9 +542,25 @@ class Member < ActiveRecord::Base
     }
 
     contact_person = {
-      'name'      => contact_name,
-      'email'     => email,
-      'telephone' => telephone
+      'name'                           => contact_name,
+      'email'                          => email,
+      'telephone'                      => telephone,
+      'twitter'                        => twitter,
+      'dob'                            => dob,
+      'university_email'               => university_email,
+      'university_street_address'      => university_street_address,
+      'university_address_locality'    => university_address_locality,
+      'university_address_region'      => university_address_region,
+      'university_address_country'     => university_address_country,
+      'university_postal_code'         => university_postal_code,
+      'university_country'             => university_country,
+      'university_name'                => university_name,
+      'university_name_other'          => university_name_other,
+      'university_course_name'         => university_course_name,
+      'university_qualification'       => university_qualification,
+      'university_qualification_other' => university_qualification_other,
+      'university_course_start_date'   => university_course_start_date,
+      'university_course_end_date'     => university_course_end_date
     }
 
     billing = {
