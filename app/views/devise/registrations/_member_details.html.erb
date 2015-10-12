@@ -52,6 +52,18 @@
 
   <% end %>
 
+  <% if student? %>
+
+  <div class="control-group">
+    <%= f.label :dob, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :dob, :required => :required, :class => "datepicker" %>
+      <span class="help-inline">(required)</span>
+    </div>
+  </div>
+
+  <% end %>
+
   <div class="control-group">
     <%= f.label :telephone, :class => 'control-label' %>
     <div class="controls">
@@ -65,18 +77,6 @@
       <%= f.text_field :twitter %>
     </div>
   </div>
-
-  <% if student? %>
-
-  <div class="control-group">
-    <%= f.label :dob, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.text_field :dob, :required => :required, :class => "datepicker" %>
-      <span class="help-inline">(required)</span>
-    </div>
-  </div>
-
-  <% end %>
 </fieldset>
 
 <% unless individual? || student? %>
@@ -102,7 +102,11 @@
 <% end %>
 
 <fieldset>
-  <legend>Address details</legend>
+  <% if student? %>
+    <legend>Home address details</legend>
+  <% else %>
+    <legend>Address details</legend>
+  <% end %>
 
   <div class="control-group">
     <%= f.label :street_address, :class => 'control-label' %>
