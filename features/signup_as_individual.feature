@@ -33,6 +33,7 @@ Feature: Signup as an individual member
     And the terms and conditions should be correct
     And the submit button should say "Become an ODI member"
     And I should see a link to the right to cancel
+    And I should not see the student specific fields
 
   Scenario: Member signup with an affiliated node
     Given that I want to sign up as an individual supporter

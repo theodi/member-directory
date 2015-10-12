@@ -16,12 +16,17 @@
 
   <%= render :partial => 'member_details', :locals => { :f => f } %>
 
+  <% if student? %>
+    <%= render :partial => 'university_details', :locals => { :f => f } %>
+    <%= render :partial => 'course_details', :locals => { :f => f } %>
+  <% end %>
+
   <% if individual? %>
     <%= render :partial => 'affiliated_node', :locals => { :f => f } %>
   <% end %>
 
   <fieldset>
-    <legend>Your Communication Preferences</legend>
+    <legend>Your communication preferences</legend>
 
     <div class="control-group newsletter">
       <div class="controls">

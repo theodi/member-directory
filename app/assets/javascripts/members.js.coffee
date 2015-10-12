@@ -5,3 +5,20 @@
 $ ->
   $('[data-toggle="tooltip"]').tooltip(placement: 'right')
 
+  $('.datepicker').datepicker
+    format: 'dd/mm/yyyy',
+
+  $('select#member_university_name').on 'change', (e) =>
+    parentElement = $('#member_university_name_other').parents('.control-group')
+    parentElement.hide()
+    if e.target.value == 'Other (please specify)'
+      parentElement.show()
+      parentElement.find('input').focus()
+
+  $('select#member_university_qualification').on 'change', (e) =>
+    parentElement = $('#member_university_qualification_other').parents('.control-group')
+    parentElement.hide()
+    if e.target.value == 'Other (please specify)'
+      parentElement.show()
+      parentElement.find('input').focus()
+

@@ -1,92 +1,112 @@
 <fieldset>
-
   <legend>We just need a few of your details</legend>
 
   <div class="control-group">
-  	<%= f.label :contact_name, :class => 'control-label' %>
-  	<div class="controls">
-  		<%= f.text_field :contact_name , :autofocus => true, :required => 'required' %> <span class="help-inline">(required)</span>
-  	</div>
+    <%= f.label :contact_name, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :contact_name , :autofocus => true, :required => 'required' %> <span class="help-inline">(required)</span>
+    </div>
   </div>
 
   <div class="control-group">
-  	<%= f.label :email, :class => 'control-label' %>
-  	<div class="controls">
-  		<%= f.email_field :email, :required => 'required' %>
+    <%= f.label :email, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.email_field :email, :required => 'required' %>
       <span class="help-inline">(required)</span>
-  	</div>
+    </div>
   </div>
 
   <% unless individual? || student? %>
-    <div class="control-group">
-    	<%= f.label :organization_name, :class => 'control-label' %>
-    	<div class="controls">
-            <%= f.text_field :organization_name, :required => 'required' %>
-            <span class="help-inline">(required)</span>
-    	</div>
-    </div>
 
-    <div class="control-group">
-      <%= f.label :organization_size, :class => 'control-label' %>
-      <div class="controls">
-        <%= f.select(:organization_size, Member::ORGANISATION_SIZES, prompt: "Please select") %>
-        <span class="help-inline">(required)</span>
-      </div>
+  <div class="control-group">
+    <%= f.label :organization_name, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :organization_name, :required => 'required' %>
+      <span class="help-inline">(required)</span>
     </div>
+  </div>
 
-    <div class="control-group">
-      <%= f.label :organization_type, :class => 'control-label'  %>
-      <div class="controls">
-        <%= f.select(:organization_type, Member::ORGANISATION_TYPES, prompt: "Please select") %>
-        <span class="help-inline">(required)</span>
-      </div>
+  <div class="control-group">
+    <%= f.label :organization_size, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.select(:organization_size, Member::ORGANISATION_SIZES, prompt: "Please select") %>
+      <span class="help-inline">(required)</span>
     </div>
+  </div>
 
-    <div class="control-group">
-      <%= f.label :organization_sector, :class => 'control-label'  %>
-      <div class="controls">
-        <%= f.select(:organization_sector, Member.sectors, prompt: "Please select") %>
-        <span class="help-inline">(required)</span>
-      </div>
+  <div class="control-group">
+    <%= f.label :organization_type, :class => 'control-label'  %>
+    <div class="controls">
+      <%= f.select(:organization_type, Member::ORGANISATION_TYPES, prompt: "Please select") %>
+      <span class="help-inline">(required)</span>
     </div>
+  </div>
+
+  <div class="control-group">
+    <%= f.label :organization_sector, :class => 'control-label'  %>
+    <div class="controls">
+      <%= f.select(:organization_sector, Member.sectors, prompt: "Please select") %>
+      <span class="help-inline">(required)</span>
+    </div>
+  </div>
+
+  <% end %>
+
+  <% if student? %>
+
+  <div class="control-group">
+    <%= f.label :dob, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :dob, :required => :required, :class => "datepicker" %>
+      <span class="help-inline">(required)</span>
+    </div>
+  </div>
 
   <% end %>
 
   <div class="control-group">
-  	<%= f.label :telephone, :class => 'control-label' %>
-  	<div class="controls">
-  		<%= f.text_field :telephone %>
-  	</div>
+    <%= f.label :telephone, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :telephone %>
+    </div>
   </div>
 
+  <div class="control-group">
+    <%= f.label :twitter, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :twitter %>
+    </div>
+  </div>
 </fieldset>
 
 <% unless individual? || student? %>
-  <fieldset>
 
-    <legend>Financial information</legend>
+<fieldset>
+  <legend>Financial information</legend>
 
-    <div class="control-group">
-    	<%= f.label :organization_company_number, :class => 'control-label' %>
-    	<div class="controls">
-    		<%= f.text_field :organization_company_number %>
-    	</div>
+  <div class="control-group">
+    <%= f.label :organization_company_number, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :organization_company_number %>
     </div>
+  </div>
 
-    <div class="control-group">
-    	<%= f.label :organization_vat_id, :class => 'control-label' %>
-    	<div class="controls">
-    		<%= f.text_field :organization_vat_id %>
-    	</div>
+  <div class="control-group">
+    <%= f.label :organization_vat_id, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :organization_vat_id %>
     </div>
-
-  </fieldset>
+  </div>
+</fieldset>
 
 <% end %>
 
 <fieldset>
-
-  <legend>Address details</legend>
+  <% if student? %>
+    <legend>Home address details</legend>
+  <% else %>
+    <legend>Address details</legend>
+  <% end %>
 
   <div class="control-group">
     <%= f.label :street_address, :class => 'control-label' %>
@@ -127,3 +147,4 @@
     </div>
   </div>
 </fieldset>
+

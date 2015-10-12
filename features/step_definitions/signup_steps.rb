@@ -91,6 +91,7 @@ When /^I enter my name and contact details$/ do
   @telephone = '0121 123 446'
   @newsletter = false
   @share_with_third_parties = false
+  @twitter = ""
 
   fill_in('member_contact_name', :with => @contact_name)
   fill_in('member_email', :with => @email)
@@ -256,9 +257,26 @@ Then /^my details should be queued for further processing$/ do
   }
 
   contact_person = {
-    'name' => @contact_name,
-    'email' => @email,
-    'telephone' => @telephone
+    'name'                           => @contact_name,
+    'email'                          => @email,
+    'telephone'                      => @telephone,
+    'twitter'                        => @twitter,
+    'dob'                            => @dob,
+    'country'                        => @address_country,
+    'university_email'               => @university_email,
+    'university_street_address'      => @university_street_address,
+    'university_address_locality'    => @university_address_locality,
+    'university_address_region'      => @university_address_region,
+    'university_address_country'     => @university_address_country,
+    'university_postal_code'         => @university_postal_code,
+    'university_country'             => @university_country,
+    'university_name'                => @university_name,
+    'university_name_other'          => @university_name_other,
+    'university_course_name'         => @university_course_name,
+    'university_qualification'       => @university_qualification,
+    'university_qualification_other' => @university_qualification_other,
+    'university_course_start_date'   => @university_course_start_date,
+    'university_course_end_date'     => @university_course_end_date
   }
 
   billing = {

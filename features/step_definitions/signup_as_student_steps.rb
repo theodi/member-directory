@@ -21,3 +21,57 @@ Then(/^I should not be asked for financial information$/) do
   }
 end
 
+When(/^I enter my university details$/) do
+  @dob                            = Date.parse("01/01/1989")
+  @university_street_address      = "1 Some Street"
+  @university_address_country     = "GB"
+  @university_address_locality    = "Some town"
+  @university_address_region      = "Some region"
+  @university_country             = "GB"
+  @university_course_end_date     = Date.parse("04/10/2015") # Sun, 04 Oct 2015
+  @university_course_name         = "Course name"
+  @university_course_start_date   = Date.parse("04/10/2015") # Sun, 04 Oct 2015
+  @university_email               = "test@example.com"
+  @university_name                = "York"
+  @university_name_other          = ""
+  @university_postal_code         = "WC1E 6BT"
+  @university_qualification       = "BSc - Bachelor of Science"
+  @university_qualification_other = ""
+
+  # University email address
+  fill_in('member_university_email', :with => @university_email)
+
+  # University details
+  select(@university_name, from: :member_university_name, match: :first)
+  fill_in('member_university_street_address', :with => @university_street_address)
+  fill_in('member_university_address_locality', :with => @university_address_locality)
+  fill_in('member_university_address_region', :with => @university_address_region)
+  select("United Kingdom", from: :member_university_address_country, match: :first)
+  fill_in('member_university_postal_code', :with => @university_postal_code)
+
+  # University course and qualification
+  fill_in(:member_university_course_name, :with => @university_course_name)
+  select(@university_qualification, from: :member_university_qualification, match: :first)
+  fill_in("member_university_course_start_date", :with => @university_course_start_date)
+  fill_in("member_university_course_end_date", :with => @university_course_end_date)
+
+  # Date of birth
+  fill_in("member_dob", :with => @dob)
+end
+
+When(/^my student details should be saved$/) do
+  expect(@member).to_not be_nil
+  expect(@member.university_email).to eq("test@example.com")
+  expect(@member.university_name).to eq("York")
+  expect(@member.university_street_address).to eq("1 Some Street")
+  expect(@member.university_address_locality).to eq("Some town")
+  expect(@member.university_address_region).to eq("Some region")
+  expect(@member.university_address_country).to eq("GB")
+  expect(@member.university_postal_code).to eq("WC1E 6BT")
+  expect(@member.university_course_name).to eq("Course name")
+  expect(@member.university_qualification).to eq("BSc - Bachelor of Science")
+  expect(@member.university_course_start_date.to_s).to eq("2015-10-04")
+  expect(@member.university_course_end_date.to_s).to eq("2015-10-04")
+  expect(@member.dob.to_s).to eq("1989-01-01")
+end
+

@@ -25,3 +25,7 @@ Then /^I should see a link to the right to cancel$/ do
   expect(find_link("right to cancel")).to be_visible
 end
 
+Then(/^I should not see the student specific fields$/) do
+  expect(page).to_not have_content("University Details")
+end
+
