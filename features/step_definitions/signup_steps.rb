@@ -74,6 +74,7 @@ When(/^I visit the signup page with the invoice flag set$/) do
   expect(page).to have_content 'Become an ODI member'
   @field_prefix = 'member'
   @payment_method = 'invoice'
+  @coupon = double(code: nil)
 end
 
 When(/^I visit the signup page with an origin of "(.*?)"$/) do |origin|
@@ -92,6 +93,7 @@ When /^I enter my name and contact details$/ do
   @newsletter = false
   @share_with_third_parties = false
   @twitter = ""
+  # @coupon_code ||= @coupon.code
 
   fill_in('member_contact_name', :with => @contact_name)
   fill_in('member_email', :with => @email)
@@ -289,7 +291,8 @@ Then /^my details should be queued for further processing$/ do
       'address_region' => @address_region,
       'address_country' => @address_country,
       'postal_code' => @postal_code
-    }
+    },
+    'coupon' => @coupon.code
   }
 
   purchase = {
