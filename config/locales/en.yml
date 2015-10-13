@@ -40,7 +40,7 @@ en:
         card_expiry_month: Expiry month
         card_expiry_year: Expiry year
         university_email: "Email address"
-        university_street_address: "Address 1"
+        university_street_address: "Address line 1"
         university_address_locality: "Address line 2"
         university_address_region: "City"
         university_address_country: "Country"

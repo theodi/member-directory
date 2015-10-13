@@ -574,7 +574,8 @@ class Member < ActiveRecord::Base
         'address_region'   => address_region,
         'address_country'  => country_name,
         'postal_code'      => postal_code
-      }
+      },
+      'coupon' => coupon
     }
 
     purchase = {
