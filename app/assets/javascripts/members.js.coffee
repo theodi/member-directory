@@ -7,6 +7,7 @@ $ ->
 
   $('.datepicker').datepicker
     format: 'dd/mm/yyyy',
+    viewMode: 2
 
   $('select#member_university_name').on 'change', (e) =>
     parentElement = $('#member_university_name_other').parents('.control-group')
