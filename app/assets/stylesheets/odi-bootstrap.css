@@ -9100,7 +9100,7 @@ section.improvement.improvement-basic a {
   }
 
   .nav-collapse.collapse.in {
-    overflow: visible;
+    overflow: hidden;
   }
 
   .nav-collapse .navbar .nav {
