@@ -1,6 +1,6 @@
 When(/^I request a password reset$/) do
   visit '/'
-  click_link 'Sign in'
+  first(:link, "Sign in").click
   click_link 'Forgot your password?'
   fill_in 'member_email', with: @membership.email
   click_button 'Send me reset password instructions'

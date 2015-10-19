@@ -123,7 +123,7 @@ Then /^I should see a notice that the profile was saved successfully$/ do
 end
 
 Then /^I should see my changed details when I revisit the edit page$/ do
-  click_link('My Account')
+  first(:link, "My Account").click
   expect(page).to have_content @changed_organization_name
   expect(page).to have_content @changed_organization_description
   expect(page).to have_content @changed_organization_url
