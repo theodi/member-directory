@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <title>ODI Member Directory</title>
     <%= alternate_auto_discovery_link_tags %>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href='//fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
     <%= stylesheet_link_tag    "application", :media => "all" %>
     <%= javascript_include_tag "application" %>
@@ -30,9 +31,16 @@
                 <li><%= link_to "Sign in", new_member_session_path %></li>
               <% end %>
             </ul>
+
           </div>
         </div>
       </div>
+
+      <a id="mobile-menu" class="btn btn-navbar" data-toggle="collapse" data-target=".collapse">
+        <span class="icon icon-reorder"></span>
+      </a>
+
+      <div class="nav-collapse collapse">
 
       <div class="navbar navbar-static-top" id="mainnav">
         <div class="container">
@@ -99,6 +107,25 @@
           </div>
         </div>
       </div>
+
+      </div>
+
+      <div class="navbar navbar-inverse navbar-static-top mobile-only">
+        <div class="container">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="http://theodi.org/contact">Contact us</a></li>
+            <% if current_member %>
+              <li><%= link_to "My Account", member_path(current_member) %></li>
+              <li><%= link_to "Sign out", member_session_path, :method => :delete %></li>
+            <% elsif current_admin %>
+              <li><%= link_to "ADMIN MODE: Sign out", member_session_path, :method => :delete %></li>
+            <% else %>
+              <li><%= link_to "Sign in", new_member_session_path %></li>
+            <% end %>
+          </ul>
+        </div>
+      </div>
+
     </nav>
 
     <div class="whiteout">

@@ -6,6 +6,8 @@
   <% end %>
 </p>
 
+<% unless @member.student? %>
+
 <% case @discount_type %>
 <% when :free %>
 <p>
@@ -30,6 +32,8 @@
   <% else %>
     <p>Being <%= indefinite_article(@member.get_plan_description) %> is <%= @member.get_plan_price %> per year.</p>
   <% end %>
+
+<% end %>
 
 <% end %>
 

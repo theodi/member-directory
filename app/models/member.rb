@@ -348,6 +348,10 @@ class Member < ActiveRecord::Base
     @contact_name || name.presence
   end
 
+  def first_name
+    contact_name.to_s.split(/\s+/, 2).first
+  end
+
   def telephone
     @telephone || phone.presence
   end
