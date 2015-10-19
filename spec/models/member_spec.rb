@@ -634,4 +634,29 @@ describe Member do
       expect(member.cached_newsletter).to eq(false)
     end
   end
+
+  describe "#contact_name" do
+    let(:member) do
+      Member.new
+    end
+
+    it "returns the name" do
+      member.name = "Test Person"
+
+      expect(member.contact_name).to eq("Test Person")
+    end
+  end
+
+  describe "#first_name" do
+    let(:member) do
+      Member.new
+    end
+
+    it "returns the name" do
+      member.name = "Test Person"
+
+      expect(member.first_name).to eq("Test")
+    end
+  end
 end
+
