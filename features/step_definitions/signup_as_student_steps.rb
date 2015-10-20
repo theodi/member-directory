@@ -28,9 +28,13 @@ When(/^I enter my university details$/) do
   @university_address_locality    = "Some town"
   @university_address_region      = "Some region"
   @university_country             = "GB"
-  @university_course_end_date     = Date.parse("04/10/2015") # Sun, 04 Oct 2015
+  @university_course_end_date_year  = "2016"
+  @university_course_end_date_month = "November"
+  @university_course_end_date       = Date.parse("2016/11/01")
   @university_course_name         = "Course name"
-  @university_course_start_date   = Date.parse("04/10/2015") # Sun, 04 Oct 2015
+  @university_course_start_date_year  = "2011"
+  @university_course_start_date_month = "September"
+  @university_course_start_date       = Date.parse("2011/09/01")
   @university_email               = "test@example.com"
   @university_name                = "York"
   @university_name_other          = ""
@@ -52,8 +56,10 @@ When(/^I enter my university details$/) do
   # University course and qualification
   fill_in(:member_university_course_name, :with => @university_course_name)
   select(@university_qualification, from: :member_university_qualification, match: :first)
-  fill_in("member_university_course_start_date", :with => @university_course_start_date)
-  fill_in("member_university_course_end_date", :with => @university_course_end_date)
+  select(@university_course_start_date_year, from: :member_university_course_start_date_year)
+  select(@university_course_start_date_month, from: :member_university_course_start_date_month)
+  select(@university_course_end_date_year, from: :member_university_course_end_date_year)
+  select(@university_course_end_date_month, from: :member_university_course_end_date_month)
 
   # Date of birth
   fill_in("member_dob", :with => @dob)
@@ -70,8 +76,8 @@ When(/^my student details should be saved$/) do
   expect(@member.university_postal_code).to eq("WC1E 6BT")
   expect(@member.university_course_name).to eq("Course name")
   expect(@member.university_qualification).to eq("BSc - Bachelor of Science")
-  expect(@member.university_course_start_date.to_s).to eq("2015-10-04")
-  expect(@member.university_course_end_date.to_s).to eq("2015-10-04")
+  expect(@member.university_course_start_date.to_s).to eq("2011-09-01")
+  expect(@member.university_course_end_date.to_s).to eq("2016-11-01")
   expect(@member.dob.to_s).to eq("1989-01-01")
 end
 
