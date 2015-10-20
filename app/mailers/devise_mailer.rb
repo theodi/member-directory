@@ -13,14 +13,14 @@ class DeviseMailer < Devise::Mailer
   def confirmation_instructions(record, opts)
     @type = "capsule" if opts[:capsule].present?
     if record.individual? || record.student?
-      document_renderer = DocumentRenderer.new
+      document_renderer = DocumentRenderer.new(record)
       attachments.inline['supporter.png'] = {
         mime_type: 'image/png',
         content: File.read(Rails.root.join('public/supporter.png'))
       }
       attachments['terms-and-conditions.html'] = {
         mime_type: 'text/html',
-        content: document_renderer.terms_and_conditions(record)
+        content: document_renderer.terms_and_conditions
       }
     end
     super

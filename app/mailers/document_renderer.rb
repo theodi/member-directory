@@ -1,5 +1,8 @@
 class DocumentRenderer
-  def initialize
+  attr_reader :member
+
+  def initialize(member)
+    @member = member
     unless @view
       @view = ActionView::Base.new(ActionController::Base.view_paths, {})
       class << @view
@@ -9,12 +12,12 @@ class DocumentRenderer
     @view
   end
 
-  def terms_and_conditions(member)
+  def terms_and_conditions
     presenter = IndividualPresenter.new(member)
-    @view.render :partial => partial(member), locals: { member: presenter }, layout: 'layouts/email_attachment'
+    @view.render :partial => partial, locals: { member: presenter }, layout: 'layouts/email_attachment'
   end
 
-  def partial(member)
+  def partial
     case
     when member.individual?
       'devise/registrations/individual_terms'
