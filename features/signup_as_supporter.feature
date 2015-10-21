@@ -19,6 +19,7 @@ Feature: Signup as a supporter member
     And I am processed through chargify for the "corporate-supporter_annual" option
     When I click pay now
     And I am returned to the thanks page
+    And I should see "Thanks for supporting The ODI"
     And a welcome email should be sent to me
     And I should see "Welcome Pack" in the email body
     And my details should be queued for further processing

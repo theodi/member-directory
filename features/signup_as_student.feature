@@ -18,6 +18,7 @@ Feature: Signup as an student member
     And I am processed through chargify for the "individual-supporter-student" option
     When I click complete
     And I am returned to the thanks page
+    And I should see "Welcome to the ODI network!"
     And my student details should be saved
     And I should not have an organisation assigned to me
     And a welcome email should be sent to me
