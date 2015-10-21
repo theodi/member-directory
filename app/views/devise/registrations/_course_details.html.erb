@@ -28,7 +28,8 @@
   <div class="control-group">
     <%= f.label :university_course_start_date, :class => 'control-label' %>
     <div class="controls">
-      <%= f.text_field :university_course_start_date, :required => :required, :class => "datepicker" %>
+      <%= f.select(:university_course_start_date_month, course_date_months, {}, :required => "required", :class => "month-datepicker") %>
+      <%= f.select(:university_course_start_date_year, course_date_years, { }, :required => "required", :class => "year-datepicker") %>
       <span class="help-inline">(required)</span>
     </div>
   </div>
@@ -36,7 +37,8 @@
   <div class="control-group">
     <%= f.label :university_course_end_date, :class => 'control-label' %>
     <div class="controls">
-      <%= f.text_field :university_course_end_date, :required => :required, :class => "datepicker" %>
+      <%= f.select(:university_course_end_date_month, course_date_months, {}, :required => "required", :class => "month-datepicker") %>
+      <%= f.select(:university_course_end_date_year, course_date_years, { }, :required => "required", :class => "year-datepicker") %>
       <span class="help-inline">(required)</span>
     </div>
   </div>

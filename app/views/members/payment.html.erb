@@ -25,13 +25,6 @@
     Congratulations! You’re receiving a discount on your ODI membership. The
     discount will be applied on the next page.
 </p>
-<% else %>
-
-  <% if @member.student? %>
-    <p>Being <%= indefinite_article(@member.get_plan_description) %> is FREE!</p>
-  <% else %>
-    <p>Being <%= indefinite_article(@member.get_plan_description) %> is <%= @member.get_plan_price %> per year.</p>
-  <% end %>
 
 <% end %>
 
@@ -46,7 +39,7 @@
       <div class='controls'>
         <%= label_tag :payment_frequency_monthly, :class => 'radio inline' do %>
           <%= radio_button_tag :payment_frequency, 'monthly' %>
-          12 monthly installments of <%= @member.get_monthly_plan_price %>
+          12 monthly installments
         <% end %>
         </div>
     </div>

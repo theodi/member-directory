@@ -136,12 +136,33 @@ class Member < ActiveRecord::Base
                   :university_course_name,
                   :university_qualification,
                   :university_qualification_other,
-                  :university_course_start_date,
-                  :university_course_end_date,
+                  :university_course_start_date_year,
+                  :university_course_start_date_month,
+                  :university_course_end_date_year,
+                  :university_course_end_date_month,
                   :twitter,
                   :dob
 
   attr_accessor :agreed_to_terms
+  attr_accessor :university_course_start_date_year
+  attr_accessor :university_course_start_date_month
+  attr_accessor :university_course_end_date_year
+  attr_accessor :university_course_end_date_month
+
+  before_validation :normalize_course_start_date
+  before_validation :normalize_course_end_date
+
+  def normalize_course_start_date
+    return unless university_course_start_date_year.present? && university_course_start_date_month.present?
+
+    self.university_course_start_date = Date.parse("#{university_course_start_date_year}/#{university_course_start_date_month}/01")
+  end
+
+  def normalize_course_end_date
+    return unless university_course_end_date_year.present? && university_course_end_date_month.present?
+
+    self.university_course_end_date   = Date.parse("#{university_course_end_date_year}/#{university_course_end_date_month}/01")
+  end
 
   # allow admins to edit access key
   attr_accessible :access_key, as: :admin

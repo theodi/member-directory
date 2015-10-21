@@ -80,8 +80,10 @@
 
   <div id="terms" class="well">
 
-    <% if individual? || student? %>
+    <% if individual? %>
       <%= render :partial => 'individual_terms', :locals => {:member => PlaceholderPresenter.new} %>
+    <% elsif student? %>
+      <%= render :partial => 'student_terms', :locals => {:member => PlaceholderPresenter.new} %>
     <% else %>
       <%= render :partial => 'terms', :locals => {:member => PlaceholderPresenter.new} %>
     <% end %>
