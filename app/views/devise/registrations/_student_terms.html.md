@@ -6,8 +6,11 @@
 
 1. Definitions
     1. The following definitions apply to these terms and conditions:  
+
+    <p class="definitions">
     **ODI** means the Open Data Institute, a company registered in England and Wales with company number 08030289 and whose registered office is 3rd Floor, 65 Clifton Street, London, EC2A 4JE  
     **You/Your** means <%= member.name %> of <%= member.address %>
+    </p>
 
 2. Publications and Branding
     1. The members’ newsletters and other communications may be written by the
