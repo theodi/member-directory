@@ -125,12 +125,8 @@ class Member < ActiveRecord::Base
                   :coupon,
                   :invoice,
                   :university_email,
-                  :university_street_address,
-                  :university_address_locality,
-                  :university_address_region,
-                  :university_address_country,
-                  :university_postal_code,
                   :university_country,
+                  :university_address_country,
                   :university_name,
                   :university_name_other,
                   :university_course_name,
@@ -191,11 +187,6 @@ class Member < ActiveRecord::Base
   validates_with OrganizationValidator, on: :create, unless: Proc.new { |member| member.individual? || member.student? }
 
   validates :university_email,               presence: true, if: Proc.new { |member| member.student? }
-  validates :university_street_address,      presence: true, if: Proc.new { |member| member.student? }
-  validates :university_address_region,      presence: true, if: Proc.new { |member| member.student? }
-  validates :university_address_country,     presence: true, if: Proc.new { |member| member.student? }
-  validates :university_postal_code,         presence: true, if: Proc.new { |member| member.student? }
-  validates :university_country,             presence: true, if: Proc.new { |member| member.student? }
   validates :university_name,                presence: true, if: Proc.new { |member| member.student? }
   validates :university_name_other,          presence: true, if: Proc.new { |member| member.student? && member.university_name == "Other (please specify)" }
   validates :university_course_name,         presence: true, if: Proc.new { |member| member.student? }
@@ -586,11 +577,7 @@ class Member < ActiveRecord::Base
       'dob'                            => dob,
       'country'                        => country_name,
       'university_email'               => university_email,
-      'university_street_address'      => university_street_address,
-      'university_address_locality'    => university_address_locality,
-      'university_address_region'      => university_address_region,
       'university_address_country'     => university_address_country,
-      'university_postal_code'         => university_postal_code,
       'university_country'             => university_country,
       'university_name'                => university_name,
       'university_name_other'          => university_name_other,
