@@ -15,6 +15,7 @@ Feature: Signup as an individual member
     And I am processed through chargify for the "individual-supporter" option
     When I click pay now
     And I am returned to the thanks page
+    And I should see "Thanks for supporting The ODI"
     And I should not have an organisation assigned to me
     And a welcome email should be sent to me
     And I should see "We are delighted to welcome you to the Open Data Institute member network" in the email body

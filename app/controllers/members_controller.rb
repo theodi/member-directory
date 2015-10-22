@@ -86,7 +86,12 @@ class MembersController < ApplicationController
   end
 
   def thanks
-    @title = "Thanks for supporting The ODI"
+    if current_member.student?
+      @title = "Welcome to the ODI network!"
+    else
+      @title = "Thanks for supporting The ODI"
+    end
+
     if current_member.invoiced?
       current_member.process_invoiced_member!
     end
