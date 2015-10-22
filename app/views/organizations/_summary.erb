@@ -1,8 +1,10 @@
 <div class='organization organization-summary' vocab="http://schema.org/" typeOf="Organization">
 
-  <div class='organization-logo pull-right'
-       style='background-image: url(<%= organization.logo.rectangular.url %>)'>
-  </div>
+  <% if organization.logo.rectangular.url.present? %>
+    <div class='organization-logo pull-right' style='background-image: url(<%= organization.logo.rectangular.url %>)'>
+    </div>
+  <% end %>
+
   <div class='organization-content'>
     <h2 property="name"><%= link_to organization.name, organization.member %>  <span class="label <%= organization.member.product_name %>"><%= organization.membership_description %></span></h2>
 

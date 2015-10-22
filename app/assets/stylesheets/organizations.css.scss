@@ -50,8 +50,15 @@ div.organization-summary div.organization-logo {
   margin-bottom: 20px;
 }
 
+@media screen and (max-width: 500px) {
+  .organization-logo {
+    float: none;
+  }
+}
+
 div.organization-summary div.organization-description {
   min-height: auto;
+  clear: both;
 }
 
 div.organization-summary div.organization-description a.btn::after {
