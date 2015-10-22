@@ -4,15 +4,15 @@
 2. Definitions
     1. The following definitions apply to these terms and conditions:
 
-    | Term | Definition |
-    |-|-|
-    | End Date | means 12 calendar months after the Start Date |
-    | Membership Fee | £90 per annum + VAT = £108 per annum, or the discounted price offered at the time you subscribe to become a member, if any |
-    | ODI | means the Open Data Institute, a company registered in England and Wales with company number 08030289 and whose registered office is 3rd Floor, 65 Clifton Street, London, EC2A 4JE |
-    | Start Date | means the date the Membership Fee is received by the ODI in full |
-    | You/Your | means <%= member.name %> of <%= member.address %> |
-    | Supporter Badge | means a visual digital mark that you can use whilst an active individual Supporter
-    | VAT | means value added tax chargeable under the Value Added Tax Act 1994 |
+    <p class="definitions">
+    **End Date** means 12 calendar months after the Start Date  
+    **Membership Fee** £90 per annum + VAT = £108 per annum, or the discounted price offered at the time you subscribe to become a member, if any  
+    **ODI** means the Open Data Institute, a company registered in England and Wales with company number 08030289 and whose registered office is 3rd Floor, 65 Clifton Street, London, EC2A 4JE  
+    **Start Date** means the date the Membership Fee is received by the ODI in full  
+    **You/Your** means <%= member.name %> of <%= member.address %>  
+    **Supporter Badge** means a visual digital mark that you can use whilst an active individual Supporter  
+    **VAT** means value added tax chargeable under the Value Added Tax Act 1994
+    </p>
 
 3. Membership
     1. Your category of membership to the ODI is “Individual Supporter”. 
