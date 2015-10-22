@@ -18,30 +18,28 @@
   display: none;
 }
 
-form #terms {
+#terms {
   height: 200px;
   overflow-y: scroll;
-}
 
-#terms {
   .definitions {
     font-size: 14px;
     margin-left: 26px;
   }
-}
 
-#terms ul {
-  margin-bottom: 30px;
-}
+  ul {
+    margin-bottom: 30px;
+  }
 
-#terms h5 {
-  font-style: italic;
+  h5 {
+    font-style: italic;
+  }
 }
 
 .field_with_errors {
-    display:inline;
-    margin:0px;
-    padding:0px;
+  display:inline;
+  margin:0px;
+  padding:0px;
 }
 
 /* Preview area */
