@@ -11,7 +11,10 @@
     <% end %>
 
     <% if organization.url.present? %>
-      <i class='icon icon-home'></i> <%= link_to organization.url, organization.url, :property => "url"%></a>
+      <p class="url">
+        <i class='icon icon-home'></i>
+        <%= link_to organization.url, organization.url, :property => "url"%></a>
+      <p>
     <% end %>
 
     <div class='organization-description clearfix'>
