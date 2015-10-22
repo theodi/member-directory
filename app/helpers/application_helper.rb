@@ -51,7 +51,7 @@ module ApplicationHelper
     end
   end
 
-  def course_date_months
+  def date_months
     (1..12).map do |month|
       [Date::MONTHNAMES[month], "%.2d" % month]
     end
