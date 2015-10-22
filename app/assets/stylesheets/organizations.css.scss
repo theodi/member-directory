@@ -15,6 +15,15 @@ div.organization {
   margin-top: 10px;
   min-height: 150px;
 }
+
+.form-search {
+  width: 100%;
+
+  .search-query {
+    width: 68%;
+  }
+}
+
 .organization-content {
   .url {
     position: relative;
