@@ -4,17 +4,17 @@
 2. Definitions
     1. The following definitions apply to these terms and conditions:
 
-    | Term | Definition |
-    |-|-|
-    | Corporate Supporter | a commercial organisation with 250 employees or more and regional or central government organisations |
-    | End Date | means 12 calendar months after the Start Date; or each annual anniversary of the Start Date in the event your membership is renewed |
-    | Membership Fee | £720 per annum + VAT for SME & Non Profit Supporters; or £2,200 per annum + VAT for Corporate Supporters |
-    | ODI | means the Open Data Institute, a company registered in England and Wales with company number 08030289 and whose registered office is 3rd Floor, 65 Clifton Street, London, EC2A 4JE |
-    | SME & Non Profit Supporter | a commercial organisation with 249 employees or fewer, academic institutions, not-for-profits, charities and local government organisations |
-    | Start Date | means the date the Membership Fee is received by the ODI in full |
-    | Supporter Badge | means a visual digital mark that you can use whilst an active SME & Non Profit Supporter or Corporate Supporter |
-    | You/Your | means <span class='legal-name'><%= member.name %></span> <span id='company-details' style='<%= member.company_number ? "" : "display:none"%>'>being a company / charity registered in England and Wales with number <span id='company-number'><%= member.company_number %></span> and whose principal address is <span class='legal-address'><%= member.address %></span> |
-    | VAT | means value added tax chargeable under the Value Added Tax Act 1994 |
+    <p class="definitions">
+    **Corporate Supporter** a commercial organisation with 250 employees or more and regional or central government organisations  
+    **End Date** means 12 calendar months after the Start Date; or each annual anniversary of the Start Date in the event your membership is renewed  
+    **Membership Fee** £720 per annum + VAT for SME & Non Profit Supporters; or £2,200 per annum + VAT for Corporate Supporters  
+    **ODI** means the Open Data Institute, a company registered in England and Wales with company number 08030289 and whose registered office is 3rd Floor, 65 Clifton Street, London, EC2A 4JE  
+    **SME & Non Profit Supporter** a commercial organisation with 249 employees or fewer, academic institutions, not-for-profits, charities and local government organisations  
+    **Start Date** means the date the Membership Fee is received by the ODI in full  
+    **Supporter Badge** means a visual digital mark that you can use whilst an active SME & Non Profit Supporter or Corporate Supporter  
+    **You/Your** means <span class='legal-name'><%= member.name %></span> <span id='company-details' style='<%= member.company_number ? "" : "display:none"%>'>being a company / charity registered in England and Wales with number <span id='company-number'><%= member.company_number %></span> and whose principal address is <span class='legal-address'><%= member.address %></span>  
+    **VAT** means value added tax chargeable under the Value Added Tax Act 1994  
+    </p>
 
 3. Membership
     1. Your category of membership to the ODI is “SME & Non Profit Supporter” or “Corporate Supporter”, as further defined above.
