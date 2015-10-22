@@ -74,7 +74,7 @@ Feature: Signup as a supporter member
 
     Examples:
       | field                 | text              |
-      | contact_name          | Your name         |
+      | contact_name          | Full name         |
       | street_address        | Address           |
       | address_region        | City              |
       | address_country       | Country           |

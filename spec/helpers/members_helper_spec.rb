@@ -63,9 +63,9 @@ describe MembersHelper do
     end
   end
 
-  describe "#course_date_months" do
+  describe "#date_months" do
     it "should return the months" do
-      expect(helper.course_date_months).to eq(
+      expect(helper.date_months).to eq(
         [
           ["January",   "01"],
           ["February",  "02"],

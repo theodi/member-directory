@@ -41,7 +41,7 @@ Feature: Signup and pay by invoice
     And I agree to the terms
     But I leave contact_name blank
     And I click sign up
-    Then I should see an error relating to Your name
+    Then I should see an error relating to Full name
     And I enter my name and contact details
     Then my organization should be made active in Capsule
     Then my details should be queued for further processing

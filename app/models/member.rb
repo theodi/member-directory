@@ -141,16 +141,28 @@ class Member < ActiveRecord::Base
                   :university_course_end_date_year,
                   :university_course_end_date_month,
                   :twitter,
-                  :dob
+                  :dob_day,
+                  :dob_month,
+                  :dob_year
 
   attr_accessor :agreed_to_terms
   attr_accessor :university_course_start_date_year
   attr_accessor :university_course_start_date_month
   attr_accessor :university_course_end_date_year
   attr_accessor :university_course_end_date_month
+  attr_accessor :dob_day
+  attr_accessor :dob_month
+  attr_accessor :dob_year
 
+  before_validation :normalize_dob
   before_validation :normalize_course_start_date
   before_validation :normalize_course_end_date
+
+  def normalize_dob
+    return unless dob_day.present? && dob_month.present? && dob_year.present?
+
+    self.dob = Date.parse("#{dob_year}/#{dob_month}/#{dob_day}")
+  end
 
   def normalize_course_start_date
     return unless university_course_start_date_year.present? && university_course_start_date_month.present?

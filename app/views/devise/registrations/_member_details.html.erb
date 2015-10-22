@@ -57,7 +57,9 @@
   <div class="control-group">
     <%= f.label :dob, :class => 'control-label' %>
     <div class="controls">
-      <%= f.text_field :dob, :required => :required, :class => "datepicker" %>
+      <%= f.select(:dob_day, 1..31, {}, :required => "required", :class => "month-datepicker") %>
+      <%= f.select(:dob_month, date_months, {}, :required => "required", :class => "month-datepicker") %>
+      <%= f.select(:dob_year, ((Time.now.year - 100)..Time.now.year), { prompt: "" }, :required => "required", :class => "year-datepicker") %>
       <span class="help-inline">(required)</span>
     </div>
   </div>

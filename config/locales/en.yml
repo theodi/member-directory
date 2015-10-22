@@ -20,7 +20,7 @@ en:
         membership_number: "Member ID"
         product_name: "Membership level"
         email: "Email address"
-        contact_name: "Your name"
+        contact_name: "Full name"
         organization_name: "Organisation name"
         organization_size: "Organisation size"
         organization_type: "Organisation type"
