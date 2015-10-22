@@ -15,106 +15,99 @@
  */
 
 #singleview .organization h2 {
-	display: none;
+  display: none;
 }
 
- form #terms {
-	 height: 200px;
-	 overflow-y: scroll;
- }
+form #terms {
+  height: 200px;
+  overflow-y: scroll;
+}
 
- #terms {
-   .definitions {
-     font-size: 14px;
-     margin-left: 26px;
-   }
- }
+#terms {
+  .definitions {
+    font-size: 14px;
+    margin-left: 26px;
+  }
+}
 
- #terms ul {
-   margin-left: 44px;
-   margin-bottom: 30px;
- }
+#terms ul {
+  margin-left: 44px;
+  margin-bottom: 30px;
+}
 
- #terms ol li ol li {
- }
+#terms h5 {
+  font-style: italic;
+}
 
- #terms ol li ol li ol li {
- }
+.field_with_errors {
+    display:inline;
+    margin:0px;
+    padding:0px;
+}
 
- #terms h5 {
-   font-style: italic;
- }
-
- .field_with_errors {
-     display:inline;
-     margin:0px;
-     padding:0px;
- }
-
-
- /* Preview area */
- .preview {
-   position: relative;
-   margin: 15px 0;
-   padding: 39px 19px 14px;
-   *padding-top: 19px;
-   background-color: #fff;
-   border: 1px solid #ddd;
-   -webkit-border-radius: 4px;
-      -moz-border-radius: 4px;
-           border-radius: 4px;
- }
+/* Preview area */
+.preview {
+  position: relative;
+  margin: 15px 0;
+  padding: 39px 19px 14px;
+  *padding-top: 19px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  -webkit-border-radius: 4px;
+     -moz-border-radius: 4px;
+          border-radius: 4px;
+}
 
 .preview:after {
-   content: "Preview";
-   position: absolute;
-   top: -1px;
-   left: -1px;
-   padding: 3px 7px;
-   font-size: 12px;
-   font-weight: bold;
-   background-color: #f5f5f5;
-   border: 1px solid #ddd;
-   color: #9da0a4;
-   -webkit-border-radius: 4px 0 4px 0;
-      -moz-border-radius: 4px 0 4px 0;
-           border-radius: 4px 0 4px 0;
- }
+  content: "Preview";
+  position: absolute;
+  top: -1px;
+  left: -1px;
+  padding: 3px 7px;
+  font-size: 12px;
+  font-weight: bold;
+  background-color: #f5f5f5;
+  border: 1px solid #ddd;
+  color: #9da0a4;
+  -webkit-border-radius: 4px 0 4px 0;
+     -moz-border-radius: 4px 0 4px 0;
+          border-radius: 4px 0 4px 0;
+}
 
 .label.supporter {
- background-color: #05d3ab;
+  background-color: #05d3ab;
 }
 
 .label.member {
- background-color: #00b7ff;
+  background-color: #00b7ff;
 }
 
 .label.sponsor {
- background-color: #ef3aab;
+  background-color: #ef3aab;
 }
 
 .label.partner {
- background-color: #0dbc37;
+  background-color: #0dbc37;
 }
 
 .main-default i {
-	display: inline;
+  display: inline;
 }
 
 .honeypot {
-	display: none;
+  display: none;
 }
 
 .brand {
-	left: 0;
+  left: 0;
 }
 
 .brand img {
-	height: 48px;
+  height: 48px;
 }
 
 #topbar {
-	height: auto;
+  height: auto;
 
   ul li {
     height: 68px;
@@ -132,58 +125,6 @@
   }
 }
 
-#terms {
-
-  /* Copy of bootstrap .table & .table-striped styles. Would love a better way to do this. */
-  table {
-    tbody tr:nth-child(odd) > td,
-    tbody tr:nth-child(odd) > th {
-      background-color: #f9f9f9;
-    }
-
-    width: 90%;
-    margin-bottom: 20px;
-    margin-left: 50px;
-    border: 1px solid #dddddd;
-
-    th,
-    td {
-      padding: 8px;
-      line-height: 20px;
-      text-align: left;
-      vertical-align: top;
-      border-top: 1px solid #dddddd;
-    }
-
-    th {
-      font-weight: bold;
-    }
-
-    thead th {
-      vertical-align: bottom;
-    }
-
-  }
-
-  ol {
-    counter-reset: section;
-    list-style-type: none;
-
-    li {
-      counter-increment: section;
-
-      p {
-        display: inline-block;
-      }
-    }
-
-    li:before  {
-      content: counters(section, ".") ". ";
-    }
-  }
-
-}
-
 #footer .footer-content h1 {
   background-image: image_url('logo-header.png');
   width: 202px;
@@ -191,29 +132,30 @@
 }
 
 #badgeContent {
-	width: 920px;
-	margin-left: -460px;
-	.modal-body {
-		overflow: hidden;
+  width: 920px;
+  margin-left: -460px;
 
-		textarea {
-			width: 95%;
-			font-size: 0.8em;
-			height: 125px;
-		}
+  .modal-body {
+    overflow: hidden;
 
-		label {
-			color: #fff;
-		}
+    textarea {
+      width: 95%;
+      font-size: 0.8em;
+      height: 125px;
+    }
 
-		.radio {
-			margin: 0 10px 0 0;
-		}
+    label {
+      color: #fff;
+    }
 
-		#preview {
-			height: 170px;
-		}
-	}
+    .radio {
+      margin: 0 10px 0 0;
+    }
+
+    #preview {
+      height: 170px;
+    }
+  }
 }
 
 .thanks-badge {
