@@ -55,8 +55,11 @@ class Member < ActiveRecord::Base
   ]
 
   ORIGINS = {
+    "Aberdeen" => "odi-aberdeen",
     "Athens" => "odi-athens",
     "Belfast" => "odi-belfast",
+    "Birmingham" => "odi-birmingham",
+    "Brasilia" => "odi-brasilia",
     "Buenos Aires" => "odi-buenos-aires",
     "Cairo" => "odi-cairo",
     "Chicago" => "odi-chicago",
@@ -65,6 +68,7 @@ class Member < ActiveRecord::Base
     "Gothenburg" => "odi-gothenburg",
     "Hampshire" => "odi-hampshire",
     "Leeds" => "odi-leeds",
+    "Madrid" => "odi-madrid",
     "Osaka" => "odi-osaka",
     "Paris" => "odi-paris",
     "Queensland" => "odi-queensland",
