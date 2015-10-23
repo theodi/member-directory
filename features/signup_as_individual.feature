@@ -18,6 +18,7 @@ Feature: Signup as an individual member
     And I should see "Thanks for supporting The ODI"
     And I should not have an organisation assigned to me
     And a welcome email should be sent to me
+    And I should see "Welcome to the ODI network!" in the email subject
     And I should see "We are delighted to welcome you to the Open Data Institute member network" in the email body
     And I should see "download an ODI Supporter badge" in the email body
     And my details should be queued for further processing

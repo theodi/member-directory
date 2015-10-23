@@ -1,3 +1,4 @@
+# encoding: utf-8
 class DeviseMailer < Devise::Mailer
 
   add_template_helper(ApplicationHelper)
@@ -6,7 +7,12 @@ class DeviseMailer < Devise::Mailer
     headers = super
     if action == :confirmation_instructions
       headers[:bcc] = 'andrea.cox@theodi.org,clara.lewis@theodi.org,members@theodi.org'
+
+      if resource.student?
+        headers[:subject] = "You’ve joined our network! Now what?"
+      end
     end
+
     headers
   end
 
@@ -14,6 +20,14 @@ class DeviseMailer < Devise::Mailer
     @type = "capsule" if opts[:capsule].present?
     if record.individual? || record.student?
       document_renderer = DocumentRenderer.new(record)
+
+      if record.student?
+        attachments.inline['student-email.jpg'] = {
+          mime_type: 'image/jpg',
+          content: File.read(Rails.root.join('public/student-email.jpg'))
+        }
+      end
+
       attachments.inline['supporter.png'] = {
         mime_type: 'image/png',
         content: File.read(Rails.root.join('public/supporter.png'))
