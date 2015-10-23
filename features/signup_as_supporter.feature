@@ -21,6 +21,7 @@ Feature: Signup as a supporter member
     And I am returned to the thanks page
     And I should see "Thanks for supporting The ODI"
     And a welcome email should be sent to me
+    And I should see "Welcome to the ODI network!" in the email subject
     And I should see "Welcome Pack" in the email body
     And my details should be queued for further processing
     When chargify verifies the payment
