@@ -92,7 +92,7 @@ When /^I enter my name and contact details$/ do
   @telephone = '0121 123 446'
   @newsletter = false
   @share_with_third_parties = false
-  @twitter = ""
+  @twitter = nil
   # @coupon_code ||= @coupon.code
 
   fill_in('member_contact_name', :with => @contact_name)
