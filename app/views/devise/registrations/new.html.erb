@@ -10,6 +10,7 @@
   </p>
 
   <%= f.hidden_field :coupon, value: params[:coupon] if params[:coupon].present? %>
+  <%= f.hidden_field :coupon, value: params[:member][:coupon] if params[:member] && params[:member][:coupon].present? %>
   <%= f.hidden_field :origin, value: origin_value %>
   <%= f.hidden_field :invoice, value: 1 if params[:invoice].present? || @member.invoice == true %>
   <%= f.hidden_field :product_name %>
