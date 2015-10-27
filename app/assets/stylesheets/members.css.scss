@@ -32,6 +32,25 @@
 }
 
 .main-default {
+  .control-group.dob {
+    .day, .month, .year {
+      width: 30px;
+      text-align: center;
+      margin-right: 6px;
+    }
+
+    .year {
+      width: 50px;
+    }
+
+    .help-block {
+      color: #999;
+      padding-top: 6px;
+    }
+  }
+}
+
+.main-default {
   select.month-datepicker,
   select.year-datepicker {
     width: auto;

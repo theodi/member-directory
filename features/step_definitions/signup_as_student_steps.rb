@@ -23,8 +23,8 @@ end
 
 When(/^I enter my university details$/) do
   @dob                                = Date.parse("01/01/1989")
-  @dob_day                            = "1"
-  @dob_month                          = "January"
+  @dob_day                            = "01"
+  @dob_month                          = "01"
   @dob_year                           = "1989"
   @university_country                 = "GB"
   @university_address_country         = "GB"
@@ -56,9 +56,9 @@ When(/^I enter my university details$/) do
   select(@university_course_end_date_month, from: :member_university_course_end_date_month)
 
   # Date of birth
-  select(@dob_year, from: :member_dob_year)
-  select(@dob_month, from: :member_dob_month)
-  select(@dob_day, from: :member_dob_day)
+  fill_in(:member_dob_year,  :with => @dob_year)
+  fill_in(:member_dob_month, :with => @dob_month)
+  fill_in(:member_dob_day,   :with => @dob_day)
 end
 
 When(/^my student details should be saved$/) do
