@@ -162,18 +162,24 @@ class Member < ActiveRecord::Base
     return unless dob_day.present? && dob_month.present? && dob_year.present?
 
     self.dob = Date.parse("#{dob_year}/#{dob_month}/#{dob_day}")
+  rescue ArgumentError
+    errors.add(:dob, "is not a valid date")
   end
 
   def normalize_course_start_date
     return unless university_course_start_date_year.present? && university_course_start_date_month.present?
 
     self.university_course_start_date = Date.parse("#{university_course_start_date_year}/#{university_course_start_date_month}/01")
+  rescue ArgumentError
+    errors.add(:university_course_start_date, "is not a valid date")
   end
 
   def normalize_course_end_date
     return unless university_course_end_date_year.present? && university_course_end_date_month.present?
 
     self.university_course_end_date   = Date.parse("#{university_course_end_date_year}/#{university_course_end_date_month}/01")
+  rescue ArgumentError
+    errors.add(:university_course_end_date, "is not a valid date")
   end
 
   # allow admins to edit access key

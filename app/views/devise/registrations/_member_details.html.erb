@@ -54,13 +54,14 @@
 
   <% if student? %>
 
-  <div class="control-group">
+  <div class="control-group dob">
     <%= f.label :dob, :class => 'control-label' %>
     <div class="controls">
-      <%= f.select(:dob_day, 1..31, {}, :required => "required", :class => "month-datepicker") %>
-      <%= f.select(:dob_month, date_months, {}, :required => "required", :class => "month-datepicker") %>
-      <%= f.select(:dob_year, ((Time.now.year - 100)..Time.now.year), { prompt: "" }, :required => "required", :class => "year-datepicker") %>
+      <%= f.text_field(:dob_day,   { :required => "required", :pattern => "[0-9]*", :class => "day" }) %>
+      <%= f.text_field(:dob_month, { :required => "required", :pattern => "[0-9]*", :class => "month" }) %>
+      <%= f.text_field(:dob_year,  { :required => "required", :pattern => "[0-9]*", :class => "year" }) %>
       <span class="help-inline">(required)</span>
+      <span class="help-block">For example, 20 3 1976</span>
     </div>
   </div>
 
