@@ -45,7 +45,7 @@ en:
         university_address_region: "City"
         university_address_country: "Country"
         university_postal_code: "Postcode"
-        university_name: "University name"
+        university_name: "University/college name"
         university_name_other: ""
         university_qualification: "Qualification"
         university_qualification_other: ""

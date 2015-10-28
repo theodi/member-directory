@@ -19,3 +19,9 @@ $ ->
       parentElement.show()
       parentElement.find('input').focus()
 
+  $('select#member_origin').on 'change', (e) =>
+    if e.target.value == ''
+      $('.third-parties').hide()
+    else
+      $('.third-parties').show()
+

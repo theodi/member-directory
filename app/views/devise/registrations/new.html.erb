@@ -31,19 +31,24 @@
 
     <div class="control-group newsletter">
       <div class="controls">
-        <label>
-          <%= t(:receive_newsletter) %> <%= f.check_box :cached_newsletter %>
+        <label class="checkbox">
+          <%= f.check_box :cached_newsletter %> <%= t(:receive_newsletter) %>
         </label>
       </div>
     </div>
 
-    <div class="control-group newsletter">
+    <% if individual? %>
+
+    <div class="control-group newsletter third-parties">
       <div class="controls">
-        <label>
-          <%= t(:share_with_third_parties) %> <%= f.check_box :cached_share_with_third_parties %>
+        <label class="checkbox">
+          <%= f.check_box :cached_share_with_third_parties %> <%= t(:share_with_third_parties) %>
         </label>
       </div>
     </div>
+
+    <% end %>
+
   </fieldset>
 
   <fieldset>
@@ -131,8 +136,8 @@
 
   <div class="control-group">
     <div class="controls">
-      <label class='checkbox'>
-      <%= f.check_box :agreed_to_terms %> <%= t(:agreed_to_terms) %>
+      <label class='checkbox terms'>
+        <%= f.check_box :agreed_to_terms %> <%= t(:agreed_to_terms) %>
     </label>
   </div>
 
