@@ -1,25 +1,38 @@
-<p><%= greeting(@member) %>,</p>
+<table style="width: 593px; border: 1px solid #eee; margin: 0 auto;">
+<tr>
+  <td>
+    <%= image_tag attachments['email.jpg'].url, width: 593, height: 173, alt: "" %>
+  </td>
+<tr>
+  <td style="padding: 10px;">
 
-<p>We are delighted to have you join the Open Data Institute member network. Thank you for supporting us!</p>
+    <p style="font-family: Helvetica, Arial, sans-serif;"><%= greeting(@member) %>,</p>
 
-<p>- Your membership number is <strong><%= @member.membership_number %></strong>.</p>
+    <p style="font-family: Helvetica, Arial, sans-serif;">We are delighted to have you join the Open Data Institute member network. Thank you for supporting us!</p>
 
-<p>- To activate your account click <%= link_to 'here', edit_password_url(@member, :reset_password_token => @member.reset_password_token) %> and enter your company profile for the Member Directory.</p>
+    <p style="font-family: Helvetica, Arial, sans-serif;">- Your membership number is <strong><%= @member.membership_number %></strong>.</p>
 
-<% unless @type == "capsule" %>
-  <p>- You will soon receive your Welcome Pack to help you get started with your ODI membership and make the most of ODI communications.</p>
-<% end %>
+    <p style="font-family: Helvetica, Arial, sans-serif;">- To activate your account click <%= link_to 'here', edit_password_url(@member, :reset_password_token => @member.reset_password_token) %> and enter your company profile for the Member Directory.</p>
 
-<p>If you have any questions or suggestions please do get in touch with the <%= mail_to 'members@theodi.org', 'membership team' %>.</p>
+    <% unless @type == "capsule" %>
+      <p style="font-family: Helvetica, Arial, sans-serif;">- You will soon receive your Welcome Pack to help you get started with your ODI membership and make the most of ODI communications.</p>
+    <% end %>
 
-<p>Best wishes,</p>
+    <p style="font-family: Helvetica, Arial, sans-serif;">If you have any questions or suggestions please do get in touch with the <%= mail_to 'members@theodi.org', 'membership team' %>.</p>
 
-<p>
-  Rachel, Andrea, Carl and Patrik
-  <br/>
-  The ODI Membership team
-</p>
+    <p style="font-family: Helvetica, Arial, sans-serif;">Best wishes,</p>
 
-<p>
-  <%= mail_to 'members@theodi.org', 'Membership' %> For general queries<br/>
-</p>
+    <p style="font-family: Helvetica, Arial, sans-serif;">
+      Rachel, Andrea, Carl and Patrik
+      <br/>
+      The ODI Membership team
+    </p>
+
+    <p style="font-family: Helvetica, Arial, sans-serif;">
+      <%= mail_to 'members@theodi.org', 'Membership' %> For general queries<br/>
+    </p>
+
+  </td>
+</tr>
+</table>
+

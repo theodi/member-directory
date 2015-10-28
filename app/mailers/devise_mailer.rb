@@ -28,6 +28,13 @@ class DeviseMailer < Devise::Mailer
         }
       end
 
+      if !record.student?
+        attachments.inline['email.jpg'] = {
+          mime_type: 'image/jpg',
+          content: File.read(Rails.root.join('public/email.jpg'))
+        }
+      end
+
       attachments.inline['supporter.png'] = {
         mime_type: 'image/png',
         content: File.read(Rails.root.join('public/supporter.png'))
