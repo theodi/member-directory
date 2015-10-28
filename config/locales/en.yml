@@ -6,7 +6,7 @@ en:
   invoice: "Annual invoice"
   agreed_to_terms: I have read and agree to the terms and conditions of membership
   receive_newsletter: "To receive invitations to ODI events and the quarterly member newsletter please tick this box"
-  share_with_third_parties: "If you are happy for us to share your personal details with third parties please tick this box"
+  share_with_third_parties: "If you are happy for us to share your contact details (name, email address) with your local node please tick this box"
   credit_card: Credit / Debit card
   formats:
     json: JSON
