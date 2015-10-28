@@ -1,111 +1,119 @@
-<%= image_tag attachments['student-email.jpg'].url, width: 593, height: 173, alt: "" %>
+<table style="width: 593px; border: 1px solid #eee; margin: 0 auto;">
+<tr>
+  <td>
+    <%= image_tag attachments['student-email.jpg'].url, width: 593, height: 173, alt: "" %>
+  </td>
+<tr>
+  <td style="padding: 10px;">
+    <p style="font-family: Helvetica, Arial, sans-serif;"><%= greeting(@member) %>,</p>
 
-<p style="font-family: Helvetica, Arial, sans-serif;"><%= greeting(@member) %>,</p>
-
-<p style="font-family: Helvetica, Arial, sans-serif;">
-  Welcome to the Open Data Institute (ODI) member network! You're now part of a
-  group of hundreds of organisations and individuals who share an interest in
-  open data and its potential to affect global change.
-</p>
-
-
-<h3 style="font-family: Helvetica, Arial, sans-serif;">So, what's open data I hear you ask?</h3>
-
-<p style="font-family: Helvetica, Arial, sans-serif;">
-  Open data is data that anyone can access, use and share. Like the open
-  transport data which powers Citymapper or the open weather data which powers
-  forecast.io. You probably used open data to help you pick your university
-  course by using online tools during your search.
-</p>
-
-<h3 style="font-family: Helvetica, Arial, sans-serif;">And the ODI?</h3>
-
-<p style="font-family: Helvetica, Arial, sans-serif;">
-  We’re a non-profit organisation and we connect, equip and inspire people
-  around the world to innovate with data - including you! Here’s what your
-  membership is all about: 
-</p>
+    <p style="font-family: Helvetica, Arial, sans-serif;">
+      Welcome to the Open Data Institute (ODI) member network! You're now part of a
+      group of hundreds of organisations and individuals who share an interest in
+      open data and its potential to affect global change.
+    </p>
 
 
-<h3 style="font-family: Helvetica, Arial, sans-serif;">Improve your job chances</h3>
+    <h3 style="font-family: Helvetica, Arial, sans-serif;">So, what's open data I hear you ask?</h3>
 
-<ul style="font-family: Helvetica, Arial, sans-serif;">
-  <li>
-    Networking with our <%= link_to "member organisations", "https://directory.theodi.org/members" %> 
-    including MoneySupermarket.com, Adobe, The Greater London Authority, Open University and many more
-  </li>
-  <li>
-    <%= link_to "Join our LinkedIn members’ group", "https://www.linkedin.com/groups?gid=5161407" %>
-  </li>
-</ul>
+    <p style="font-family: Helvetica, Arial, sans-serif;">
+      Open data is data that anyone can access, use and share. Like the open
+      transport data which powers Citymapper or the open weather data which powers
+      forecast.io. You probably used open data to help you pick your university
+      course by using online tools during your search.
+    </p>
 
-<h3 style="font-family: Helvetica, Arial, sans-serif;">Learn about open data</h3>
+    <h3 style="font-family: Helvetica, Arial, sans-serif;">And the ODI?</h3>
 
-<ul style="font-family: Helvetica, Arial, sans-serif;">
-  <li>
-    Browse out <%= link_to "case studies", "http://theodi.org/case-studies" %> 
-    and technical open data <%= link_to 'guides', 'http://theodi.org/guides' %>
-  </li>
-  <li>
-    Build your skills using our brand new e-learning platform (launching 2016)
-  </li>
-</ul>
+    <p style="font-family: Helvetica, Arial, sans-serif;">
+      We’re a non-profit organisation and we connect, equip and inspire people
+      around the world to innovate with data - including you! Here’s what your
+      membership is all about: 
+    </p>
 
-<h3 style="font-family: Helvetica, Arial, sans-serif;">Keep talking</h3>
 
-<ul style="font-family: Helvetica, Arial, sans-serif;">
-  <li>Quarterly round-up of open data stories by email</li>
-  <li>Join us <%= link_to '@ODIHQ', 'https://twitter.com/ODIHQ' %> on Twitter</li>
-</ul>
+    <h3 style="font-family: Helvetica, Arial, sans-serif;">Improve your job chances</h3>
 
-<h3 style="font-family: Helvetica, Arial, sans-serif;">Get inspired</h3>
+    <ul style="font-family: Helvetica, Arial, sans-serif;">
+      <li>
+        Networking with our <%= link_to "member organisations", "https://directory.theodi.org/members" %> 
+        including MoneySupermarket.com, Adobe, The Greater London Authority, Open University and many more
+      </li>
+      <li>
+        <%= link_to "Join our LinkedIn members’ group", "https://www.linkedin.com/groups?gid=5161407" %>
+      </li>
+    </ul>
 
-<ul style="font-family: Helvetica, Arial, sans-serif;">
-  <li>
-    Watch <%= link_to 'videos', 'http://vimeo.com/theodiuk' %> from 
-    world-class experts
-  </li>
-  <li>
-    Watch or come along to our free <%= link_to 'Friday lunchtime lectures', 'http://theodi.org/lunchtime-lectures' %>
-  </li>
-</ul>
+    <h3 style="font-family: Helvetica, Arial, sans-serif;">Learn about open data</h3>
 
-<table>
-    <tr>
-        <td style="background-color:#eee; padding: 0 14px; width: 593px;">
-            <h3 style="font-family: Helvetica, Arial, sans-serif;">The admin bit:</h3>
+    <ul style="font-family: Helvetica, Arial, sans-serif;">
+      <li>
+        Browse our <%= link_to "case studies", "http://theodi.org/case-studies" %> 
+        and technical open data <%= link_to 'guides', 'http://theodi.org/guides' %>
+      </li>
+      <li>
+        Build your skills using our brand new e-learning platform (launching 2016)
+      </li>
+    </ul>
 
-            <p style="font-family: Helvetica, Arial, sans-serif;">
-              Your membership number is <strong><%= @resource.membership_number %></strong>
-            </p>
+    <h3 style="font-family: Helvetica, Arial, sans-serif;">Keep talking</h3>
 
-            <p style="font-family: Helvetica, Arial, sans-serif;">
-              <% if @resource.reset_password_token %>
-                To activate your account click <%= link_to 'here', edit_password_url(@resource, :reset_password_token => @resource.reset_password_token) %>
-              <% else %>
-                To login to your account click <%= link_to 'here', new_member_session_url(membership_number: @resource.membership_number) %></li>
-              <% end %>
-            </p>
+    <ul style="font-family: Helvetica, Arial, sans-serif;">
+      <li>Quarterly round-up of open data stories by email</li>
+      <li>Join us <%= link_to '@ODIHQ', 'https://twitter.com/ODIHQ' %> on Twitter</li>
+    </ul>
 
-            <p style="font-family: Helvetica, Arial, sans-serif;">
-              Membership is totally free throughout the duration of your course!
-            </p>
-        </td>
-    </tr>
+    <h3 style="font-family: Helvetica, Arial, sans-serif;">Get inspired</h3>
+
+    <ul style="font-family: Helvetica, Arial, sans-serif;">
+      <li>
+        Watch <%= link_to 'videos', 'http://vimeo.com/theodiuk' %> from 
+        world-class experts
+      </li>
+      <li>
+        Watch or come along to our free <%= link_to 'Friday lunchtime lectures', 'http://theodi.org/lunchtime-lectures' %>
+      </li>
+    </ul>
+
+    <table>
+        <tr>
+            <td style="background-color:#eee; padding: 0 14px; width: 593px;">
+                <h3 style="font-family: Helvetica, Arial, sans-serif;">The admin bit:</h3>
+
+                <p style="font-family: Helvetica, Arial, sans-serif;">
+                  Your membership number is <strong><%= @resource.membership_number %></strong>
+                </p>
+
+                <p style="font-family: Helvetica, Arial, sans-serif;">
+                  <% if @resource.reset_password_token %>
+                    To activate your account click <%= link_to 'here', edit_password_url(@resource, :reset_password_token => @resource.reset_password_token) %>
+                  <% else %>
+                    To login to your account click <%= link_to 'here', new_member_session_url(membership_number: @resource.membership_number) %></li>
+                  <% end %>
+                </p>
+
+                <p style="font-family: Helvetica, Arial, sans-serif;">
+                  Membership is totally free throughout the duration of your course!
+                </p>
+            </td>
+        </tr>
+    </table>
+
+    <p style="font-family: Helvetica, Arial, sans-serif;">
+      If you have any questions or suggestions, please do get in touch by emailing
+      <%= link_to 'members@theodi.org', 'mailto:members@theodi.org' %>.
+    </p>
+
+    <p style="font-family: Helvetica, Arial, sans-serif;">Best wishes,<br />
+    <br />
+    The ODI Membership team<br />
+    <br />
+    Open Data Institute<br />
+    3rd Floor, 65 Clifton Street, London, EC2A 4JE<br />
+    Company number 08030289<br />
+    members@theodi.org
+    </p>
+  </td>
+</tr>
 </table>
-
-<p style="font-family: Helvetica, Arial, sans-serif;">
-  If you have any questions or suggestions, please do get in touch by emailing
-  <%= link_to 'members@theodi.org', 'mailto:members@theodi.org' %>.
-</p>
-
-<p style="font-family: Helvetica, Arial, sans-serif;">Best wishes,<br />
-<br />
-The ODI Membership team<br />
-<br />
-Open Data Institute<br />
-3rd Floor, 65 Clifton Street, London, EC2A 4JE<br />
-Company number 08030289<br />
-members@theodi.org
-</p>
 
