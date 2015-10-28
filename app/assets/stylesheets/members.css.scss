@@ -31,6 +31,14 @@
   }
 }
 
+@media screen and (max-width: 500px) {
+  .control-group.newsletter {
+    .controls {
+      margin-left: 0;
+    }
+  }
+}
+
 .main-default {
   .control-group.dob {
     .day, .month, .year {
@@ -58,6 +66,18 @@
 
   input.postcode {
     width: 150px;
+  }
+
+  .checkbox {
+    input {
+      margin-left: 0;
+      margin-right: 10px;
+      font-size: 20px;
+    }
+  }
+
+  .checkbox.terms {
+    margin-left: -20px;
   }
 }
 
