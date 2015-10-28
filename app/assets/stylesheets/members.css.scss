@@ -31,6 +31,10 @@
   }
 }
 
+.control-group.third-parties {
+  display: none;
+}
+
 @media screen and (max-width: 500px) {
   .control-group.newsletter {
     .controls {
