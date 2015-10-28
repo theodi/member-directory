@@ -105,7 +105,7 @@
   <% end %>
 
   <div class="control-group">
-    <%= f.label :street_address, :class => 'control-label' %>
+    <%= f.label :street_address, "Building and street", :class => 'control-label' %>
     <div class="controls">
       <%= f.text_field :street_address, :required => :required %>
       <span class="help-inline">(required)</span>
@@ -113,7 +113,7 @@
   </div>
 
   <div class="control-group">
-    <%= f.label :address_locality, :class => 'control-label' %>
+    <%= f.label :address_locality, :class => 'control-label hide' %>
     <div class="controls">
       <%= f.text_field :address_locality %>
     </div>
