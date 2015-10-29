@@ -18,6 +18,11 @@ nodesets = [
     name: 'directory',
     count: 2,
     chef_env: 'directory-prod'
+  },
+  {
+    name: 'directory-stg',
+    flavor: /1GB/,
+    chef_env: 'directory-stg'
   }
 ]
 
