@@ -10,7 +10,7 @@ class ChargifyProductLink
   end
 
   def url
-    if link = product_links[chargify_product_handle]
+    if link = product_links[product_handle]
       url = URI(link)
       first_name, last_name = member.contact_name.split(/\s+/, 2)
       params = {
@@ -38,7 +38,7 @@ class ChargifyProductLink
     Member::CHARGIFY_PRODUCT_LINKS
   end
 
-  def chargify_product_handle
+  def product_handle
     member.plan
   end
 end
