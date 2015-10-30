@@ -13,7 +13,7 @@ class ChargifyProductLink
     if link = product_links[product_handle]
       url = URI(link)
       url.query = params.to_query
-      return url.to_s
+      url.to_s
     else
       raise ArgumentError, "no link for #{product_handle}"
     end
