@@ -416,31 +416,6 @@ class Member < ActiveRecord::Base
     plan
   end
 
-  def chargify_product_link
-    if link = CHARGIFY_PRODUCT_LINKS[chargify_product_handle]
-      url = URI(link)
-      first_name, last_name = contact_name.split(/\s+/, 2)
-      params = {
-        first_name: first_name,
-        last_name: last_name,
-        reference: membership_number,
-        email: email,
-        billing_address: street_address,
-        billing_address_2: address_locality,
-        billing_city: address_region,
-        billing_country: address_country,
-        billing_state: "London", #this doesn't actually prefil but it makes chargify calculate tax based on country
-        billing_zip: postal_code
-      }
-      params[:organization] = organization_name if organization?
-      params[:coupon_code] = coupon if coupon.present?
-      url.query = params.to_query
-      return url.to_s
-    else
-      raise ArgumentError, "no link for #{chargify_product_handle}"
-    end
-  end
-
   def update_chargify_values!(params)
     self.chargify_customer_id ||= params[:customer_id]
     self.chargify_subscription_id ||= params[:subscription_id]
