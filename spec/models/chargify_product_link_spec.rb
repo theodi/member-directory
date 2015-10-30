@@ -257,5 +257,17 @@ describe ChargifyProductLink do
       expect(query["coupon_code"]).to eq("ODIALUMNI")
     end
   end
+
+  describe 'raises an error if no product link is found' do
+    subject { ChargifyProductLink.new(member) }
+
+    let(:member) { double("Member") }
+
+    it "it raises an error if there is no product link" do
+      allow(member).to receive(:plan).and_return("does-not-exist")
+
+      expect { subject.url }.to raise_error(ArgumentError, "no link for does-not-exist")
+    end
+  end
 end
 
