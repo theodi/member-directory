@@ -226,18 +226,18 @@ describe Member do
     it 'raises an error if a plan price cannot be found' do
       m = Member.new
       # Not ideal, but a necessity at the moment
-      allow(m).to receive(:get_plan).and_return('plan-that-is-not-in-chargify')
+      allow(m).to receive(:plan).and_return('plan-that-is-not-in-chargify')
 
       expect { m.get_plan_price }.to raise_error(RuntimeError, /Can't get product price for plan 'plan-that-is-not-in-chargify'\. Does it exist in Chargify\?/)
     end
   end
 
-  describe "#get_plan" do
+  describe "#plan" do
     context "member is individual" do
       it "returns 'individual-supporter'" do
         member = Member.new(product_name: "individual")
 
-        expect(member.get_plan).to eq("individual-supporter")
+        expect(member.plan).to eq("individual-supporter")
       end
     end
 
@@ -245,7 +245,7 @@ describe Member do
       it "returns 'individual-supporter-student'" do
         member = Member.new(product_name: "student")
 
-        expect(member.get_plan).to eq("individual-supporter-student")
+        expect(member.plan).to eq("individual-supporter-student")
       end
     end
 
@@ -255,7 +255,7 @@ describe Member do
         member.organization_type = "commercial"
         member.organization_size = ">1000"
 
-        expect(member.get_plan).to eq("corporate-supporter_annual")
+        expect(member.plan).to eq("corporate-supporter_annual")
       end
     end
 
@@ -264,7 +264,7 @@ describe Member do
         member = Member.new(product_name: "supporter")
         member.payment_frequency = "monthly"
 
-        expect(member.get_plan).to eq("supporter_monthly")
+        expect(member.plan).to eq("supporter_monthly")
       end
     end
 
@@ -273,7 +273,7 @@ describe Member do
         member = Member.new(product_name: "supporter")
         member.payment_frequency = nil
 
-        expect(member.get_plan).to eq("supporter_annual")
+        expect(member.plan).to eq("supporter_annual")
       end
     end
   end
