@@ -10,7 +10,7 @@ class ChargifyProductLink
   end
 
   def url
-    if link = Member::CHARGIFY_PRODUCT_LINKS[chargify_product_handle]
+    if link = product_links[chargify_product_handle]
       url = URI(link)
       first_name, last_name = member.contact_name.split(/\s+/, 2)
       params = {
@@ -32,6 +32,10 @@ class ChargifyProductLink
     else
       raise ArgumentError, "no link for #{chargify_product_handle}"
     end
+  end
+
+  def product_links
+    Member::CHARGIFY_PRODUCT_LINKS
   end
 
   def chargify_product_handle
