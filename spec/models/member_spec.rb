@@ -95,34 +95,9 @@ describe Member do
 
   context 'setting up chargify links' do
     before do
-      Member::CHARGIFY_PRODUCT_LINKS.clear
       Member::CHARGIFY_PRODUCT_PRICES.clear
       Member::CHARGIFY_COUPON_DISCOUNTS.clear
       allow(Chargify::Coupon).to receive(:all).and_return([])
-    end
-
-    it 'assigns the api handle and first public signup page' do
-      product = double('product')
-      page = double('page')
-      allow(page).to receive(:url).and_return("http://i.am/an/url")
-      allow(product).to receive(:price_in_cents)
-      allow(product).to receive(:product_family).and_return(double('pf', id: 1))
-      allow(product).to receive(:handle).and_return("plan_name")
-      allow(product).to receive(:public_signup_pages).and_return([page])
-      expect(Chargify::Product).to receive(:all).and_return([product])
-      Member.initialize_chargify_links!
-      expect(Member::CHARGIFY_PRODUCT_LINKS["plan_name"]).to eq("http://i.am/an/url")
-    end
-
-    it 'handles a missing signup page' do
-      product = double('product')
-      allow(product).to receive(:price_in_cents)
-      allow(product).to receive(:product_family).and_return(double('pf', id: 1))
-      allow(product).to receive(:handle).and_return("plan_name")
-      allow(product).to receive(:public_signup_pages).and_return([])
-      expect(Chargify::Product).to receive(:all).and_return([product])
-      Member.initialize_chargify_links!
-      expect(Member::CHARGIFY_PRODUCT_LINKS["plan_name"]).to be_nil
     end
 
     it 'stores the price of the product' do
@@ -183,13 +158,9 @@ describe Member do
 
   describe 'price helpers for plan' do
     before do
-      Member.register_chargify_product_link('individual-supporter', 'https://chargify.com/individiual')
       Member.register_chargify_product_price('individual-supporter', 9000)
-      Member.register_chargify_product_link('individual-supporter-student', 'https://chargify.com/student')
       Member.register_chargify_product_price('individual-supporter-student', 9000)
-      Member.register_chargify_product_link('supporter_annual', 'https://chargify.com/non-profit')
       Member.register_chargify_product_price('supporter_annual', 72000)
-      Member.register_chargify_product_link('supporter_monthly', 'https://chargify.com/monthly-non-profit')
       Member.register_chargify_product_price('supporter_monthly', 6000)
     end
 

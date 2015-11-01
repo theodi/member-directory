@@ -84,8 +84,6 @@ class Member < ActiveRecord::Base
 
   LARGE_CORPORATE = %w[251-1000 >1000]
 
-  CHARGIFY_PRODUCT_LINKS = {}
-
   CHARGIFY_PRODUCT_PRICES = {}
 
   CHARGIFY_COUPON_DISCOUNTS = {}
@@ -253,10 +251,6 @@ class Member < ActiveRecord::Base
       # yep, this is how good the chargify API naming is
       # also no way to find the currency of a Site either
       register_chargify_product_price(product.handle, product.price_in_cents)
-      page = product.public_signup_pages.first
-      if page
-        register_chargify_product_link(product.handle, page.url)
-      end
       product_family_ids.add(product.product_family.id)
     end
     product_family_ids.each do |product_family_id|
@@ -266,10 +260,6 @@ class Member < ActiveRecord::Base
         end
       end
     end
-  end
-
-  def self.register_chargify_product_link(plan, url)
-    CHARGIFY_PRODUCT_LINKS[plan] = url
   end
 
   def self.register_chargify_product_price(plan, cents_that_are_pence)
