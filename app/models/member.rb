@@ -12,12 +12,14 @@ class Member < ActiveRecord::Base
     sponsor
     individual
     student
+    student-free
   ]
 
   CURRENT_SUPPORTER_LEVELS = %w[
     supporter
     individual
     student
+    student-free
   ]
 
   ORGANISATION_TYPES = {
@@ -333,11 +335,16 @@ class Member < ActiveRecord::Base
   end
 
   def individual?
+    # TODO This is weird, why does this one check use a class method?
     self.class.is_individual_level?(product_name)
   end
 
   def student?
-    product_name == "student"
+    product_name == "student" || product_name == "student-free"
+  end
+
+  def student_free?
+    product_name == "student-free"
   end
 
   def organization?
@@ -410,10 +417,6 @@ class Member < ActiveRecord::Base
     else
       "Supporter"
     end
-  end
-
-  def chargify_product_handle
-    plan
   end
 
   def update_chargify_values!(params)

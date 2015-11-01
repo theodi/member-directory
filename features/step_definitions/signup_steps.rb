@@ -10,7 +10,6 @@ Given /^product information has been setup for "(.*?)"$/ do |plan|
   @chargify_product_url = "http://test.host/product/#{plan}"
   @chargify_product_price = 800
   @coupon = double(:code => "ODIALUMNI", :percentage => 50)
-  Member.register_chargify_product_link(plan, @chargify_product_url)
   Member.register_chargify_product_price(plan, @chargify_product_price*100)
   Member.register_chargify_coupon_code(@coupon)
 end
@@ -213,7 +212,9 @@ Then /^I am processed through chargify for the "(.*?)" option$/ do |plan|
     customer_id: "2",
     payment_id: @payment_ref
   }
-  Member.register_chargify_product_link(plan, chargify_return_members_path(params))
+
+  # This is terrible, obviously, but needs must
+  allow(ChargifyProductLink).to receive(:for).and_return(chargify_return_members_path(params))
 end
 
 Then(/^the coupon code "(.*?)" is saved against my membership$/) do |coupon|
