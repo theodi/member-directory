@@ -6,7 +6,16 @@ describe ChargifyProductLink do
 
   subject { ChargifyProductLink.new(member) }
 
+  let(:config_file) { "./config/chargify.yml" }
+
+  let(:env) { "test" }
+
   let(:member) { double("Member") }
+
+  before do
+    subject.env = env
+    subject.config_file = config_file
+  end
 
   describe '#url' do
 
@@ -121,20 +130,6 @@ describe ChargifyProductLink do
     end
   end
 
-  describe "#product_page_ids" do
-    it "returns the product url" do
-      ENV["CHARGIFY_PAGE_IDS"] = "individual_supporter,1234|supporter_annual,5678"
-
-      expect(subject.product_page_ids).to eq("individual_supporter,1234|supporter_annual,5678")
-    end
-
-    it "it raises an error if the environment variable is missing" do
-      ENV.delete("CHARGIFY_PAGE_IDS")
-
-      expect { subject.product_page_ids }.to raise_error(ArgumentError, "CHARGIFY_PAGE_IDS is missing")
-    end
-  end
-
   describe "#product_handle" do
     it "returns the product handle" do
       allow(member).to receive(:plan).and_return("plan")
@@ -145,22 +140,12 @@ describe ChargifyProductLink do
 
   describe '#product_url' do
     it "returns the product url" do
-      ENV["CHARGIFY_PRODUCT_URL"] = "https://theodi-testing.chargify.com/subscribe/%s/%s"
-
       expect(subject.product_url).to eq("https://theodi-testing.chargify.com/subscribe/%s/%s")
-    end
-
-    it "it raises an error if the environment variable is missing" do
-      ENV.delete("CHARGIFY_PRODUCT_URL")
-
-      expect { subject.product_url }.to raise_error(ArgumentError, "CHARGIFY_PRODUCT_URL is missing")
     end
   end
 
   describe "#product_links" do
     it "should parse and return the links" do
-      ENV["CHARGIFY_PAGE_IDS"] = "individual_supporter_student,123|individual_supporter_student_free,456|supporter_monthly,789|individual_supporter,012|supporter_annual,345|corporate_supporter_annual,678"
-
       expect(subject.product_links).to include(
         :individual_supporter_student      => "123",
         :individual_supporter_student_free => "456",

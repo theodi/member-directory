@@ -1,3 +1,4 @@
+require "yaml"
 require "active_support/core_ext/object/blank"
 require "active_support/core_ext/object/to_query"
 
@@ -7,6 +8,7 @@ class ChargifyProductLink
   end
 
   attr_reader :member
+  attr_writer :env, :config_file
 
   def initialize(member)
     @member = member
@@ -23,9 +25,7 @@ class ChargifyProductLink
   end
 
   def product_url
-    ENV.fetch("CHARGIFY_PRODUCT_URL") do
-      raise ArgumentError, "CHARGIFY_PRODUCT_URL is missing"
-    end
+    config["product_url"]
   end
 
   def product_handle
@@ -34,7 +34,7 @@ class ChargifyProductLink
 
   def public_signup_page_id
     product_links.fetch(public_signup_page_key) do
-      raise ArgumentError, "No page id for `#{product_handle}` in CHARGIFY_PAGE_IDS"
+      raise ArgumentError, "No page id for `#{product_handle}` in config/chargify.yml"
     end
   end
 
@@ -56,16 +56,11 @@ class ChargifyProductLink
   end
 
   def product_links
-    product_page_ids.split("|").each_with_object({}) do |page, accum|
-      product_name, id = page.split(",")
-      accum[product_name.to_sym] = id
-    end
+    config["page_ids"]
   end
 
-  def product_page_ids
-    ENV.fetch("CHARGIFY_PAGE_IDS") do
-      raise ArgumentError, "CHARGIFY_PAGE_IDS is missing"
-    end
+  def config
+    YAML.load_file(config_file)[env]
   end
 
   def params
@@ -85,6 +80,14 @@ class ChargifyProductLink
     params[:organization] = member.organization_name if member.organization?
     params[:coupon_code] = member.coupon if member.coupon.present?
     params
+  end
+
+  def config_file
+    @config_file ||= "#{Rails.root}/config/chargify.yml"
+  end
+
+  def env
+    @env ||= Rails.env
   end
 end
 
