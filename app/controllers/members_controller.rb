@@ -105,6 +105,7 @@ class MembersController < ApplicationController
       redirect_to member_path(current_member)
     elsif request.post?
       current_member.update_attribute(:payment_frequency, params[:payment_frequency]) if params[:payment_frequency].present?
+      current_member.no_payment = true if params[:no_payment].present?
       redirect_to ChargifyProductLink.for(current_member)
     else
       @member = current_member

@@ -65,7 +65,8 @@ describe ChargifyProductLink do
         :student_free?                 => false,
         :large_corporate_organization? => false,
         :supporter?                    => false,
-        :payment_frequency             => nil
+        :payment_frequency             => nil,
+        :no_payment?                   => false
       )
     end
 
@@ -87,7 +88,8 @@ describe ChargifyProductLink do
 
     context "free student" do
       it "should return 'individual_supporter_student_free'" do
-        allow(member).to receive(:student_free?).and_return(true)
+        allow(member).to receive(:student?).and_return(true)
+        allow(member).to receive(:no_payment?).and_return(true)
 
         expect(subject.public_signup_page_key).to eq(:individual_supporter_student_free)
       end

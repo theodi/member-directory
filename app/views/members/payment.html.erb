@@ -33,6 +33,7 @@
 <p>
 <%= form_tag payment_member_path(@member), method: 'post' do %>
   <%= hidden_field_tag(:coupon, params[:coupon]) if params[:coupon].present? %>
+  <%= hidden_field_tag(:no_payment, params[:no_payment]) if params[:no_payment].present? %>
   <% if @member.monthly_payment_option? %>
     How would you like to pay?
     <div class="control-group">

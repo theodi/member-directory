@@ -9,6 +9,7 @@
     This won't take longer than a couple of minutes!
   </p>
 
+  <%= hidden_field_tag(:free, params[:free]) if params[:free].present? %>
   <%= f.hidden_field :coupon, value: params[:coupon] if params[:coupon].present? %>
   <%= f.hidden_field :coupon, value: params[:member][:coupon] if params[:member] && params[:member][:coupon].present? %>
   <%= f.hidden_field :origin, value: origin_value %>

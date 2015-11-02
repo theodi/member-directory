@@ -12,14 +12,12 @@ class Member < ActiveRecord::Base
     sponsor
     individual
     student
-    student-free
   ]
 
   CURRENT_SUPPORTER_LEVELS = %w[
     supporter
     individual
     student
-    student-free
   ]
 
   ORGANISATION_TYPES = {
@@ -153,6 +151,8 @@ class Member < ActiveRecord::Base
   attr_accessor :dob_day
   attr_accessor :dob_month
   attr_accessor :dob_year
+
+  attr_accessor :no_payment
 
   before_validation :normalize_dob
   before_validation :normalize_course_start_date
@@ -330,11 +330,11 @@ class Member < ActiveRecord::Base
   end
 
   def student?
-    product_name == "student" || product_name == "student-free"
+    product_name == "student"
   end
 
-  def student_free?
-    product_name == "student-free"
+  def no_payment?
+    no_payment
   end
 
   def organization?

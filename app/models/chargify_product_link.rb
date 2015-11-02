@@ -42,7 +42,7 @@ class ChargifyProductLink
     case
     when member.individual?
       :individual_supporter
-    when member.student_free?
+    when member.student? && member.no_payment?
       :individual_supporter_student_free
     when member.student?
       :individual_supporter_student
