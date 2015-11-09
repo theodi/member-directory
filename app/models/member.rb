@@ -82,8 +82,6 @@ class Member < ActiveRecord::Base
 
   LARGE_CORPORATE = %w[251-1000 >1000]
 
-  CHARGIFY_PRODUCT_LINKS = {}
-
   CHARGIFY_PRODUCT_PRICES = {}
 
   CHARGIFY_COUPON_DISCOUNTS = {}
@@ -153,6 +151,8 @@ class Member < ActiveRecord::Base
   attr_accessor :dob_day
   attr_accessor :dob_month
   attr_accessor :dob_year
+
+  attr_accessor :no_payment
 
   before_validation :normalize_dob
   before_validation :normalize_course_start_date
@@ -251,10 +251,6 @@ class Member < ActiveRecord::Base
       # yep, this is how good the chargify API naming is
       # also no way to find the currency of a Site either
       register_chargify_product_price(product.handle, product.price_in_cents)
-      page = product.public_signup_pages.first
-      if page
-        register_chargify_product_link(product.handle, page.url)
-      end
       product_family_ids.add(product.product_family.id)
     end
     product_family_ids.each do |product_family_id|
@@ -264,10 +260,6 @@ class Member < ActiveRecord::Base
         end
       end
     end
-  end
-
-  def self.register_chargify_product_link(plan, url)
-    CHARGIFY_PRODUCT_LINKS[plan] = url
   end
 
   def self.register_chargify_product_price(plan, cents_that_are_pence)
@@ -333,11 +325,16 @@ class Member < ActiveRecord::Base
   end
 
   def individual?
+    # TODO This is weird, why does this one check use a class method?
     self.class.is_individual_level?(product_name)
   end
 
   def student?
     product_name == "student"
+  end
+
+  def no_payment?
+    no_payment
   end
 
   def organization?
@@ -412,35 +409,6 @@ class Member < ActiveRecord::Base
     end
   end
 
-  def chargify_product_handle
-    get_plan
-  end
-
-  def chargify_product_link
-    if link = CHARGIFY_PRODUCT_LINKS[chargify_product_handle]
-      url = URI(link)
-      first_name, last_name = contact_name.split(/\s+/, 2)
-      params = {
-        first_name: first_name,
-        last_name: last_name,
-        reference: membership_number,
-        email: email,
-        billing_address: street_address,
-        billing_address_2: address_locality,
-        billing_city: address_region,
-        billing_country: address_country,
-        billing_state: "London", #this doesn't actually prefil but it makes chargify calculate tax based on country
-        billing_zip: postal_code
-      }
-      params[:organization] = organization_name if organization?
-      params[:coupon_code] = coupon if coupon.present?
-      url.query = params.to_query
-      return url.to_s
-    else
-      raise ArgumentError, "no link for #{chargify_product_handle}"
-    end
-  end
-
   def update_chargify_values!(params)
     self.chargify_customer_id ||= params[:customer_id]
     self.chargify_subscription_id ||= params[:subscription_id]
@@ -480,12 +448,12 @@ class Member < ActiveRecord::Base
       'corporate-supporter_annual'   => 'Corporate Supporter',
       'supporter_annual'             => 'Supporter',
       'supporter_monthly'            => 'Supporter'
-    }[get_plan]
+    }[plan]
   end
 
   def get_plan_price
-    amount = CHARGIFY_PRODUCT_PRICES.fetch(get_plan) do
-      raise RuntimeError, "Can't get product price for plan '#{get_plan}'. Does it exist in Chargify?"
+    amount = CHARGIFY_PRODUCT_PRICES.fetch(plan) do
+      raise RuntimeError, "Can't get product price for plan '#{plan}'. Does it exist in Chargify?"
     end
 
     if address_country == 'GB'
@@ -501,7 +469,7 @@ class Member < ActiveRecord::Base
   end
 
   def get_monthly_plan_price
-    amount = CHARGIFY_PRODUCT_PRICES[get_plan]
+    amount = CHARGIFY_PRODUCT_PRICES[plan]
     pcm = (amount / 12)
     if address_country == 'GB'
       "£%.2f + VAT" % pcm
@@ -521,7 +489,7 @@ class Member < ActiveRecord::Base
     self.invoice == true
   end
 
-  def get_plan
+  def plan
     if individual?
       'individual-supporter'
     elsif student?
