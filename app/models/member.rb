@@ -604,7 +604,7 @@ class Member < ActiveRecord::Base
   end
 
   def save_membership_id_in_capsule
-    if individual?
+    if individual? || student?
       Resque.enqueue(SaveMembershipIdInCapsule, nil, email, membership_number)
     else
       Resque.enqueue(SaveMembershipIdInCapsule, organization_name, nil, membership_number)
