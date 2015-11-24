@@ -23,7 +23,7 @@ Feature: Signup as an student member
     And I should not have an organisation assigned to me
     And a welcome email should be sent to me
     And I should see "You’ve joined our network! Now what?" in the email subject
-    And I should see "Dear Student" in the email body
+    And I should see "Dear Ian" in the email body
     And I should see "Welcome to the Open Data Institute" in the email body
     And my details should be queued for further processing
     When chargify verifies the payment
