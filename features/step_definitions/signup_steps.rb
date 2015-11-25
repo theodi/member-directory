@@ -246,7 +246,7 @@ Then /^my organization should be made active in Capsule$/ do
   end
 end
 
-Then /^my details should be queued for further processing$/ do
+Then /^(their|my) details should be queued for further processing$/ do |ignore|
   organization = {
     'name' => @organization_name,
     'vat_id' => @organization_vat_id,
@@ -308,7 +308,7 @@ Then /^my details should be queued for further processing$/ do
   end
 end
 
-And /^I should have a membership number generated$/ do
+And /^(I|they) should have a membership number generated$/ do |ignore|
   @member = Member.find_by_email(@email)
   @membership_number = @member.membership_number
   expect(@membership_number).to_not be_nil
@@ -420,7 +420,7 @@ Then(/^the hidden field should have the value "(.*?)"$/) do |value|
   expect(@field.value).to eq(value)
 end
 
-Then(/^I should be marked as active$/) do
+Then(/^(I|they) should be marked as active$/) do |ignore|
   expect(@member.cached_active).to eq(true)
   expect(@member.current).to eq(true)
 end
