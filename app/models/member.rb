@@ -298,6 +298,25 @@ class Member < ActiveRecord::Base
     end
   end
 
+  def self.create_without_password!(options = {})
+    member = Member.new(
+      email:              options[:email],
+      product_name:       options[:product_name],
+      organization_name:  options[:organization_name],
+    )
+    mail_options = {}
+    if options[:from_capsule]
+      member.remote!
+      mail_options[:capsule] = true
+    end
+    member.name = options[:name]
+    member.current = true
+    member.send :generate_reset_password_token
+    member.save(:validate => false)
+    DeviseMailer.send(:new).confirmation_instructions(member, mail_options).deliver
+    member
+  end
+
   def deliver_welcome_email!
     send_devise_notification(:confirmation_instructions)
   end
