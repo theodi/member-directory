@@ -333,7 +333,13 @@ end
 
 Then /^a welcome email should be sent to me$/ do
   steps %Q{
-    Then "#{@email}" should receive an email
+    Then a welcome email should be sent to "#{@email}"
+  }
+end
+
+Then(/^a welcome email should be sent to "(.*?)"$/) do |email|
+  steps %Q{
+    Then "#{email}" should receive an email
     When they open the email
     And they should see the email delivered from "members@theodi.org"
     And they should see "Your membership number is <strong>#{@membership_number}</strong>" in the email body
