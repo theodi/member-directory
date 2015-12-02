@@ -77,6 +77,7 @@ class CapsuleObserver
     else
       Member.create_without_password!(
         email:             membership['email'],
+        contact_name:      [membership['contact_first_name'], membership['contact_last_name']].join(" "),
         organization_name: directory_entry['name'],
         product_name:      membership['product_name'],
         from_capsule:      true
