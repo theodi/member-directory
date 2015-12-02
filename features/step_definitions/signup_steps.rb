@@ -427,7 +427,7 @@ Then(/^the hidden field should have the value "(.*?)"$/) do |value|
 end
 
 Then(/^(I|they) should be marked as active$/) do |ignore|
-  expect(@member.cached_active).to eq(true)
+  expect(@member.cached_active).to eq(true) if @member.organization?
   expect(@member.current).to eq(true)
 end
 
