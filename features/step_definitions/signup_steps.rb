@@ -289,7 +289,7 @@ Then /^(their|my) details should be queued for further processing$/ do |ignore|
       'address_country' => @address_country,
       'postal_code' => @postal_code
     },
-    'coupon' => @coupon.code
+    'coupon' => @coupon ? @coupon.code : nil
   }
 
   purchase = {
