@@ -2,3 +2,10 @@
 <p>Find me in app/views/uploads/new.html.erb</p>
 
 <a href='sample.csv'>Download template CSV</a>
+
+<%= form_tag({:action => :create}, {:multipart => true}) do %>
+
+  <%= file_field_tag "file" %>
+  <%= submit_tag "Upload" %>
+
+<% end %>

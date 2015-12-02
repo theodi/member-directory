@@ -460,3 +460,13 @@ Then(/^I follow the pay by invoice link$/) do
   visit("/members/new?level=#{@product_name}&invoice=true")
 end
 
+Then(/^an? (.*?) membership should be created for "(.*?)"$/) do |product_name, email|
+  @member = Member.where(email: email).first
+  expect(@member).to be_present
+  expect(@member.product_name).to eql product_name
+  @email = email
+  steps %Q{
+    Then they should have a membership number generated
+    Then they should be marked as active
+  }
+end

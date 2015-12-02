@@ -299,21 +299,21 @@ class Member < ActiveRecord::Base
   end
 
   def self.create_without_password!(options = {})
-    member = Member.new(
-      email:              options[:email],
-      product_name:       options[:product_name],
-      organization_name:  options[:organization_name],
-    )
-    mail_options = {}
-    if options[:from_capsule]
-      member.remote!
-      mail_options[:capsule] = true
-    end
-    member.name = options[:name]
-    member.current = true
+    temp_password = SecureRandom.hex(32)
+    from_capsule = options.delete(:from_capsule)
+    member = Member.create(options.merge(
+      password: temp_password, 
+      password_confirmation: temp_password
+    ))
+    member.remote! if from_capsule
     member.send :generate_reset_password_token
-    member.save(:validate => false)
-    DeviseMailer.send(:new).confirmation_instructions(member, mail_options).deliver
+    member.cached_active = true if member.organization?
+    member.current = true
+    member.save
+    unless member.remote?
+      member.send(:process_signup)
+    end
+    member.deliver_welcome_email!
     member
   end
 
