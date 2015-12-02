@@ -301,7 +301,7 @@ class Member < ActiveRecord::Base
   def self.create_without_password!(options = {})
     temp_password = SecureRandom.hex(32)
     from_capsule = options.delete(:from_capsule)
-    member = Member.create(options.merge(
+    member = Member.new(options.merge(
       password: temp_password, 
       password_confirmation: temp_password
     ))
@@ -310,9 +310,7 @@ class Member < ActiveRecord::Base
     member.cached_active = true if member.organization?
     member.current = true
     member.save
-    unless member.remote?
-      member.send(:process_signup)
-    end
+    member.send(:process_signup) unless member.remote?
     member.deliver_welcome_email!
     member
   end

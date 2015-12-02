@@ -26,7 +26,7 @@ class UploadsController < ApplicationController
         postal_code: row["address_postcode"],
         university_address_country: row["address_country"],
         university_country: row["address_country"],
-        university_name: University.names.include?(row["university_name"]) ? row["university_name"] : nil,
+        university_name: University.names.include?(row["university_name"]) ? row["university_name"] : "Other (please specify)",
         university_name_other: University.names.include?(row["university_name"]) ? nil : row["university_name"],
         university_qualification: Qualification.names.include?(row["qualification"]) ? row["qualification"] : nil,
         university_qualification_other: Qualification.names.include?(row["qualification"]) ? nil : row["qualification"],

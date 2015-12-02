@@ -67,7 +67,7 @@ When(/^that file contains a set of student details$/) do
   @university_email = "bob@example.edu"
   @university_address_country = "GB"
   @university_country = "GB"
-  @university_name = nil
+  @university_name = "Other (please specify)"
   @university_name_other = "University of Life"
   @university_course_name = "Quantum Morphogenetics"
   @university_qualification = "BSc - Bachelor of Science"
