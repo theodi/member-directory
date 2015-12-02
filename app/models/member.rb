@@ -307,9 +307,8 @@ class Member < ActiveRecord::Base
     ))
     member.remote! if from_capsule
     member.send :generate_reset_password_token
-    member.cached_active = true if member.organization?
     member.current = true
-    member.save
+    member.save!(:validate => from_capsule ? false : true)
     member.send(:process_signup) unless member.remote?
     member.deliver_welcome_email!
     member
