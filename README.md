@@ -66,6 +66,17 @@ Edit each product and change "Return URL after successful account update" to
 
 More in-depth information is available in [doc/charify.md](doc/charify.md).
 
+### Reports
+
+You can run reports (Booking Value, Cash) manually from within a console
+session. There is a `.save_csvs` class method which allows you to save the CSVs
+to the filesystem.
+
+    bundle exec rails r "ChargifyReportGenerator.save_csvs"
+
+If you need to run for other months, alter the `previous_month` to refer to the
+month you need.
+
 ### Tests
 
 The tests are made up of Cucumber features and RSpec specs.
