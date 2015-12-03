@@ -47,3 +47,5 @@ env:
   - CHARGIFY_PRODUCT_URL=https://theodi-testing.chargify.com/subscribe/%s/%s
   - CHARGIFY_PAGE_IDS=individual_supporter,mjfzzwgm|individual_supporter_student_free,bdbytczwymyc|individual_supporter_student,rvx5rnhsx9pt|corporate_supporter_annual,j2rjxnps|supporter_monthly,gmb6y2cm|supporter_annual,35jqgq8q
   - CHARGIFY_SUBDOMAIN=theodi-testing
+  - secure: io/xuObALiz1tPInEo0pKc+Dn5mvwiJHS/5bn1TYOeMsjekvHkcQG3hTGiJtylzaNinXWz3dxxS0yoEJcRXE3NLdCdLZgL6waH93x9HxF2A1YDix0Oyahli1gFPtPPhVRoA6VnQ3gux7JR5vGJZ18y4M4H9ZYEQQAj05yYJglyo=
+  - secure: dc5SIVEFQIb7vCG86CYR3xNTAlesZCW8GS7F/eY7UMGhFwpq+jurmKYxDVzttg+u1AmiyAU1QmAwXl++rOPFHh8JfTZqjagv5LznEc1SUqCfpBjheOtVA66drp0D4yY7Djv1VAUYFKwyN6t5Ur1gYek+gMJj3RK2PPC1DDX+7Bk=
