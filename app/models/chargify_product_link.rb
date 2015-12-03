@@ -82,6 +82,28 @@ class ChargifyProductLink
     params
   end
 
+  def customer_attributes
+    first_name, last_name = member.contact_name.split(/\s+/, 2)
+    {
+      first_name: first_name,
+      last_name: last_name,
+      reference: member.membership_number,
+      email: member.email,
+      organization: member.organization || member.university_name_other || member.university_name,
+    }
+  end
+  
+  def payment_profile_attributes
+    {
+      billing_address: member.street_address,
+      billing_address_2: member.address_locality,
+      billing_city: member.address_region,
+      billing_country: member.address_country,
+      billing_state: "London", #this doesn't actually prefil but it makes chargify calculate tax based on country
+      billing_zip: member.postal_code
+    }
+  end
+
   def config_file
     @config_file ||= "#{Rails.root}/config/chargify.yml"
   end
