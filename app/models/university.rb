@@ -155,5 +155,22 @@ class University
       "York St John"
     ]
   end
+  
+  def self.select_name(str)
+    if University.names.include?(str)
+      str
+    else
+      "Other (please specify)"
+    end
+  end
+    
+  def self.select_name_other(str)
+    if University.names.include?(str)
+      nil
+    else 
+      str
+    end
+  end
+    
 end
 
