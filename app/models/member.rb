@@ -310,8 +310,9 @@ class Member < ActiveRecord::Base
     member.send :generate_reset_password_token
     member.current = true
     member.save!(:validate => from_capsule ? false : true)
-    # Set up subscription in Chargify properly and save again
-    Resque.enqueue(NoninteractiveAddToChargify, member.id)
+    # Set up subscription in Chargify properly
+    # For now we only support student memberships for this.
+    Resque.enqueue(NoninteractiveAddToChargify, member.id) if member.student?
     # Send onwards and let the customer know
     member.send(:process_signup) unless member.remote?
     member.deliver_welcome_email!
