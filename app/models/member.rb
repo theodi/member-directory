@@ -309,6 +309,9 @@ class Member < ActiveRecord::Base
     member.send :generate_reset_password_token
     member.current = true
     member.save!(:validate => from_capsule ? false : true)
+    # Set up subscription in Chargify properly
+    members.add_to_chargify
+    # Send onwards and let the customer know
     member.send(:process_signup) unless member.remote?
     member.deliver_welcome_email!
     member
@@ -520,6 +523,19 @@ class Member < ActiveRecord::Base
       end
     end
   end
+
+  def add_to_chargify
+    # Adds the member to Chargify
+    # Only used for subscriptions that are created noninteractively
+    return if chargify_subscription_id    
+    # Get the Chargify details
+    ch = ChargifyProductLink.new(self)
+    subscription = Chargify::Subscription.create(
+      :customer_attributes => ch.params,
+      :product_handle => ch.product_handle,
+      # I think more is needed here around payment types, etc, even if it's
+      # not being charged for.
+    )  end
 
   private
 

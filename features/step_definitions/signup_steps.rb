@@ -470,3 +470,7 @@ Then(/^an? (.*?) membership should be created for "(.*?)"$/) do |product_name, e
     Then they should be marked as active
   }
 end
+
+Then(/^that member should be set up in Chargify$/) do
+  expect(@member.chargify_subscription_id).to be_present
+end

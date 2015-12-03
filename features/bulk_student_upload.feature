@@ -18,6 +18,7 @@ Feature: Bulk upload of student members
     Then I should see the results of my upload
     And I should see "Bob Fish <bob@example.edu>"
     And a student membership should be created for "bob@example.edu"
+    And that member should be set up in Chargify
     And a welcome email should be sent to "bob@example.edu"
     And they should see "To activate your account" in the email body
     When they follow "here" in the email
