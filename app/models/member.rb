@@ -1,4 +1,5 @@
 # encoding: utf-8
+require 'noninteractive_add_to_chargify'
 
 class Member < ActiveRecord::Base
   # Include default devise modules. Others available are:
@@ -310,8 +311,7 @@ class Member < ActiveRecord::Base
     member.current = true
     member.save!(:validate => from_capsule ? false : true)
     # Set up subscription in Chargify properly and save again
-    member.add_to_chargify
-    member.save!(:validate => from_capsule ? false : true)
+    Resque.enqueue(NoninteractiveAddToChargify, member.id)
     # Send onwards and let the customer know
     member.send(:process_signup) unless member.remote?
     member.deliver_welcome_email!
@@ -523,23 +523,6 @@ class Member < ActiveRecord::Base
         'supporter_annual'
       end
     end
-  end
-
-  def add_to_chargify
-    # Adds the member to Chargify
-    # Only used for subscriptions that are created noninteractively
-    return if chargify_subscription_id
-    # Get the Chargify details
-    ch = ChargifyProductLink.new(self)
-    subscription = Chargify::Subscription.create(
-      :customer_attributes => ch.customer_attributes,
-      :product_handle => ch.product_handle,
-      :payment_profile => ch.payment_profile_attributes
-      # I think more is needed here around payment types, etc, even if it's
-      # not being charged for.
-    )
-    self.chargify_customer_id = subscription.customer.id
-    self.chargify_subscription_id = subscription.id
   end
 
   private

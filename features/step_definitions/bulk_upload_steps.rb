@@ -89,3 +89,13 @@ Then(/^I should see the results of my upload$/) do
   expect(page.body).to include("Bob Fish")
   expect(page.body).to include("bob@example.edu")
 end
+
+Then(/^their details should be queued for adding to Chargify$/) do
+  expect(Resque).to receive(:enqueue).with(NoninteractiveAddToChargify, Member.count+1)
+end
+
+Then(/^after the chargify job has run$/) do
+  NoninteractiveAddToChargify.perform(@member.id)
+  @member = Member.find(@member.id)
+end
+
