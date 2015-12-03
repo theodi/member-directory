@@ -298,6 +298,22 @@ class Member < ActiveRecord::Base
     end
   end
 
+  def self.create_without_password!(options = {})
+    temp_password = SecureRandom.hex(32)
+    from_capsule = options.delete(:from_capsule)
+    member = Member.new(options.merge(
+      password: temp_password, 
+      password_confirmation: temp_password
+    ))
+    member.remote! if from_capsule
+    member.send :generate_reset_password_token
+    member.current = true
+    member.save!(:validate => from_capsule ? false : true)
+    member.send(:process_signup) unless member.remote?
+    member.deliver_welcome_email!
+    member
+  end
+
   def deliver_welcome_email!
     send_devise_notification(:confirmation_instructions)
   end

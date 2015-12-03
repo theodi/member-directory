@@ -75,17 +75,13 @@ class CapsuleObserver
 
     # ..if not, create a new member with the synced data
     else
-      member = Member.new(
-        :email             => membership['email'],
-        :contact_name      => [membership['contact_first_name'], membership['contact_last_name']].join(" "),
-        :organization_name => directory_entry['name'],
-        :product_name      => membership['product_name']
+      Member.create_without_password!(
+        email:             membership['email'],
+        contact_name:      [membership['contact_first_name'], membership['contact_last_name']].join(" "),
+        organization_name: directory_entry['name'],
+        product_name:      membership['product_name'],
+        from_capsule:      true
       )
-      member.remote!
-      member.current = true
-      member.send :generate_reset_password_token
-      member.save(:validate => false)
-      DeviseMailer.send(:new).confirmation_instructions(member, {capsule: true}).deliver
     end
 
   rescue RequiredDataMissing, ActiveRecord::StatementInvalid => error

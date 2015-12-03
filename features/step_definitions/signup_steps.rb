@@ -246,7 +246,7 @@ Then /^my organization should be made active in Capsule$/ do
   end
 end
 
-Then /^my details should be queued for further processing$/ do
+Then /^(their|my) details should be queued for further processing$/ do |ignore|
   organization = {
     'name' => @organization_name,
     'vat_id' => @organization_vat_id,
@@ -289,7 +289,7 @@ Then /^my details should be queued for further processing$/ do
       'address_country' => @address_country,
       'postal_code' => @postal_code
     },
-    'coupon' => @coupon.code
+    'coupon' => @coupon ? @coupon.code : nil
   }
 
   purchase = {
@@ -308,7 +308,7 @@ Then /^my details should be queued for further processing$/ do
   end
 end
 
-And /^I should have a membership number generated$/ do
+And /^(I|they) should have a membership number generated$/ do |ignore|
   @member = Member.find_by_email(@email)
   @membership_number = @member.membership_number
   expect(@membership_number).to_not be_nil
@@ -333,7 +333,13 @@ end
 
 Then /^a welcome email should be sent to me$/ do
   steps %Q{
-    Then "#{@email}" should receive an email
+    Then a welcome email should be sent to "#{@email}"
+  }
+end
+
+Then(/^a welcome email should be sent to "(.*?)"$/) do |email|
+  steps %Q{
+    Then "#{email}" should receive an email
     When they open the email
     And they should see the email delivered from "members@theodi.org"
     And they should see "Your membership number is <strong>#{@membership_number}</strong>" in the email body
@@ -420,8 +426,8 @@ Then(/^the hidden field should have the value "(.*?)"$/) do |value|
   expect(@field.value).to eq(value)
 end
 
-Then(/^I should be marked as active$/) do
-  expect(@member.cached_active).to eq(true)
+Then(/^(I|they) should be marked as active$/) do |ignore|
+  expect(@member.cached_active).to eq(true) if @member.organization?
   expect(@member.current).to eq(true)
 end
 
@@ -454,3 +460,13 @@ Then(/^I follow the pay by invoice link$/) do
   visit("/members/new?level=#{@product_name}&invoice=true")
 end
 
+Then(/^an? (.*?) membership should be created for "(.*?)"$/) do |product_name, email|
+  @member = Member.where(email: email).first
+  expect(@member).to be_present
+  expect(@member.product_name).to eql product_name
+  @email = email
+  steps %Q{
+    Then they should have a membership number generated
+    Then they should be marked as active
+  }
+end

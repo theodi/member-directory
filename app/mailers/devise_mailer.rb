@@ -17,7 +17,7 @@ class DeviseMailer < Devise::Mailer
   end
 
   def confirmation_instructions(record, opts)
-    @type = "capsule" if opts[:capsule].present?
+    @type = "capsule" if record.remote?
     if record.individual? || record.student?
       document_renderer = DocumentRenderer.new(record)
 

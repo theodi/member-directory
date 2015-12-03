@@ -1,0 +1,12 @@
+<h1>Uploads#create</h1>
+<p>Find me in app/views/uploads/create.html.erb</p>
+
+<p>
+  Created <%= pluralize @members.count, "new member" %>.
+</p>
+
+<ul>
+  <% @members.each do |member| %>
+    <li><%= member.name %> &lt;<%= member.email %>&gt;</li>
+  <% end %>
+</ul>

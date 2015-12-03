@@ -15,5 +15,22 @@ class Qualification
       "Diploma"
     ]
   end
+  
+  def self.select_name(str)
+    if Qualification.names.include?(str)
+      str
+    else
+      nil
+    end
+  end
+  
+  def self.select_name_other(str)
+    if Qualification.names.include?(str)
+      nil
+    else
+      str
+    end
+  end
+
 end
 
