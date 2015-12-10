@@ -74,6 +74,7 @@ class UploadsController < ApplicationController
       university_course_start_date_month: row["course_start_month"],
       university_course_end_date_year: row["course_end_year"],
       university_course_end_date_month: row["course_end_month"],
+      coupon: row["coupon_code"],
     )
   end
   

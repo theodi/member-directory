@@ -3,6 +3,7 @@ Feature: Bulk upload of student members
   Background:
     Given I am logged in as an administrator
     And I visit the student bulk upload page
+    And the student coupon code SUPERFREE is in Chargify
 
   Scenario: Download a template CSV file
     When I click "Download template CSV"

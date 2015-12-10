@@ -14,6 +14,14 @@ Given /^product information has been setup for "(.*?)"$/ do |plan|
   Member.register_chargify_coupon_code(@coupon)
 end
 
+Given /^the student coupon code SUPERFREE is in Chargify$/ do
+  @chargify_product_url = "http://test.host/product/individual-supporter-student"
+  @chargify_product_price = 800
+  @coupon = double(:code => "SUPERFREE", :percentage => 100)
+  Member.register_chargify_product_price("individual-supporter-student", @chargify_product_price*100)
+  Member.register_chargify_coupon_code(@coupon)
+end
+
 Given /^there is already an organization with the name I want to use$/ do
   FactoryGirl.create :member, :organization_name => 'FooBar Inc'
 end

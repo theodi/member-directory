@@ -80,6 +80,7 @@ When(/^that file contains a set of student details$/) do
   @share_with_third_parties = false
   @payment_method = "credit_card"
   @product_name = "student"
+  @coupon = double(code: "SUPERFREE")
 end
 
 When(/^I select the file "(.*?)" for upload$/) do |arg1|
