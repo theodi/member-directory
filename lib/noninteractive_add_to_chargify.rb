@@ -11,7 +11,8 @@ class NoninteractiveAddToChargify
     subscription = Chargify::Subscription.create(
       :customer_attributes => ch.customer_attributes,
       :product_handle => ch.product_handle,
-      :payment_profile => ch.payment_profile_attributes
+      :payment_profile => ch.payment_profile_attributes,
+      :coupon_code => member.coupon
     )    
     member.update_chargify_values!(
       customer_id: subscription.customer.id,
