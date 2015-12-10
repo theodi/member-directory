@@ -30,6 +30,7 @@ Then(/^that CSV file should contain columns for all student signup fields$/) do
     course_start_year
     course_end_month
     course_end_year
+    coupon_code
   }
 end
 
@@ -53,6 +54,7 @@ Then(/^that CSV should have an example line\.$/) do
   expect(row["course_start_year"]).to eql "2013"
   expect(row["course_end_month"]).to eql "06"
   expect(row["course_end_year"]).to eql "2016"
+  expect(row["coupon_code"]).to eql "SUPERFREE"
 end
 
 When(/^that file contains a set of student details$/) do

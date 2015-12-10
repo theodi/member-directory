@@ -35,6 +35,7 @@ class UploadsController < ApplicationController
             "course_start_year" => "2013",
             "course_end_month" => "06",
             "course_end_year" => "2016",
+            "coupon_code" => "SUPERFREE"
           }
           csv << sample_data.keys
           csv << sample_data.values
