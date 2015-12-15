@@ -168,7 +168,10 @@ Devise.setup do |config|
   # Time interval you can reset your password with a reset password key.
   # Don't put a too small interval or your users won't have the time to
   # change their passwords.
-  config.reset_password_within = 6.hours
+  # This is now really long because we're using them to send out links ourselves,
+  # not necessarily on request from the user, so there's no guarantee when it'll
+  # be used.
+  config.reset_password_within = 1.year
 
   # ==> Configuration for :encryptable
   # Allow you to use another encryption algorithm besides bcrypt (default). You can use
