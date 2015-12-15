@@ -1,11 +1,21 @@
 <h1>Upload results</h1>
 
 <p>
-  Created <%= pluralize @members.count, "new member" %>.
+  Loaded <%= pluralize @members.count, "new member" %> from CSV.
 </p>
 
 <ul>
   <% @members.each do |member| %>
-    <li><%= member.name %> &lt;<%= member.email %>&gt;</li>
+    <li style='<%= member.valid? ? "color: green" : "color: red" %>'>
+      <%= member.name %> &lt;<%= member.email %>&gt;
+      <% unless member.valid? %>
+        <p>There was <%= pluralize(member.errors.count, "error") %> when creating this member:</p>
+        <ul>
+          <% member.errors.full_messages.each do |error| %>
+            <li><%= error %></li>
+          <% end %>
+        </ul>
+      <% end %>
+    </li>
   <% end %>
 </ul>
