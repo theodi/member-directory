@@ -88,7 +88,7 @@ When(/^I select the file "(.*?)" for upload$/) do |arg1|
 end
 
 Then(/^I should see the results of my upload$/) do
-  expect(page.body).to include("Created 1 new member.")
+  expect(page.body).to include("Loaded 1 new member from CSV.")
   expect(page.body).to include("Bob Fish")
   expect(page.body).to include("bob@example.edu")
 end
