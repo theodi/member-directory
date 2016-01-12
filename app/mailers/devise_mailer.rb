@@ -6,7 +6,7 @@ class DeviseMailer < Devise::Mailer
   def headers_for(action, opts)
     headers = super
     if action == :confirmation_instructions
-      headers[:bcc] = 'andrea.cox@theodi.org,clara.lewis@theodi.org,members@theodi.org'
+      headers[:bcc] = 'members@theodi.org'
 
       if resource.student?
         headers[:subject] = "You’ve joined our network! Now what?"
