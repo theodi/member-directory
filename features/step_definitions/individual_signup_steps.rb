@@ -6,7 +6,7 @@ end
 
 When(/^I enter my subscription amount$/) do
   @amount = 5
-  fill_in('member_subscription_amount', :with => @amount)
+  select(@amount, from: 'member_subscription_amount')
 end
 
 Then(/^I should not have an organisation assigned to me$/) do
