@@ -143,6 +143,7 @@ class Member < ActiveRecord::Base
                   :dob_day,
                   :dob_month,
                   :dob_year
+                  :subscription_amount
 
   attr_accessor :agreed_to_terms
   attr_accessor :university_course_start_date_year
@@ -303,7 +304,7 @@ class Member < ActiveRecord::Base
     temp_password = SecureRandom.hex(32)
     from_capsule = options.delete(:from_capsule)
     member = Member.new(options.merge(
-      password: temp_password, 
+      password: temp_password,
       password_confirmation: temp_password
     ))
     member.remote! if from_capsule
@@ -464,7 +465,7 @@ class Member < ActiveRecord::Base
 
   def get_plan_description
     {
-      'individual-supporter'         => 'Individual Supporter',
+      'individual-pay-what-you-like'         => 'Individual Supporter',
       'individual-supporter-student' => 'ODI Student Supporter',
       'corporate-supporter_annual'   => 'Corporate Supporter',
       'supporter_annual'             => 'Supporter',
@@ -512,7 +513,7 @@ class Member < ActiveRecord::Base
 
   def plan
     if individual?
-      'individual-supporter'
+      'individual-pay-what-you-like'
     elsif student?
       'individual-supporter-student'
     else
@@ -644,4 +645,3 @@ class Member < ActiveRecord::Base
     country.translations[I18n.locale.to_s] || country.name
   end
 end
-

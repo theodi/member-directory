@@ -1,6 +1,9 @@
 require "yaml"
 require "active_support/core_ext/object/blank"
 require "active_support/core_ext/object/to_query"
+require "dotenv"
+
+Dotenv.load
 
 class ChargifyProductLink
   def self.for(member)
@@ -41,7 +44,7 @@ class ChargifyProductLink
   def public_signup_page_key
     case
     when member.individual?
-      :individual_supporter
+      :individual_pay_what_you_like
     when member.student? && member.no_payment?
       :individual_supporter_student_free
     when member.student?
@@ -79,6 +82,14 @@ class ChargifyProductLink
     }
     params[:organization] = member.organization_name if member.organization?
     params[:coupon_code] = member.coupon if member.coupon.present?
+
+    params[:components] = [
+      {
+        component_id: ENV['CHARGIFY_COMPONENT_ID'],
+        allocated_quantity: member.subscription_amount.to_i
+      }
+    ] if member.individual?
+
     params
   end
 
@@ -92,7 +103,7 @@ class ChargifyProductLink
       organization: member.organization || member.university_name_other || member.university_name,
     }
   end
-  
+
   def payment_profile_attributes
     {
       billing_address: member.street_address,
@@ -112,4 +123,3 @@ class ChargifyProductLink
     @env ||= Rails.env
   end
 end
-

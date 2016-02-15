@@ -41,6 +41,7 @@ describe ChargifyProductLink do
 
      allow(member).to receive(:individual?).and_return(true)
      allow(member).to receive(:plan).and_return("individual-supporter")
+     allow(member).to receive(:subscription_amount).and_return(5)
     end
 
     let(:url) do
@@ -63,12 +64,14 @@ describe ChargifyProductLink do
       expect(params).to include("first_name" => "Test")
       expect(params).to include("last_name" => "Person")
       expect(params).to include("coupon_code" => "ACOUPON")
+      expect(params["components"][0]).to include("component_id" => ENV['CHARGIFY_COMPONENT_ID'])
+      expect(params["components"][0]).to include("allocated_quantity" => "5")
     end
   end
 
   describe "#public_signup_page_key" do
     let(:member) do
-      double("Member", 
+      double("Member",
         :individual?                   => false,
         :student?                      => false,
         :student_free?                 => false,
@@ -80,10 +83,10 @@ describe ChargifyProductLink do
     end
 
     context "individual" do
-      it "should return 'individual_supporter'" do
+      it "should return 'individual_pay_what_you_like'" do
         allow(member).to receive(:individual?).and_return(true)
 
-        expect(subject.public_signup_page_key).to eq(:individual_supporter)
+        expect(subject.public_signup_page_key).to eq(:individual_pay_what_you_like)
       end
     end
 
@@ -128,6 +131,7 @@ describe ChargifyProductLink do
         expect(subject.public_signup_page_key).to eq(:supporter_annual)
       end
     end
+
   end
 
   describe "#product_handle" do
@@ -150,7 +154,7 @@ describe ChargifyProductLink do
         :individual_supporter_student      => "123",
         :individual_supporter_student_free => "456",
         :supporter_monthly                 => "789",
-        :individual_supporter              => "012",
+        :individual_pay_what_you_like      => "111213",
         :supporter_annual                  => "345",
         :corporate_supporter_annual        => "678"
       )
@@ -164,4 +168,3 @@ describe ChargifyProductLink do
   # end
 
 end
-
