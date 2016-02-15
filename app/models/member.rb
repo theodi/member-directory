@@ -437,9 +437,13 @@ class Member < ActiveRecord::Base
     }[get_plan]
   end
 
+  def price_without_vat amount
+    amount / 1.2
+  end
+
   def get_plan_price
     if individual?
-      amount = subscription_amount
+      amount = price_without_vat subscription_amount
     else
       amount = CHARGIFY_PRODUCT_PRICES.fetch(get_plan) do
         raise RuntimeError, "Can't get product price for plan '#{get_plan}'. Does it exist in Chargify?"
