@@ -355,7 +355,7 @@ describe Member do
     end
 
     it 'includes the subscription amount' do
-      expect(params["components"].first).to include("allocated_quantity" => "10")
+      expect(params["components"].first).to include("allocated_quantity" => "8.33")
     end
 
     it 'includes the component id' do

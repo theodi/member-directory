@@ -384,7 +384,7 @@ class Member < ActiveRecord::Base
       params[:components] = [
         {
           component_id: ENV['CHARGIFY_COMPONENT_ID'],
-          allocated_quantity: subscription_amount.to_i
+          allocated_quantity: price_without_vat(subscription_amount.to_i)
         }
       ] if individual?
 
@@ -438,7 +438,7 @@ class Member < ActiveRecord::Base
   end
 
   def price_without_vat amount
-    amount / 1.2
+    (amount / 1.2).round(2)
   end
 
   def get_plan_price
