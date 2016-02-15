@@ -171,6 +171,14 @@ class Member < ActiveRecord::Base
     SECTORS
   end
 
+  def self.subscription_options
+    [1,2,5,10,20,30,40,50,60,70,80,90,100]
+  end
+
+  def self.default_subscription_option
+    30
+  end
+
   def self.summary
     {
       total: Member.valid.current.count,
