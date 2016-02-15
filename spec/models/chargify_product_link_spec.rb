@@ -41,7 +41,8 @@ describe ChargifyProductLink do
 
      allow(member).to receive(:individual?).and_return(true)
      allow(member).to receive(:plan).and_return("individual-supporter")
-     allow(member).to receive(:subscription_amount).and_return(5)
+     allow(member).to receive(:subscription_amount).and_return(10)
+     allow(member).to receive(:price_without_vat).and_return(8.33)
     end
 
     let(:url) do
@@ -65,7 +66,7 @@ describe ChargifyProductLink do
       expect(params).to include("last_name" => "Person")
       expect(params).to include("coupon_code" => "ACOUPON")
       expect(params["components"][0]).to include("component_id" => ENV['CHARGIFY_COMPONENT_ID'])
-      expect(params["components"][0]).to include("allocated_quantity" => "5")
+      expect(params["components"][0]).to include("allocated_quantity" => "8.33")
     end
   end
 
