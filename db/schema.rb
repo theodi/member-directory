@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150924145207) do
+ActiveRecord::Schema.define(:version => 20160215125642) do
 
   create_table "admins", :force => true do |t|
     t.string   "email",              :default => "", :null => false
@@ -77,6 +77,7 @@ ActiveRecord::Schema.define(:version => 20150924145207) do
     t.string   "coupon"
     t.boolean  "invoice",                                      :default => false
     t.boolean  "cached_share_with_third_parties",              :default => false
+    t.float    "subscription_amount"
   end
 
   add_index "members", ["email"], :name => "index_members_on_email", :unique => true

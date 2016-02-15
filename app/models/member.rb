@@ -123,7 +123,8 @@ class Member < ActiveRecord::Base
                   :address,
                   :origin,
                   :coupon,
-                  :invoice
+                  :invoice,
+                  :subscription_amount
 
   attr_accessor :agreed_to_terms
 
@@ -365,6 +366,14 @@ class Member < ActiveRecord::Base
       }
       params[:organization] = organization_name if organization?
       params[:coupon_code] = coupon if coupon.present?
+
+      params[:components] = [
+        {
+          component_id: ENV['CHARGIFY_COMPONENT_ID'],
+          allocated_quantity: subscription_amount.to_i
+        }
+      ] if individual?
+
       url.query = params.to_query
       return url.to_s
     else
@@ -406,7 +415,7 @@ class Member < ActiveRecord::Base
 
   def get_plan_description
     {
-      'individual-supporter'         => 'Individual Supporter',
+      'individual-pay-what-you-like'         => 'Individual Supporter',
       'individual-supporter-student' => 'ODI Student Supporter',
       'corporate-supporter_annual'   => 'Corporate Supporter',
       'supporter_annual'             => 'Supporter',
@@ -454,7 +463,7 @@ class Member < ActiveRecord::Base
 
   def get_plan
     if individual?
-      'individual-supporter'
+      'individual-pay-what-you-like'
     elsif student?
       'individual-supporter-student'
     else
@@ -572,4 +581,3 @@ class Member < ActiveRecord::Base
     country.translations[I18n.locale.to_s] || country.name
   end
 end
-

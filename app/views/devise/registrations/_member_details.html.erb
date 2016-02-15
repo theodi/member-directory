@@ -127,3 +127,17 @@
     </div>
   </div>
 </fieldset>
+
+<fieldset>
+
+  <legend>How much do you want to pay?</legend>
+
+
+  <div class="control-group">
+    <%= f.label :subscription_amount, :class => 'control-label' %>
+    <div class="controls">
+      £ <%= f.number_field :subscription_amount, :required => :required %>
+      <span class="help-inline">(required)</span>
+    </div>
+  </div>
+</fieldset>

@@ -185,6 +185,8 @@ describe Member do
     before do
       Member.register_chargify_product_link('individual-supporter', 'https://chargify.com/individiual')
       Member.register_chargify_product_price('individual-supporter', 9000)
+      Member.register_chargify_product_link('individual-pay-what-you-like', 'https://chargify.com/individiual')
+      Member.register_chargify_product_price('individual-pay-what-you-like', 9000)
       Member.register_chargify_product_link('individual-supporter-student', 'https://chargify.com/student')
       Member.register_chargify_product_price('individual-supporter-student', 9000)
       Member.register_chargify_product_link('supporter_annual', 'https://chargify.com/non-profit')
@@ -237,7 +239,7 @@ describe Member do
       it "returns 'individual-supporter'" do
         member = Member.new(product_name: "individual")
 
-        expect(member.get_plan).to eq("individual-supporter")
+        expect(member.get_plan).to eq("individual-pay-what-you-like")
       end
     end
 
@@ -280,6 +282,7 @@ describe Member do
 
   describe 'chargify redirect link' do
     before do
+      Member.register_chargify_product_link('individual-pay-what-you-like', 'https://chargify.com/individual')
       Member.register_chargify_product_link('individual-supporter', 'https://chargify.com/individual')
     end
 
@@ -295,7 +298,8 @@ describe Member do
         postal_code: "EC1 1TT",
         password: 'testtest',
         password_confirmation: 'testtest',
-        agreed_to_terms: "1"
+        agreed_to_terms: "1",
+        subscription_amount: "10"
       )
     end
 
@@ -348,6 +352,14 @@ describe Member do
 
     it 'guesses and includes the last name' do
       expect(params).to include("last_name" => "Person")
+    end
+
+    it 'includes the subscription amount' do
+      expect(params["components"].first).to include("allocated_quantity" => "10")
+    end
+
+    it 'includes the component id' do
+      expect(params["components"].first).to include("component_id" => ENV['CHARGIFY_COMPONENT_ID'])
     end
   end
 

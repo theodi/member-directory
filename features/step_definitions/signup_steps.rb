@@ -436,4 +436,3 @@ Then(/^I follow the pay by invoice link$/) do
   # Member has been sent the invoice URL by us
   visit("/members/new?level=#{@product_name}&invoice=true")
 end
-
