@@ -84,6 +84,11 @@ class Member < ActiveRecord::Base
 
   CHARGIFY_COUPON_DISCOUNTS = {}
 
+  SUBSCRIPTION_OPTIONS = {
+    choices: [1,2,5,10,20,30,40,50,60,70,80,90,100],
+    default: 30
+  }
+
   has_one :organization, dependent: :destroy
   has_many :embed_stats
 
@@ -172,11 +177,11 @@ class Member < ActiveRecord::Base
   end
 
   def self.subscription_options
-    [1,2,5,10,20,30,40,50,60,70,80,90,100]
+    SUBSCRIPTION_OPTIONS[:choices]
   end
 
   def self.default_subscription_option
-    30
+    SUBSCRIPTION_OPTIONS[:default]
   end
 
   def self.summary
