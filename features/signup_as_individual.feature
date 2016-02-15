@@ -8,6 +8,7 @@ Feature: Signup as an individual member
   Scenario: Individual member signup
     When I enter my name and contact details
     And I enter my address details
+    And I enter my subscription amount
     And I agree to the terms
     When I click sign up
     Then I am redirected to the payment page
