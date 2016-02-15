@@ -29,6 +29,7 @@ Feature: Signup and pay by invoice
     When I visit the signup page with the invoice flag set
     When I enter my name and contact details
     And I enter my address details
+    And I enter my subscription amount
     And I agree to the terms
     When I click sign up
     And I am returned to the thanks page
