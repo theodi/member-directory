@@ -487,6 +487,10 @@ class Member < ActiveRecord::Base
     }[plan]
   end
 
+  def price_without_vat amount
+    (amount / 1.2).round(2)
+  end
+
   def get_plan_price
     if individual?
       amount = subscription_amount

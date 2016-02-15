@@ -86,7 +86,7 @@ class ChargifyProductLink
     params[:components] = [
       {
         component_id: ENV['CHARGIFY_COMPONENT_ID'],
-        allocated_quantity: member.subscription_amount.to_i
+        allocated_quantity: member.price_without_vat(member.subscription_amount.to_i)
       }
     ] if member.individual?
 
