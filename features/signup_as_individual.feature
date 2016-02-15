@@ -2,7 +2,7 @@ Feature: Signup as an individual member
 
   Background:
     Given I want to sign up as an individual member
-    And product information has been setup for "individual-supporter"
+    And product information has been setup for "individual-pay-what-you-like"
     When I visit the signup page
 
   Scenario: Individual member signup
@@ -12,7 +12,7 @@ Feature: Signup as an individual member
     When I click sign up
     Then I am redirected to the payment page
     And I should have a membership number generated
-    And I am processed through chargify for the "individual-supporter" option
+    And I am processed through chargify for the "individual-pay-what-you-like" option
     When I click pay now
     And I am returned to the thanks page
     And I should see "Thanks for supporting The ODI"
@@ -58,4 +58,3 @@ Feature: Signup as an individual member
     And I enter my address details
     Then I should see "You agree to comply with these terms and conditions"
     And I should see "means Ian McIain of 123 Fake Street, Faketown, Fakeshire, United Kingdom, FAKE 123"
-

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20151022113548) do
+ActiveRecord::Schema.define(:version => 20160215125642) do
 
   create_table "admins", :force => true do |t|
     t.string   "email",              :default => "", :null => false
@@ -89,6 +89,7 @@ ActiveRecord::Schema.define(:version => 20151022113548) do
     t.date     "university_course_end_date"
     t.string   "twitter"
     t.date     "dob"
+    t.float    "subscription_amount"
   end
 
   add_index "members", ["email"], :name => "index_members_on_email", :unique => true
