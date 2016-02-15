@@ -2,7 +2,7 @@ language: ruby
 sudo: false
 cache: bundler
 rvm:
-- 1.9.3
+- 2.1.6
 before_script: cp config/database.example.yml config/database.yml && bundle exec rake
   db:schema:load
 services: redis
