@@ -4,6 +4,11 @@ Given(/^I want to sign up as an individual member$/) do
   @payment_ref = /cus_[0-9A-Za-z]{14}/
 end
 
+When(/^I enter my subscription amount$/) do
+  @amount = 5
+  fill_in('member_subscription_amount', :with => @amount)
+end
+
 Then(/^I should not have an organisation assigned to me$/) do
   member = Member.where(email: @email).first
   expect(member.organization).to be_nil
@@ -28,4 +33,3 @@ end
 Then(/^I should not see the student specific fields$/) do
   expect(page).to_not have_content("University Details")
 end
-
