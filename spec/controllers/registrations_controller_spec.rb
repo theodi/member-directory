@@ -31,17 +31,18 @@ describe RegistrationsController do
 
     let!(:response) do
       post :create, :member => {
-        product_name: "individual",
-        contact_name: "Test Person",
+        product_name: 'individual',
+        contact_name: 'Test Person',
         email: 'test@example.com',
-        street_address: "1 Street Over",
-        address_locality: "Townplace",
-        address_region: "London",
-        address_country: "GB",
-        postal_code: "EC1 1TT",
+        street_address: '1 Street Over',
+        address_locality: 'Townplace',
+        address_region: 'London',
+        address_country: 'GB',
+        postal_code: 'EC1 1TT',
         password: 'testtest',
         password_confirmation: 'testtest',
-        agreed_to_terms: "1"
+        agreed_to_terms: '1',
+        subscription_amount: 6
       }
     end
 
@@ -58,38 +59,39 @@ describe RegistrationsController do
 
     it 'defaults member origin to odihq' do
       post :create, :member => {
-        product_name: "individual",
-        contact_name: "Test Person",
+        product_name: 'individual',
+        contact_name: 'Test Person',
         email: 'test@example.com',
-        street_address: "1 Street Over",
-        address_locality: "Townplace",
-        address_region: "London",
-        address_country: "GB",
-        postal_code: "EC1 1TT",
+        street_address: '1 Street Over',
+        address_locality: 'Townplace',
+        address_region: 'London',
+        address_country: 'GB',
+        postal_code: 'EC1 1TT',
         password: 'testtest',
         password_confirmation: 'testtest',
-        agreed_to_terms: "1"
+        agreed_to_terms: '1',
+        subscription_amount: 6
       }
       expect(member.origin).to eq('odihq')
     end
 
     it 'tracks origin field on member' do
       post :create, :member => {
-        product_name: "individual",
-        contact_name: "Test Person",
+        product_name: 'individual',
+        contact_name: 'Test Person',
         email: 'test@example.com',
-        street_address: "1 Street Over",
-        address_locality: "Townplace",
-        address_region: "London",
-        address_country: "GB",
-        postal_code: "EC1 1TT",
+        street_address: '1 Street Over',
+        address_locality: 'Townplace',
+        address_region: 'London',
+        address_country: 'GB',
+        postal_code: 'EC1 1TT',
         password: 'testtest',
         password_confirmation: 'testtest',
-        agreed_to_terms: "1",
-        origin: 'odi-leeds'
+        agreed_to_terms: '1',
+        origin: 'odi-leeds',
+        subscription_amount: 6
       }
       expect(member.origin).to eq('odi-leeds')
     end
   end
 end
-
