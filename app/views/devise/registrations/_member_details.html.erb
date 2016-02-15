@@ -141,3 +141,11 @@
       </div>
     </div>
 </fieldset>
+  <script>
+    $('#member_subscription_amount').change(function() {
+      var amount = parseInt($(this).val())
+      var vat = (amount * 1.2).toFixed(2)
+      $('span#amount').html(amount)
+      $('span#vat').html(vat)
+    })
+  </script>
