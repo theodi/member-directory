@@ -77,6 +77,18 @@ ActiveRecord::Schema.define(:version => 20160215125642) do
     t.string   "coupon"
     t.boolean  "invoice",                                      :default => false
     t.boolean  "cached_share_with_third_parties",              :default => false
+    t.string   "university_email"
+    t.string   "university_address_country"
+    t.string   "university_country"
+    t.string   "university_name"
+    t.string   "university_name_other"
+    t.string   "university_course_name"
+    t.string   "university_qualification"
+    t.string   "university_qualification_other"
+    t.date     "university_course_start_date"
+    t.date     "university_course_end_date"
+    t.string   "twitter"
+    t.date     "dob"
     t.float    "subscription_amount"
   end
 
@@ -106,7 +118,7 @@ ActiveRecord::Schema.define(:version => 20160215125642) do
     t.integer  "item"
     t.string   "table"
     t.integer  "month",      :limit => 2
-    t.integer  "year",       :limit => 8
+    t.integer  "year",       :limit => 5
     t.datetime "created_at",              :null => false
     t.datetime "updated_at",              :null => false
   end
