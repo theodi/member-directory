@@ -144,10 +144,11 @@
   </div>
 </fieldset>
 
-<fieldset>
+<% if individual? %>
 
-  <legend>How much do you want to pay?</legend>
+  <fieldset>
 
+    <legend>How much do you want to pay?</legend>
 
     <div class="control-group">
       <%= f.label :subscription_amount, :class => 'control-label' %>
@@ -156,7 +157,8 @@
         <span class="help-inline">(required)</span>
       </div>
     </div>
-</fieldset>
+  </fieldset>
+
   <script>
     $('#member_subscription_amount').change(function() {
       var amount = parseInt($(this).val())
@@ -165,3 +167,5 @@
       $('span#vat').html(vat)
     })
   </script>
+
+<% end %>
