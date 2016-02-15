@@ -194,6 +194,7 @@ class Member < ActiveRecord::Base
   validates :address_region, presence: true, on: :create
   validates :address_country, presence: true, on: :create
   validates :postal_code, presence: true, on: :create
+  validates :subscription_amount, presence: true, on: :create, if: Proc.new { |member| member.individual? }
   validates_acceptance_of :agreed_to_terms, on: :create
 
   validates_with OrganizationValidator, on: :create, unless: Proc.new { |member| member.individual? || member.student? }
