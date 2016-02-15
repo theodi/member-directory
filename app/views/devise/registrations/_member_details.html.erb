@@ -132,7 +132,7 @@
 
   <fieldset>
 
-    <legend>How much do you want to pay?</legend>
+    <legend>How much do you want to pay? (inclusive of VAT, per annum)</legend>
 
     <div class="control-group">
       <%= f.label :subscription_amount, :class => 'control-label' %>
@@ -146,9 +146,7 @@
   <script>
     $('#member_subscription_amount').change(function() {
       var amount = parseInt($(this).val())
-      var vat = (amount * 1.2).toFixed(2)
       $('span#amount').html(amount)
-      $('span#vat').html(vat)
     })
   </script>
 
