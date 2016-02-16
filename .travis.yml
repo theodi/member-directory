@@ -1,5 +1,6 @@
 language: ruby
-sudo: false
+sudo: required
+dist: precise
 cache: bundler
 rvm:
 - 1.9.3
