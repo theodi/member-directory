@@ -287,6 +287,7 @@ Then /^my details should be queued for further processing$/ do
     expect(args[4]['payment_ref']).to eql @payment_ref
     expect(args[4]['offer_category']).to eql @product_name
     expect(args[4]['membership_id']).not_to eql nil
+    expect(args[4]['amount_paid']).to eq(@amount)
   end
 end
 
