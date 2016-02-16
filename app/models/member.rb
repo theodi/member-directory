@@ -399,6 +399,7 @@ class Member < ActiveRecord::Base
     self.chargify_customer_id ||= params[:customer_id]
     self.chargify_subscription_id ||= params[:subscription_id]
     self.chargify_payment_id ||= params[:payment_id]
+    self.subscription_amount ||= params[:amount]
     save(:validate => false)
   end
 
