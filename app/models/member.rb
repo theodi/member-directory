@@ -142,7 +142,7 @@ class Member < ActiveRecord::Base
                   :twitter,
                   :dob_day,
                   :dob_month,
-                  :dob_year
+                  :dob_year,
                   :subscription_amount
 
   attr_accessor :agreed_to_terms
