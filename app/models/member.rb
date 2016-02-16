@@ -633,6 +633,8 @@ class Member < ActiveRecord::Base
       'discount'       => coupon_discount
     }
 
+    purchase['amount_paid'] = subscription_amount if individual?
+
     [organization, contact_person, billing, purchase]
   end
 
