@@ -1,6 +1,9 @@
 language: ruby
-sudo: false
+sudo: required
+dist: precise
 cache: bundler
+before_install:
+- gem install bundler
 rvm:
 - 1.9.3
 before_script: cp config/database.example.yml config/database.yml && bundle exec rake
