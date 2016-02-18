@@ -5,6 +5,8 @@ en:
   credit_card: "Credit / Debit card"
   invoice: "Annual invoice"
   agreed_to_terms: I have read and agree to the terms and conditions of membership
+  receive_newsletter: "To receive invitations to ODI events and the quarterly member newsletter please tick this box"
+  share_with_third_parties: "If you are happy for us to share your contact details (name, email address) with your local node please tick this box"
   credit_card: Credit / Debit card
   formats:
     json: JSON
@@ -18,15 +20,15 @@ en:
         membership_number: "Member ID"
         product_name: "Membership level"
         email: "Email address"
-        contact_name: "Your name"
+        contact_name: "Full name"
         organization_name: "Organisation name"
         organization_size: "Organisation size"
         organization_type: "Organisation type"
         organization_sector: "Industry sector"
         telephone: "Contact number"
-        street_address: "Address"
-        address_locality: ""
-        address_region: "City"
+        street_address: "Address line 1"
+        address_locality: "Address line 2"
+        address_region: "Town or City"
         address_country: "Country"
         postal_code: "Postcode"
         organization_company_number: "Company / Charity number"
@@ -34,10 +36,24 @@ en:
         purchase_order_number: "Purchase order number"
         password: "Password"
         password_confirmation: "Confirm password"
-        cached_newsletter: "Send me the newsletter"
         card_validation_code: CVC
         card_expiry_month: Expiry month
         card_expiry_year: Expiry year
+        university_email: "Email address"
+        university_street_address: "Address line 1"
+        university_address_locality: "Address line 2"
+        university_address_region: "Town or City"
+        university_address_country: "Country"
+        university_postal_code: "Postcode"
+        university_name: "University/college name"
+        university_name_other: ""
+        university_qualification: "Qualification"
+        university_qualification_other: ""
+        university_course_name: "Course name"
+        university_course_start_date: "Course start date"
+        university_course_end_date: "Course end date"
+        twitter: "Twitter handle"
+        dob: "Date of birth"
       organization:
         name: "Organisation name"
         url: "Homepage"
@@ -46,7 +62,7 @@ en:
         cached_contact_name: "Contact person"
         cached_contact_phone: "Contact telephone"
         cached_contact_email: "Contact email"
-        cached_twitter: "Twitter"
+        cached_twitter: "Twitter handle"
         cached_facebook: "Facebook"
         cached_linkedin: "LinkedIn"
         cached_tagline: "Tagline"

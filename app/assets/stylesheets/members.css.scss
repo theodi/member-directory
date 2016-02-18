@@ -25,3 +25,75 @@
   margin-top: 20px;
 }
 
+.control-group.newsletter {
+  .controls {
+    margin-left: 28px;
+  }
+}
+
+.control-group.third-parties {
+  display: none;
+}
+
+@media screen and (max-width: 500px) {
+  .control-group.newsletter {
+    .controls {
+      margin-left: 0;
+    }
+  }
+}
+
+.main-default {
+  .control-group.dob {
+    .day, .month, .year {
+      width: 30px;
+      text-align: center;
+      margin-right: 6px;
+    }
+
+    .year {
+      width: 50px;
+    }
+
+    .help-block {
+      color: #999;
+      padding-top: 6px;
+    }
+  }
+}
+
+.main-default {
+  select.month-datepicker,
+  select.year-datepicker {
+    width: auto;
+  }
+
+  input.postcode {
+    width: 150px;
+  }
+
+  .checkbox {
+    input {
+      margin-left: 0;
+      margin-right: 10px;
+      font-size: 20px;
+    }
+  }
+
+  .checkbox.terms {
+    margin-left: -20px;
+  }
+}
+
+.thanks-banner {
+  background-image: image_url('thanks-banner.jpg');
+  background-position: center;
+  height: 130px;
+  margin-top: -30px;
+  margin-bottom: 30px;
+}
+
+p.thanks {
+  color: #000;
+}
+

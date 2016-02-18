@@ -29,6 +29,7 @@ Feature: Signup and pay by invoice
     When I visit the signup page with the invoice flag set
     When I enter my name and contact details
     And I enter my address details
+    And I enter my subscription amount
     And I agree to the terms
     When I click sign up
     And I am returned to the thanks page
@@ -41,7 +42,7 @@ Feature: Signup and pay by invoice
     And I agree to the terms
     But I leave contact_name blank
     And I click sign up
-    Then I should see an error relating to Your name
+    Then I should see an error relating to Full name
     And I enter my name and contact details
     Then my organization should be made active in Capsule
     Then my details should be queued for further processing

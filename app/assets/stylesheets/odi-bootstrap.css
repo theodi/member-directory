@@ -9031,6 +9031,129 @@ section.improvement.improvement-basic a {
   color: #fff;
 }
 
+.navbar-inverse {
+  background-color: #1b1b1b;
+  border-color: #010101;
+}
+
+.navbar-inverse .navbar-nav > li > a {
+  color: #fff;
+  padding-left: 20px;
+}
+
+.navbar-inverse .navbar-nav > li > a:hover,
+.navbar-inverse .navbar-nav > li > a:focus {
+  color: #fff;
+  background-color: #ff6700;
+}
+
+.mobile-only {
+  display: none;
+}
+
+.mobile-only .container {
+  margin-left: 0;
+}
+
+.mobile-only ul {
+  width: 100%;
+}
+
+.mobile-only .nav > li {
+  float: none;
+}
+
+#mobile-menu {
+  display: none;
+}
+
+/* form fields */
+@media (max-width: 375px) {
+  .main-default input[type="text"],
+  .main-default input[type="email"],
+  .main-default input[type="password"],
+  .main-default textarea {
+    width: 96%;
+  }
+
+  .main-default select {
+    width: 100%;
+  }
+}
+
+@media (max-width: 767px) {
+
+  .mobile-only {
+    display: block;
+  }
+
+  #mobile-menu {
+    display: block;
+    position: absolute;
+    top: 10px;
+    right: 15px;
+  }
+
+  .nav-collapse {
+    margin: 0px -20px;
+    height: 0;
+  }
+
+  .nav-collapse.collapse.in {
+    overflow: hidden;
+  }
+
+  .nav-collapse .navbar .nav {
+    float: left;
+    width: 100%;
+    margin-bottom: 0;
+  }
+
+  #mainnav .navbar-inner li {
+    padding: 0 20px;
+  }
+
+  #mainnav .navbar-inner li a:hover {
+    color: #fff;
+    background-color: #ff6700;
+  }
+
+  #mainnav .navbar-inner li a,
+  #mainnav .navbar-inner li button {
+    border-radius: 0;
+    text-shadow: none;
+    font-weight: normal;
+    margin-bottom: 0;
+    background: #1b1b1b;
+    color: #fff;
+    padding-top: 7px;
+    padding-bottom: 8px;
+  }
+
+  #mainnav .navbar-inner li a .caret {
+    border-top-color: #428bca;
+    border-bottom-color: #428bca;
+  }
+
+  #topbar.navbar-inverse,
+  #topbar.navbar-inverse .navbar-inner {
+    height: 80px;
+  }
+
+  #topbar .navbar-inner .pull-right {
+    float: none;
+    display: block;
+    margin-top: 60px;
+  }
+
+  #topbar .navbar-inner ul li {
+    display: none;
+    background-color: purple;
+    float: none;
+    height: auto;
+  }
+}
+
 @media (max-width: 767px) {
   #topbar {
     height: 100px;

@@ -81,7 +81,7 @@ class RegistrationsController < Devise::RegistrationsController
     if resource.invoiced?
       thanks_member_path(resource)
     else
-      payment_member_path(resource, coupon: params[:coupon].presence)
+      payment_member_path(resource, { coupon: params[:coupon].presence, no_payment: params[:free].presence })
     end
   end
 

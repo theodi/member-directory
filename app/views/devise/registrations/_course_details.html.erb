@@ -1,0 +1,46 @@
+<fieldset>
+  <legend>Course</legend>
+
+  <div class="control-group">
+    <%= f.label :university_qualification, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.select(:university_qualification, Qualification.names + ["Other (please specify)"], { prompt: "Please select" }, :required => "required") %>
+      <span class="help-inline">(required)</span>
+    </div>
+  </div>
+
+  <div class="control-group" <%= field_visibility(:university_qualification) %>>
+    <%= f.label :university_qualification_other, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :university_qualification_other %>
+      <span class="help-inline">(required)</span>
+    </div>
+  </div>
+
+  <div class="control-group">
+    <%= f.label :university_course_name, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :university_course_name %>
+      <span class="help-inline">(required)</span>
+    </div>
+  </div>
+
+  <div class="control-group">
+    <%= f.label :university_course_start_date, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.select(:university_course_start_date_month, date_months, {}, :required => "required", :class => "month-datepicker") %>
+      <%= f.select(:university_course_start_date_year, course_date_years, { }, :required => "required", :class => "year-datepicker") %>
+      <span class="help-inline">(required)</span>
+    </div>
+  </div>
+
+  <div class="control-group">
+    <%= f.label :university_course_end_date, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.select(:university_course_end_date_month, date_months, {}, :required => "required", :class => "month-datepicker") %>
+      <%= f.select(:university_course_end_date_year, course_date_years, { }, :required => "required", :class => "year-datepicker") %>
+      <span class="help-inline">(required)</span>
+    </div>
+  </div>
+</fieldset>
+

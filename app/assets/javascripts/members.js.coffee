@@ -5,3 +5,23 @@
 $ ->
   $('[data-toggle="tooltip"]').tooltip(placement: 'right')
 
+  $('select#member_university_name').on 'change', (e) =>
+    parentElement = $('#member_university_name_other').parents('.control-group')
+    parentElement.hide()
+    if e.target.value == 'Other (please specify)'
+      parentElement.show()
+      parentElement.find('input').focus()
+
+  $('select#member_university_qualification').on 'change', (e) =>
+    parentElement = $('#member_university_qualification_other').parents('.control-group')
+    parentElement.hide()
+    if e.target.value == 'Other (please specify)'
+      parentElement.show()
+      parentElement.find('input').focus()
+
+  $('select#member_origin').on 'change', (e) =>
+    if e.target.value == ''
+      $('.third-parties').hide()
+    else
+      $('.third-parties').show()
+

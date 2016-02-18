@@ -95,34 +95,9 @@ describe Member do
 
   context 'setting up chargify links' do
     before do
-      Member::CHARGIFY_PRODUCT_LINKS.clear
       Member::CHARGIFY_PRODUCT_PRICES.clear
       Member::CHARGIFY_COUPON_DISCOUNTS.clear
       allow(Chargify::Coupon).to receive(:all).and_return([])
-    end
-
-    it 'assigns the api handle and first public signup page' do
-      product = double('product')
-      page = double('page')
-      allow(page).to receive(:url).and_return("http://i.am/an/url")
-      allow(product).to receive(:price_in_cents)
-      allow(product).to receive(:product_family).and_return(double('pf', id: 1))
-      allow(product).to receive(:handle).and_return("plan_name")
-      allow(product).to receive(:public_signup_pages).and_return([page])
-      expect(Chargify::Product).to receive(:all).and_return([product])
-      Member.initialize_chargify_links!
-      expect(Member::CHARGIFY_PRODUCT_LINKS["plan_name"]).to eq("http://i.am/an/url")
-    end
-
-    it 'handles a missing signup page' do
-      product = double('product')
-      allow(product).to receive(:price_in_cents)
-      allow(product).to receive(:product_family).and_return(double('pf', id: 1))
-      allow(product).to receive(:handle).and_return("plan_name")
-      allow(product).to receive(:public_signup_pages).and_return([])
-      expect(Chargify::Product).to receive(:all).and_return([product])
-      Member.initialize_chargify_links!
-      expect(Member::CHARGIFY_PRODUCT_LINKS["plan_name"]).to be_nil
     end
 
     it 'stores the price of the product' do
@@ -183,13 +158,9 @@ describe Member do
 
   describe 'price helpers for plan' do
     before do
-      Member.register_chargify_product_link('individual-supporter', 'https://chargify.com/individiual')
       Member.register_chargify_product_price('individual-supporter', 9000)
-      Member.register_chargify_product_link('individual-supporter-student', 'https://chargify.com/student')
       Member.register_chargify_product_price('individual-supporter-student', 9000)
-      Member.register_chargify_product_link('supporter_annual', 'https://chargify.com/non-profit')
       Member.register_chargify_product_price('supporter_annual', 72000)
-      Member.register_chargify_product_link('supporter_monthly', 'https://chargify.com/monthly-non-profit')
       Member.register_chargify_product_price('supporter_monthly', 6000)
     end
 
@@ -204,8 +175,8 @@ describe Member do
     end
 
     it 'returns the price inclusive of vat for individuals' do
-      m = Member.new(product_name: 'individual', address_country: 'GB')
-      expect(m.get_plan_price).to eq("£108.00 including £18.00 VAT")
+      m = Member.new(product_name: 'individual', address_country: 'GB', subscription_amount: 6)
+      expect(m.get_plan_price).to eq("£7.20 including £1.20 VAT")
     end
 
     it 'returns the price inclusive of vat for students' do
@@ -226,18 +197,18 @@ describe Member do
     it 'raises an error if a plan price cannot be found' do
       m = Member.new
       # Not ideal, but a necessity at the moment
-      allow(m).to receive(:get_plan).and_return('plan-that-is-not-in-chargify')
+      allow(m).to receive(:plan).and_return('plan-that-is-not-in-chargify')
 
       expect { m.get_plan_price }.to raise_error(RuntimeError, /Can't get product price for plan 'plan-that-is-not-in-chargify'\. Does it exist in Chargify\?/)
     end
   end
 
-  describe "#get_plan" do
+  describe "#plan" do
     context "member is individual" do
-      it "returns 'individual-supporter'" do
+      it "returns 'individual-pay-what-you-like'" do
         member = Member.new(product_name: "individual")
 
-        expect(member.get_plan).to eq("individual-supporter")
+        expect(member.plan).to eq("individual-pay-what-you-like")
       end
     end
 
@@ -245,7 +216,7 @@ describe Member do
       it "returns 'individual-supporter-student'" do
         member = Member.new(product_name: "student")
 
-        expect(member.get_plan).to eq("individual-supporter-student")
+        expect(member.plan).to eq("individual-supporter-student")
       end
     end
 
@@ -255,7 +226,7 @@ describe Member do
         member.organization_type = "commercial"
         member.organization_size = ">1000"
 
-        expect(member.get_plan).to eq("corporate-supporter_annual")
+        expect(member.plan).to eq("corporate-supporter_annual")
       end
     end
 
@@ -264,7 +235,7 @@ describe Member do
         member = Member.new(product_name: "supporter")
         member.payment_frequency = "monthly"
 
-        expect(member.get_plan).to eq("supporter_monthly")
+        expect(member.plan).to eq("supporter_monthly")
       end
     end
 
@@ -273,248 +244,8 @@ describe Member do
         member = Member.new(product_name: "supporter")
         member.payment_frequency = nil
 
-        expect(member.get_plan).to eq("supporter_annual")
+        expect(member.plan).to eq("supporter_annual")
       end
-    end
-  end
-
-  describe 'chargify redirect link' do
-    before do
-      Member.register_chargify_product_link('individual-supporter', 'https://chargify.com/individual')
-    end
-
-    let(:member) do
-      Member.create!(
-        product_name: "individual",
-        contact_name: "Test Person",
-        email: 'test@example.com',
-        street_address: "1 Street Over",
-        address_locality: "Townplace",
-        address_region: "London",
-        address_country: "GB",
-        postal_code: "EC1 1TT",
-        password: 'testtest',
-        password_confirmation: 'testtest',
-        agreed_to_terms: "1"
-      )
-    end
-
-    let(:url) { URI.parse(member.chargify_product_link) }
-
-    let(:params) do
-      Rack::Utils.parse_nested_query(url.query)
-    end
-
-    it 'links to the individiual product page' do
-      expect(url.host).to eq("chargify.com")
-      expect(url.path).to eq("/individual")
-    end
-
-    it 'includes membership number as customer reference' do
-      expect(params).to include("reference" => member.membership_number)
-    end
-
-    it 'includes email' do
-      expect(params).to include("email" => "test@example.com")
-    end
-
-    it 'includes street address as billing_address' do
-      expect(params).to include("billing_address" => "1 Street Over")
-    end
-
-    it 'includes address locality as billing_address_2' do
-      expect(params).to include("billing_address_2" => "Townplace")
-    end
-
-    it 'includes address region as billing_city' do
-      expect(params).to include("billing_city" => "London")
-    end
-
-    it 'includes address country as billing_country' do
-      expect(params).to include("billing_country" => "GB")
-    end
-
-    it 'includes postal code as billing_zip' do
-      expect(params).to include("billing_zip" => "EC1 1TT")
-    end
-
-    it 'includes London as the billing_state as a hack to get tax to update in chargify' do
-      expect(params).to include("billing_state" => "London")
-    end
-
-    it 'guesses and includes the first name' do
-      expect(params).to include("first_name" => "Test")
-    end
-
-    it 'guesses and includes the last name' do
-      expect(params).to include("last_name" => "Person")
-    end
-  end
-
-  describe 'chargify redirect link for a organisation' do
-    before do
-      Member.register_chargify_product_link('corporate-supporter_annual', 'https://chargify.com/corporate')
-      Member.register_chargify_product_link('supporter_annual', 'https://chargify.com/non-profit')
-    end
-
-    let(:member) do
-      Member.create!(
-        product_name: "supporter",
-        contact_name: "Test Person",
-        email: 'test@example.com',
-        organization_name: "Test Org",
-        organization_size: "251-1000",
-        organization_type: "commercial",
-        organization_sector: "Energy",
-        street_address: "1 Street Over",
-        address_locality: "Townplace",
-        address_region: "London",
-        address_country: "GB",
-        postal_code: "EC1 1TT",
-        password: 'testtest',
-        password_confirmation: 'testtest',
-        agreed_to_terms: "1"
-      )
-    end
-
-    let(:url) { URI.parse(member.chargify_product_link) }
-
-    let(:params) do
-      Rack::Utils.parse_nested_query(url.query)
-    end
-
-    it 'links to the corporate product page' do
-      expect(url.host).to eq("chargify.com")
-      expect(url.path).to eq("/corporate")
-    end
-
-    it 'includes organization_name' do
-      expect(params).to include("organization" => "Test Org")
-    end
-  end
-
-  describe 'chargify redirect link for a non-commercial organisation' do
-    before do
-      Member.register_chargify_product_link('supporter_annual', 'https://chargify.com/non-profit')
-      Member.register_chargify_product_link('corporate-supporter_annual', 'https://chargify.com/corporate')
-    end
-
-    let(:member) do
-      Member.create!(
-        product_name: "supporter",
-        contact_name: "Test Person",
-        email: 'test@example.com',
-        organization_name: "Test Org",
-        organization_size: "251-1000",
-        organization_type: "non_commercial",
-        organization_sector: "Energy",
-        street_address: "1 Street Over",
-        address_locality: "Townplace",
-        address_region: "London",
-        address_country: "GB",
-        postal_code: "EC1 1TT",
-        password: 'testtest',
-        password_confirmation: 'testtest',
-        agreed_to_terms: "1"
-      )
-    end
-
-    let(:url) { URI.parse(member.chargify_product_link) }
-
-    let(:params) do
-      Rack::Utils.parse_nested_query(url.query)
-    end
-
-    it 'links to the non profit product page' do
-      expect(url.host).to eq("chargify.com")
-      expect(url.path).to eq("/non-profit")
-    end
-  end
-
-  describe 'chargify redirect link for montly payment options' do
-    before do
-      Member.register_chargify_product_link('supporter_annual', 'https://chargify.com/non-profit')
-      Member.register_chargify_product_link('supporter_monthly', 'https://chargify.com/monthly-non-profit')
-      Member.register_chargify_product_link('corporate-supporter_annual', 'https://chargify.com/corporate')
-    end
-
-    let(:member) do
-      Member.create!(
-        product_name: "supporter",
-        contact_name: "Test Person",
-        email: 'test@example.com',
-        organization_name: "Test Org",
-        organization_size: "251-1000",
-        organization_type: "non_commercial",
-        organization_sector: "Energy",
-        street_address: "1 Street Over",
-        address_locality: "Townplace",
-        address_region: "London",
-        address_country: "GB",
-        postal_code: "EC1 1TT",
-        password: 'testtest',
-        password_confirmation: 'testtest',
-        agreed_to_terms: "1"
-      )
-    end
-
-    let(:url) { URI.parse(member.chargify_product_link) }
-
-    let(:params) do
-      Rack::Utils.parse_nested_query(url.query)
-    end
-
-    it 'links to the non profit product page' do
-      expect(member.payment_frequency).to eq("annual")
-      expect(url.host).to eq("chargify.com")
-      expect(url.path).to eq("/non-profit")
-    end
-
-    it 'links to the monthly non profit product page' do
-      member.update_attribute(:payment_frequency, "monthly")
-      expect(url.host).to eq("chargify.com")
-      expect(url.path).to eq("/monthly-non-profit")
-    end
-  end
-
-  describe 'chargify redirect link for member with a coupon code' do
-    before do
-      Member.register_chargify_product_link('supporter_annual', 'https://chargify.com/non-profit')
-      Member.register_chargify_product_link('supporter_monthly', 'https://chargify.com/monthly-non-profit')
-      Member.register_chargify_product_link('corporate-supporter_annual', 'https://chargify.com/corporate')
-    end
-
-    let(:member) do
-      Member.create!(
-        product_name: "supporter",
-        contact_name: "Test Person",
-        email: 'test@example.com',
-        organization_name: "Test Org",
-        organization_size: "251-1000",
-        organization_type: "non_commercial",
-        organization_sector: "Energy",
-        street_address: "1 Street Over",
-        address_locality: "Townplace",
-        address_region: "London",
-        address_country: "GB",
-        postal_code: "EC1 1TT",
-        password: 'testtest',
-        password_confirmation: 'testtest',
-        agreed_to_terms: "1",
-        coupon: "ODIALUMNI"
-      )
-    end
-
-    let(:url) { URI.parse(member.chargify_product_link) }
-
-    let(:params) do
-      Rack::Utils.parse_nested_query(url.query)
-    end
-
-    it 'appends a coupon code' do
-      query = Rack::Utils.parse_query url.query
-      expect(member.coupon).to eq("ODIALUMNI")
-      expect(query["coupon_code"]).to eq("ODIALUMNI")
     end
   end
 
@@ -616,6 +347,46 @@ describe Member do
 
         member.current!
       end
+    end
+  end
+
+  describe "#unsubscribe_from_newsletter!" do
+
+    let(:member) do
+      FactoryGirl.create(
+        :member,
+        :cached_newsletter => true
+      )
+    end
+
+    it "sets the member's newsletter flag to false" do
+      member.unsubscribe_from_newsletter!
+
+      expect(member.cached_newsletter).to eq(false)
+    end
+  end
+
+  describe "#contact_name" do
+    let(:member) do
+      Member.new
+    end
+
+    it "returns the name" do
+      member.name = "Test Person"
+
+      expect(member.contact_name).to eq("Test Person")
+    end
+  end
+
+  describe "#first_name" do
+    let(:member) do
+      Member.new
+    end
+
+    it "returns the name" do
+      member.name = "Test Person"
+
+      expect(member.first_name).to eq("Test")
     end
   end
 end

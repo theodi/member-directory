@@ -1,4 +1,4 @@
-# Member Directory
+# Member Directory 
 
 [![Build Status](http://jenkins.theodi.org/job/member-directory-master/badge/icon)](http://jenkins.theodi.org/job/member-directory-master/)
 [![Dependency Status](https://gemnasium.com/theodi/member-directory.png)](https://gemnasium.com/theodi/member-directory)
@@ -43,20 +43,39 @@ You'll need [ngrok](https://ngrok.com/) (or similar) to test payments through
 the stack. This allows you to expose your development server to the Internet so
 that Chargify can redirect back and send web hook notifications.
 
-Once you have `ngrok` setup and have a URL pointing to your local server,
-you'll need to update Chargify with the URL. You can do this in the Chargify
-web interface.
+Once you have `ngrok` setup (ask for the credentials), you can setup a tunnel
+to your local server like this:
+
+    ngrok http -subdomain member-directory 3000
+
+Which will then be available at:
+
+    http://member-directory.ngrok.io
+
+This URL should already be setup on Chargify but if it isn't follow these steps
+to set it up.
 
 Under **Settings -> Webhooks**
 
-Change the web hook URL to be `http://<ngrok url>/members/chargify_verify`
+Change the web hook URL to be `http://member-directory.ngrok.io/members/chargify_verify`
 
 Under **Setup -> Public Signup Pages -> Edit**
 
 Edit each product and change "Return URL after successful account update" to
-`http://<ngrok url>/members/chargify_return`
+`http://member-directory.ngrok.io/members/chargify_return`
 
 More in-depth information is available in [doc/charify.md](doc/charify.md).
+
+### Reports
+
+You can run reports (Booking Value, Cash) manually from within a console
+session. There is a `.save_csvs` class method which allows you to save the CSVs
+to the filesystem.
+
+    bundle exec rails r "ChargifyReportGenerator.save_csvs"
+
+If you need to run for other months, alter the `previous_month` to refer to the
+month you need.
 
 ### Tests
 

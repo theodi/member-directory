@@ -40,5 +40,48 @@ describe MembersHelper do
       end
     end
   end
+
+  describe "#course_date_months" do
+    it "should return the years" do
+      Timecop.freeze(Time.local(2015, 1, 1, 1, 0, 0)) do
+        expect(helper.course_date_years(5, 5)).to eq(
+          [
+            2010,
+            2011,
+            2012,
+            2013,
+            2014,
+            2015,
+            2016,
+            2017,
+            2018,
+            2019,
+            2020
+          ]
+        )
+      end
+    end
+  end
+
+  describe "#date_months" do
+    it "should return the months" do
+      expect(helper.date_months).to eq(
+        [
+          ["January",   "01"],
+          ["February",  "02"],
+          ["March",     "03"],
+          ["April",     "04"],
+          ["May",       "05"],
+          ["June",      "06"],
+          ["July",      "07"],
+          ["August",    "08"],
+          ["September", "09"],
+          ["October",   "10"],
+          ["November",  "11"],
+          ["December",  "12"]
+        ]
+      )
+    end
+  end
 end
 

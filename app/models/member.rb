@@ -1,4 +1,5 @@
 # encoding: utf-8
+require 'noninteractive_add_to_chargify'
 
 class Member < ActiveRecord::Base
   # Include default devise modules. Others available are:
@@ -55,8 +56,11 @@ class Member < ActiveRecord::Base
   ]
 
   ORIGINS = {
+    "Aberdeen" => "odi-aberdeen",
     "Athens" => "odi-athens",
     "Belfast" => "odi-belfast",
+    "Birmingham" => "odi-birmingham",
+    "Brasilia" => "odi-brasilia",
     "Buenos Aires" => "odi-buenos-aires",
     "Cairo" => "odi-cairo",
     "Chicago" => "odi-chicago",
@@ -65,6 +69,7 @@ class Member < ActiveRecord::Base
     "Gothenburg" => "odi-gothenburg",
     "Hampshire" => "odi-hampshire",
     "Leeds" => "odi-leeds",
+    "Madrid" => "odi-madrid",
     "Osaka" => "odi-osaka",
     "Paris" => "odi-paris",
     "Queensland" => "odi-queensland",
@@ -78,11 +83,14 @@ class Member < ActiveRecord::Base
 
   LARGE_CORPORATE = %w[251-1000 >1000]
 
-  CHARGIFY_PRODUCT_LINKS = {}
-
   CHARGIFY_PRODUCT_PRICES = {}
 
   CHARGIFY_COUPON_DISCOUNTS = {}
+
+  SUBSCRIPTION_OPTIONS = {
+    choices: [1,2,5,10,20,30,40,50,60,70,80,90,100],
+    default: 30
+  }
 
   has_one :organization, dependent: :destroy
   has_many :embed_stats
@@ -105,6 +113,7 @@ class Member < ActiveRecord::Base
                   :remember_me,
                   :product_name,
                   :cached_newsletter,
+                  :cached_share_with_third_parties,
                   :organization_name,
                   :organization_size,
                   :organization_type,
@@ -122,9 +131,63 @@ class Member < ActiveRecord::Base
                   :address,
                   :origin,
                   :coupon,
-                  :invoice
+                  :invoice,
+                  :university_email,
+                  :university_country,
+                  :university_address_country,
+                  :university_name,
+                  :university_name_other,
+                  :university_course_name,
+                  :university_qualification,
+                  :university_qualification_other,
+                  :university_course_start_date_year,
+                  :university_course_start_date_month,
+                  :university_course_end_date_year,
+                  :university_course_end_date_month,
+                  :twitter,
+                  :dob_day,
+                  :dob_month,
+                  :dob_year,
+                  :subscription_amount
 
   attr_accessor :agreed_to_terms
+  attr_accessor :university_course_start_date_year
+  attr_accessor :university_course_start_date_month
+  attr_accessor :university_course_end_date_year
+  attr_accessor :university_course_end_date_month
+  attr_accessor :dob_day
+  attr_accessor :dob_month
+  attr_accessor :dob_year
+
+  attr_accessor :no_payment
+
+  before_validation :normalize_dob
+  before_validation :normalize_course_start_date
+  before_validation :normalize_course_end_date
+
+  def normalize_dob
+    return unless dob_day.present? && dob_month.present? && dob_year.present?
+
+    self.dob = Date.parse("#{dob_year}/#{dob_month}/#{dob_day}")
+  rescue ArgumentError
+    errors.add(:dob, "is not a valid date")
+  end
+
+  def normalize_course_start_date
+    return unless university_course_start_date_year.present? && university_course_start_date_month.present?
+
+    self.university_course_start_date = Date.parse("#{university_course_start_date_year}/#{university_course_start_date_month}/01")
+  rescue ArgumentError
+    errors.add(:university_course_start_date, "is not a valid date")
+  end
+
+  def normalize_course_end_date
+    return unless university_course_end_date_year.present? && university_course_end_date_month.present?
+
+    self.university_course_end_date   = Date.parse("#{university_course_end_date_year}/#{university_course_end_date_month}/01")
+  rescue ArgumentError
+    errors.add(:university_course_end_date, "is not a valid date")
+  end
 
   # allow admins to edit access key
   attr_accessible :access_key, as: :admin
@@ -136,9 +199,20 @@ class Member < ActiveRecord::Base
   validates :address_region, presence: true, on: :create
   validates :address_country, presence: true, on: :create
   validates :postal_code, presence: true, on: :create
+  validates :subscription_amount, presence: true, on: :create, if: Proc.new { |member| member.individual? }
   validates_acceptance_of :agreed_to_terms, on: :create
 
   validates_with OrganizationValidator, on: :create, unless: Proc.new { |member| member.individual? || member.student? }
+
+  validates :university_email,               presence: true, if: Proc.new { |member| member.student? }
+  validates :university_name,                presence: true, if: Proc.new { |member| member.student? }
+  validates :university_name_other,          presence: true, if: Proc.new { |member| member.student? && member.university_name == "Other (please specify)" }
+  validates :university_course_name,         presence: true, if: Proc.new { |member| member.student? }
+  validates :university_qualification,       presence: true, if: Proc.new { |member| member.student? }
+  validates :university_qualification_other, presence: true, if: Proc.new { |member| member.student? && member.university_qualification == "Other (please specify)" }
+  validates :university_course_start_date,   presence: true, if: Proc.new { |member| member.student? }
+  validates :university_course_end_date,     presence: true, if: Proc.new { |member| member.student? }
+  validates :dob,                            presence: true, if: Proc.new { |member| member.student? }
 
   scope :current, where(:current => true)
   scope :valid, where('product_name is not null')
@@ -168,6 +242,14 @@ class Member < ActiveRecord::Base
     SECTORS
   end
 
+  def self.subscription_options
+    SUBSCRIPTION_OPTIONS[:choices]
+  end
+
+  def self.default_subscription_option
+    SUBSCRIPTION_OPTIONS[:default]
+  end
+
   def self.summary
     {
       total: Member.valid.current.count,
@@ -185,10 +267,6 @@ class Member < ActiveRecord::Base
       # yep, this is how good the chargify API naming is
       # also no way to find the currency of a Site either
       register_chargify_product_price(product.handle, product.price_in_cents)
-      page = product.public_signup_pages.first
-      if page
-        register_chargify_product_link(product.handle, page.url)
-      end
       product_family_ids.add(product.product_family.id)
     end
     product_family_ids.each do |product_family_id|
@@ -198,10 +276,6 @@ class Member < ActiveRecord::Base
         end
       end
     end
-  end
-
-  def self.register_chargify_product_link(plan, url)
-    CHARGIFY_PRODUCT_LINKS[plan] = url
   end
 
   def self.register_chargify_product_price(plan, cents_that_are_pence)
@@ -240,6 +314,26 @@ class Member < ActiveRecord::Base
     end
   end
 
+  def self.create_without_password!(options = {})
+    temp_password = SecureRandom.hex(32)
+    from_capsule = options.delete(:from_capsule)
+    member = Member.new(options.merge(
+      password: temp_password,
+      password_confirmation: temp_password
+    ))
+    member.remote! if from_capsule
+    member.send :generate_reset_password_token
+    member.current = true
+    member.save(:validate => from_capsule ? false : true)
+    # Set up subscription in Chargify properly
+    # For now we only support student memberships for this.
+    Resque.enqueue(NoninteractiveAddToChargify, member.id) if member.student?
+    # Send onwards and let the customer know
+    member.send(:process_signup) unless member.remote?
+    member.deliver_welcome_email!
+    member
+  end
+
   def deliver_welcome_email!
     send_devise_notification(:confirmation_instructions)
   end
@@ -267,11 +361,16 @@ class Member < ActiveRecord::Base
   end
 
   def individual?
+    # TODO This is weird, why does this one check use a class method?
     self.class.is_individual_level?(product_name)
   end
 
   def student?
     product_name == "student"
+  end
+
+  def no_payment?
+    no_payment
   end
 
   def organization?
@@ -316,6 +415,10 @@ class Member < ActiveRecord::Base
     @contact_name || name.presence
   end
 
+  def first_name
+    contact_name.to_s.split(/\s+/, 2).first
+  end
+
   def telephone
     @telephone || phone.presence
   end
@@ -342,40 +445,16 @@ class Member < ActiveRecord::Base
     end
   end
 
-  def chargify_product_handle
-    get_plan
-  end
-
-  def chargify_product_link
-    if link = CHARGIFY_PRODUCT_LINKS[chargify_product_handle]
-      url = URI(link)
-      first_name, last_name = contact_name.split(/\s+/, 2)
-      params = {
-        first_name: first_name,
-        last_name: last_name,
-        reference: membership_number,
-        email: email,
-        billing_address: street_address,
-        billing_address_2: address_locality,
-        billing_city: address_region,
-        billing_country: address_country,
-        billing_state: "London", #this doesn't actually prefil but it makes chargify calculate tax based on country
-        billing_zip: postal_code
-      }
-      params[:organization] = organization_name if organization?
-      params[:coupon_code] = coupon if coupon.present?
-      url.query = params.to_query
-      return url.to_s
-    else
-      raise ArgumentError, "no link for #{chargify_product_handle}"
-    end
-  end
-
   def update_chargify_values!(params)
     self.chargify_customer_id ||= params[:customer_id]
     self.chargify_subscription_id ||= params[:subscription_id]
     self.chargify_payment_id ||= params[:payment_id]
+    self.subscription_amount ||= params[:amount]
     save(:validate => false)
+  end
+
+  def unsubscribe_from_newsletter!
+    self.update_attribute(:cached_newsletter, false)
   end
 
   def verify_chargify_subscription!(subscription, customer)
@@ -401,17 +480,25 @@ class Member < ActiveRecord::Base
 
   def get_plan_description
     {
-      'individual-supporter'         => 'Individual Supporter',
+      'individual-pay-what-you-like'         => 'Individual Supporter',
       'individual-supporter-student' => 'ODI Student Supporter',
       'corporate-supporter_annual'   => 'Corporate Supporter',
       'supporter_annual'             => 'Supporter',
       'supporter_monthly'            => 'Supporter'
-    }[get_plan]
+    }[plan]
+  end
+
+  def price_without_vat amount
+    (amount / 1.2).round(2)
   end
 
   def get_plan_price
-    amount = CHARGIFY_PRODUCT_PRICES.fetch(get_plan) do
-      raise RuntimeError, "Can't get product price for plan '#{get_plan}'. Does it exist in Chargify?"
+    if individual?
+      amount = subscription_amount
+    else
+      amount = CHARGIFY_PRODUCT_PRICES.fetch(plan) do
+        raise RuntimeError, "Can't get product price for plan '#{plan}'. Does it exist in Chargify?"
+      end
     end
 
     if address_country == 'GB'
@@ -427,7 +514,7 @@ class Member < ActiveRecord::Base
   end
 
   def get_monthly_plan_price
-    amount = CHARGIFY_PRODUCT_PRICES[get_plan]
+    amount = CHARGIFY_PRODUCT_PRICES[plan]
     pcm = (amount / 12)
     if address_country == 'GB'
       "£%.2f + VAT" % pcm
@@ -447,9 +534,9 @@ class Member < ActiveRecord::Base
     self.invoice == true
   end
 
-  def get_plan
+  def plan
     if individual?
-      'individual-supporter'
+      'individual-pay-what-you-like'
     elsif student?
       'individual-supporter-student'
     else
@@ -494,19 +581,34 @@ class Member < ActiveRecord::Base
 
   def process_signup_attributes
     organization = {
-      'name'           => organization_name,
-      'vat_id'         => organization_vat_id,
-      'company_number' => organization_company_number,
-      'size'           => organization_size,
-      'type'           => organization_type,
-      'sector'         => organization_sector,
-      'origin'         => origin.empty? ? nil : origin
+      'name'                     => organization_name,
+      'vat_id'                   => organization_vat_id,
+      'company_number'           => organization_company_number,
+      'size'                     => organization_size,
+      'type'                     => organization_type,
+      'sector'                   => organization_sector,
+      'origin'                   => (origin.empty? ? nil : origin),
+      'newsletter'               => cached_newsletter,
+      'share_with_third_parties' => cached_share_with_third_parties
     }
 
     contact_person = {
-      'name'      => contact_name,
-      'email'     => email,
-      'telephone' => telephone
+      'name'                           => contact_name,
+      'email'                          => email,
+      'telephone'                      => telephone,
+      'twitter'                        => twitter,
+      'dob'                            => dob,
+      'country'                        => country_name,
+      'university_email'               => university_email,
+      'university_address_country'     => university_address_country,
+      'university_country'             => university_country,
+      'university_name'                => university_name,
+      'university_name_other'          => university_name_other,
+      'university_course_name'         => university_course_name,
+      'university_qualification'       => university_qualification,
+      'university_qualification_other' => university_qualification_other,
+      'university_course_start_date'   => university_course_start_date,
+      'university_course_end_date'     => university_course_end_date
     }
 
     billing = {
@@ -519,7 +621,8 @@ class Member < ActiveRecord::Base
         'address_region'   => address_region,
         'address_country'  => country_name,
         'postal_code'      => postal_code
-      }
+      },
+      'coupon' => coupon
     }
 
     purchase = {
@@ -530,22 +633,25 @@ class Member < ActiveRecord::Base
       'discount'       => coupon_discount
     }
 
+    purchase['amount_paid'] = subscription_amount if individual?
+
     [organization, contact_person, billing, purchase]
   end
 
   def save_updates_to_capsule
     unless (changed & %w[email cached_newsletter organization_size organization_sector]).empty?
       Resque.enqueue(SaveMembershipDetailsToCapsule, membership_number, {
-        'email'      => email,
-        'newsletter' => cached_newsletter,
-        'size'       => organization_size,
-        'sector'     => organization_sector
+        'email'                    => email,
+        'newsletter'               => cached_newsletter,
+        'share_with_third_parties' => cached_share_with_third_parties,
+        'size'                     => organization_size,
+        'sector'                   => organization_sector
       })
     end
   end
 
   def save_membership_id_in_capsule
-    if individual?
+    if individual? || student?
       Resque.enqueue(SaveMembershipIdInCapsule, nil, email, membership_number)
     else
       Resque.enqueue(SaveMembershipIdInCapsule, organization_name, nil, membership_number)
@@ -564,4 +670,3 @@ class Member < ActiveRecord::Base
     country.translations[I18n.locale.to_s] || country.name
   end
 end
-

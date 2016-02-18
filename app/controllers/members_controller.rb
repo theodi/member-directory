@@ -86,7 +86,12 @@ class MembersController < ApplicationController
   end
 
   def thanks
-    @title = "Thanks for supporting The ODI"
+    if current_member.student?
+      @title = "Welcome to the ODI network!"
+    else
+      @title = "Thanks for supporting The ODI"
+    end
+
     if current_member.invoiced?
       current_member.process_invoiced_member!
     end
@@ -100,7 +105,8 @@ class MembersController < ApplicationController
       redirect_to member_path(current_member)
     elsif request.post?
       current_member.update_attribute(:payment_frequency, params[:payment_frequency]) if params[:payment_frequency].present?
-      redirect_to current_member.chargify_product_link
+      current_member.no_payment = true if params[:no_payment].present?
+      redirect_to ChargifyProductLink.for(current_member)
     else
       @member = current_member
     end

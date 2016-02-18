@@ -1,0 +1,32 @@
+<fieldset>
+  <legend>University/college details</legend>
+
+  <div class="control-group">
+    <%= f.label :university_name, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.select(:university_name, University.names + ["Other (please specify)"], { prompt: "Please select" }, :required => "required") %>
+      <span class="help-inline">(required)</span>
+    </div>
+  </div>
+
+  <div class="control-group" <%= field_visibility(:university_name) %>>
+    <%= f.label :university_name_other, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :university_name_other %>
+      <span class="help-inline">(required)</span>
+    </div>
+  </div>
+
+  <div class="control-group">
+    <%= f.label :university_email, :class => 'control-label'%>
+    <div class="controls">
+      <%= f.email_field :university_email, :required => 'required' %>
+      <span class="help-inline">(required)</span>
+      <span class="help-block"><small>Your university/college issued email address</small></span>
+    </div>
+  </div>
+
+  <%= f.hidden_field :university_address_country, value: "GB" %>
+  <%= f.hidden_field :university_country, value: "GB" %>
+</fieldset>
+

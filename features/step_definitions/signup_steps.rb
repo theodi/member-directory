@@ -10,8 +10,15 @@ Given /^product information has been setup for "(.*?)"$/ do |plan|
   @chargify_product_url = "http://test.host/product/#{plan}"
   @chargify_product_price = 800
   @coupon = double(:code => "ODIALUMNI", :percentage => 50)
-  Member.register_chargify_product_link(plan, @chargify_product_url)
   Member.register_chargify_product_price(plan, @chargify_product_price*100)
+  Member.register_chargify_coupon_code(@coupon)
+end
+
+Given /^the student coupon code SUPERFREE is in Chargify$/ do
+  @chargify_product_url = "http://test.host/product/individual-supporter-student"
+  @chargify_product_price = 800
+  @coupon = double(:code => "SUPERFREE", :percentage => 100)
+  Member.register_chargify_product_price("individual-supporter-student", @chargify_product_price*100)
   Member.register_chargify_coupon_code(@coupon)
 end
 
@@ -74,6 +81,7 @@ When(/^I visit the signup page with the invoice flag set$/) do
   expect(page).to have_content 'Become an ODI member'
   @field_prefix = 'member'
   @payment_method = 'invoice'
+  @coupon = double(code: nil)
 end
 
 When(/^I visit the signup page with an origin of "(.*?)"$/) do |origin|
@@ -89,6 +97,10 @@ When /^I enter my name and contact details$/ do
   @contact_name = 'Ian McIain'
   @email ||= 'iain@foobar.com'
   @telephone = '0121 123 446'
+  @newsletter = false
+  @share_with_third_parties = false
+  @twitter = nil
+  # @coupon_code ||= @coupon.code
 
   fill_in('member_contact_name', :with => @contact_name)
   fill_in('member_email', :with => @email)
@@ -208,7 +220,9 @@ Then /^I am processed through chargify for the "(.*?)" option$/ do |plan|
     customer_id: "2",
     payment_id: @payment_ref
   }
-  Member.register_chargify_product_link(plan, chargify_return_members_path(params))
+
+  # This is terrible, obviously, but needs must
+  allow(ChargifyProductLink).to receive(:for).and_return(chargify_return_members_path(params))
 end
 
 Then(/^the coupon code "(.*?)" is saved against my membership$/) do |coupon|
@@ -240,7 +254,7 @@ Then /^my organization should be made active in Capsule$/ do
   end
 end
 
-Then /^my details should be queued for further processing$/ do
+Then /^(their|my) details should be queued for further processing$/ do |ignore|
   organization = {
     'name' => @organization_name,
     'vat_id' => @organization_vat_id,
@@ -248,13 +262,28 @@ Then /^my details should be queued for further processing$/ do
     'size' => @organization_size,
     'type' => @organization_type,
     'sector' => @organization_sector,
-    'origin' => @origin
+    'origin' => @origin,
+    'newsletter' => @newsletter,
+    'share_with_third_parties' => @share_with_third_parties
   }
 
   contact_person = {
-    'name' => @contact_name,
-    'email' => @email,
-    'telephone' => @telephone
+    'name'                           => @contact_name,
+    'email'                          => @email,
+    'telephone'                      => @telephone,
+    'twitter'                        => @twitter,
+    'dob'                            => @dob,
+    'country'                        => @address_country,
+    'university_email'               => @university_email,
+    'university_address_country'     => @university_address_country,
+    'university_country'             => @university_country,
+    'university_name'                => @university_name,
+    'university_name_other'          => @university_name_other,
+    'university_course_name'         => @university_course_name,
+    'university_qualification'       => @university_qualification,
+    'university_qualification_other' => @university_qualification_other,
+    'university_course_start_date'   => @university_course_start_date,
+    'university_course_end_date'     => @university_course_end_date
   }
 
   billing = {
@@ -267,7 +296,8 @@ Then /^my details should be queued for further processing$/ do
       'address_region' => @address_region,
       'address_country' => @address_country,
       'postal_code' => @postal_code
-    }
+    },
+    'coupon' => @coupon ? @coupon.code : nil
   }
 
   purchase = {
@@ -283,10 +313,11 @@ Then /^my details should be queued for further processing$/ do
     expect(args[4]['payment_ref']).to eql @payment_ref
     expect(args[4]['offer_category']).to eql @product_name
     expect(args[4]['membership_id']).not_to eql nil
+    expect(args[4]['amount_paid']).to eq(@amount)
   end
 end
 
-And /^I should have a membership number generated$/ do
+And /^(I|they) should have a membership number generated$/ do |ignore|
   @member = Member.find_by_email(@email)
   @membership_number = @member.membership_number
   expect(@membership_number).to_not be_nil
@@ -311,14 +342,19 @@ end
 
 Then /^a welcome email should be sent to me$/ do
   steps %Q{
-    Then "#{@email}" should receive an email
+    Then a welcome email should be sent to "#{@email}"
+  }
+end
+
+Then(/^a welcome email should be sent to "(.*?)"$/) do |email|
+  steps %Q{
+    Then "#{email}" should receive an email
     When they open the email
     And they should see the email delivered from "members@theodi.org"
-    And they should see "Welcome to the ODI network!" in the email subject
     And they should see "Your membership number is <strong>#{@membership_number}</strong>" in the email body
     And they should see "mailto:members@theodi.org" in the email body
   }
-  expect(current_email).to bcc_to(%w(andrea.cox@theodi.org clara.lewis@theodi.org members@theodi.org))
+  expect(current_email).to bcc_to(%w(members@theodi.org))
 end
 
 Then(/^I should have an origin of "(.*?)"$/) do |origin|
@@ -399,8 +435,8 @@ Then(/^the hidden field should have the value "(.*?)"$/) do |value|
   expect(@field.value).to eq(value)
 end
 
-Then(/^I should be marked as active$/) do
-  expect(@member.cached_active).to eq(true)
+Then(/^(I|they) should be marked as active$/) do |ignore|
+  expect(@member.cached_active).to eq(true) if @member.organization?
   expect(@member.current).to eq(true)
 end
 
@@ -433,3 +469,17 @@ Then(/^I follow the pay by invoice link$/) do
   visit("/members/new?level=#{@product_name}&invoice=true")
 end
 
+Then(/^an? (.*?) membership should be created for "(.*?)"$/) do |product_name, email|
+  @member = Member.where(email: email).first
+  expect(@member).to be_present
+  expect(@member.product_name).to eql product_name
+  @email = email
+  steps %Q{
+    Then they should have a membership number generated
+    Then they should be marked as active
+  }
+end
+
+Then(/^that member should be set up in Chargify$/) do
+  expect(@member.chargify_subscription_id).to be_present
+end

@@ -6,6 +6,8 @@
   <% end %>
 </p>
 
+<% unless @member.student? %>
+
 <% case @discount_type %>
 <% when :free %>
 <p>
@@ -23,26 +25,22 @@
     Congratulations! You’re receiving a discount on your ODI membership. The
     discount will be applied on the next page.
 </p>
-<% else %>
 
-  <% if @member.student? %>
-    <p>Being <%= indefinite_article(@member.get_plan_description) %> is FREE!</p>
-  <% else %>
-    <p>Being <%= indefinite_article(@member.get_plan_description) %> is <%= @member.get_plan_price %> per year.</p>
-  <% end %>
+<% end %>
 
 <% end %>
 
 <p>
 <%= form_tag payment_member_path(@member), method: 'post' do %>
   <%= hidden_field_tag(:coupon, params[:coupon]) if params[:coupon].present? %>
+  <%= hidden_field_tag(:no_payment, params[:no_payment]) if params[:no_payment].present? %>
   <% if @member.monthly_payment_option? %>
     How would you like to pay?
     <div class="control-group">
       <div class='controls'>
         <%= label_tag :payment_frequency_monthly, :class => 'radio inline' do %>
           <%= radio_button_tag :payment_frequency, 'monthly' %>
-          12 monthly installments of <%= @member.get_monthly_plan_price %>
+          12 monthly installments
         <% end %>
         </div>
     </div>

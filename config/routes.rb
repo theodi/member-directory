@@ -24,6 +24,8 @@ MemberDirectory::Application.routes.draw do
       end
   end
 
+  match '/members/newsletter', :to => 'newsletter_subscriptions#unsubscribe'
+
   resources :members, :only => [:index, :show, :update] do
     member do
       get :badge, defaults: {format: :js}
@@ -34,6 +36,12 @@ MemberDirectory::Application.routes.draw do
       post :chargify_verify
       get :chargify_return
       get :summary, to: :summary, as: :summary, format: :xml
+    end
+  end
+
+  resources :uploads, :only => [:new, :create] do
+    collection do
+      get :sample, defaults: {format: :csv}
     end
   end
 

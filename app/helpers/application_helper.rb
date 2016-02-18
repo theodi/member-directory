@@ -32,10 +32,14 @@ module ApplicationHelper
   end
   
   def greeting(resource)
-    if @resource.try(:contact_name)
-      "Dear #{@resource.contact_name}"
+    if @resource.try(:student?) && @resource.student?
+      "Dear #{@resource.first_name}"
     else
-      "Good #{time_of_day}"
+      if @resource.try(:contact_name)
+        "Dear #{@resource.contact_name}"
+      else
+        "Good #{time_of_day}"
+      end
     end
   end
 
@@ -46,5 +50,19 @@ module ApplicationHelper
       "a #{phrase}"
     end
   end
-  
+
+  def date_months
+    (1..12).map do |month|
+      [Date::MONTHNAMES[month], "%.2d" % month]
+    end
+  end
+
+  def course_date_years(years_before = 5, years_after = 5)
+    current_year = Time.now.year
+    to           = current_year + years_after
+    from         = current_year - years_before
+
+    (from..to).to_a
+  end
 end
+

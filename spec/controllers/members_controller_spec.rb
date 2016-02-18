@@ -235,7 +235,7 @@ describe MembersController do
     end
 
     it 'redirects to chargify link on post' do
-      allow_any_instance_of(Member).to receive(:chargify_product_link).and_return("http://chargify.com/buy/this")
+      allow_any_instance_of(ChargifyProductLink).to receive(:url).and_return("http://chargify.com/buy/this")
       sign_in(member)
       response = post :payment, id: member.to_param
       expect(response).to be_redirect
@@ -243,7 +243,7 @@ describe MembersController do
     end
 
     it 'updates payment frequency to monthly if provided' do
-      allow_any_instance_of(Member).to receive(:chargify_product_link).and_return("http://chargify.com/buy/this")
+      allow_any_instance_of(ChargifyProductLink).to receive(:url).and_return("http://chargify.com/buy/this")
       sign_in(member)
       response = post :payment, id: member.to_param, payment_frequency: 'monthly'
       expect(response).to be_redirect

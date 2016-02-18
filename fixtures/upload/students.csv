@@ -1,0 +1,2 @@
+name,email,dob_day,dob_month,dob_year,address_street,address_locality,address_town,address_country,address_postcode,university_name,qualification,course_name,course_start_month,course_start_year,course_end_month,course_end_year,coupon_code
+"Bob Fish","bob@example.edu","01","02","1990","29 Acacia Road","","London","GB","SW1A 1AA","University of Life","BSc - Bachelor of Science","Quantum Morphogenetics","09","2013","06","2016","SUPERFREE"

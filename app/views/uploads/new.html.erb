@@ -1,0 +1,27 @@
+<h1>Upload student CSV files</h1>
+
+<%= form_tag({:action => :create}, {:multipart => true}) do %>
+
+  <%= file_field_tag "file" %>
+  <%= submit_tag "Upload" %>
+
+<% end %>
+
+<h2>Sample</h2>
+<p>
+  <a href='sample.csv'>Download template CSV</a>
+</p>
+
+<h2>Valid universities</h2>
+<ul>
+  <% University.names.each do |name| %>
+    <li><%= name %></li>
+  <% end %>
+</ul>
+
+<h2>Valid qualifications</h2>
+<ul>
+  <% Qualification.names.each do |name| %>
+    <li><%= name %></li>
+  <% end %>
+</ul>

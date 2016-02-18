@@ -1,27 +1,13 @@
-<p class="lead">
-Your membership number is <%= content_tag(:span, @member.membership_number, :class => 'text-info') %>
-and you should be receiving a welcome email with all the information you need soon.
+<div class="thanks-banner">&nbsp;</div>
+
+<%= image_tag("badges/black/100px.png", class: "thanks-badge") %>
+
+<p class="lead thanks">
+You’ll shortly receive a welcome email with all the information you need about your membership.
 </p>
 
-<fieldset class="form-horizontal">
-    <p>
-        If you’d like to promote your membership you can 
-        <a id="badge-embed" href="#badgeContent" data-toggle="modal">display a badge</a> on your site or
-        <a id="badge-download" href="#badgeDownload" data-toggle="modal">download an image of your badge</a>.
-    </p>
-
-    <%= render(:partial => 'badge_form') %>
-    <%= render(:partial => 'badge_download') %>
-</fieldset>
-
-<hr/>
-
-<% if @member.individual? %>
 <p>
-You can <%= link_to "Edit your account", member_path(@member), :class => 'btn btn-primary' %> if you need to update any of your details.
-</p>
-<% else %>
+In the meantime why not take a look at our <%= link_to "open data stories", "http://theodi.org/stories" %>
+and the <%= link_to "other members", "https://directory.theodi.org/members" %> in the network?
 <p>
-You can <%= link_to "Edit your account", member_path(@member), :class => 'btn btn-primary' %> if you need to update any of your details or preview how your organisation will show up in the directory.
-</p>
-<% end %>
+

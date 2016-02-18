@@ -19,7 +19,7 @@ FactoryGirl.define do
   factory :current_member, parent: :member do
     current true
   end
-  
+
   factory :current_active_member, parent: :current_member do
     cached_active true
   end
@@ -33,6 +33,7 @@ FactoryGirl.define do
     address_country     { Faker::Address.country }
     postal_code         { Faker::Address.postcode }
     password            'passw0rd'
+    subscription_amount 5
   end
 
   factory :current_individual_member, parent: :individual_member do

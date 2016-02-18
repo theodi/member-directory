@@ -1,4 +1,4 @@
-<%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => {:class => 'form-horizontal'}) do |f| %>
+<%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => {:class => 'form-horizontal', :novalidate => "novalidate"}) do |f| %>
   <%= devise_error_messages! %>
 
   <p class="lead">
@@ -9,16 +9,42 @@
     This won't take longer than a couple of minutes!
   </p>
 
+  <%= hidden_field_tag(:free, params[:free]) if params[:free].present? %>
   <%= f.hidden_field :coupon, value: params[:coupon] if params[:coupon].present? %>
+  <%= f.hidden_field :coupon, value: params[:member][:coupon] if params[:member] && params[:member][:coupon].present? %>
   <%= f.hidden_field :origin, value: origin_value %>
   <%= f.hidden_field :invoice, value: 1 if params[:invoice].present? || @member.invoice == true %>
   <%= f.hidden_field :product_name %>
 
   <%= render :partial => 'member_details', :locals => { :f => f } %>
 
-  <% if individual? %>
-    <%= render :partial => 'affiliated_node', :locals => { :f => f } %>
+  <% if student? %>
+    <%= render :partial => 'university_details', :locals => { :f => f } %>
+    <%= render :partial => 'course_details', :locals => { :f => f } %>
   <% end %>
+
+  <%= render :partial => 'affiliated_node', :locals => { :f => f } %>
+
+  <fieldset>
+    <legend>Your communication preferences</legend>
+
+    <div class="control-group newsletter">
+      <div class="controls">
+        <label class="checkbox">
+          <%= f.check_box :cached_newsletter %> <%= t(:receive_newsletter) %>
+        </label>
+      </div>
+    </div>
+
+    <div class="control-group newsletter third-parties">
+      <div class="controls">
+        <label class="checkbox">
+          <%= f.check_box :cached_share_with_third_parties %> <%= t(:share_with_third_parties) %>
+        </label>
+      </div>
+    </div>
+
+  </fieldset>
 
   <fieldset>
     <legend>Please choose a password</legend>
@@ -55,8 +81,10 @@
 
   <div id="terms" class="well">
 
-    <% if individual? || student? %>
+    <% if individual? %>
       <%= render :partial => 'individual_terms', :locals => {:member => PlaceholderPresenter.new} %>
+    <% elsif student? %>
+      <%= render :partial => 'student_terms', :locals => {:member => PlaceholderPresenter.new} %>
     <% else %>
       <%= render :partial => 'terms', :locals => {:member => PlaceholderPresenter.new} %>
     <% end %>
@@ -103,8 +131,8 @@
 
   <div class="control-group">
     <div class="controls">
-      <label class='checkbox'>
-      <%= f.check_box :agreed_to_terms %> <%= t(:agreed_to_terms) %>
+      <label class='checkbox terms'>
+        <%= f.check_box :agreed_to_terms %> <%= t(:agreed_to_terms) %>
     </label>
   </div>
 
@@ -113,7 +141,7 @@
       <%= f.submit "Become an ODI member", :id => 'submit', :class => 'btn btn-primary btn-large' %>
     </p>
 
-    <% if individual? || student? %>
+    <% if individual? %>
       <p>You have the <%= link_to 'right to cancel', "https://docs.google.com/document/d/1CmSGI-hQjcIa0husreVntsxA-5CId3H_BWjRzRmZR6A/edit?usp=sharing" %> within the first 14 days of your membership.</p>
     <% end %>
   </div>
