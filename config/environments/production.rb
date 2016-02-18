@@ -1,5 +1,5 @@
 MemberDirectory::Application.configure do
-  config.action_controller.asset_host = ENV['ASSET_HOST_URL'] || ""
+  config.action_controller.asset_host = ENV['DIRECTORY_ASSET_HOST_URL'] || "https://directory.theodi.org"
   # Settings specified here will take precedence over those in config/application.rb
 
   # Code is not reloaded between requests
