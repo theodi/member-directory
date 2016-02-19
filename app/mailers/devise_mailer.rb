@@ -10,6 +10,8 @@ class DeviseMailer < Devise::Mailer
 
       if resource.student?
         headers[:subject] = "You’ve joined our network! Now what?"
+      elsif resource.individual?
+        headers[:subject] = "Congratulations! You’ve joined the open data revolution."
       end
     end
 
@@ -48,4 +50,3 @@ class DeviseMailer < Devise::Mailer
     super
   end
 end
-
