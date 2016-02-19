@@ -30,12 +30,14 @@ module ApplicationHelper
       "afternoon"
     end
   end
-  
+
   def greeting(resource)
     if @resource.try(:student?) && @resource.student?
       "Dear #{@resource.first_name}"
     else
-      if @resource.try(:contact_name)
+      if @resource.try(:contact_name) && @resource.individual?
+        "Hi #{@resource.first_name}"
+      elsif @resource.try(:contact_name)
         "Dear #{@resource.contact_name}"
       else
         "Good #{time_of_day}"
@@ -65,4 +67,3 @@ module ApplicationHelper
     (from..to).to_a
   end
 end
-
