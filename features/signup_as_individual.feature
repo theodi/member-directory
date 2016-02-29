@@ -2,7 +2,7 @@ Feature: Signup as an individual member
 
   Background:
     Given I want to sign up as an individual member
-    And product information has been setup for "individual-pay-what-you-like"
+    And product information has been setup for "individual-supporter-new"
     When I visit the signup page
 
   Scenario: Individual member signup
@@ -13,7 +13,7 @@ Feature: Signup as an individual member
     When I click sign up
     Then I am redirected to the payment page
     And I should have a membership number generated
-    And I am processed through chargify for the "individual-pay-what-you-like" option
+    And I am processed through chargify for the "individual-supporter-new" option
     When I click pay now
     And I am returned to the thanks page
     And I should see "Thanks for supporting The ODI"

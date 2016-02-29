@@ -480,7 +480,7 @@ class Member < ActiveRecord::Base
 
   def get_plan_description
     {
-      'individual-pay-what-you-like'         => 'Individual Supporter',
+      'individual-supporter-new' => 'Individual Supporter',
       'individual-supporter-student' => 'ODI Student Supporter',
       'corporate-supporter_annual'   => 'Corporate Supporter',
       'supporter_annual'             => 'Supporter',
@@ -536,7 +536,7 @@ class Member < ActiveRecord::Base
 
   def plan
     if individual?
-      'individual-pay-what-you-like'
+      'individual-supporter-new'
     elsif student?
       'individual-supporter-student'
     else
