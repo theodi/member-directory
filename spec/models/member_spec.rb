@@ -205,10 +205,10 @@ describe Member do
 
   describe "#plan" do
     context "member is individual" do
-      it "returns 'individual-pay-what-you-like'" do
+      it "returns 'individual-supporter-new'" do
         member = Member.new(product_name: "individual")
 
-        expect(member.plan).to eq("individual-pay-what-you-like")
+        expect(member.plan).to eq("individual-supporter-new")
       end
     end
 
