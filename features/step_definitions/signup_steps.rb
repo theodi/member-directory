@@ -97,7 +97,6 @@ When /^I enter my name and contact details$/ do
   @contact_name = 'Ian McIain'
   @email ||= 'iain@foobar.com'
   @telephone = '0121 123 446'
-  @newsletter = false
   @share_with_third_parties = false
   @twitter = nil
   # @coupon_code ||= @coupon.code
@@ -112,13 +111,11 @@ end
 
 When /^I enter my address details$/ do
   @street_address = '123 Fake Street'
-  @address_locality = 'Faketown'
-  @address_region = 'Fakeshire'
+  @address_region = 'Faketown'
   @address_country = 'United Kingdom'
   @postal_code = 'FAKE 123'
 
   fill_in('member_street_address', :with => @street_address)
-  fill_in('member_address_locality', :with => @address_locality)
   fill_in('member_address_region', :with => @address_region)
   select(@address_country, from: :member_address_country, match: :first)
   fill_in('member_postal_code', :with => @postal_code)
@@ -263,7 +260,7 @@ Then /^(their|my) details should be queued for further processing$/ do |ignore|
     'type' => @organization_type,
     'sector' => @organization_sector,
     'origin' => @origin,
-    'newsletter' => @newsletter,
+    'newsletter' => true,
     'share_with_third_parties' => @share_with_third_parties
   }
 
