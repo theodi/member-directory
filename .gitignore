@@ -29,3 +29,5 @@ config/database.yml
 /db/test.sqlite3-journal
 dump.rdb
 .chef/
+
+/vendor/gems
