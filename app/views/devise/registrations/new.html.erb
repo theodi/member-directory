@@ -15,6 +15,7 @@
   <%= f.hidden_field :origin, value: origin_value %>
   <%= f.hidden_field :invoice, value: 1 if params[:invoice].present? || @member.invoice == true %>
   <%= f.hidden_field :product_name %>
+  <%= f.hidden_field :cached_newsletter, value: true %>
 
   <%= render :partial => 'member_details', :locals => { :f => f } %>
 
@@ -24,27 +25,6 @@
   <% end %>
 
   <%= render :partial => 'affiliated_node', :locals => { :f => f } %>
-
-  <fieldset>
-    <legend>Your communication preferences</legend>
-
-    <div class="control-group newsletter">
-      <div class="controls">
-        <label class="checkbox">
-          <%= f.check_box :cached_newsletter %> <%= t(:receive_newsletter) %>
-        </label>
-      </div>
-    </div>
-
-    <div class="control-group newsletter third-parties">
-      <div class="controls">
-        <label class="checkbox">
-          <%= f.check_box :cached_share_with_third_parties %> <%= t(:share_with_third_parties) %>
-        </label>
-      </div>
-    </div>
-
-  </fieldset>
 
   <fieldset>
     <legend>Please choose a password</legend>
