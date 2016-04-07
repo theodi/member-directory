@@ -1,5 +1,5 @@
 <p class="lead">
-  We're delighted that you would like to join us at ODI. We'd love to talk to you to discuss 
+  We're delighted that you would like to join us at ODI. We'd love to talk to you to discuss
   how we can work together. Fill in the form below, and we'll be in touch as soon as we can.
 </p>
 
@@ -11,23 +11,23 @@
     <%= f.label :person_name, :class => 'control-label' %>
     <div class='controls'>
       <%= f.text_field :person_name, :class => 'input-xlarge', :required => 'required' %>
-	  <span class="help-inline">(required)</span>
+	  <span class="help-inline">*</span>
     </div>
   </div>
-  
+
   <div class='control-group'>
     <%= f.label :person_affiliation, :class => 'control-label' %>
     <div class='controls'>
       <%= f.text_field :person_affiliation, :class => 'input-xlarge', :required => 'required' %>
-	  <span class="help-inline">(required)</span>
+	  <span class="help-inline">*</span>
     </div>
   </div>
-    
+
   <div class='control-group'>
     <%= f.label :person_job_title, :class => 'control-label' %>
     <div class='controls'>
       <%= f.text_field :person_job_title, :class => 'input-xlarge', :required => 'required' %>
-	  <span class="help-inline">(required)</span>
+	  <span class="help-inline">*</span>
     </div>
   </div>
 
@@ -35,29 +35,29 @@
     <%= f.label :person_email, :class => 'control-label' %>
     <div class='controls'>
       <%= f.text_field :person_email, :class => 'input-xlarge', :required => 'required' %>
-	  <span class="help-inline">(required)</span>
+	  <span class="help-inline">*</span>
     </div>
   </div>
-  
+
   <div class='control-group'>
     <%= f.label :person_telephone, :class => 'control-label' %>
     <div class='controls'>
       <%= f.text_field :person_telephone, :class => 'input-xlarge', :required => 'required' %>
-	  <span class="help-inline">(required)</span>
+	  <span class="help-inline">*</span>
     </div>
   </div>
 
-  
+
   <div class='control-group'>
     <%= f.label :comment_text, :class => 'control-label' %>
     <div class='controls'>
       <%= f.text_area :comment_text, :rows => 5, :placeholder=>"What would you like to talk to us about?", :class => 'input-xxlarge', :required => 'required' %>
-	  <span class="help-inline">(required)</span>
+	  <span class="help-inline">*</span>
     </div>
   </div>
-  
+
   <%= f.hidden_field :product_name, :value => @product_name %>
-  
+
   <div class="honeypot">
     <%= f.label "Do not tick this box (anti-spam)" %>
     <%= f.check_box :honeypot, :value => 1 %>

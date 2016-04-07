@@ -4,7 +4,7 @@
   <div class="control-group">
     <%= f.label :contact_name, :class => 'control-label' %>
     <div class="controls">
-      <%= f.text_field :contact_name , :autofocus => true, :required => 'required' %> <span class="help-inline">(required)</span>
+      <%= f.text_field :contact_name , :autofocus => true, :required => 'required' %> <span class="help-inline">*</span>
     </div>
   </div>
 
@@ -12,7 +12,7 @@
     <%= f.label :email, :class => 'control-label' %>
     <div class="controls">
       <%= f.email_field :email, :required => 'required' %>
-      <span class="help-inline">(required)</span>
+      <span class="help-inline">*</span>
     </div>
   </div>
 
@@ -22,7 +22,7 @@
     <%= f.label :organization_name, :class => 'control-label' %>
     <div class="controls">
       <%= f.text_field :organization_name, :required => 'required' %>
-      <span class="help-inline">(required)</span>
+      <span class="help-inline">*</span>
     </div>
   </div>
 
@@ -30,7 +30,7 @@
     <%= f.label :organization_size, :class => 'control-label' %>
     <div class="controls">
       <%= f.select(:organization_size, Member::ORGANISATION_SIZES, prompt: "Please select") %>
-      <span class="help-inline">(required)</span>
+      <span class="help-inline">*</span>
     </div>
   </div>
 
@@ -38,7 +38,7 @@
     <%= f.label :organization_type, :class => 'control-label'  %>
     <div class="controls">
       <%= f.select(:organization_type, Member::ORGANISATION_TYPES, prompt: "Please select") %>
-      <span class="help-inline">(required)</span>
+      <span class="help-inline">*</span>
     </div>
   </div>
 
@@ -46,7 +46,7 @@
     <%= f.label :organization_sector, :class => 'control-label'  %>
     <div class="controls">
       <%= f.select(:organization_sector, Member.sectors, prompt: "Please select") %>
-      <span class="help-inline">(required)</span>
+      <span class="help-inline">*</span>
     </div>
   </div>
 
@@ -60,7 +60,7 @@
       <%= f.text_field(:dob_day,   { :required => "required", :pattern => "[0-9]*", :class => "day" }) %>
       <%= f.text_field(:dob_month, { :required => "required", :pattern => "[0-9]*", :class => "month" }) %>
       <%= f.text_field(:dob_year,  { :required => "required", :pattern => "[0-9]*", :class => "year" }) %>
-      <span class="help-inline">(required)</span>
+      <span class="help-inline">*</span>
       <span class="help-block">For example, 20 3 1976</span>
     </div>
   </div>
@@ -108,14 +108,7 @@
     <%= f.label :street_address, "Building and street", :class => 'control-label' %>
     <div class="controls">
       <%= f.text_field :street_address, :required => :required %>
-      <span class="help-inline">(required)</span>
-    </div>
-  </div>
-
-  <div class="control-group">
-    <%= f.label :address_locality, :class => 'control-label hide' %>
-    <div class="controls">
-      <%= f.text_field :address_locality %>
+      <span class="help-inline">*</span>
     </div>
   </div>
 
@@ -123,7 +116,7 @@
     <%= f.label :address_region, :class => 'control-label' %>
     <div class="controls">
       <%= f.text_field :address_region, :required => :required %>
-      <span class="help-inline">(required)</span>
+      <span class="help-inline">*</span>
     </div>
   </div>
 
@@ -131,7 +124,7 @@
     <%= f.label :address_country, :class => 'control-label' %>
     <div class="controls">
       <%= f.country_select :address_country, priority_countries: ["GB"], prompt: "Please select", :required => :required %>
-      <span class="help-inline">(required)</span>
+      <span class="help-inline">*</span>
     </div>
   </div>
 
@@ -139,7 +132,7 @@
     <%= f.label :postal_code, :class => 'control-label' %>
     <div class="controls">
       <%= f.text_field :postal_code, :required => :required, :class => "postcode" %>
-      <span class="help-inline">(required)</span>
+      <span class="help-inline">*</span>
     </div>
   </div>
 </fieldset>
@@ -154,7 +147,7 @@
       <%= f.label :subscription_amount, :class => 'control-label' %>
       <div class="controls">
         £ <%= f.select :subscription_amount, options_for_select(Member.subscription_options, Member.default_subscription_option) %>
-        <span class="help-inline">(required)</span>
+        <span class="help-inline">*</span>
       </div>
     </div>
   </fieldset>
