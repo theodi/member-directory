@@ -57,4 +57,4 @@ Feature: Signup as an individual member
     And I enter my name and contact details
     And I enter my address details
     Then I should see "You agree to comply with these terms and conditions"
-    And I should see "means Ian McIain of 123 Fake Street, Faketown, Fakeshire, United Kingdom, FAKE 123"
+    And I should see "means Ian McIain of 123 Fake Street, Faketown, United Kingdom, FAKE 123"
