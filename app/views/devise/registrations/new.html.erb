@@ -82,7 +82,6 @@
       var country = $('#member_address_country')[0].options[index].text;
       arr = [
         $('#member_street_address')[0].value,
-        $('#member_address_locality')[0].value,
         $('#member_address_region')[0].value,
         country,
         $('#member_postal_code')[0].value
@@ -94,7 +93,6 @@
       $('#member_organization_name').change(update_name);
       $('#member_contact_name').change(update_name);
       $('#member_street_address').change(update_address);
-      $('#member_address_locality').change(update_address);
       $('#member_address_region').change(update_address);
       $('#member_address_country').change(update_address);
       $('#member_postal_code').change(update_address);
