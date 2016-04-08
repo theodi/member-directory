@@ -25,8 +25,7 @@ Feature: Sync from capsule
     And the sync task runs
     Then an individual membership should be created for me
     And a welcome email should be sent to me
-    And I should see "download an ODI Supporter badge" in the email body
-    When I follow "here" in the email
+    When I follow "available from your member account" in the email
     Then I should see "Set your password"
 
   Scenario: Update existing organization memberships
@@ -49,4 +48,3 @@ Feature: Sync from capsule
     When I am set as a member in CapsuleCRM without an email address
     And the sync task runs it should raise an error
     Then a warning email should be sent to the commercial team
-

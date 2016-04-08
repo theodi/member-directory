@@ -35,5 +35,4 @@ Feature: Signup as an student member
     And I enter my name and contact details
     And I enter my address details
     Then I should see "Your student membership"
-    And I should see "means Ian McIain of 123 Fake Street, Faketown, Fakeshire, United Kingdom, FAKE 123"
-
+    And I should see "means Ian McIain of 123 Fake Street, Faketown, United Kingdom, FAKE 123"

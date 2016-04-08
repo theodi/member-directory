@@ -175,8 +175,8 @@ describe Member do
     end
 
     it 'returns the price inclusive of vat for individuals' do
-      m = Member.new(product_name: 'individual', address_country: 'GB')
-      expect(m.get_plan_price).to eq("£108.00 including £18.00 VAT")
+      m = Member.new(product_name: 'individual', address_country: 'GB', subscription_amount: 6)
+      expect(m.get_plan_price).to eq("£7.20 including £1.20 VAT")
     end
 
     it 'returns the price inclusive of vat for students' do
@@ -205,10 +205,10 @@ describe Member do
 
   describe "#plan" do
     context "member is individual" do
-      it "returns 'individual-supporter'" do
+      it "returns 'individual-supporter-new'" do
         member = Member.new(product_name: "individual")
 
-        expect(member.plan).to eq("individual-supporter")
+        expect(member.plan).to eq("individual-supporter-new")
       end
     end
 
@@ -390,4 +390,3 @@ describe Member do
     end
   end
 end
-

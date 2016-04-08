@@ -2,25 +2,25 @@ Feature: Signup as an individual member
 
   Background:
     Given I want to sign up as an individual member
-    And product information has been setup for "individual-supporter"
+    And product information has been setup for "individual-supporter-new"
     When I visit the signup page
 
   Scenario: Individual member signup
     When I enter my name and contact details
     And I enter my address details
+    And I enter my subscription amount
     And I agree to the terms
     When I click sign up
     Then I am redirected to the payment page
     And I should have a membership number generated
-    And I am processed through chargify for the "individual-supporter" option
+    And I am processed through chargify for the "individual-supporter-new" option
     When I click pay now
     And I am returned to the thanks page
     And I should see "Thanks for supporting The ODI"
     And I should not have an organisation assigned to me
     And a welcome email should be sent to me
-    And I should see "Welcome to the ODI network!" in the email subject
-    And I should see "We are delighted to welcome you to the Open Data Institute member network" in the email body
-    And I should see "download an ODI Supporter badge" in the email body
+    And I should see "Congratulations! You’ve joined the open data revolution." in the email subject
+    And I should see "Welcome to the Open Data Institute (ODI) member network!" in the email body
     And my details should be queued for further processing
     When chargify verifies the payment
 
@@ -49,13 +49,3 @@ Feature: Signup as an individual member
     And the dropdown should be pre-selected with "odi-leeds"
     And if I navigate away and then return
     Then the original origin value should be still be "odi-leeds"
-
-  @javascript
-  Scenario: Auto-update terms based on user input
-    Given I want to sign up as an individual member
-    When I visit the signup page
-    And I enter my name and contact details
-    And I enter my address details
-    Then I should see "You agree to comply with these terms and conditions"
-    And I should see "means Ian McIain of 123 Fake Street, Faketown, Fakeshire, United Kingdom, FAKE 123"
-

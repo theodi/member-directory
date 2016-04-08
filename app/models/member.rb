@@ -87,6 +87,11 @@ class Member < ActiveRecord::Base
 
   CHARGIFY_COUPON_DISCOUNTS = {}
 
+  SUBSCRIPTION_OPTIONS = {
+    choices: [1,2,5,10,20,30,40,50,60,70,80,90,100],
+    default: 30
+  }
+
   has_one :organization, dependent: :destroy
   has_many :embed_stats
 
@@ -142,7 +147,8 @@ class Member < ActiveRecord::Base
                   :twitter,
                   :dob_day,
                   :dob_month,
-                  :dob_year
+                  :dob_year,
+                  :subscription_amount
 
   attr_accessor :agreed_to_terms
   attr_accessor :university_course_start_date_year
@@ -193,6 +199,7 @@ class Member < ActiveRecord::Base
   validates :address_region, presence: true, on: :create
   validates :address_country, presence: true, on: :create
   validates :postal_code, presence: true, on: :create
+  validates :subscription_amount, presence: true, on: :create, if: Proc.new { |member| member.individual? }
   validates_acceptance_of :agreed_to_terms, on: :create
 
   validates_with OrganizationValidator, on: :create, unless: Proc.new { |member| member.individual? || member.student? }
@@ -233,6 +240,14 @@ class Member < ActiveRecord::Base
 
   def self.sectors
     SECTORS
+  end
+
+  def self.subscription_options
+    SUBSCRIPTION_OPTIONS[:choices]
+  end
+
+  def self.default_subscription_option
+    SUBSCRIPTION_OPTIONS[:default]
   end
 
   def self.summary
@@ -303,7 +318,7 @@ class Member < ActiveRecord::Base
     temp_password = SecureRandom.hex(32)
     from_capsule = options.delete(:from_capsule)
     member = Member.new(options.merge(
-      password: temp_password, 
+      password: temp_password,
       password_confirmation: temp_password
     ))
     member.remote! if from_capsule
@@ -434,6 +449,7 @@ class Member < ActiveRecord::Base
     self.chargify_customer_id ||= params[:customer_id]
     self.chargify_subscription_id ||= params[:subscription_id]
     self.chargify_payment_id ||= params[:payment_id]
+    self.subscription_amount ||= params[:amount]
     save(:validate => false)
   end
 
@@ -464,7 +480,7 @@ class Member < ActiveRecord::Base
 
   def get_plan_description
     {
-      'individual-supporter'         => 'Individual Supporter',
+      'individual-supporter-new' => 'Individual Supporter',
       'individual-supporter-student' => 'ODI Student Supporter',
       'corporate-supporter_annual'   => 'Corporate Supporter',
       'supporter_annual'             => 'Supporter',
@@ -472,9 +488,17 @@ class Member < ActiveRecord::Base
     }[plan]
   end
 
+  def price_without_vat amount
+    (amount / 1.2).round(2)
+  end
+
   def get_plan_price
-    amount = CHARGIFY_PRODUCT_PRICES.fetch(plan) do
-      raise RuntimeError, "Can't get product price for plan '#{plan}'. Does it exist in Chargify?"
+    if individual?
+      amount = subscription_amount
+    else
+      amount = CHARGIFY_PRODUCT_PRICES.fetch(plan) do
+        raise RuntimeError, "Can't get product price for plan '#{plan}'. Does it exist in Chargify?"
+      end
     end
 
     if address_country == 'GB'
@@ -512,7 +536,7 @@ class Member < ActiveRecord::Base
 
   def plan
     if individual?
-      'individual-supporter'
+      'individual-supporter-new'
     elsif student?
       'individual-supporter-student'
     else
@@ -609,6 +633,8 @@ class Member < ActiveRecord::Base
       'discount'       => coupon_discount
     }
 
+    purchase['amount_paid'] = subscription_amount if individual?
+
     [organization, contact_person, billing, purchase]
   end
 
@@ -644,4 +670,3 @@ class Member < ActiveRecord::Base
     country.translations[I18n.locale.to_s] || country.name
   end
 end
-

@@ -6,71 +6,35 @@
 <tr>
   <td style="padding: 10px;">
 
-    <p style="font-family: Helvetica, Arial, sans-serif;"><%= greeting(@member) %>,</p>
+    <p style="font-family: Helvetica, Arial, sans-serif;"><%= greeting(@member) %></p>
 
-    <p style="font-family: Helvetica, Arial, sans-serif;">We are delighted to welcome you to the Open Data Institute member network. As an ODI Supporter you join a unique group of individuals and organisations who share a deep interest in open data and its potential.</p>
+    <p style="font-family: Helvetica, Arial, sans-serif;">Welcome to the Open Data Institute (ODI) member network! We are delighted that you’re now part of our unique group of individuals and organisations who share a deep interest in data and its potential.</p>
 
-    <p style="font-family: Helvetica, Arial, sans-serif;">As you share your perspectives, collaborate with your fellow members and support the ODI you will play a key role in helping us to achieve our mission to promote a sustainable open data culture around the world.</p>
+    <h3 style="font-family: Helvetica, Arial, sans-serif;">You’re now part of the open data revolution!</h3>
 
-    <table>
-        <tr>
-            <td>
-                <ul style="font-family: Helvetica, Arial, sans-serif;">
-                    <li>Your membership number is <strong><%= @resource.membership_number %></strong></li>
-                    <% if @resource.reset_password_token %>
-                      <li>To activate your account click <%= link_to 'here', edit_password_url(@resource, :reset_password_token => @resource.reset_password_token) %></li>
-                    <% else %>
-                      <li>Sign in to your account <%= link_to 'here', new_member_session_url(membership_number: @resource.membership_number) %></li>
-                    <% end %>
+    <p style="font-family: Helvetica, Arial, sans-serif;">Why not let others know that you’ve joined the open data revolution? You can now proudly display your membership badge on your website (available from <%= member_account_link(@resource) %>). Also, why not <a href="http://ctt.ec/dTxd3">tweet</a> that you’re now a member?</p>
 
-                    <li>You will then be able to download an ODI Supporter badge which you can display on your website and on your print collateral</li>
-                </ul>
-            </td>
-            <td>
-                <%= image_tag attachments['supporter.png'].url, width: 116, height: 100, alt: "" %>
-            </td>
-        </tr>
-    </table>
+    <h3 style="font-family: Helvetica, Arial, sans-serif;">Take advantage of great events and opportunities</h3>
 
-    <p style="font-family: Helvetica, Arial, sans-serif;">As an ODI Individual Supporter we hope you will also:</p>
+    <p style="font-family: Helvetica, Arial, sans-serif;">We'll be pinging you an e-newsletter with news, opportunities and events every fortnight, and you’ll get priority invites to ODI events. Also, the ODI holds free <a href="http://mandrillapp.com/track/click/30024501/theodi.org?p=eyJzIjoibThYbGczRElyVTY2aUJZb0lNdzhjdWlGRHM0IiwidiI6MSwicCI6IntcInVcIjozMDAyNDUwMSxcInZcIjoxLFwidXJsXCI6XCJodHRwOlxcXC9cXFwvdGhlb2RpLm9yZ1xcXC9sdW5jaHRpbWUtbGVjdHVyZXNcIixcImlkXCI6XCJhZmU4M2IyOTlmYzI0MGE4YTgwMmFmN2MxYjg4NzM3M1wiLFwidXJsX2lkc1wiOltcIjVjZTc5YWEzNWYyNDc3MmI5NjVjZGU3MzM2Y2ViMDFiYjZhMGMxOTFcIl19In0">Friday lunchtime lectures</a> showcasing the many ways in which data is changing the world. If you’re nearby, come along or tune in to the live stream. </p>
 
-    <h3 style="font-family: Helvetica, Arial, sans-serif;">Connect and collaborate</h3>
+    <h3 style="font-family: Helvetica, Arial, sans-serif;">Learn more about data﹣30% off courses</h3>
 
-    <p style="font-family: Helvetica, Arial, sans-serif;">Connect with our global network of corporates, startups, universities and public sector organisations by joining the <%= link_to "LinkedIn members' group", "https://www.linkedin.com/groups?gid=5161407" %>. For the latest on open data events and news follow <%= link_to '@ODIHQmembers', 'https://twitter.com/ODIHQmembers' %> and <%= link_to '@ODIHQ', 'https://twitter.com/ODIHQ' %> on Twitter.</p>
+    <p style="font-family: Helvetica, Arial, sans-serif;">As a member you are entitled to a 30% discount on training at the ODI. We recommend that, as a perfect first step, you try our introductory course <a href="https://theodi.org/courses/open-data-day">Open Data in a Day</a> and secure your place by selecting an 'ODI Member' ticket on the booking form.</p>
 
-    <h3 style="font-family: Helvetica, Arial, sans-serif;">Stay ahead of the curve</h3>
+    <p style="font-family: Helvetica, Arial, sans-serif;">If you have any questions or suggestions, please do get in touch by emailing members@theodi.org. We hope to hear from you soon.</p>
 
-    <p style="font-family: Helvetica, Arial, sans-serif;">We’ll be pinging you through the membership e-newsletter every month and and you’ll also receive priority notification of ODI Summit discounts and selected access to other ODI events.</p>
+    <p style="font-family: Helvetica, Arial, sans-serif;">Best wishes</p>
 
-    <h3 style="font-family: Helvetica, Arial, sans-serif;">Boost your skills</h3>
+    <p style="font-family: Helvetica, Arial, sans-serif;">The ODI Membership team</p>
 
-    <p style="font-family: Helvetica, Arial, sans-serif;">As an ODI Supporter, you can claim an exclusive 20% discount on Open Data Institute training. Whether you’re interested in law, business or finding stories in open data, browse our specialist <%= link_to 'public training courses', 'http://theodi.org/courses' %> and book your place by selecting an ‘ODI Member’ ticket on the course page.</p>
-
-    <h3 style="font-family: Helvetica, Arial, sans-serif;">Get inspired</h3>
-
-    <p style="font-family: Helvetica, Arial, sans-serif;">The ODI holds free, <%= link_to 'Friday lunchtime lectures', 'http://theodi.org/lunchtime-lectures' %> every week that showcase the many ways that open data is changing the world. If you’re nearby, come along and bring your lunch, or if not you can tune into the live audio stream. If you’d like to suggest a speaker for one of our lectures, get in touch with the <%= link_to 'membership team', 'mailto:members@theodi.org' %>. You can find out what else we have coming up on our <%= link_to 'events page', 'http://theodi.org/events' %>.</p>
-
-    <h3 style="font-family: Helvetica, Arial, sans-serif;">Broaden your horizons</h3>
-
-    <p style="font-family: Helvetica, Arial, sans-serif;">If you want to learn more about open data, take a look at our <%= link_to 'case studies', 'http://theodi.org/case-studies' %>, technical open data <%= link_to 'guides', 'http://theodi.org/guides' %>, the ODI <%= link_to 'lecture archive', 'http://theodi.org/lunchtime-lectures' %> and our latest news and <%= link_to 'video content', 'http://vimeo.com/theodiuk' %>.</p>
-
-    <p style="font-family: Helvetica, Arial, sans-serif;">Your membership officially runs from <%= Date.today.to_formatted_s(:long_ordinal) %> to <%= (Date.yesterday + 1.year).to_formatted_s(:long_ordinal) %> and costs £108 (£90 + VAT). Your membership terms and conditions are attached to this email. If you’ve changed your mind then you have the <%= link_to 'right to cancel', 'http://bit.ly/ODIcancellation' %> within the first 14 days from the start of your membership.</p>
-
-    <p style="font-family: Helvetica, Arial, sans-serif;">We’ll get in touch one month before your membership is due to expire and invite you to renew for another year. We hope that you will enjoy being an ODI Supporter and that you’ll stay a part of our global network for the years to come.</p>
-
-    <p style="font-family: Helvetica, Arial, sans-serif;">If you have any questions or suggestions, please do get in touch by emailing <%= link_to 'members@theodi.org', 'mailto:members@theodi.org' %>.</p>
-
-    <p style="font-family: Helvetica, Arial, sans-serif;">Best wishes,<br />
-    <br />
-    The ODI Membership team<br />
-    <br />
-    Open Data Institute<br />
-    3rd Floor, 65 Clifton Street, London, EC2A 4JE<br />
-    Company number 08030289<br />
-    members@theodi.org
+    <p style="font-family: Helvetica, Arial, sans-serif;">
+       <strong>Email:</strong> <%= mail_to 'members@theodi.org' %><br />
+       <strong>Twitter:</strong> <%= link_to '@odihq', 'http://twitter.com/odihq' %><br />
+       <strong>LinkedIn:</strong> <%= link_to 'https://www.linkedin.com/company/the-open-data-institute', 'https://www.linkedin.com/company/the-open-data-institute' %><br />
+       <strong>Web:</strong> <%= link_to 'http://theodi.org/', 'http://theodi.org/' %>
     </p>
 
   </td>
 </tr>
 </table>
-

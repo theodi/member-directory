@@ -15,6 +15,7 @@
   <%= f.hidden_field :origin, value: origin_value %>
   <%= f.hidden_field :invoice, value: 1 if params[:invoice].present? || @member.invoice == true %>
   <%= f.hidden_field :product_name %>
+  <%= f.hidden_field :cached_newsletter, value: true %>
 
   <%= render :partial => 'member_details', :locals => { :f => f } %>
 
@@ -26,34 +27,13 @@
   <%= render :partial => 'affiliated_node', :locals => { :f => f } %>
 
   <fieldset>
-    <legend>Your communication preferences</legend>
-
-    <div class="control-group newsletter">
-      <div class="controls">
-        <label class="checkbox">
-          <%= f.check_box :cached_newsletter %> <%= t(:receive_newsletter) %>
-        </label>
-      </div>
-    </div>
-
-    <div class="control-group newsletter third-parties">
-      <div class="controls">
-        <label class="checkbox">
-          <%= f.check_box :cached_share_with_third_parties %> <%= t(:share_with_third_parties) %>
-        </label>
-      </div>
-    </div>
-
-  </fieldset>
-
-  <fieldset>
     <legend>Please choose a password</legend>
 
     <div class="control-group">
       <%= f.label :password, :class => 'control-label' %>
       <div class="controls">
         <%= f.password_field :password, :required => :required %>
-        <span class="help-inline">(required)</span>
+        <span class="help-inline">*</span>
         <span class="help-block"><small>Password must be at least eight characters</small></span>
       </div>
     </div>
@@ -62,7 +42,7 @@
       <%= f.label :password_confirmation, :class => 'control-label' %>
       <div class="controls">
         <%= f.password_field :password_confirmation, :required => :required %>
-        <span class="help-inline">(required)</span>
+        <span class="help-inline">*</span>
       </div>
     </div>
   </fieldset>
@@ -102,7 +82,6 @@
       var country = $('#member_address_country')[0].options[index].text;
       arr = [
         $('#member_street_address')[0].value,
-        $('#member_address_locality')[0].value,
         $('#member_address_region')[0].value,
         country,
         $('#member_postal_code')[0].value
@@ -114,7 +93,6 @@
       $('#member_organization_name').change(update_name);
       $('#member_contact_name').change(update_name);
       $('#member_street_address').change(update_address);
-      $('#member_address_locality').change(update_address);
       $('#member_address_region').change(update_address);
       $('#member_address_country').change(update_address);
       $('#member_postal_code').change(update_address);
@@ -147,4 +125,3 @@
   </div>
 
 <% end %>
-
