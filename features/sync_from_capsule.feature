@@ -25,7 +25,7 @@ Feature: Sync from capsule
     And the sync task runs
     Then an individual membership should be created for me
     And a welcome email should be sent to me
-    When I follow "available from your member account" in the email
+    When I follow "your member account" in the email
     Then I should see "Set your password"
 
   Scenario: Update existing organization memberships
