@@ -23,7 +23,7 @@ Then(/the submit button should say "(.*?)"$/) do |text|
 end
 
 Then(/^the terms and conditions should be correct$/) do
-  expect(page).to have_content("You agree to comply with these terms and conditions")
+  expect(page).to have_content("Your category of membership is “individual member”")
 end
 
 Then /^I should see a link to the right to cancel$/ do

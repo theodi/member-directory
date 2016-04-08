@@ -49,12 +49,3 @@ Feature: Signup as an individual member
     And the dropdown should be pre-selected with "odi-leeds"
     And if I navigate away and then return
     Then the original origin value should be still be "odi-leeds"
-
-  @javascript
-  Scenario: Auto-update terms based on user input
-    Given I want to sign up as an individual member
-    When I visit the signup page
-    And I enter my name and contact details
-    And I enter my address details
-    Then I should see "You agree to comply with these terms and conditions"
-    And I should see "means Ian McIain of 123 Fake Street, Faketown, United Kingdom, FAKE 123"
