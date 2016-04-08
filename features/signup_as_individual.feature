@@ -20,7 +20,7 @@ Feature: Signup as an individual member
     And I should not have an organisation assigned to me
     And a welcome email should be sent to me
     And I should see "Congratulations! You’ve joined the open data revolution." in the email subject
-    And I should see "Congratulations on becoming part of the Open Data Institute (ODI)’s global membership network" in the email body
+    And I should see "Welcome to the Open Data Institute (ODI) member network!" in the email body
     And my details should be queued for further processing
     When chargify verifies the payment
 
