@@ -77,7 +77,7 @@ Feature: Signup as a supporter member
       | field                 | text              |
       | contact_name          | Full name         |
       | street_address        | Address           |
-      | address_region        | City              |
+      | address_region        | Town or city      |
       | address_country       | Country           |
       | postal_code           | Postcode          |
       | organization_size     | Organisation size |
