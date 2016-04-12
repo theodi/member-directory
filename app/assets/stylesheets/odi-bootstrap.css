@@ -7930,7 +7930,9 @@ hr.heavy {
 
 #mainnav .navbar-inner li a:hover,
 #mainnav .navbar-inner li button:hover {
-  color: #00b7ff;
+  color: #fff;
+  background-color: #000;
+  text-shadow: none;
 }
 
 #mainnav .navbar-inner li form {

@@ -20,8 +20,9 @@
             <a class='brand' href='http://theodi.org/'>
               <%= image_tag "logo-header.png", alt: "Logo" %>
             </a>
-            <ul class="nav pull-right">
+              <ul class="nav pull-right">
               <li><a href="http://theodi.org/contact">Contact us</a></li>
+              <li><a href="http://theodi.org/newsletters">Newsletters</a></li>
               <% if current_member %>
                 <li><%= link_to "My Account", member_path(current_member) %></li>
                 <li><%= link_to "Sign out", member_session_path, :method => :delete %></li>
@@ -45,64 +46,14 @@
       <div class="navbar navbar-static-top" id="mainnav">
         <div class="container">
           <div class="navbar-inner">
-            <ul class="nav navbar-nav main-nav pull-right">
-              <li class="dropdown">
-                <a href="http://theodi.org/about">
-                  About
-                  <b class="caret"></b>
-                </a>
-                <ul class="dropdown-menu">
-                  <li><a href="http://theodi.org/about-us">About the ODI</a></li>
-                  <li><a href="http://theodi.org/team">People</a></li>
-                  <li><a href="http://theodi.org/jobs">Jobs</a></li>
-                  <li><a href="http://theodi.org/procurement">Procurement</a></li>
-                  <li><a href="http://theodi.org/culture">Data as culture</a></li>
-                  <li><a href="http://theodi.org/space">Space</a></li>
-                  <li><a href="http://theodi.org/faq">FAQ</a></li>
-                  <li><a href="http://dashboards.theodi.org/">Dashboards</a></li>
-                </ul>
-              </li>
-              <li class="dropdown">
-                <a href="http://theodi.org/get-involved">
-                  Get involved
-                  <b class="caret"></b>
-                </a>
-                <ul class="dropdown-menu">
-                  <li><a href="http://theodi.org/join-us">Membership</a></li>
-                  <li><a href="http://directory.theodi.org/members">Our members</a></li>
-                  <li><a href="http://theodi.org/start-ups">Start-ups</a></li>
-                  <li><a href="https://certificates.theodi.org/">Open Data Certificates</a></li>
-                  <li><a href="http://theodi.org/nodes">Nodes</a></li>
-                  <li><a href="http://theodi.org/challenge-series">Challenge series</a></li>
-                  <li><a href="http://theodi.org/consultation-responses">Consultation responses</a></li>
-                </ul>
-              </li>
-              <li class="dropdown">
-                <a href="http://theodi.org/learning">
-                  Learning
-                  <b class="caret"></b>
-                </a>
-                <ul class="dropdown-menu">
-                  <li><a href="http://theodi.org/courses">Courses</a></li>
-                  <li><a href="http://theodi.org/lunchtime-lectures">Friday lunchtime lectures</a></li>
-                  <li><a href="http://theodi.org/guides">Guides</a></li>
-                  <li><a href="http://theodi.org/case-studies">Case studies</a></li>
-                </ul>
-              </li>
-              <li class="dropdown">
-                <a href="http://theodi.org/events">
-                  What's happening
-                </a>
-              </li>
-              <li class="dropdown last">
-                <a href="http://theodi.org/news">
-                  News
-                  <b class="caret"></b>
-                </a>
-                <ul class="dropdown-menu">
-                  <li><a href="http://theodi.org/newsroom">Newsroom</a></li>
-                </ul>
-              </li>
+            <ul class="nav navbar-nav main-nav">
+              <li class="dropdown"><a href="http://theodi.org/news">News &amp; blog</a></li>
+              <li class="dropdown"><a href="http://theodi.org/get-involved">Get involved</a></li>
+              <li class="dropdown"><a href="http://theodi.org/our-network">Our global network</a></li>
+              <li class="dropdown"><a href="http://theodi.org/events">Events</a></li>
+              <li class="dropdown"><a href="http://theodi.org/our-focus">Our focus</a></li>
+              <li class="dropdown"><a href="http://theodi.org/publications">Publications</a></li>
+              <li class="dropdown last"><a href="http://theodi.org/about">About the ODI</a></li>
             </ul>
           </div>
         </div>
