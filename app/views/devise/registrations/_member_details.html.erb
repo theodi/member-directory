@@ -148,7 +148,7 @@
     <div class="control-group">
       <%= f.label :subscription_amount, :class => 'control-label' %>
       <div class="controls">
-        £ <%= f.select :subscription_amount, options_for_select(Member.subscription_options, params[:subscription_amount] || Member.default_subscription_option) %>
+        £ <%= f.select :subscription_amount, options_for_select(Member.subscription_options, (params[:member].try(:[], :subscription_amount) || Member.default_subscription_option)) %>
         <span class="help-inline">*</span>
       </div>
     </div>
