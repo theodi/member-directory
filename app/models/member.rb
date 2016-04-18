@@ -61,11 +61,11 @@ class Member < ActiveRecord::Base
     "Belfast" => "odi-belfast",
     "Birmingham" => "odi-birmingham",
     "Brasilia" => "odi-brasilia",
-    "Buenos Aires" => "odi-buenos-aires",
+    "Bristol" => "odi-bristol",
     "Cairo" => "odi-cairo",
-    "Chicago" => "odi-chicago",
     "Devon" => "odi-devon",
     "Dubai" => "odi-dubai",
+    "Galway" => "odi-galway",
     "Gothenburg" => "odi-gothenburg",
     "Hampshire" => "odi-hampshire",
     "Leeds" => "odi-leeds",
@@ -74,11 +74,13 @@ class Member < ActiveRecord::Base
     "Paris" => "odi-paris",
     "Queensland" => "odi-queensland",
     "Rio" => "odi-rio",
+    "Riyadh" => "odi-riyadh",
     "Seoul" => "odi-seoul",
     "Sheffield" => "odi-sheffield",
-    "St Petersburg/Moscow" => "odi-st-petersburg-moscow",
+    "St Petersburg" => "odi-st-petersburg",
     "Toronto" => "odi-toronto",
-    "Trento" => "odi-trento"
+    "Trento" => "odi-trento",
+    "Vienna" => "odi-vienna"
   }
 
   LARGE_CORPORATE = %w[251-1000 >1000]
