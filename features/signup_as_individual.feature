@@ -49,3 +49,8 @@ Feature: Signup as an individual member
     And the dropdown should be pre-selected with "odi-leeds"
     And if I navigate away and then return
     Then the original origin value should be still be "odi-leeds"
+
+  Scenario: Signup with coupon should not see amount dropdown
+    Given that I want to sign up as an individual supporter
+    When I visit the signup page with an coupon code of "odi-leeds"
+    Then I should not see the subscription amount 

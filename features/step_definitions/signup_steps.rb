@@ -479,3 +479,12 @@ end
 Then(/^that member should be set up in Chargify$/) do
   expect(@member.chargify_subscription_id).to be_present
 end
+
+When(/^I visit the signup page with an coupon code of "(.*?)"$/) do |coupon_code|
+  @coupon_code = coupon_code
+  visit("/members/new?level=#{@product_name}&coupon=#{@coupon_code}")
+end
+
+Then(/^I should not see the subscription amount$/) do
+  expect(page).to_not have_text("Annual subscription amount")
+end
