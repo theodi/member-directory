@@ -52,6 +52,7 @@ Feature: Signup as an individual member
 
   Scenario: Signup with coupon should not see amount dropdown
     Given that I want to sign up as an individual supporter
+    And the coupon code SUPERFREE is in Chargify
     When I visit the signup page with an coupon code of "SUPERFREE"
     Then I should not see the subscription amount
     When I enter my name and contact details
