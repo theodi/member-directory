@@ -42,6 +42,8 @@ class ChargifyProductLink
     case
     when member.individual?
       :individual_pay_what_you_like
+    when member.individual? && member.no_payment?
+      :individual_pay_what_you_like_free
     when member.student? && member.no_payment?
       :individual_supporter_student_free
     when member.student?
