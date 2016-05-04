@@ -488,7 +488,7 @@ end
 
 When(/^I visit the signup page with an coupon code of "(.*?)"$/) do |coupon_code|
   @coupon_code = coupon_code
-  visit("/members/new?level=#{@product_name}&coupon=#{@coupon_code}&no_payment=true")
+  visit("/members/new?level=#{@product_name}&coupon=#{@coupon_code}")
 end
 
 Then(/^I should not see the subscription amount$/) do
