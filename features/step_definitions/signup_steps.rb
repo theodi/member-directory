@@ -222,6 +222,12 @@ Then /^I am processed through chargify for the "(.*?)" option$/ do |plan|
   allow(ChargifyProductLink).to receive(:for).and_return(chargify_return_members_path(params))
 end
 
+Then(/^I should have the product link "(.*?)"$/) do |plan|
+  member = Member.find_by_email(@email)
+
+  expect(ChargifyProductLink.new(member).public_signup_page_key).to eq(plan)
+end
+
 Then(/^the coupon code "(.*?)" is saved against my membership$/) do |coupon|
   @discount = 50
   member = Member.find_by_email(@email)
@@ -482,7 +488,7 @@ end
 
 When(/^I visit the signup page with an coupon code of "(.*?)"$/) do |coupon_code|
   @coupon_code = coupon_code
-  visit("/members/new?level=#{@product_name}&coupon=#{@coupon_code}")
+  visit("/members/new?level=#{@product_name}&coupon=#{@coupon_code}&no_payment=true")
 end
 
 Then(/^I should not see the subscription amount$/) do
