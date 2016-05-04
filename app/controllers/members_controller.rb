@@ -100,6 +100,7 @@ class MembersController < ApplicationController
   def payment
     discount = Member::CHARGIFY_COUPON_DISCOUNTS[current_member.coupon]
     @discount_type = discount.nil? ? "" : discount[:type]
+    @no_payment = params[:no_payment] || (@discount_type == :free)
 
     if current_member.current?
       redirect_to member_path(current_member)
