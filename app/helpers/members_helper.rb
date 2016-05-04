@@ -58,7 +58,7 @@ module MembersHelper
       "Complete"
     else
       if discount_type == :free
-        "Enter card details"
+        "Complete"
       else
         "Pay now"
       end

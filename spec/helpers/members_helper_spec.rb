@@ -14,11 +14,11 @@ describe MembersHelper do
   describe "#payment_button_label" do
     let(:member) { double(student?: false) }
 
-    context "type if free" do
-      it "asks you to enter your card details" do
+    context "type is free" do
+      it "doesn't ask you to enter your card details" do
         discount_type = :free
 
-        expect(helper.payment_button_label(member, discount_type)).to eq("Enter card details")
+        expect(helper.payment_button_label(member, discount_type)).to eq("Complete")
       end
     end
 

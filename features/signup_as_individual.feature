@@ -52,5 +52,14 @@ Feature: Signup as an individual member
 
   Scenario: Signup with coupon should not see amount dropdown
     Given that I want to sign up as an individual supporter
-    When I visit the signup page with an coupon code of "odi-leeds"
-    Then I should not see the subscription amount 
+    And the coupon code SUPERFREE is in Chargify
+    When I visit the signup page with an coupon code of "SUPERFREE"
+    Then I should not see the subscription amount
+    When I enter my name and contact details
+    And I enter my address details
+    And I agree to the terms
+    When I click sign up
+    Then I am redirected to the payment page
+    And I should have a membership number generated
+    And I am processed through chargify for the "individual-pay-what-you-like-free" option
+    When I click complete
