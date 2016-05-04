@@ -1,6 +1,7 @@
 development:
   product_url: https://theodi-testing.chargify.com/subscribe/%s/%s
   page_ids:
+    :individual_pay_what_you_like_free: 
     :individual_pay_what_you_like: 2d4266dwfbvz
     :individual_supporter_student_free: bdbytczwymyc
     :individual_supporter_student: rvx5rnhsx9pt
@@ -11,6 +12,7 @@ development:
 test:
   product_url: https://theodi-testing.chargify.com/subscribe/%s/%s
   page_ids:
+    :individual_pay_what_you_like_free: "1234"
     :individual_pay_what_you_like: "111213"
     :individual_supporter_student_free: "456"
     :individual_supporter_student: "123"
@@ -21,6 +23,7 @@ test:
 production:
   product_url: https://theodi.chargify.com/subscribe/%s/%s
   page_ids:
+    :individual_pay_what_you_like_free: 2khtb9df59d9
     :individual_pay_what_you_like: p9d3qkdtwwzv
     :individual_supporter_student_free: vpvdyjxfktq9
     :individual_supporter_student: wyqh5zhrxq5z
