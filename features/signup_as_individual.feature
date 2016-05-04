@@ -61,6 +61,5 @@ Feature: Signup as an individual member
     When I click sign up
     Then I am redirected to the payment page
     And I should have a membership number generated
-    And I should have the product link "individual-pay-what-you-like-free"
     And I am processed through chargify for the "individual-pay-what-you-like-free" option
-    When I click pay now
+    When I click complete
