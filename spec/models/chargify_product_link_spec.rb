@@ -40,6 +40,7 @@ describe ChargifyProductLink do
      ENV["CHARGIFY_PAGE_IDS"] = "individual_supporter,1234"
 
      allow(member).to receive(:individual?).and_return(true)
+     allow(member).to receive(:no_payment?).and_return(false)
      allow(member).to receive(:plan).and_return("individual-supporter")
      allow(member).to receive(:subscription_amount).and_return(10)
      allow(member).to receive(:price_without_vat).and_return(8.33)
@@ -88,6 +89,15 @@ describe ChargifyProductLink do
         allow(member).to receive(:individual?).and_return(true)
 
         expect(subject.public_signup_page_key).to eq(:individual_pay_what_you_like)
+      end
+    end
+
+    context "free individual" do
+      it "should return 'individual_pay_what_you_like_free'" do
+        allow(member).to receive(:individual?).and_return(true)
+        allow(member).to receive(:no_payment?).and_return(true)
+
+        expect(subject.public_signup_page_key).to eq(:individual_pay_what_you_like_free)
       end
     end
 
@@ -156,6 +166,7 @@ describe ChargifyProductLink do
         :individual_supporter_student_free => "456",
         :supporter_monthly                 => "789",
         :individual_pay_what_you_like      => "111213",
+        :individual_pay_what_you_like_free => "1234",
         :supporter_annual                  => "345",
         :corporate_supporter_annual        => "678"
       )
