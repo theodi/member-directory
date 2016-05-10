@@ -62,4 +62,5 @@ Feature: Signup as an individual member
     Then I am redirected to the payment page
     And I should have a membership number generated
     And I am processed through chargify for the "individual-pay-what-you-like-free" option
+    And the coupon code "SUPERFREE" is sent to chargify
     When I click complete
