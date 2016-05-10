@@ -496,3 +496,8 @@ end
 Then(/^I should not see the subscription amount$/) do
   expect(page).to_not have_text("Annual subscription amount")
 end
+
+Then(/^the coupon code "(.*?)" is sent to chargify$/) do |coupon|
+  field = page.find("input[name='coupon']")
+  expect(field.value).to eq(coupon)
+end
