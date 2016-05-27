@@ -1,7 +1,7 @@
 class RegistrationsController < Devise::RegistrationsController
   before_filter :check_product_name, :only => 'new'
   before_filter :set_title, :only => %w[new create]
-  helper_method :individual?, :student?, :paying_by_invoice?, :already_signed_up?
+  helper_method :individual?, :student?, :paying_by_invoice?, :already_signed_up?, :has_coupon?
 
   # copied from https://github.com/plataformatec/devise/blob/v2.2.8/app/controllers/devise/registrations_controller.rb
   # because can't use super as that would cause a double render
@@ -101,6 +101,10 @@ class RegistrationsController < Devise::RegistrationsController
     resource.student?
   end
 
+  def has_coupon?
+    individual? && (params[:coupon].present? || resource.coupon.present?)
+  end
+
   def sign_up_params
     devise_parameter_sanitizer.sanitize(:sign_up)
   end
@@ -121,4 +125,3 @@ class RegistrationsController < Devise::RegistrationsController
 
   helper_method :origin_value
 end
-
