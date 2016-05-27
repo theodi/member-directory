@@ -192,8 +192,8 @@ When /^I click pay now$/ do
   click_button('Pay now')
 end
 
-When /^I click complete$/ do
-  click_button('Complete')
+When /^I click continue$/ do
+  click_button('Continue')
 end
 
 Then /^I am redirected to the payment page$/ do

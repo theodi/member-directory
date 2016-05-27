@@ -18,7 +18,7 @@ describe MembersHelper do
       it "doesn't ask you to enter your card details" do
         discount_type = :free
 
-        expect(helper.payment_button_label(member, discount_type)).to eq("Complete")
+        expect(helper.payment_button_label(member, discount_type)).to eq("Continue")
       end
     end
 
@@ -36,7 +36,7 @@ describe MembersHelper do
       it "asks you to 'Complete' the process" do
         discount_type = :anything
 
-        expect(helper.payment_button_label(member, discount_type)).to eq("Complete")
+        expect(helper.payment_button_label(member, discount_type)).to eq("Continue")
       end
     end
   end
@@ -84,4 +84,3 @@ describe MembersHelper do
     end
   end
 end
-

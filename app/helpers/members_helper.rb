@@ -6,7 +6,7 @@ module MembersHelper
       summary = organization.description.split("\n").first
       # Now truncate if necessary
       truncate(summary, :length => 300, :separator => " ", :omission => " ...")
-    else 
+    else
       ""
     end
   end
@@ -55,10 +55,10 @@ module MembersHelper
 
   def payment_button_label(member, discount_type)
     if member.student?
-      "Complete"
+      "Continue"
     else
       if discount_type == :free
-        "Complete"
+        "Continue"
       else
         "Pay now"
       end
