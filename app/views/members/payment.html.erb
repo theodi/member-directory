@@ -1,5 +1,6 @@
 <p class="lead">
-  <% if @member.student? %>
+  <%= @discount_type %>
+  <% if @member.student? || @discount_type == :free %>
     To complete your registration, please continue to the next page.
   <% else %>
     To complete your registration, please continue to the payment page.
@@ -11,7 +12,7 @@
 <% case @discount_type %>
 <% when :free %>
 <p>
-    Congratulations! You’re receiving 12 months of free ODI membership. This 
+    Congratulations! You’re receiving 12 months of free ODI membership. This
     will be set up on the next page.
 </p>
 <p>
