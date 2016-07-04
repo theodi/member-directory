@@ -137,7 +137,7 @@
   </div>
 </fieldset>
 
-<% unless has_coupon? %>
+<% if (individual? || student?) && !has_coupon? %>
 
   <fieldset>
 
