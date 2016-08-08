@@ -333,7 +333,6 @@ class Member < ActiveRecord::Base
     # For now we only support student memberships for this.
     Resque.enqueue(NoninteractiveAddToChargify, member.id) if member.student?
     # Send onwards and let the customer know
-    member.send(:process_signup) unless member.remote?
     member.deliver_welcome_email!
     member
   end

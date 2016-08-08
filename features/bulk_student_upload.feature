@@ -10,12 +10,12 @@ Feature: Bulk upload of student members
     Then I should receive a CSV file called "sample.csv"
     And that CSV file should contain columns for all student signup fields
     And that CSV should have an example line.
-    
+
   Scenario: Upload a CSV file full of students
     When I select the file "upload/students.csv" for upload
     And that file contains a set of student details
     Then their details should be queued for adding to Chargify
-    And their details should be queued for further processing
+    # And their details should be queued for further processing - This is handled by Zapier now
     When I click "Upload"
     Then I should see the results of my upload
     And I should see "Bob Fish <bob@example.edu>"
