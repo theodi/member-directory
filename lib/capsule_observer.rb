@@ -40,6 +40,7 @@ class CapsuleObserver
   # capsule_id      - the identifier of the organisation in CapsuleCRM
   #
   def self.update(membership, directory_entry, capsule_id)
+    ActiveRecord::Base.verify_active_connections!
 
     unless membership['email'].present? && membership['product_name'].present?
       raise RequiredDataMissing.new("Check all required fields are present in Capsule CRM")
@@ -92,4 +93,3 @@ class CapsuleObserver
 end
 
 CapsuleObserver.register
-
