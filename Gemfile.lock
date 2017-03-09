@@ -14,15 +14,6 @@ GIT
       sort_alphabetical (~> 1.0)
 
 GIT
-  remote: git://github.com/theodi/eventbrite-client.rb.git
-  revision: ba10abee2c38ae8cd6a5af834ab73c40d37aff2d
-  branch: update-dependencies
-  specs:
-    eventbrite-client (0.1.3)
-      httparty (~> 0.8)
-      tzinfo (~> 0.3)
-
-GIT
   remote: git://github.com/theodi/open-orgn-services.git
   revision: a99c6b9d9ac3bc1542fa4dad0f177434ad93dfe2
   specs:
