@@ -4,7 +4,7 @@ gem 'rails', '~> 3.2'
 
 gem 'devise', '~> 2.2'
 gem 'dotenv'
-gem 'fog' #, '~> 1.12.1'
+gem 'fog'
 gem 'carrierwave'
 gem 'mini_magick'
 gem 'rabl'
@@ -18,7 +18,6 @@ gem 'data_migrate', github: 'doublewide/data-migrate'
 
 gem 'validate_url'
 
-# These should be grabbed from git, not rubygems, as we have our own fixes
 gem 'capsulecrm', github: 'xmacinka/capsulecrm'
 
 gem 'open-orgn-services', github: 'theodi/open-orgn-services'
@@ -28,7 +27,7 @@ gem 'rack-google-analytics'
 gem 'airbrake'
 gem 'rdiscount'
 gem 'stripe'
-gem 'country_select', github: 'stefanpenner/country_select'
+gem 'country_select'
 gem 'ransack'
 
 # Gems used only for assets and not required

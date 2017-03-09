@@ -6,14 +6,6 @@ GIT
       rails (>= 3.0.0, < 3.3)
 
 GIT
-  remote: git://github.com/stefanpenner/country_select.git
-  revision: fb476551aa61e68af2175aeb4d097148e6904a34
-  specs:
-    country_select (3.0.0)
-      countries (~> 2.0)
-      sort_alphabetical (~> 1.0)
-
-GIT
   remote: git://github.com/theodi/open-orgn-services.git
   revision: a99c6b9d9ac3bc1542fa4dad0f177434ad93dfe2
   specs:
@@ -123,6 +115,9 @@ GEM
       money (~> 6.7)
       sixarm_ruby_unaccent (~> 1.1)
       unicode_utils (~> 1.4)
+    country_select (3.0.0)
+      countries (~> 2.0)
+      sort_alphabetical (~> 1.0)
     coveralls (0.8.19)
       json (>= 1.8, < 3)
       simplecov (~> 0.12.0)
@@ -637,7 +632,7 @@ DEPENDENCIES
   carrierwave
   chargify_api_ares
   coffee-rails (~> 3.2)
-  country_select!
+  country_select
   coveralls
   csvlint
   cucumber-rails
