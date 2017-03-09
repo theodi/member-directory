@@ -65,6 +65,7 @@ gem 'mysql2'
 
 
 group :development, :test do
+  gem 'capybara', '~> 2.6.0'
   gem 'sqlite3'
   gem 'cucumber-rails', require: false
   gem 'database_cleaner'
