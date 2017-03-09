@@ -26,7 +26,6 @@ gem 'rack-google-analytics'
 
 gem 'airbrake'
 gem 'rdiscount'
-gem 'stripe'
 gem 'country_select'
 gem 'ransack'
 

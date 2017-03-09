@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20160215125642) do
+ActiveRecord::Schema.define(:version => 20170309173740) do
 
   create_table "admins", :force => true do |t|
     t.string   "email",              :default => "", :null => false
@@ -25,6 +25,12 @@ ActiveRecord::Schema.define(:version => 20160215125642) do
   end
 
   add_index "admins", ["email"], :name => "index_admins_on_email", :unique => true
+
+  create_table "data_migrations", :id => false, :force => true do |t|
+    t.string "version", :null => false
+  end
+
+  add_index "data_migrations", ["version"], :name => "data_migrations_unique_data_migrations"
 
   create_table "embed_stats", :force => true do |t|
     t.string   "referrer"
@@ -52,7 +58,6 @@ ActiveRecord::Schema.define(:version => 20160215125642) do
     t.string   "product_name"
     t.boolean  "cached_active",                                :default => false
     t.boolean  "cached_newsletter",                            :default => false
-    t.string   "stripe_customer_id"
     t.integer  "embed_stat_id"
     t.string   "organization_sector"
     t.string   "organization_size"
