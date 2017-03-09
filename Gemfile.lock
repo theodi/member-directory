@@ -1,11 +1,4 @@
 GIT
-  remote: git://github.com/doublewide/data-migrate.git
-  revision: 972cedae91e035578b0141b1ac28c2730b07fcdc
-  specs:
-    data_migrate (1.2.0)
-      rails (>= 3.0.0, < 3.3)
-
-GIT
   remote: git://github.com/theodi/open-orgn-services.git
   revision: a99c6b9d9ac3bc1542fa4dad0f177434ad93dfe2
   specs:
@@ -634,7 +627,6 @@ DEPENDENCIES
   coveralls
   csvlint
   cucumber-rails
-  data_migrate!
   database_cleaner
   devise (~> 2.2)
   dotenv

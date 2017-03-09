@@ -13,9 +13,6 @@ gem 'rails_admin', "~> 0.4"
 gem 'chargify_api_ares'
 gem 'omniauth-google-oauth2'
 
-# We use this version as the original gem only allows Rails up to 3.0.11
-gem 'data_migrate', github: 'doublewide/data-migrate'
-
 gem 'validate_url'
 
 gem 'capsulecrm', github: 'xmacinka/capsulecrm'
