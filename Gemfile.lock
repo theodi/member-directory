@@ -643,13 +643,13 @@ DEPENDENCIES
   capsulecrm!
   carrierwave
   chargify_api_ares
-  coffee-rails (~> 3.2.1)
+  coffee-rails (~> 3.2)
   country_select!
   csvlint
   cucumber-rails
   data_migrate!
   database_cleaner
-  devise (~> 2.2.4)
+  devise (~> 2.2)
   dotenv
   email_spec
   eventbrite-client!
@@ -668,14 +668,14 @@ DEPENDENCIES
   poltergeist
   rabl
   rack-google-analytics
-  rails (~> 3.2.18)
+  rails (~> 3.2)
   rails_admin (~> 0.4)
   ransack
   rb-fsevent (~> 0.9)
   rdiscount
   rspec-html-matchers!
   rspec-rails
-  sass-rails (~> 3.2.3)
+  sass-rails (~> 3.2)
   simplecov-rcov
   sqlite3
   stripe
