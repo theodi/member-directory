@@ -4,7 +4,7 @@ gem 'rails', '~> 3.2'
 
 gem 'devise', '~> 2.2'
 gem 'dotenv'
-gem 'fog' #, '~> 1.12.1'
+gem 'fog'
 gem 'carrierwave'
 gem 'mini_magick'
 gem 'rabl'
@@ -18,9 +18,7 @@ gem 'data_migrate', github: 'doublewide/data-migrate'
 
 gem 'validate_url'
 
-# These should be grabbed from git, not rubygems, as we have our own fixes
 gem 'capsulecrm', github: 'xmacinka/capsulecrm'
-gem 'eventbrite-client', github: 'theodi/eventbrite-client.rb', branch: 'update-dependencies'
 
 gem 'open-orgn-services', github: 'theodi/open-orgn-services'
 
@@ -28,7 +26,7 @@ gem 'rack-google-analytics'
 
 gem 'airbrake'
 gem 'rdiscount'
-gem 'country_select', github: 'stefanpenner/country_select'
+gem 'country_select'
 gem 'ransack'
 
 # Gems used only for assets and not required
@@ -77,7 +75,7 @@ group :development, :test do
   gem 'email_spec', require: false
   gem 'mailcatcher'
   gem 'travis'
-  gem 'rspec-html-matchers', require: false, github: 'theodi/rspec-html-matchers'
+  gem 'rspec-html-matchers'
   gem 'csvlint'
   gem 'coveralls'
 end
