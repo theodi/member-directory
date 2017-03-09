@@ -231,7 +231,7 @@ end
 When(/^I should see my changed membership details when I revisit the edit page$/) do
   #expect(page).to have_content(@changed_email)
   expect(page.find('#member_email').value).to eq @changed_email
-  expect(page.find('#member_cached_newsletter').checked? == 'checked').to eq @changed_newsletter
+  expect(page.find('#member_cached_newsletter').checked?).to eq @changed_newsletter
   expect(page.find('#member_organization_size').value).to eq @changed_size
   expect(page.find('#member_organization_sector').value).to eq @changed_sector
 end

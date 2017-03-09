@@ -5,7 +5,7 @@ cache: bundler
 before_install:
 - gem install bundler
 rvm:
-- 2.1.6
+- 2.1.10
 before_script: cp config/database.example.yml config/database.yml && bundle exec rake
   db:schema:load
 services: redis
