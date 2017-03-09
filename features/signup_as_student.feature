@@ -1,3 +1,4 @@
+@timecop
 Feature: Signup as an student member
 
   Background:
