@@ -77,7 +77,7 @@ group :development, :test do
   gem 'email_spec', require: false
   gem 'mailcatcher'
   gem 'travis'
-  gem 'rspec-html-matchers', require: false, github: 'theodi/rspec-html-matchers'
+  gem 'rspec-html-matchers'
   gem 'csvlint'
   gem 'coveralls'
 end

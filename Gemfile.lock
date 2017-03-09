@@ -35,14 +35,6 @@ GIT
       xeroizer (~> 2.15, >= 2.15.6)
 
 GIT
-  remote: git://github.com/theodi/rspec-html-matchers.git
-  revision: 11a5855c21376a8f88241b6680457b77b552742d
-  specs:
-    rspec-html-matchers (0.6.1.theodi)
-      nokogiri (~> 1)
-      rspec (~> 3)
-
-GIT
   remote: git://github.com/xmacinka/capsulecrm.git
   revision: c04eceb5f1e580ce5b4a073aa96886a774116ca9
   specs:
@@ -528,6 +520,9 @@ GEM
     rspec-expectations (3.5.0)
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.5.0)
+    rspec-html-matchers (0.9.1)
+      nokogiri (~> 1)
+      rspec (>= 3.0.0.a, < 4)
     rspec-mocks (3.5.0)
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.5.0)
@@ -651,7 +646,6 @@ DEPENDENCIES
   devise (~> 2.2)
   dotenv
   email_spec
-  eventbrite-client!
   factory_girl_rails
   faker
   fog
@@ -672,7 +666,7 @@ DEPENDENCIES
   ransack
   rb-fsevent (~> 0.9)
   rdiscount
-  rspec-html-matchers!
+  rspec-html-matchers
   rspec-rails
   sass-rails (~> 3.2)
   sqlite3

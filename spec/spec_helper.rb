@@ -5,13 +5,13 @@ Coveralls.wear_merged!('rails')
 ENV["RAILS_ENV"] ||= 'test'
 require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
-require 'rspec/html/matchers'
 
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
 Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 
 RSpec.configure do |config|
+      
   config.infer_spec_type_from_file_location!
   # == Mock Framework
   #
@@ -31,5 +31,5 @@ RSpec.configure do |config|
   config.use_transactional_fixtures = true
   
   config.include Devise::TestHelpers, :type => :controller
-  config.include(RSpec::HtmlMatchers)
+  config.include RSpecHtmlMatchers
 end
