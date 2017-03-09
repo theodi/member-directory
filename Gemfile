@@ -77,10 +77,10 @@ group :development, :test do
   gem 'timecop'
   gem 'email_spec', require: false
   gem 'mailcatcher'
-  gem 'simplecov-rcov'
   gem 'travis'
   gem 'rspec-html-matchers', require: false, github: 'theodi/rspec-html-matchers'
   gem 'csvlint'
+  gem 'coveralls'
 end
 
 group :test do

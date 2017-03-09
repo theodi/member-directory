@@ -1,8 +1,10 @@
 # Member Directory 
 
-[![Build Status](http://jenkins.theodi.org/job/member-directory-master/badge/icon)](http://jenkins.theodi.org/job/member-directory-master/)
-[![Dependency Status](https://gemnasium.com/theodi/member-directory.png)](https://gemnasium.com/theodi/member-directory)
-[![Code Climate](https://codeclimate.com/github/theodi/member-directory.png)](https://codeclimate.com/github/theodi/member-directory)
+[![Build Status](http://img.shields.io/travis/theodi/member-directory.svg?style=flat-square)](https://travis-ci.org/theodi/member-directory)
+[![Dependency Status](http://img.shields.io/gemnasium/theodi/member-directory.svg?style=flat-square)](https://gemnasium.com/theodi/member-directory)
+[![Coverage Status](http://img.shields.io/coveralls/theodi/member-directory.svg?style=flat-square)](https://coveralls.io/github/theodi/member-directory)
+[![Code Climate](http://img.shields.io/codeclimate/github/theodi/member-directory.svg?style=flat-square)](https://codeclimate.com/github/theodi/member-directory)
+[![License](http://img.shields.io/:license-mit-blue.svg?style=flat-square)](http://theodi.mit-license.org)
 
 The ODI's member directory frontend application. 
 

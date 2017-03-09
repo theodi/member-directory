@@ -5,3 +5,8 @@
 require File.expand_path('../config/application', __FILE__)
 
 MemberDirectory::Application.load_tasks
+
+require 'coveralls/rake/task'
+Coveralls::RakeTask.new
+
+task :default => [:spec, :cucumber, 'coveralls:push']
