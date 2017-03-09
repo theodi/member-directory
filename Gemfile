@@ -1,8 +1,5 @@
 source 'https://rubygems.org'
 
-#ruby=ruby-2.1.6
-#ruby-gemset=member-directory
-
 gem 'rails', '~> 3.2.18'
 
 gem 'devise', '~> 2.2.4'
