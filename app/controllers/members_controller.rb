@@ -84,18 +84,6 @@ class MembersController < ApplicationController
     @title = "Membership agreement: Right to cancel"
   end
 
-  def thanks
-    if current_member.student?
-      @title = "Welcome to the ODI network!"
-    else
-      @title = "Thanks for supporting The ODI"
-    end
-
-    if current_member.invoiced?
-      current_member.process_invoiced_member!
-    end
-  end
-
   def summary
     render xml: Member.summary.to_xml(:root => :summary)
   end
