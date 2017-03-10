@@ -1,11 +1,3 @@
-Given /^the student coupon code SUPERFREE is in Chargify$/ do
-  @chargify_product_url = "http://test.host/product/individual-supporter-student"
-  @chargify_product_price = 800
-  @coupon = double(:code => "SUPERFREE", :percentage => 100)
-  Member.register_chargify_product_price("individual-supporter-student", @chargify_product_price*100)
-  Member.register_chargify_coupon_code(@coupon)
-end
-
 Given /^there is already an organization with the name '(.*?)'$/ do |org_name|
   FactoryGirl.create :member, :organization_name => org_name
 end
@@ -210,8 +202,4 @@ Then(/^an? (.*?) membership should be created for "(.*?)"$/) do |product_name, e
     Then they should have a membership number generated
     Then they should be marked as active
   }
-end
-
-Then(/^that member should be set up in Chargify$/) do
-  expect(@member.chargify_subscription_id).to be_present
 end
