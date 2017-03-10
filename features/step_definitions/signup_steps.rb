@@ -215,15 +215,3 @@ end
 Then(/^that member should be set up in Chargify$/) do
   expect(@member.chargify_subscription_id).to be_present
 end
-
-And /^(I|they) should have a membership number generated$/ do |ignore|
-  @member = Member.find_by_email(@email)
-  @membership_number = @member.membership_number
-  expect(@membership_number).to_not be_nil
-  expect(@membership_number).to match(/[A-Z]{2}[0-9]{4}[A-Z]{2}/)
-end
-
-Then(/^(I|they) should be marked as active$/) do |ignore|
-  expect(@member.cached_active).to eq(true) if @member.organization?
-  expect(@member.current).to eq(true)
-end

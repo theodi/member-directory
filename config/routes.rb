@@ -32,12 +32,6 @@ MemberDirectory::Application.routes.draw do
     end
   end
 
-  resources :uploads, :only => [:new, :create] do
-    collection do
-      get :sample, defaults: {format: :csv}
-    end
-  end
-
   root :to => redirect("/members")
 
   get '/logos/:level/:size/:colour.svg', defaults: {format: :svg}, to: 'badge#logo'
