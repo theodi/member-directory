@@ -107,7 +107,7 @@ class Member < ActiveRecord::Base
   after_create  :save_membership_id_in_capsule, if: :remote?
   after_update  :save_updates_to_capsule, unless: :remote?
 
-  devise :database_authenticatable, :registerable,
+  devise :database_authenticatable,
          :recoverable, :rememberable, :trackable, :validatable
 
   # Setup accessible (or protected) attributes for your model

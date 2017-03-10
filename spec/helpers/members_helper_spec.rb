@@ -11,35 +11,6 @@ require 'spec_helper'
 #   end
 # end
 describe MembersHelper do
-  describe "#payment_button_label" do
-    let(:member) { double(student?: false) }
-
-    context "type is free" do
-      it "doesn't ask you to enter your card details" do
-        discount_type = :free
-
-        expect(helper.payment_button_label(member, discount_type)).to eq("Continue")
-      end
-    end
-
-    context "type is not free" do
-      it "asks you to pay now" do
-        discount_type = :not_free
-
-        expect(helper.payment_button_label(member, discount_type)).to eq("Pay now")
-      end
-    end
-
-    context "the member is a student?" do
-      let(:member) { double(student?: true) }
-
-      it "asks you to 'Complete' the process" do
-        discount_type = :anything
-
-        expect(helper.payment_button_label(member, discount_type)).to eq("Continue")
-      end
-    end
-  end
 
   describe "#course_date_months" do
     it "should return the years" do

@@ -15,13 +15,6 @@ MemberDirectory::Application.routes.draw do
       only: [:new, :create, :destroy],
       path: 'session',
       controller: 'devise/sessions'
-    resource :registration,
-      only: [:new, :create, :destroy],
-      path: 'members',
-      controller: 'registrations',
-      as: :member_registration do
-        get :cancel
-      end
   end
 
   match '/members/newsletter', :to => 'newsletter_subscriptions#unsubscribe'
