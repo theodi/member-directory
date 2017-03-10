@@ -1,5 +1,4 @@
 # encoding: utf-8
-require 'noninteractive_add_to_chargify'
 
 class Member < ActiveRecord::Base
   # Include default devise modules. Others available are:
@@ -86,10 +85,6 @@ class Member < ActiveRecord::Base
   }
 
   LARGE_CORPORATE = %w[251-1000 >1000]
-
-  CHARGIFY_PRODUCT_PRICES = {}
-
-  CHARGIFY_COUPON_DISCOUNTS = {}
 
   SUBSCRIPTION_OPTIONS = {
     choices: [1,2,5,10,20,30,40,50,60,70,80,90,100],
@@ -264,35 +259,6 @@ class Member < ActiveRecord::Base
       }
     }
   end
-
-  def self.initialize_chargify_links!
-    product_family_ids = Set.new
-    Chargify::Product.all.each do |product|
-      # yep, this is how good the chargify API naming is
-      # also no way to find the currency of a Site either
-      register_chargify_product_price(product.handle, product.price_in_cents)
-      product_family_ids.add(product.product_family.id)
-    end
-    product_family_ids.each do |product_family_id|
-      Chargify::Coupon.all(params: {product_family_id: product_family_id}).each do |coupon|
-        if !coupon.archived_at.present? && coupon.percentage.present?
-          register_chargify_coupon_code(coupon)
-        end
-      end
-    end
-  end
-
-  def self.register_chargify_product_price(plan, cents_that_are_pence)
-    CHARGIFY_PRODUCT_PRICES[plan] = cents_that_are_pence.to_i / 100
-  end
-
-  def self.register_chargify_coupon_code(coupon)
-    CHARGIFY_COUPON_DISCOUNTS[coupon.code] = {
-      :type        => (coupon.percentage == 100 ? :free : :discount),
-      :percentage  => coupon.percentage
-    }
-  end
-
   def remote?
     @remote || false
   end
@@ -329,9 +295,6 @@ class Member < ActiveRecord::Base
     member.send :generate_reset_password_token
     member.current = true
     member.save(:validate => from_capsule ? false : true)
-    # Set up subscription in Chargify properly
-    # For now we only support student memberships for this.
-    Resque.enqueue(NoninteractiveAddToChargify, member.id) if member.student?
     # Send onwards and let the customer know
     member.deliver_welcome_email!
     member
@@ -448,29 +411,8 @@ class Member < ActiveRecord::Base
     end
   end
 
-  def update_chargify_values!(params)
-    self.chargify_customer_id ||= params[:customer_id]
-    self.chargify_subscription_id ||= params[:subscription_id]
-    self.chargify_payment_id ||= params[:payment_id]
-    self.subscription_amount ||= params[:amount]
-    save(:validate => false)
-  end
-
   def unsubscribe_from_newsletter!
     self.update_attribute(:cached_newsletter, false)
-  end
-
-  def verify_chargify_subscription!(subscription, customer)
-    params = {
-      chargify_customer_id: customer['id'],
-      chargify_subscription_id: subscription['id'],
-      chargify_payment_id: subscription['signup_payment_id'],
-      chargify_data_verified: true,
-      coupon: subscription['coupon_code']
-    }
-
-    update_attributes!(params, without_protection: true)
-    process_signup
   end
 
   def register_embed(referrer)
@@ -489,48 +431,6 @@ class Member < ActiveRecord::Base
       'supporter_annual'             => 'Supporter',
       'supporter_monthly'            => 'Supporter'
     }[plan]
-  end
-
-  def price_without_vat amount
-    (amount / 1.2).round(2)
-  end
-
-  def get_plan_price
-    if individual?
-      amount = subscription_amount
-    else
-      amount = CHARGIFY_PRODUCT_PRICES.fetch(plan) do
-        raise RuntimeError, "Can't get product price for plan '#{plan}'. Does it exist in Chargify?"
-      end
-    end
-
-    if address_country == 'GB'
-      if individual? || student?
-        inc_vat, vat = amount * 1.2, amount * 0.2
-        "£%.2f including £%.2f VAT" % [inc_vat, vat]
-      else
-        "£%.2f + VAT" % amount
-      end
-    else
-      "£%.2f" % amount
-    end
-  end
-
-  def get_monthly_plan_price
-    amount = CHARGIFY_PRODUCT_PRICES[plan]
-    pcm = (amount / 12)
-    if address_country == 'GB'
-      "£%.2f + VAT" % pcm
-    else
-      "£%.2f" % pcm
-    end
-  end
-
-  def coupon_discount
-    return nil unless coupon.present?
-
-    coupon = CHARGIFY_COUPON_DISCOUNTS.fetch(self.coupon)
-    coupon[:percentage]
   end
 
   def invoiced?

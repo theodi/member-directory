@@ -93,116 +93,6 @@ describe Member do
     end
   end
 
-  context 'setting up chargify links' do
-    before do
-      Member::CHARGIFY_PRODUCT_PRICES.clear
-      Member::CHARGIFY_COUPON_DISCOUNTS.clear
-      allow(Chargify::Coupon).to receive(:all).and_return([])
-    end
-
-    it 'stores the price of the product' do
-      product = double('product')
-      page = double('page')
-      allow(product).to receive(:price_in_cents).and_return(80000)
-      allow(product).to receive(:product_family).and_return(double('pf', id: 1))
-      allow(product).to receive(:handle).and_return("plan_name")
-      allow(product).to receive(:public_signup_pages).and_return([])
-      expect(Chargify::Product).to receive(:all).and_return([product])
-      Member.initialize_chargify_links!
-      expect(Member::CHARGIFY_PRODUCT_PRICES["plan_name"]).to eq(800)
-    end
-
-    it 'stores coupon discounts' do
-      full = double('coupon',
-        archived_at: nil,
-        percentage: 100,
-        code: "FULL")
-      half = double('coupon',
-        archived_at: nil,
-        percentage: 50,
-        code: "HALF")
-      amount = double('coupon',
-        archived_at: nil,
-        percentage: nil,
-        code: "AMOUNT")
-      product1 = double('product', product_family: double(:id => 1), handle: 'a', public_signup_pages: [], price_in_cents: 1)
-      product2 = double('product', product_family: double(:id => 2), handle: 'b', public_signup_pages: [], price_in_cents: 1)
-      allow(Chargify::Product).to receive(:all).and_return([product1, product2])
-      expect(Chargify::Coupon).to receive(:all).with(params: {product_family_id: 1}).and_return([full, amount])
-      expect(Chargify::Coupon).to receive(:all).with(params: {product_family_id: 2}).and_return([half])
-      Member.initialize_chargify_links!
-      expect(Member::CHARGIFY_COUPON_DISCOUNTS).to eq({
-        "FULL" => { :type => :free,     :percentage => 100 },
-        "HALF" => { :type => :discount, :percentage => 50 }
-      })
-    end
-
-    it 'ignores archived coupons' do
-      present = double('coupon',
-        archived_at: nil,
-        percentage: 100,
-        code: "PRESENT")
-      archived = double('coupon',
-        archived_at: 3.days.ago,
-        percentage: nil,
-        code: "ARCHIVED")
-      product = double('product', product_family: double(:id => 1), handle: 'a', public_signup_pages: [], price_in_cents: 1)
-      allow(Chargify::Product).to receive(:all).and_return([product])
-      expect(Chargify::Coupon).to receive(:all).with(params: {product_family_id: 1}).and_return([present, archived])
-      Member.initialize_chargify_links!
-      expect(Member::CHARGIFY_COUPON_DISCOUNTS).to eq({
-        "PRESENT" => { :type => :free, :percentage => 100 }
-      })
-    end
-  end
-
-  describe 'price helpers for plan' do
-    before do
-      Member.register_chargify_product_price('individual-supporter', 9000)
-      Member.register_chargify_product_price('individual-supporter-student', 9000)
-      Member.register_chargify_product_price('supporter_annual', 72000)
-      Member.register_chargify_product_price('supporter_monthly', 6000)
-    end
-
-    it 'returns the price of the plan without vat' do
-      m = Member.new(product_name: 'supporter')
-      expect(m.get_plan_price).to eq("£720.00")
-    end
-
-    it 'returns the price with +VAT if in UK' do
-      m = Member.new(product_name: 'supporter', address_country: 'GB')
-      expect(m.get_plan_price).to eq("£720.00 + VAT")
-    end
-
-    it 'returns the price inclusive of vat for individuals' do
-      m = Member.new(product_name: 'individual', address_country: 'GB', subscription_amount: 6)
-      expect(m.get_plan_price).to eq("£7.20 including £1.20 VAT")
-    end
-
-    it 'returns the price inclusive of vat for students' do
-      m = Member.new(product_name: 'student', address_country: 'GB')
-      expect(m.get_plan_price).to eq("£108.00 including £18.00 VAT")
-    end
-
-    it 'returns a 12th of the yearly price for monthly price' do
-      m = Member.new(product_name: 'supporter')
-      expect(m.get_monthly_plan_price).to eq("£60.00")
-    end
-
-    it 'returns a 12th of the yearly price for monthly price +VAT if in UK' do
-      m = Member.new(product_name: 'supporter', address_country: 'GB')
-      expect(m.get_monthly_plan_price).to eq("£60.00 + VAT")
-    end
-
-    it 'raises an error if a plan price cannot be found' do
-      m = Member.new
-      # Not ideal, but a necessity at the moment
-      allow(m).to receive(:plan).and_return('plan-that-is-not-in-chargify')
-
-      expect { m.get_plan_price }.to raise_error(RuntimeError, /Can't get product price for plan 'plan-that-is-not-in-chargify'\. Does it exist in Chargify\?/)
-    end
-  end
-
   describe "#plan" do
     context "member is individual" do
       it "returns 'individual-supporter-new'" do
@@ -249,29 +139,6 @@ describe Member do
     end
   end
 
-  describe 'coupon_discount' do
-    context 'member has a coupon' do
-      it 'returns the coupon discount percentage amount' do
-        stub_const("Member::CHARGIFY_COUPON_DISCOUNTS", {
-          "TOTES_FREE" => {
-            :type => :discount,
-            :percentage => 50
-          }
-        })
-
-        member.coupon = "TOTES_FREE"
-
-        expect(member.coupon_discount).to eq 50
-      end
-    end
-
-    context 'member does NOT have a coupon' do
-      it 'returns nil' do
-        expect(member.coupon_discount).to eq nil
-      end
-    end
-  end
-
   describe 'invoiced?' do
     context 'member has invoice flag set to true' do
       it 'returns true' do
@@ -285,7 +152,7 @@ describe Member do
       it 'returns false' do
         member.invoice = nil
 
-        expect(member.coupon_discount).to be_falsey
+        expect(member.invoiced?).to be_falsey
       end
     end
   end
