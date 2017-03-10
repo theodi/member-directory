@@ -53,18 +53,6 @@ module MembersHelper
     content_tag(:li, content, class: ('active' if active))
   end
 
-  def payment_button_label(member, discount_type)
-    if member.student?
-      "Continue"
-    else
-      if discount_type == :free
-        "Continue"
-      else
-        "Pay now"
-      end
-    end
-  end
-
   def field_visibility(field)
     unless params[:member] && params[:member][field] == "Other (please specify)"
       'style="display: none"'.html_safe
