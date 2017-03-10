@@ -1,14 +1,13 @@
 class MembersController < ApplicationController
   respond_to :html, :json
 
-  before_filter :get_member, :except => [:index, :right_to_cancel, :chargify_verify, :chargify_return, :summary]
+  before_filter :get_member, :except => [:index, :right_to_cancel, :summary]
   before_filter :set_formats, :log_embed, :only => [:badge]
-  before_filter :authenticate_member!, :only => [:payment, :thanks, :chargify_return]
+  before_filter :authenticate_member!, :only => [:thanks]
   before_filter :individual_signed_in, :only => :show
 
   before_filter(:only => [:index, :show]) {alternate_formats [:json]}
 
-  before_filter :verify_chargify_webhook, :only => :chargify_verify
   before_filter :ensure_current, :only => :show
 
   def index
@@ -97,43 +96,6 @@ class MembersController < ApplicationController
     end
   end
 
-  def payment
-    discount = Member::CHARGIFY_COUPON_DISCOUNTS[current_member.coupon]
-    @discount_type = discount.nil? ? "" : discount[:type]
-    @no_payment = params[:no_payment] || (@discount_type == :free)
-    @coupon = params[:coupon] || current_member.coupon
-    if current_member.current?
-      redirect_to member_path(current_member)
-    elsif request.post?
-      current_member.update_attribute(:payment_frequency, params[:payment_frequency]) if params[:payment_frequency].present?
-      current_member.no_payment = true if @no_payment
-      redirect_to ChargifyProductLink.for(current_member)
-    else
-      @member = current_member
-    end
-  end
-
-  def chargify_return
-    Member.transaction do
-      current_member.current!
-      current_member.update_chargify_values!(params)
-    end
-    current_member.deliver_welcome_email!
-    redirect_to thanks_member_path(current_member)
-  end
-
-  def chargify_verify
-    case(params['event'])
-    when 'test'
-    when 'signup_success'
-      subscription = params['payload']['subscription']
-      customer = subscription['customer']
-      member = Member.find_by_membership_number!(customer['reference'])
-      member.verify_chargify_subscription!(subscription, customer)
-    end
-    head :ok
-  end
-
   def summary
     render xml: Member.summary.to_xml(:root => :summary)
   end
@@ -158,14 +120,6 @@ class MembersController < ApplicationController
 
   def individual_signed_in
     authenticate_member! if @member.individual?
-  end
-
-  def verify_chargify_webhook
-    key = ENV['CHARGIFY_SITE_KEY']
-    body = request.raw_post
-    provided_digest = request.headers['X-Chargify-Webhook-Signature-Hmac-Sha-256']
-    digest = OpenSSL::HMAC.hexdigest(OpenSSL::Digest::Digest.new('sha256'), key, body)
-    head :unauthorized unless Devise.secure_compare(provided_digest, digest)
   end
 
 end
