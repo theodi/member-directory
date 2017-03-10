@@ -10,7 +10,6 @@ gem 'mini_magick'
 gem 'rabl'
 gem 'alternate_rails', git: 'https://github.com/theodi/alternate-rails.git', branch: "83a5b8b73655283b2d9729eeae848488881eecc4"
 gem 'rails_admin', "~> 0.4"
-gem 'chargify_api_ares'
 gem 'omniauth-google-oauth2'
 
 gem 'validate_url'

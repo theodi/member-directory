@@ -621,7 +621,6 @@ DEPENDENCIES
   alternate_rails!
   capsulecrm!
   carrierwave
-  chargify_api_ares
   coffee-rails (~> 3.2)
   country_select
   coveralls
