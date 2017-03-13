@@ -7,6 +7,11 @@ class Organization < ActiveRecord::Base
                   :cached_contact_name, :cached_contact_phone, :cached_contact_email,
                   :cached_twitter, :cached_linkedin, :cached_facebook, :cached_tagline
 
+  attr_accessible :name, :description, :url, :logo, :logo_cache,
+                  :cached_contact_name, :cached_contact_phone, :cached_contact_email,
+                  :cached_twitter, :cached_linkedin, :cached_facebook, :cached_tagline,
+                  :as => [:admin, :user]
+
   # Using after_save here so we get the right image urls
   before_save :strip_twitter_prefix
   before_validation :prefix_url
@@ -38,7 +43,7 @@ class Organization < ActiveRecord::Base
     end,
     organizations.name
   ORDER
-
+  
   def self.in_alpha_group(alpha)
     if alpha.upcase.between?('A', 'Z')
       where("substr(organizations.name, 1, 1) = ?", alpha)
