@@ -349,12 +349,6 @@ class Member < ActiveRecord::Base
     send_devise_notification(:confirmation_instructions)
   end
 
-  def process_invoiced_member!
-    current!
-    process_signup
-    deliver_welcome_email!
-  end
-
   def check_organization_names
     if new_record? # Only validate on create
       unless Organization.where(:name => organization_name).empty?
@@ -521,89 +515,6 @@ class Member < ActiveRecord::Base
       country_name,
       postal_code
     ].compact.join("\n")
-  end
-
-  def process_signup
-    Resque.enqueue(SignupProcessor, *process_signup_attributes)
-  end
-
-  def process_signup_attributes
-    organization = {
-      'name'                     => organization_name,
-      'vat_id'                   => organization_vat_id,
-      'company_number'           => organization_company_number,
-      'size'                     => organization_size,
-      'type'                     => organization_type,
-      'sector'                   => organization_sector,
-      'origin'                   => (origin.empty? ? nil : origin),
-      'newsletter'               => cached_newsletter,
-      'share_with_third_parties' => cached_share_with_third_parties
-    }
-
-    contact_person = {
-      'name'                           => contact_name,
-      'email'                          => email,
-      'telephone'                      => telephone,
-      'twitter'                        => twitter,
-      'dob'                            => dob,
-      'country'                        => country_name,
-      'university_email'               => university_email,
-      'university_address_country'     => university_address_country,
-      'university_country'             => university_country,
-      'university_name'                => university_name,
-      'university_name_other'          => university_name_other,
-      'university_course_name'         => university_course_name,
-      'university_qualification'       => university_qualification,
-      'university_qualification_other' => university_qualification_other,
-      'university_course_start_date'   => university_course_start_date,
-      'university_course_end_date'     => university_course_end_date
-    }
-
-    billing = {
-      'name'      => contact_name,
-      'email'     => email,
-      'telephone' => telephone,
-      'address'   => {
-        'street_address'   => street_address,
-        'address_locality' => address_locality,
-        'address_region'   => address_region,
-        'address_country'  => country_name,
-        'postal_code'      => postal_code
-      },
-      'coupon' => coupon
-    }
-
-    purchase = {
-      'payment_method' => invoiced? ? 'invoice' : 'credit_card',
-      'payment_ref'    => chargify_payment_id,
-      'offer_category' => product_name,
-      'membership_id'  => membership_number,
-      'discount'       => coupon_discount
-    }
-
-    purchase['amount_paid'] = subscription_amount if individual?
-
-    [organization, contact_person, billing, purchase]
-  end
-
-  def save_updates_to_capsule
-    unless (changed & %w[email cached_newsletter organization_size organization_sector]).empty?
-      Resque.enqueue(SaveMembershipDetailsToCapsule, membership_number, {
-        'email'                    => email,
-        'newsletter'               => cached_newsletter,
-        'share_with_third_parties' => cached_share_with_third_parties,
-        'size'                     => organization_size,
-        'sector'                   => organization_sector
-      })
-    end
-  end
-
-  def save_membership_id_in_capsule
-    if individual? || student?
-      Resque.enqueue(SaveMembershipIdInCapsule, nil, email, membership_number)
-    else
-      Resque.enqueue(SaveMembershipIdInCapsule, organization_name, nil, membership_number)
-    end
   end
 
   def setup_organization

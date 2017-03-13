@@ -1,7 +1,7 @@
 @timecop
 Feature: Adding details to the organization directory
 
-	As a member, I want my details to be listed on the organization directory and stored in capsule
+	As a member, I want my details to be listed on the organization directory
 
 	Scenario: Sucessful organization directory upload
 
