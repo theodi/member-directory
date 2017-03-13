@@ -20,15 +20,6 @@ GIT
       xeroizer (~> 2.15, >= 2.15.6)
 
 GIT
-  remote: git://github.com/xmacinka/capsulecrm.git
-  revision: c04eceb5f1e580ce5b4a073aa96886a774116ca9
-  specs:
-    capsulecrm (0.0.4)
-      activemodel (>= 3.0.5)
-      activesupport (>= 3.0.5)
-      httparty (>= 0.7.4)
-
-GIT
   remote: https://github.com/theodi/alternate-rails.git
   revision: 83a5b8b73655283b2d9729eeae848488881eecc4
   branch: 83a5b8b73655283b2d9729eeae848488881eecc4
@@ -79,6 +70,10 @@ GEM
     bootstrap-sass (2.3.2.2)
       sass (~> 3.2)
     builder (3.0.4)
+    capsulecrm (0.0.3)
+      activemodel (>= 3.0.5)
+      activesupport (>= 3.0.5)
+      httparty (>= 0.7.4)
     capybara (2.12.1)
       addressable
       mime-types (>= 1.16)
@@ -619,7 +614,6 @@ PLATFORMS
 DEPENDENCIES
   airbrake
   alternate_rails!
-  capsulecrm!
   carrierwave
   coffee-rails (~> 3.2)
   country_select

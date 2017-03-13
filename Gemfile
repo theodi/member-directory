@@ -14,8 +14,6 @@ gem 'omniauth-google-oauth2'
 
 gem 'validate_url'
 
-gem 'capsulecrm', github: 'xmacinka/capsulecrm'
-
 gem 'open-orgn-services', github: 'theodi/open-orgn-services'
 
 gem 'rack-google-analytics'
