@@ -22,7 +22,9 @@ class ApplicationController < ActionController::Base
   end
 
   def after_sign_in_path_for(resource)
-    resource.is_a?(Member) ? member_path(resource) : members_path
+    return member_path(resource) if resource.is_a?(Member)
+    return "/admin" if resource.is_a?(Admin)
+     members_path
   end
 
   def after_sign_out_path_for(resource_or_scope)
