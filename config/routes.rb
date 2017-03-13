@@ -22,12 +22,8 @@ MemberDirectory::Application.routes.draw do
   resources :members, :only => [:index, :show, :update] do
     member do
       get :badge, defaults: {format: :js}
-      get :thanks
-      match :payment, via: [:get, :post]
     end
     collection do
-      post :chargify_verify
-      get :chargify_return
       get :summary, to: :summary, as: :summary, format: :xml
     end
   end
