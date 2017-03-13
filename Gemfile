@@ -1,7 +1,9 @@
 source 'https://rubygems.org'
+ruby "2.1.10"
+
+gem 'rails_12factor'
 
 gem 'rails', '~> 3.2'
-
 gem 'devise', '~> 2.2'
 gem 'dotenv'
 gem 'fog'
@@ -54,8 +56,7 @@ gem 'zeroclipboard-rails'
 
 # To use debugger
 # gem 'debugger'
-gem 'mysql2'
-
+gem 'mysql2', '~> 0.3.10'
 
 group :development, :test do
   gem 'sqlite3'
