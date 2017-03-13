@@ -56,7 +56,7 @@ gem 'zeroclipboard-rails'
 
 # To use debugger
 # gem 'debugger'
-gem 'mysql2'
+gem 'mysql2', '~> 0.3.10'
 
 group :development, :test do
   gem 'sqlite3'

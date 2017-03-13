@@ -381,7 +381,7 @@ GEM
     multi_test (0.1.2)
     multi_xml (0.6.0)
     multipart-post (2.0.0)
-    mysql2 (0.4.5)
+    mysql2 (0.3.17)
     nenv (0.3.0)
     nested_form (0.3.2)
     net-http-persistent (2.9.4)
@@ -644,7 +644,7 @@ DEPENDENCIES
   launchy
   mailcatcher
   mini_magick
-  mysql2
+  mysql2 (~> 0.3.10)
   omniauth-google-oauth2
   open-orgn-services!
   poltergeist
