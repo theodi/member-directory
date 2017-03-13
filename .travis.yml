@@ -1,36 +1,15 @@
 language: ruby
-sudo: required
+sudo: false
 dist: precise
 cache: bundler
-before_install:
-- gem install bundler
 rvm:
-- 2.1.10
+- 2.1.6
 before_script: cp config/database.example.yml config/database.yml && bundle exec rake
   db:schema:load
 services: redis
-after_success:
-- ! '[ "$TRAVIS_BRANCH" == "master" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ] &&
-  curl -v -X DELETE -u $GITHUB_USER:$GITHUB_PASSWORD "https://api.github.com/repos/$TRAVIS_REPO_SLUG/git/refs/tags/CURRENT"'
-- ! '[ "$TRAVIS_BRANCH" == "master" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ] &&
-  curl -v -X POST -d ''{"ref":"refs/tags/CURRENT","sha":"''$TRAVIS_COMMIT''"}''  --header
-  "Content-Type:application/json" -u $GITHUB_USER:$GITHUB_PASSWORD "https://api.github.com/repos/$TRAVIS_REPO_SLUG/git/refs"'
-- ! '[ "$TRAVIS_BRANCH" == "staging" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ] &&
-  curl -v -X DELETE -u $GITHUB_USER:$GITHUB_PASSWORD "https://api.github.com/repos/$TRAVIS_REPO_SLUG/git/refs/tags/STAGING"'
-- ! '[ "$TRAVIS_BRANCH" == "staging" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ] &&
-  curl -v -X POST -d ''{"ref":"refs/tags/STAGING","sha":"''$TRAVIS_COMMIT''"}''  --header
-  "Content-Type:application/json" -u $GITHUB_USER:$GITHUB_PASSWORD "https://api.github.com/repos/$TRAVIS_REPO_SLUG/git/refs"'
 branches:
   except:
   - CURRENT
-notifications:
-  irc:
-    channels:
-    - irc.freenode.net#theodi
-    template:
-    - ! '%{repository} %{branch} - %{message} %{build_url}'
-    on_success: change
-    on_failure: always
 env:
   global:
   - secure: gVjzB18+9Tk+Zb3s+t63wL1I6KhrIZlY+w7YBBF6l7/1At4bOoWsscWrswohsbbQ5jW85mScDqAiX0vNQPqQXw92AAJ9c8aOFm1IyItz5cwV/Tep+p632iuAopqCi7QQ1p38BMpH37VU2WCKo8o/PjBiPbdi6cI8jO5Dwa8zf9c=
