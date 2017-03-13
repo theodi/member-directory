@@ -10,7 +10,10 @@
     "A1_STATS_ID": {
       "required": true
     },
-    "AIRBRAKE_DIRECTORY_KEY": {
+    "AIRBRAKE_PROJECT_ID": {
+      "required": true
+    },
+    "AIRBRAKE_API_KEY": {
       "required": true
     },
     "CAPSULECRM_ACCOUNT_NAME": {
