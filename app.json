@@ -61,15 +61,6 @@
     "RACKSPACE_USERNAME": {
       "required": true
     },
-    "RESQUE_REDIS_HOST": {
-      "required": true
-    },
-    "RESQUE_REDIS_PASSWORD": {
-      "required": true
-    },
-    "RESQUE_REDIS_PORT": {
-      "required": true
-    },
     "SESSION_SECRET_DIRECTORY": {
       "required": true
     },
