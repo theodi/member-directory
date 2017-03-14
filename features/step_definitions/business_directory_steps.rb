@@ -157,40 +157,6 @@ Then /^the square logo should be available at the correct URL$/ do
   expect(@member.organization.logo.square.url).to eq @square_url.gsub(/<MEMBERSHIP_NUMBER>/, @member.membership_number)
 end
 
-Then /^my organisation details should be queued for further processing$/ do
-  @member = Member.find_by_email(@email)
-
-  logo = @fullsize_url.gsub(/<MEMBERSHIP_NUMBER>/, @member.membership_number) rescue nil
-  thumbnail = @square_url.gsub(/<MEMBERSHIP_NUMBER>/, @member.membership_number) rescue nil
-
-  organization = {
-    :name => @organization_name
-  }
-
-  directory_entry = {
-    :active      => true,
-    :description => @organization_description,
-    :homepage    => "http://#{@organization_url}",
-    :logo        => logo,
-    :thumbnail   => thumbnail,
-    :contact     => @organization_contact,
-    :phone       => @organization_phone,
-    :email       => @organization_email,
-    :twitter     => @organization_twitter,
-    :linkedin    => @organization_linkedin,
-    :facebook    => @organization_facebook,
-    :tagline     => @organization_tagline,
-  }
-
-  date = @member.organization.updated_at.to_s
-
-  expect(Resque).to receive(:enqueue).with(SendDirectoryEntryToCapsule, @member.membership_number, organization, directory_entry, date)
-end
-
-Then /^my organisation details should not be queued for further processing$/ do
-  expect(Resque).to_not receive(:enqueue)
-end
-
 Then(/^I update my membership details$/) do
   @changed_email      = Faker::Internet.email
   @changed_newsletter = true
@@ -215,17 +181,6 @@ Then(/^I update my membership details$/) do
   @changed_sector = "Other"
   select(@changed_sector, :from => "member_organization_sector")
   
-end
-
-Then(/^my membership details should be queued for updating in CapsuleCRM$/) do
-  @member = Member.find_by_email(@email)
-  expect(Resque).to receive(:enqueue).with(SaveMembershipDetailsToCapsule, @member.membership_number, {
-    'email'      => @changed_email,
-    'newsletter' => @changed_newsletter,
-    'share_with_third_parties' => @changed_share_with_third_parties,
-    'size'       => @changed_size,
-    'sector'     => @changed_sector,
-  })
 end
 
 When(/^I should see my changed membership details when I revisit the edit page$/) do

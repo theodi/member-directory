@@ -70,69 +70,6 @@ When /^I enter my address details$/ do
   fill_in('member_postal_code', :with => @postal_code)
 end
 
-Then /^(their|my) details should be queued for further processing$/ do |ignore|
-  organization = {
-    'name' => @organization_name,
-    'vat_id' => @organization_vat_id,
-    'company_number' => @organization_company_number,
-    'size' => @organization_size,
-    'type' => @organization_type,
-    'sector' => @organization_sector,
-    'origin' => @origin,
-    'newsletter' => true,
-    'share_with_third_parties' => @share_with_third_parties
-  }
-
-  contact_person = {
-    'name'                           => @contact_name,
-    'email'                          => @email,
-    'telephone'                      => @telephone,
-    'twitter'                        => @twitter,
-    'dob'                            => @dob,
-    'country'                        => @address_country,
-    'university_email'               => @university_email,
-    'university_address_country'     => @university_address_country,
-    'university_country'             => @university_country,
-    'university_name'                => @university_name,
-    'university_name_other'          => @university_name_other,
-    'university_course_name'         => @university_course_name,
-    'university_qualification'       => @university_qualification,
-    'university_qualification_other' => @university_qualification_other,
-    'university_course_start_date'   => @university_course_start_date,
-    'university_course_end_date'     => @university_course_end_date
-  }
-
-  billing = {
-    'name' => @contact_name,
-    'email' => @email,
-    'telephone' => @telephone,
-    'address' => {
-      'street_address' => @street_address,
-      'address_locality' => @address_locality,
-      'address_region' => @address_region,
-      'address_country' => @address_country,
-      'postal_code' => @postal_code
-    },
-    'coupon' => @coupon ? @coupon.code : nil
-  }
-
-  purchase = {
-    'discount' => @discount
-  }
-
-  expect(Resque).to receive(:enqueue) do |*args|
-    expect(args[0]).to eql SignupProcessor
-    expect(args[1]).to eql organization
-    expect(args[2]).to eql contact_person
-    expect(args[3]).to eql billing
-    expect(args[4]['payment_method']).to eql @payment_method
-    expect(args[4]['payment_ref']).to eql @payment_ref
-    expect(args[4]['offer_category']).to eql @product_name
-    expect(args[4]['membership_id']).not_to eql nil
-    expect(args[4]['amount_paid']).to eq(@amount)
-  end
-end
-
 Then /^I should see an error relating to (.*)$/ do |text|
   expect(page.find(:css, "div.alert-error")).to have_content(text)
 end
