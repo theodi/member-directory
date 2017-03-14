@@ -99,8 +99,6 @@ class Member < ActiveRecord::Base
 
   before_create :set_membership_number, :set_address
   after_create  :setup_organization
-  after_create  :save_membership_id_in_capsule, if: :remote?
-  after_update  :save_updates_to_capsule, unless: :remote?
 
   devise :database_authenticatable,
          :recoverable, :rememberable, :trackable, :validatable
