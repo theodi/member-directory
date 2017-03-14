@@ -202,18 +202,10 @@ describe Member do
       end
 
       it "sets the members #cached_active flag" do
-        allow(UpdateDirectoryEntry).to receive(:update!).with(organization)
-
         member.current!
-
-        expect(member.cached_active).to eq(true)
+      expect(member.cached_active).to eq(true)
       end
 
-      it "queues the directory entry if an organization" do
-        expect(UpdateDirectoryEntry).to receive(:update!).with(organization)
-
-        member.current!
-      end
     end
   end
 

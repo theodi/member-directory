@@ -323,10 +323,6 @@ class Member < ActiveRecord::Base
   def current!
     update_attribute(:cached_active, true) if organization?
     update_attribute(:current, true)
-
-    if organization?
-      UpdateDirectoryEntry.update!(self.organization)
-    end
   end
 
   def self.create_without_password!(options = {})
