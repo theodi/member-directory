@@ -53,17 +53,4 @@ module ApplicationHelper
     end
   end
 
-  def date_months
-    (1..12).map do |month|
-      [Date::MONTHNAMES[month], "%.2d" % month]
-    end
-  end
-
-  def course_date_years(years_before = 5, years_after = 5)
-    current_year = Time.now.year
-    to           = current_year + years_after
-    from         = current_year - years_before
-
-    (from..to).to_a
-  end
 end
