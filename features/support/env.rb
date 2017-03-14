@@ -10,8 +10,6 @@ Coveralls.wear_merged!('rails')
 require 'cucumber/rails'
 require 'cucumber/rspec/doubles'
 
-# Remove Pony before we load email_spec, because it conflicts with ActionMailer in this app
-Object.send(:remove_const, :Pony)
 require 'email_spec'
 require 'email_spec/cucumber'
 
