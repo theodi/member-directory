@@ -376,7 +376,7 @@ GEM
     multi_test (0.1.2)
     multi_xml (0.6.0)
     multipart-post (2.0.0)
-    mysql2 (0.4.5)
+    mysql2 (0.3.17)
     nenv (0.3.0)
     nested_form (0.3.2)
     net-http-persistent (2.9.4)
@@ -440,6 +440,9 @@ GEM
       activesupport (= 3.2.22.5)
       bundler (~> 1.0)
       railties (= 3.2.22.5)
+    rails_12factor (0.0.3)
+      rails_serve_static_assets
+      rails_stdout_logging
     rails_admin (0.4.9)
       bootstrap-sass (~> 2.2)
       builder (~> 3.0)
@@ -455,6 +458,8 @@ GEM
       remotipart (~> 1.0)
       safe_yaml (~> 0.6)
       sass-rails (~> 3.1)
+    rails_serve_static_assets (0.0.5)
+    rails_stdout_logging (0.0.5)
     railties (3.2.22.5)
       actionpack (= 3.2.22.5)
       activesupport (= 3.2.22.5)
@@ -633,13 +638,14 @@ DEPENDENCIES
   launchy
   mailcatcher
   mini_magick
-  mysql2
+  mysql2 (~> 0.3.10)
   omniauth-google-oauth2
   open-orgn-services!
   poltergeist
   rabl
   rack-google-analytics
   rails (~> 3.2)
+  rails_12factor
   rails_admin (~> 0.4)
   ransack
   rb-fsevent (~> 0.9)
@@ -656,6 +662,9 @@ DEPENDENCIES
   validate_url
   webmock
   zeroclipboard-rails
+
+RUBY VERSION
+   ruby 2.1.10p492
 
 BUNDLED WITH
    1.14.6

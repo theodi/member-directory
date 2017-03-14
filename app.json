@@ -1,0 +1,88 @@
+{
+  "name": "member-directory",
+  "description": "",
+  "scripts": {
+  },
+  "env": {
+    "DATABASE_URL": {
+      "required": true
+    },
+    "A1_STATS_ID": {
+      "required": true
+    },
+    "AIRBRAKE_PROJECT_ID": {
+      "required": true
+    },
+    "AIRBRAKE_API_KEY": {
+      "required": true
+    },
+    "CAPSULECRM_ACCOUNT_NAME": {
+      "required": true
+    },
+    "CAPSULECRM_API_TOKEN": {
+      "required": true
+    },
+    "FOUNDING_PARTNER_ID": {
+      "required": true
+    },
+    "GOOGLE_ANALYTICS_TRACKER": {
+      "required": true
+    },
+    "GOOGLE_CLIENT_ID": {
+      "required": true
+    },
+    "GOOGLE_CLIENT_SECRET": {
+      "required": true
+    },
+    "MAILCHIMP_WEBHOOK_TOKEN": {
+      "required": true
+    },
+    "MANDRILL_PASSWORD": {
+      "required": true
+    },
+    "MANDRILL_USERNAME": {
+      "required": true
+    },
+    "RACKSPACE_API_ENDPOINT": {
+      "required": true
+    },
+    "RACKSPACE_API_KEY": {
+      "required": true
+    },
+    "RACKSPACE_API_REGION": {
+      "required": true
+    },
+    "RACKSPACE_DIRECTORY_ASSET_HOST": {
+      "required": true
+    },
+    "RACKSPACE_DIRECTORY_CONTAINER": {
+      "required": true
+    },
+    "RACKSPACE_USERNAME": {
+      "required": true
+    },
+    "RESQUE_REDIS_HOST": {
+      "required": true
+    },
+    "RESQUE_REDIS_PASSWORD": {
+      "required": true
+    },
+    "RESQUE_REDIS_PORT": {
+      "required": true
+    },
+    "SESSION_SECRET_DIRECTORY": {
+      "required": true
+    },
+    "WHOISVISITING_STATS_ID": {
+      "required": true
+    }
+  },
+  "formation": {
+  },
+  "addons": [
+
+  ],
+  "buildpacks": [
+
+  ]
+}
