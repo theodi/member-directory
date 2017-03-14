@@ -15,9 +15,7 @@ full details.
 
 ## Setup
 
-You need to set various environment variables to tell the app where to post
-jobs for background queueing. Copy env.example to .env and edit to fit your
-purposes.
+You need to set various environment variables. Copy env.example to .env and edit to fit your purposes.
 
 ## Testing
 
