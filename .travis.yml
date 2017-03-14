@@ -6,19 +6,11 @@ rvm:
 - 2.1.10
 before_script: cp config/database.example.yml config/database.yml && bundle exec rake
   db:schema:load
-services: redis
 branches:
   except:
   - CURRENT
 env:
   global:
-  - secure: gVjzB18+9Tk+Zb3s+t63wL1I6KhrIZlY+w7YBBF6l7/1At4bOoWsscWrswohsbbQ5jW85mScDqAiX0vNQPqQXw92AAJ9c8aOFm1IyItz5cwV/Tep+p632iuAopqCi7QQ1p38BMpH37VU2WCKo8o/PjBiPbdi6cI8jO5Dwa8zf9c=
-  - secure: Y+uNul1jHcpmE/pTwwuqWVAyDEv70xWty9X5tdQq507VOOajiWKtSwkpBbDyynviZJFIylT9xTU+A2AhRbHCosLfR9egAwE2eXiL4XVnwrLyMunl6D+l2mHzFYkEJqaA5vIdl3fwILr8bJUOHQSeHyXUZK9dduINftVlbQnmlTc=
-  - secure: WM2RWJh5xAe5n0azU+bjMGLn2e7JzCAZJQy1uTabG9zzsDCr0k4PO/kuhfPNh1hbKamZhcPsGnR2NnNQeNdqesIfF4tiCkPwwOc7RBZFi48G6gmNltmtk2MVBV9DFZmpXDCgJ4s1xqdlAuvquRM5HFtEVaKaiEbB171T8swEaRU=
-  - secure: I1CsTofRuE9oH3yauJSMdpuDSPl19JIPVcqnC3jbk0iVDwMHthXS8C1SrfhhcdiJ8uN0ILd0BLLJ2w4OU20Pe2WPNCGRSTntYx/qy4Dq0n1oHnr/DPyT1LG3UleRlhzYZ7CLSXvn6Zq+9sf3kOWn+ClFy6uGU2keWZ6ZuyC6Ya8=
-  - secure: CW10yIxbmM3SFMZ/Sbsw7yv4fBZy8qWUgDKIT8jjB2sIhV3bip3h1IiUSbCzTXW+bKgDpCN1WUrsNFlXIavUZrNRuWpu4P+hofclUmFfbfKCl0FYrbQSjEtd8apgVOr+IgAsvrbXbeq9ht02DFs4spu8GFtF1mBXOV2+rJnWCNk=
-  - secure: QMhC+QWarZcagWC6OspZt9CS4YWZ8dIFoNGP9xtgOjZzT0yuuZ1tH7B7QHAjH9ER68tTD5bipJkM/6hxI/5yl2HD6mPK4Y83+Xodmir6PXUIguN+/4u9FXaYTxFuQ8FBusxhKH0P44Utru41WLlJxpkN0uIgwvgsQ4pLz9GbWUc=
-  - secure: ExLak+mMD6TAn6EuAI2x6D+1NOVgqmoBg2XkiOq6xc1R0f7PPvMHlve61VIVqHB4c3/Q66+7qPv87wrsx+vDSfkI7kgVogWeR4Tbk/OBx5SZSlJP+1pjHSlgkgqc1Ek0ZBaZlnRpkxYfMdIusKWHm4sYwzOAxAkftQdbQgGvvSA=
   - secure: Q+fmUEp3COuM/n1lER3oU3NWrZasO3QcQZ6AYDrAFkBjVerjCfCPIyG1aEbeVF7+FpqcTKecNxe2vGpz0g6erhkxdx5sHXFFu+rKXShsdtR7yYwTsn9VRRbguBLTynNOoYFIVugXKSAJoXtuTzrZxtSgHo3GRexlhMQWNtauT24=
   - secure: Oin78sjiTfcKmO4KTQbNy/5Pivj+0sVG7W3Royq2NnLGyIkHuX30AlQRpc/fmQGT3aXRGgzBe9MznhETAPtUisDt4EbkRNUlnWLTLUIOlrhNkoNo3rEwWR1hIrvVDDBhysMli367e9dqQ0P/ymo6B+WVcT6fey7g+JmUBExITyU=
   - secure: fke53ZVI415GXIhIQ8POwWC7YOnRaKmvzW462+kg7nUsrn066MakkXFJkteTYRCYnYBKRA5dCO4vuwci9TifaQB2KmSvIhot2LZJ+Z1O7GTdPxKwLdwk34KuqYnVbmaS6O/noI5+0DHIPM9SMvazJIgmemAQpzejBTLNpnT/4B8=
@@ -30,5 +22,3 @@ env:
   - TEST_COVERAGE=1
   - RACKSPACE_API_REGION=lon
   - secure: AU7M7tWv2LOj/CHO/cr0l92+GxK1IQ/1u8cPIIl4huP7VbPw+8KUg0BiB6RT0FZ2+Himd1DyfGFwlTGUXlskCHnW3uNXBOYz++kmGkRwvNJaxxgQ114KyD2NkAfNSH2h9hWgMtE73rUcbXQJXw9pPuxKUOqe1opi0tSL4/e24f8=
-  - secure: io/xuObALiz1tPInEo0pKc+Dn5mvwiJHS/5bn1TYOeMsjekvHkcQG3hTGiJtylzaNinXWz3dxxS0yoEJcRXE3NLdCdLZgL6waH93x9HxF2A1YDix0Oyahli1gFPtPPhVRoA6VnQ3gux7JR5vGJZ18y4M4H9ZYEQQAj05yYJglyo=
-  - secure: dc5SIVEFQIb7vCG86CYR3xNTAlesZCW8GS7F/eY7UMGhFwpq+jurmKYxDVzttg+u1AmiyAU1QmAwXl++rOPFHh8JfTZqjagv5LznEc1SUqCfpBjheOtVA66drp0D4yY7Djv1VAUYFKwyN6t5Ur1gYek+gMJj3RK2PPC1DDX+7Bk=
