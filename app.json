@@ -16,12 +16,6 @@
     "AIRBRAKE_API_KEY": {
       "required": true
     },
-    "CAPSULECRM_ACCOUNT_NAME": {
-      "required": true
-    },
-    "CAPSULECRM_API_TOKEN": {
-      "required": true
-    },
     "FOUNDING_PARTNER_ID": {
       "required": true
     },
