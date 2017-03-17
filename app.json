@@ -16,12 +16,6 @@
     "AIRBRAKE_API_KEY": {
       "required": true
     },
-    "CAPSULECRM_ACCOUNT_NAME": {
-      "required": true
-    },
-    "CAPSULECRM_API_TOKEN": {
-      "required": true
-    },
     "FOUNDING_PARTNER_ID": {
       "required": true
     },
@@ -59,15 +53,6 @@
       "required": true
     },
     "RACKSPACE_USERNAME": {
-      "required": true
-    },
-    "RESQUE_REDIS_HOST": {
-      "required": true
-    },
-    "RESQUE_REDIS_PASSWORD": {
-      "required": true
-    },
-    "RESQUE_REDIS_PORT": {
       "required": true
     },
     "SESSION_SECRET_DIRECTORY": {

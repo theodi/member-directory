@@ -1,8 +1,6 @@
 source 'https://rubygems.org'
 ruby "2.1.10"
 
-gem 'rails_12factor'
-
 gem 'rails', '~> 3.2'
 gem 'devise', '~> 2.2'
 gem 'dotenv'
@@ -15,10 +13,6 @@ gem 'rails_admin', "~> 0.4"
 gem 'omniauth-google-oauth2'
 
 gem 'validate_url'
-
-gem 'capsulecrm', github: 'xmacinka/capsulecrm'
-
-gem 'open-orgn-services', github: 'theodi/open-orgn-services'
 
 gem 'rack-google-analytics'
 
@@ -83,6 +77,7 @@ group :test do
 end
 
 group :production do
+  gem 'rails_12factor'
   gem 'foreman', '< 0.65.0'
   gem 'thin'
 end

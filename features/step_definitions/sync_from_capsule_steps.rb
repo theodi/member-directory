@@ -149,27 +149,6 @@ Then(/^my individual details should be cached correctly$/) do
   expect(@membership.cached_newsletter).to                 eq @newsletter
 end
 
-Then /^nothing should be placed on the queue$/ do
-  expect(Resque).not_to receive(:enqueue)
-end
-
-Then /^nothing should be placed on the signup queue$/ do
-end
-
-Then /^my membership number should be stored in CapsuleCRM$/ do
-  expect(Resque).to receive(:enqueue) do |*args|
-    expect(args[0]).to eql SaveMembershipIdInCapsule
-    if @product_name == "individual"
-      expect(args[1]).to eql nil
-      expect(args[2]).to eql @email
-    else
-      expect(args[1]).to eql @organization_name
-      expect(args[2]).to eql nil
-    end
-    expect(args[3]).to eql Member.where(email: @email).first.membership_number
-  end.once
-end
-
 Then /^a warning email should be sent to the commercial team$/ do
   steps %Q(
     Then "members@theodi.org" should receive an email

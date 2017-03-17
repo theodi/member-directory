@@ -15,9 +15,7 @@ full details.
 
 ## Setup
 
-You need to set various environment variables to tell the app where to post
-jobs for background queueing. Copy env.example to .env and edit to fit your
-purposes.
+You need to set various environment variables. Copy env.example to .env and edit to fit your purposes.
 
 ## Testing
 
@@ -47,17 +45,6 @@ You can run everything at once using `bundle exec rake`.
 
 Or, you can run each suite individually with `bundle exec cucumber` or `bundle
 exec rspec`.
-
-## Jobs
-
-The `SyncCapsuleData` (from [open-orgn-services](https://github.com/theodi/open-orgn-services))
-is run within this application to take advantage of the Member model.
-
-You can start Resque like this:
-
-    bundle exec rake resque:work VVERBOSE=1 TERM_CHILD=1 QUEUE=directory
-
-Or use Foreman with the supplied `Procfile`.
 
 ## Vagrant
 

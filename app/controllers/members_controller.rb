@@ -73,10 +73,6 @@ class MembersController < ApplicationController
       end
     end
 
-    if updated && @member.organization?
-      UpdateDirectoryEntry.update!(@member.organization)
-    end
-
     respond_with(@member)
   end
 

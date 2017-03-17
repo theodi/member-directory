@@ -1,14 +1,13 @@
 @timecop
 Feature: Adding details to the organization directory
 
-	As a member, I want my details to be listed on the organization directory and stored in capsule
+	As a member, I want my details to be listed on the organization directory
 
 	Scenario: Sucessful organization directory upload
 
 		Given that I have signed up
 		Then I am redirected to submit my organization details
 		And I enter my organization details
-    Then my organisation details should be queued for further processing
     When I click submit
     And I should see a notice that my details were saved successfully
     And I should see my changed details when I revisit the edit page
@@ -18,7 +17,6 @@ Feature: Adding details to the organization directory
 		And I visit my account page
 		And I enter my organization details
     And I attach an image
-    Then my organisation details should be queued for further processing
     When I click submit
     And I should see a notice that my details were saved successfully
     And I should see my changed details when I revisit the edit page
@@ -32,7 +30,6 @@ Feature: Adding details to the organization directory
 		Then I am redirected to submit my organization details
 		And I enter my organization details
 		But I leave my organization <field> blank
-    Then my organisation details should not be queued for further processing
 		When I click submit
 		And I should see an error relating to <text>
 
@@ -69,7 +66,6 @@ Feature: Adding details to the organization directory
 		And I enter my organization details
 		But I enter the organization name 'ACME Explosives Ltd'
     But there is already an organization with the name 'ACME Explosives Ltd'
-    Then my organisation details should not be queued for further processing
 		When I click submit
 		And I should see an error relating to Organisation name
 
@@ -93,7 +89,6 @@ Feature: Adding details to the organization directory
 		Then I am redirected to submit my organization details
 		And I enter my organization details
 		And my description is 525 characters long
-    Then my organisation details should not be queued for further processing
 		When I click submit
 		And I should see an error telling me that my description should not be longer than 500 characters
 
@@ -103,7 +98,6 @@ Feature: Adding details to the organization directory
 		And I visit my account page
 		And I enter my organization details
 		And my description is 1035 characters long
-    Then my organisation details should not be queued for further processing
     When I click submit
 		And I should see an error telling me that my description should not be longer than 1000 characters
 
