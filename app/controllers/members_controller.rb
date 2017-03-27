@@ -11,7 +11,7 @@ class MembersController < ApplicationController
   before_filter :ensure_current, :only => :show
 
   def index
-    @organizations = Organization.active.display_order
+    @organizations = Listing.active.display_order
 
     if params[:level]
       @organizations = @organizations.for_level(params[:level].downcase)

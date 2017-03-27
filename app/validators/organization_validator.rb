@@ -1,4 +1,4 @@
-class OrganizationValidator < ActiveModel::Validator
+class ListingValidator < ActiveModel::Validator
   include ActiveModel::Validations
 
   def initialize(options={})
@@ -13,7 +13,7 @@ class OrganizationValidator < ActiveModel::Validator
     @validators.each do |validator|
       validator.validate(record)
     end
-    if record.new_record? && Organization.exists?(name: record.organization_name)
+    if record.new_record? && Listing.exists?(name: record.organization_name)
       record.errors.add(:organization_name, "is already taken")
     end
   end

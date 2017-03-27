@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Organization do
+describe Listing do
 
   context "validations" do
     before :each do
@@ -26,7 +26,7 @@ describe Organization do
       expect {
         FactoryGirl.create :organization, :name => nil, :member => @member
         FactoryGirl.create :organization, :name => nil, :member => @member
-      }.to change{Organization.count}.by(2)
+      }.to change{Listing.count}.by(2)
     end
   end
 
@@ -47,7 +47,7 @@ describe Organization do
         b = organization(:name => 'Betty')
         a = organization(:name => 'Ace')
 
-        expect(Organization.display_order).to eq([a,b,g])
+        expect(Listing.display_order).to eq([a,b,g])
       end
 
       it "sorts by partner, sponsor, member, supporter" do
@@ -56,7 +56,7 @@ describe Organization do
         member = organization()
         member.member.update_attribute(:product_name, 'member')
         partner = organization(:type => 'partner')
-        expect(Organization.display_order).to eq([partner, sponsor, member, supporter])
+        expect(Listing.display_order).to eq([partner, sponsor, member, supporter])
       end
 
       it "sorts by founding partner first" do
@@ -64,7 +64,7 @@ describe Organization do
         founding_partner = organization(:name => 'z', :type => 'partner')
         founding_partner.member.update_attribute(:membership_number, Member.founding_partner_id)
         expect(founding_partner.member).to be_founding_partner
-        expect(Organization.display_order).to eq([founding_partner, partner])
+        expect(Listing.display_order).to eq([founding_partner, partner])
       end
     end
 
@@ -74,7 +74,7 @@ describe Organization do
         a2 = organization(:name => "Agile")
         organization(:name => "Eve")
 
-        expect(Organization.in_alpha_group("A")).to eq([a1, a2])
+        expect(Listing.in_alpha_group("A")).to eq([a1, a2])
       end
     end
   end
