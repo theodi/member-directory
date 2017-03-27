@@ -1,4 +1,4 @@
-class ListingValidator < ActiveModel::Validator
+class OrganizationValidator < ActiveModel::Validator
   include ActiveModel::Validations
 
   def initialize(options={})

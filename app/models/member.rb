@@ -244,7 +244,7 @@ class Member < ActiveRecord::Base
   validates :subscription_amount, presence: true, on: :create, if: Proc.new { |member| member.individual? && member.coupon.nil? }
   validates_acceptance_of :agreed_to_terms, on: :create
 
-  validates_with ListingValidator, on: :create, unless: Proc.new { |member| member.individual? || member.student? }
+  validates_with OrganizationValidator, on: :create, unless: Proc.new { |member| member.individual? || member.student? }
 
   validates :university_email,               presence: true, if: Proc.new { |member| member.student? }
   validates :university_name,                presence: true, if: Proc.new { |member| member.student? }
