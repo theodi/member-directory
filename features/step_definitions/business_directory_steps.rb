@@ -72,13 +72,13 @@ Then /^I enter my organization details$/ do
   fill_in('member_organization_attributes_name',                 :with => @organization_name)
   fill_in('member_organization_attributes_description',          :with => @organization_description)
   fill_in('member_organization_attributes_url',                  :with => @organization_url)
-  fill_in('member_organization_attributes_cached_contact_name',  :with => @organization_contact)
-  fill_in('member_organization_attributes_cached_contact_phone', :with => @organization_phone)
-  fill_in('member_organization_attributes_cached_contact_email', :with => @organization_email)
-  fill_in('member_organization_attributes_cached_twitter',       :with => @organization_twitter)
-  fill_in('member_organization_attributes_cached_linkedin',      :with => @organization_linkedin)
-  fill_in('member_organization_attributes_cached_facebook',      :with => @organization_facebook)
-  fill_in('member_organization_attributes_cached_tagline',       :with => @organization_tagline)
+  fill_in('member_organization_attributes_contact_name',  :with => @organization_contact)
+  fill_in('member_organization_attributes_contact_phone', :with => @organization_phone)
+  fill_in('member_organization_attributes_contact_email', :with => @organization_email)
+  fill_in('member_organization_attributes_twitter',       :with => @organization_twitter)
+  fill_in('member_organization_attributes_linkedin',      :with => @organization_linkedin)
+  fill_in('member_organization_attributes_facebook',      :with => @organization_facebook)
+  fill_in('member_organization_attributes_tagline',       :with => @organization_tagline)
 end
 
 Then /^I attach an image$/ do

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20170309173740) do
+ActiveRecord::Schema.define(:version => 20170327121436) do
 
   create_table "admins", :force => true do |t|
     t.string   "email",              :default => "", :null => false
@@ -102,19 +102,19 @@ ActiveRecord::Schema.define(:version => 20170309173740) do
 
   create_table "organizations", :force => true do |t|
     t.string   "name"
-    t.datetime "created_at",           :null => false
-    t.datetime "updated_at",           :null => false
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
     t.integer  "member_id"
     t.string   "logo"
     t.text     "description"
     t.string   "url"
-    t.string   "cached_contact_name"
-    t.string   "cached_contact_phone"
-    t.string   "cached_contact_email"
-    t.string   "cached_twitter"
-    t.string   "cached_facebook"
-    t.string   "cached_linkedin"
-    t.string   "cached_tagline"
+    t.string   "contact_name"
+    t.string   "contact_phone"
+    t.string   "contact_email"
+    t.string   "twitter"
+    t.string   "facebook"
+    t.string   "linkedin"
+    t.string   "tagline"
   end
 
   create_table "rails_admin_histories", :force => true do |t|

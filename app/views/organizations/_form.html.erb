@@ -11,8 +11,8 @@
                       :'data-bind' => "value: url, valueUpdate: 'afterkeydown'" %>
     <% end %>
 
-    <%= form_field f, :cached_tagline do %>
-      <%= f.text_field :cached_tagline, :class => 'input',
+    <%= form_field f, :tagline do %>
+      <%= f.text_field :tagline, :class => 'input',
                        :'data-bind' => "value: tagline, valueUpdate: 'afterkeydown'" %>
     <% end %>
 
@@ -55,35 +55,35 @@
 
   <div class='span6'>
 
-    <%= form_field f, :cached_contact_name do %>
-      <%= f.text_field :cached_contact_name, :class => 'input-large',
+    <%= form_field f, :contact_name do %>
+      <%= f.text_field :contact_name, :class => 'input-large',
                        :'data-bind' => "value: contactName, valueUpdate: 'afterkeydown'" %>
     <% end %>
 
-    <%= form_field f, :cached_contact_phone do %>
-      <%= f.text_field :cached_contact_phone, :class => 'input-large', :type => 'tel',
+    <%= form_field f, :contact_phone do %>
+      <%= f.text_field :contact_phone, :class => 'input-large', :type => 'tel',
                        :'data-bind' => "value: contactPhone, valueUpdate: 'afterkeydown'" %>
     <% end %>
 
-    <%= form_field f, :cached_contact_email do %>
-      <%= f.email_field :cached_contact_email, :class => 'input-large',
+    <%= form_field f, :contact_email do %>
+      <%= f.email_field :contact_email, :class => 'input-large',
                        :'data-bind' => "value: contactEmail, valueUpdate: 'afterkeydown'",
                        :pattern => "[a-zA-Z0-9._%+-]+@[a-zA-Z0-9-]+\\.[a-zA-Z.]+",
                        :title => "Please enter a valid email address" %>
     <% end %>
 
-    <%= form_field f, :cached_twitter do %>
-      <%= f.text_field :cached_twitter, :class => 'input-large', :placeholder => '@username',
+    <%= form_field f, :twitter do %>
+      <%= f.text_field :twitter, :class => 'input-large', :placeholder => '@username',
                        :'data-bind' => "value: twitter, valueUpdate: 'afterkeydown'" %>
     <% end %>
 
-    <%= form_field f, :cached_facebook do %>
-    	<%= f.url_field :cached_facebook, :class => 'input-large', :placeholder => 'http://facebook.com/pages/your-page',
+    <%= form_field f, :facebook do %>
+    	<%= f.url_field :facebook, :class => 'input-large', :placeholder => 'http://facebook.com/pages/your-page',
                       :'data-bind' => "value: facebook, valueUpdate: 'afterkeydown'" %>
     <% end %>
 
-    <%= form_field f, :cached_linkedin do %>
-    	<%= f.url_field :cached_linkedin, :class => 'input-large', :placeholder => 'http://linkedin.com/company/your-org',
+    <%= form_field f, :linkedin do %>
+    	<%= f.url_field :linkedin, :class => 'input-large', :placeholder => 'http://linkedin.com/company/your-org',
                       :'data-bind' => "value: linkedin, valueUpdate: 'afterkeydown'" %>
     <% end %>
   </div>

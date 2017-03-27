@@ -59,13 +59,13 @@ en:
         url: "Homepage"
         description: "Description"
         logo: "Logo"
-        cached_contact_name: "Contact person"
-        cached_contact_phone: "Contact telephone"
-        cached_contact_email: "Contact email"
-        cached_twitter: "Twitter handle"
-        cached_facebook: "Facebook"
-        cached_linkedin: "LinkedIn"
-        cached_tagline: "Tagline"
+        contact_name: "Contact person"
+        contact_phone: "Contact telephone"
+        contact_email: "Contact email"
+        twitter: "Twitter handle"
+        facebook: "Facebook"
+        linkedin: "LinkedIn"
+        tagline: "Tagline"
   activemodel:
     models:
       contact_request: Contact Request

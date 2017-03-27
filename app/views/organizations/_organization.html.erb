@@ -24,41 +24,41 @@
 
       <span property='description' class='contact-point-description'>Sales contact</span>
 
-      <% if @preview || organization.cached_contact_name.present? %>
+      <% if @preview || organization.contact_name.present? %>
         <span data-bind="visible: contactName().length > 0" class='contact-detail'>
-          <i class='icon-user'></i> <span property="name" data-bind="text: contactName"><%= organization.cached_contact_name %></span>
+          <i class='icon-user'></i> <span property="name" data-bind="text: contactName"><%= organization.contact_name %></span>
         </span>
       <% end %>
 
-      <% if @preview || organization.cached_contact_email.present? %>
+      <% if @preview || organization.contact_email.present? %>
         <span data-bind="visible: contactEmail().length > 0" class='contact-detail'>
-          <i class='icon-envelope-alt'></i> <a property="email" data-bind="text: contactEmail, attr: {href: mailto}" href='mailto:<%= organization.cached_contact_email %>'><%= organization.cached_contact_email %></a>
+          <i class='icon-envelope-alt'></i> <a property="email" data-bind="text: contactEmail, attr: {href: mailto}" href='mailto:<%= organization.contact_email %>'><%= organization.contact_email %></a>
         </span>
       <% end %>
 
-      <% if @preview || organization.cached_contact_phone.present? %>
+      <% if @preview || organization.contact_phone.present? %>
         <span data-bind="visible: contactPhone().length > 0" class='contact-detail'>
-          <i class='icon-phone-sign'></i> <span property="telephone" data-bind="text: contactPhone"><%= organization.cached_contact_phone %></span>
+          <i class='icon-phone-sign'></i> <span property="telephone" data-bind="text: contactPhone"><%= organization.contact_phone %></span>
         </span>
       <% end %>
     </p>
 
     <p>
-      <% if @preview || organization.cached_twitter.present? %>
+      <% if @preview || organization.twitter.present? %>
         <span data-bind="visible: twitter().length > 0" property='contactPoint' typeof='ContactPoint'>
-          <a property='url' data-bind="attr: {href: twitterUrl}" href='http://twitter.com/<%= organization.cached_twitter %>'><%= image_tag 'twitter-16x16.png', :alt => "Twitter" %><span property='name' class='contact-point-description'>Twitter</span></a>
+          <a property='url' data-bind="attr: {href: twitterUrl}" href='http://twitter.com/<%= organization.twitter %>'><%= image_tag 'twitter-16x16.png', :alt => "Twitter" %><span property='name' class='contact-point-description'>Twitter</span></a>
         </span>
       <% end %>
 
-      <% if @preview || organization.cached_facebook.present? %>
+      <% if @preview || organization.facebook.present? %>
         <span data-bind="visible: facebook().length > 0" property='contactPoint' typeof='ContactPoint'>
-          <a property='url' data-bind="attr: {href: facebook}" href='<%= organization.cached_facebook %>'><%= image_tag 'facebook-16x16.png', :alt => "Facebook" %><span property='name' class='contact-point-description'>Facebook</span></a>
+          <a property='url' data-bind="attr: {href: facebook}" href='<%= organization.facebook %>'><%= image_tag 'facebook-16x16.png', :alt => "Facebook" %><span property='name' class='contact-point-description'>Facebook</span></a>
         </span>
       <% end %>
 
-      <% if @preview || organization.cached_linkedin.present? %>
+      <% if @preview || organization.linkedin.present? %>
         <span data-bind="visible: linkedin().length > 0" property='contactPoint' typeof='ContactPoint'>
-          <a property='url' data-bind="attr: {href: linkedin}" href='<%= organization.cached_linkedin %>'><%= image_tag 'linkedin-16x16.png', :alt => "Linkedin" %><span property='name' class='contact-point-description'>Linkedin</span></a>
+          <a property='url' data-bind="attr: {href: linkedin}" href='<%= organization.linkedin %>'><%= image_tag 'linkedin-16x16.png', :alt => "Linkedin" %><span property='name' class='contact-point-description'>Linkedin</span></a>
         </span>
       <% end %>
     </p>
@@ -68,8 +68,8 @@
 
   <div class='<%= @member.supporter? ? '' : 'organization-content' %>'>
 
-    <% if @preview || organization.cached_tagline.present? %>
-      <p data-bind="visible: tagline().length > 0"><strong data-bind="text: tagline"><%= organization.cached_tagline %></strong></p>
+    <% if @preview || organization.tagline.present? %>
+      <p data-bind="visible: tagline().length > 0"><strong data-bind="text: tagline"><%= organization.tagline %></strong></p>
     <% end %>
 
     <div class='organization-description' property="description" datatype="rdf:HTML">
@@ -93,13 +93,13 @@
             this.description  = ko.observable("<%= escape_javascript(strip_tags(organization.description).html_safe) rescue nil %>");
             this.url          = ko.observable("<%= organization.url %>");
             this.imageSrc     = ko.observable("url(<%= organization.logo.rectangular.url %>)");
-            this.contactName  = ko.observable("<%= organization.cached_contact_name %>");
-            this.contactPhone = ko.observable("<%= organization.cached_contact_phone %>");
-            this.contactEmail = ko.observable("<%= organization.cached_contact_email %>");
-            this.twitter      = ko.observable("<%= organization.cached_twitter %>");
-            this.facebook     = ko.observable("<%= organization.cached_facebook %>");
-            this.linkedin     = ko.observable("<%= organization.cached_linkedin %>");
-            this.tagline      = ko.observable("<%= escape_javascript(strip_tags(organization.cached_tagline).html_safe) rescue nil %>");
+            this.contactName  = ko.observable("<%= organization.contact_name %>");
+            this.contactPhone = ko.observable("<%= organization.contact_phone %>");
+            this.contactEmail = ko.observable("<%= organization.contact_email %>");
+            this.twitter      = ko.observable("<%= organization.twitter %>");
+            this.facebook     = ko.observable("<%= organization.facebook %>");
+            this.linkedin     = ko.observable("<%= organization.linkedin %>");
+            this.tagline      = ko.observable("<%= escape_javascript(strip_tags(organization.tagline).html_safe) rescue nil %>");
             this.mailto       = ko.computed(function() {
               return 'mailto:' + this.contactEmail();
             }, this);

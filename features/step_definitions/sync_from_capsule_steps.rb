@@ -133,13 +133,13 @@ Then /^my details should be cached correctly$/ do
   expect(@membership.organization.name).to                 eq @organization_name
   expect(@membership.organization.description).to          eq @old_description # description should not change when synced
   expect(@membership.organization.url).to                  eq @url
-  expect(@membership.organization.cached_contact_name).to  eq @contact_name
-  expect(@membership.organization.cached_contact_phone).to eq @contact_phone
-  expect(@membership.organization.cached_contact_email).to eq @contact_email
-  expect(@membership.organization.cached_twitter).to       eq @twitter
-  expect(@membership.organization.cached_linkedin).to      eq @linkedin
-  expect(@membership.organization.cached_facebook).to      eq @facebook
-  expect(@membership.organization.cached_tagline).to       eq @tagline
+  expect(@membership.organization.contact_name).to  eq @contact_name
+  expect(@membership.organization.contact_phone).to eq @contact_phone
+  expect(@membership.organization.contact_email).to eq @contact_email
+  expect(@membership.organization.twitter).to       eq @twitter
+  expect(@membership.organization.linkedin).to      eq @linkedin
+  expect(@membership.organization.facebook).to      eq @facebook
+  expect(@membership.organization.tagline).to       eq @tagline
 end
 
 Then(/^my individual details should be cached correctly$/) do
