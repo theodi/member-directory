@@ -164,15 +164,15 @@ Then(/^I update my membership details$/) do
 
   fill_in('member_email', :with => @changed_email)
   if @changed_newsletter
-    check('member_cached_newsletter')
+    check('member_newsletter')
   else
-    uncheck('member_cached_newsletter')
+    uncheck('member_newsletter')
   end
 
   if @changed_share_with_third_parties
-    check('member_cached_share_with_third_parties')
+    check('member_share_with_third_parties')
   else
-    uncheck('member_cached_share_with_third_parties')
+    uncheck('member_share_with_third_parties')
   end
   
   @changed_size = ">1000"
@@ -186,14 +186,14 @@ end
 When(/^I should see my changed membership details when I revisit the edit page$/) do
   #expect(page).to have_content(@changed_email)
   expect(page.find('#member_email').value).to eq @changed_email
-  expect(page.find('#member_cached_newsletter').checked?).to eq @changed_newsletter
+  expect(page.find('#member_newsletter').checked?).to eq @changed_newsletter
   expect(page.find('#member_organization_size').value).to eq @changed_size
   expect(page.find('#member_organization_sector').value).to eq @changed_sector
 end
 
 Given(/^there are (\d+) active partners in the directory$/) do |num|
   num.to_i.times do
-    member = FactoryGirl.create :member, :product_name => 'partner', :cached_active => true
+    member = FactoryGirl.create :member, :product_name => 'partner', :active => true
     member.organization.description = Faker::Company.catch_phrase
     member.organization.save
   end
@@ -223,7 +223,7 @@ Given(/^I have entered my organization details$/) do
 end
 
 Given(/^my listing is active$/) do
-  @member.cached_active = true
+  @member.active = true
   @member.save
 end
 

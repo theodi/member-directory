@@ -45,7 +45,7 @@ class MembersController < ApplicationController
       render 'edit'
     else
       raise ActiveRecord::RecordNotFound and return if @organization.nil?
-      if @member.cached_active == false
+      if @member.active == false
         if signed_in?
           raise ActiveResource::UnauthorizedAccess.new(request.fullpath) and return
         else

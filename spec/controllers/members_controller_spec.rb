@@ -9,9 +9,9 @@ describe MembersController do
   describe "GET 'index'" do
 
     before :each do
-      @member    = FactoryGirl.create :member, :cached_active => true, :product_name => 'supporter'
-      @supporter = FactoryGirl.create :member, :cached_active => true, :product_name => 'supporter'
-      @inactive  = FactoryGirl.create :member, :cached_active => false, :product_name => 'member'
+      @member    = FactoryGirl.create :member, :active => true, :product_name => 'supporter'
+      @supporter = FactoryGirl.create :member, :active => true, :product_name => 'supporter'
+      @inactive  = FactoryGirl.create :member, :active => false, :product_name => 'member'
     end
 
     it "shows only members with active flag set" do
@@ -37,13 +37,13 @@ describe MembersController do
   describe "GET 'show'" do
 
     it "returns http success if member is active" do
-      member = FactoryGirl.create :current_member, :cached_active => true
+      member = FactoryGirl.create :current_member, :active => true
       get 'show', :id => member.membership_number
       expect(response).to be_success
     end
 
     it "redirects to login if member is not active" do
-      member = FactoryGirl.create :current_member, :cached_active => false
+      member = FactoryGirl.create :current_member, :active => false
       get 'show', :id => member.membership_number
       expect(response).to be_redirect
     end

@@ -21,7 +21,7 @@ FactoryGirl.define do
   end
 
   factory :current_active_member, parent: :current_member do
-    cached_active true
+    active true
   end
 
   factory :individual_member, class: Member do
@@ -41,6 +41,6 @@ FactoryGirl.define do
   end
 
   factory :current_active_individual_member, parent: :current_individual_member do
-    cached_active true
+    active true
   end
 end

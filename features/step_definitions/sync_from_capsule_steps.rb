@@ -120,14 +120,14 @@ end
 
 Then(/^that membership should not be shown in the directory$/) do
   @active = false
-  expect(@membership.cached_active).to eq(@active)
+  expect(@membership.active).to eq(@active)
 end
 
 Then /^my details should be cached correctly$/ do
   @membership = Member.where(membership_number: @membership_number).first
-  expect(@membership.cached_active).to                     eq (@active == "true")
+  expect(@membership.active).to                     eq (@active == "true")
   expect(@membership.product_name).to                      eq @product_name
-  expect(@membership.cached_newsletter).to                 eq @newsletter
+  expect(@membership.newsletter).to                 eq @newsletter
   expect(@membership.organization_size).to                 eq @organization_size
   expect(@membership.organization_sector).to               eq @organization_sector
   expect(@membership.organization.name).to                 eq @organization_name
@@ -144,9 +144,9 @@ end
 
 Then(/^my individual details should be cached correctly$/) do
   @membership = Member.where(membership_number: @membership_number).first
-  expect(@membership.cached_active).to                     eq (@active == "true")
+  expect(@membership.active).to                     eq (@active == "true")
   expect(@membership.product_name).to                      eq @product_name
-  expect(@membership.cached_newsletter).to                 eq @newsletter
+  expect(@membership.newsletter).to                 eq @newsletter
 end
 
 Then /^a warning email should be sent to the commercial team$/ do

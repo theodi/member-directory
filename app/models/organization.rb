@@ -27,7 +27,7 @@ class Organization < ActiveRecord::Base
   # but undesirable
   validates :url, :url => {:allow_nil => true}, :format => {:with => /\Ahttps?:\/\/([^\.\/]+?)\.([^\.\/]+?)/, :allow_nil => true}
 
-  scope :active, joins(:member).where(:members => { :cached_active => true })
+  scope :active, joins(:member).where(:members => { :active => true })
   scope :for_level, lambda { |level| joins(:member).where(members: { product_name: level}) }
 
   # Sorry, ActiveRecord can't quite make this query

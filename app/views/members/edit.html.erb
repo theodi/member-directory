@@ -67,7 +67,7 @@
     <div class="control-group">
       <div class="controls">
         <label class='checkbox'>
-          <%= f.check_box :cached_newsletter %> <%= t(:receive_newsletter) %>
+          <%= f.check_box :newsletter %> <%= t(:receive_newsletter) %>
         </label>
       </div>
     </div>
@@ -75,7 +75,7 @@
     <div class="control-group">
       <div class="controls">
         <label class='checkbox'>
-          <%= f.check_box :cached_share_with_third_parties %> <%= t(:share_with_third_parties) %>
+          <%= f.check_box :share_with_third_parties %> <%= t(:share_with_third_parties) %>
         </label>
       </div>
     </div>
@@ -162,7 +162,7 @@
     </fieldset>
   <% end %>
 
-  <% unless @member.individual? || @member.cached_active %>
+  <% unless @member.individual? || @member.active %>
     <p class='alert alert-info'>
       After you save, the ODI will review your listing and enable it for display in the public directory.
     </p>

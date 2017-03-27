@@ -7,7 +7,7 @@ describe NewsletterSubscriptionsController do
       FactoryGirl.create(
         :member,
         :email => "test@example.com",
-        :cached_newsletter => true
+        :newsletter => true
       )
     end
 
@@ -42,7 +42,7 @@ describe NewsletterSubscriptionsController do
       post :unsubscribe, params
 
       expect(response).to have_http_status(200)
-      expect(member.reload.cached_newsletter).to eq(false)
+      expect(member.reload.newsletter).to eq(false)
     end
 
     it "authenticates the request" do

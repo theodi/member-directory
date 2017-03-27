@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20170327121436) do
+ActiveRecord::Schema.define(:version => 20170327123025) do
 
   create_table "admins", :force => true do |t|
     t.string   "email",              :default => "", :null => false
@@ -42,22 +42,22 @@ ActiveRecord::Schema.define(:version => 20170327121436) do
   add_index "embed_stats", ["referrer"], :name => "index_embed_stats_on_referrer", :unique => true
 
   create_table "members", :force => true do |t|
-    t.string   "email",                                        :default => "",       :null => false
-    t.string   "encrypted_password",                           :default => "",       :null => false
+    t.string   "email",                                       :default => "",       :null => false
+    t.string   "encrypted_password",                          :default => "",       :null => false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",                                :default => 0
+    t.integer  "sign_in_count",                               :default => 0
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
-    t.datetime "created_at",                                                         :null => false
-    t.datetime "updated_at",                                                         :null => false
-    t.string   "membership_number",               :limit => 8
+    t.datetime "created_at",                                                        :null => false
+    t.datetime "updated_at",                                                        :null => false
+    t.string   "membership_number",              :limit => 8
     t.string   "product_name"
-    t.boolean  "cached_active",                                :default => false
-    t.boolean  "cached_newsletter",                            :default => false
+    t.boolean  "active",                                      :default => false
+    t.boolean  "newsletter",                                  :default => false
     t.integer  "embed_stat_id"
     t.string   "organization_sector"
     t.string   "organization_size"
@@ -67,7 +67,7 @@ ActiveRecord::Schema.define(:version => 20170327121436) do
     t.string   "chargify_customer_id"
     t.string   "chargify_subscription_id"
     t.string   "chargify_payment_id"
-    t.boolean  "chargify_data_verified",                       :default => false
+    t.boolean  "chargify_data_verified",                      :default => false
     t.string   "street_address"
     t.string   "address_locality"
     t.string   "address_region"
@@ -76,12 +76,12 @@ ActiveRecord::Schema.define(:version => 20170327121436) do
     t.string   "organization_type"
     t.string   "organization_vat_id"
     t.string   "organization_company_number"
-    t.boolean  "current",                                      :default => false,    :null => false
-    t.string   "origin",                                       :default => "odihq",  :null => false
-    t.string   "payment_frequency",                            :default => "annual", :null => false
+    t.boolean  "current",                                     :default => false,    :null => false
+    t.string   "origin",                                      :default => "odihq",  :null => false
+    t.string   "payment_frequency",                           :default => "annual", :null => false
     t.string   "coupon"
-    t.boolean  "invoice",                                      :default => false
-    t.boolean  "cached_share_with_third_parties",              :default => false
+    t.boolean  "invoice",                                     :default => false
+    t.boolean  "share_with_third_parties",                    :default => false
     t.string   "university_email"
     t.string   "university_address_country"
     t.string   "university_country"
