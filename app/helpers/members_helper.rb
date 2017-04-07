@@ -1,9 +1,9 @@
 module MembersHelper
 
-  def organization_description(organization)
-    if organization.description
+  def listing_summary(listing)
+    if listing.description
       # First, try to split out first paragraph
-      summary = organization.description.split("\n").first
+      summary = listing.description.split("\n").first
       # Now truncate if necessary
       truncate(summary, :length => 300, :separator => " ", :omission => " ...")
     else
