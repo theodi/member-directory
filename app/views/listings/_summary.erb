@@ -1,27 +1,27 @@
 <div class='organization organization-summary' vocab="http://schema.org/" typeOf="Organization">
 
-  <% if organization.logo.rectangular.url.present? %>
-    <div class='organization-logo pull-right' style='background-image: url(<%= organization.logo.rectangular.url %>)'>
+  <% if listing.logo.rectangular.url.present? %>
+    <div class='organization-logo pull-right' style='background-image: url(<%= listing.logo.rectangular.url %>)'>
     </div>
   <% end %>
 
   <div class='organization-content'>
-    <h2 property="name"><%= link_to organization.name, organization.member %>  <span class="label <%= organization.member.product_name %>"><%= organization.membership_description %></span></h2>
+    <h2 property="name"><%= link_to listing.name, listing.member %>  <span class="label <%= listing.member.product_name %>"><%= listing.membership_description %></span></h2>
 
-    <% if organization.tagline.present? %>
-      <p><strong><%= organization.tagline %></strong></p>
+    <% if listing.tagline.present? %>
+      <p><strong><%= listing.tagline %></strong></p>
     <% end %>
 
-    <% if organization.url.present? %>
+    <% if listing.url.present? %>
       <p class="url">
         <i class='icon icon-home'></i>
-        <%= link_to organization.url, organization.url, :property => "url"%></a>
+        <%= link_to listing.url, listing.url, :property => "url"%></a>
       <p>
     <% end %>
 
     <div class='organization-description clearfix'>
-      <p property="description"><%= highlight(organization_description(organization), @search) %></p>
-      <%= link_to "#{editable?(organization.member) ? "Edit" : "More"} information".html_safe, organization.member, :class=>'btn pull-right', :title => "#{editable?(organization.member) ? "Edit" : "More"} information on #{organization.name}" %>
+      <p property="description"><%= highlight(listing_summary(organization), @search) %></p>
+      <%= link_to "#{editable?(listing.member) ? "Edit" : "More"} information".html_safe, listing.member, :class=>'btn pull-right', :title => "#{editable?(listing.member) ? "Edit" : "More"} information on #{listing.name}" %>
     </div>
   </div>
 

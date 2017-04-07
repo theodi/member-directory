@@ -1,21 +1,21 @@
 <div class='organization' vocab="http://schema.org/" typeOf="Organization">
 
   <div class="organization-sidebar pull-right">
-    <% unless @member.supporter? || organization.logo.blank? %>
+    <% unless @member.supporter? || listing.logo.blank? %>
       <div class='organization-logo'
-           style='background-image: url(<%= organization.logo.rectangular.url %>)'
+           style='background-image: url(<%= listing.logo.rectangular.url %>)'
            data-bind='style: {backgroundImage: imageSrc}' >
       </div>
     <% end %>
 
     <p>
-      <span class="label <%= organization.member.product_name %>"><%= organization.member.product_name.capitalize %></span>
+      <span class="label <%= listing.member.product_name %>"><%= listing.member.product_name.capitalize %></span>
     </p>
 
-    <% if organization.url.present? %>
+    <% if listing.url.present? %>
       <p>
         <span class='contact-detail'>
-          <i class='icon icon-home'></i> <a property="url" data-bind="text: url, attr: {href: url}" href='<%= organization.url %>'><%= organization.url%></a>
+          <i class='icon icon-home'></i> <a property="url" data-bind="text: url, attr: {href: url}" href='<%= listing.url %>'><%= listing.url%></a>
         </span>
       </p>
     <% end %>
@@ -24,59 +24,59 @@
 
       <span property='description' class='contact-point-description'>Sales contact</span>
 
-      <% if @preview || organization.contact_name.present? %>
+      <% if @preview || listing.contact_name.present? %>
         <span data-bind="visible: contactName().length > 0" class='contact-detail'>
-          <i class='icon-user'></i> <span property="name" data-bind="text: contactName"><%= organization.contact_name %></span>
+          <i class='icon-user'></i> <span property="name" data-bind="text: contactName"><%= listing.contact_name %></span>
         </span>
       <% end %>
 
-      <% if @preview || organization.contact_email.present? %>
+      <% if @preview || listing.contact_email.present? %>
         <span data-bind="visible: contactEmail().length > 0" class='contact-detail'>
-          <i class='icon-envelope-alt'></i> <a property="email" data-bind="text: contactEmail, attr: {href: mailto}" href='mailto:<%= organization.contact_email %>'><%= organization.contact_email %></a>
+          <i class='icon-envelope-alt'></i> <a property="email" data-bind="text: contactEmail, attr: {href: mailto}" href='mailto:<%= listing.contact_email %>'><%= listing.contact_email %></a>
         </span>
       <% end %>
 
-      <% if @preview || organization.contact_phone.present? %>
+      <% if @preview || listing.contact_phone.present? %>
         <span data-bind="visible: contactPhone().length > 0" class='contact-detail'>
-          <i class='icon-phone-sign'></i> <span property="telephone" data-bind="text: contactPhone"><%= organization.contact_phone %></span>
+          <i class='icon-phone-sign'></i> <span property="telephone" data-bind="text: contactPhone"><%= listing.contact_phone %></span>
         </span>
       <% end %>
     </p>
 
     <p>
-      <% if @preview || organization.twitter.present? %>
+      <% if @preview || listing.twitter.present? %>
         <span data-bind="visible: twitter().length > 0" property='contactPoint' typeof='ContactPoint'>
-          <a property='url' data-bind="attr: {href: twitterUrl}" href='http://twitter.com/<%= organization.twitter %>'><%= image_tag 'twitter-16x16.png', :alt => "Twitter" %><span property='name' class='contact-point-description'>Twitter</span></a>
+          <a property='url' data-bind="attr: {href: twitterUrl}" href='http://twitter.com/<%= listing.twitter %>'><%= image_tag 'twitter-16x16.png', :alt => "Twitter" %><span property='name' class='contact-point-description'>Twitter</span></a>
         </span>
       <% end %>
 
-      <% if @preview || organization.facebook.present? %>
+      <% if @preview || listing.facebook.present? %>
         <span data-bind="visible: facebook().length > 0" property='contactPoint' typeof='ContactPoint'>
-          <a property='url' data-bind="attr: {href: facebook}" href='<%= organization.facebook %>'><%= image_tag 'facebook-16x16.png', :alt => "Facebook" %><span property='name' class='contact-point-description'>Facebook</span></a>
+          <a property='url' data-bind="attr: {href: facebook}" href='<%= listing.facebook %>'><%= image_tag 'facebook-16x16.png', :alt => "Facebook" %><span property='name' class='contact-point-description'>Facebook</span></a>
         </span>
       <% end %>
 
-      <% if @preview || organization.linkedin.present? %>
+      <% if @preview || listing.linkedin.present? %>
         <span data-bind="visible: linkedin().length > 0" property='contactPoint' typeof='ContactPoint'>
-          <a property='url' data-bind="attr: {href: linkedin}" href='<%= organization.linkedin %>'><%= image_tag 'linkedin-16x16.png', :alt => "Linkedin" %><span property='name' class='contact-point-description'>Linkedin</span></a>
+          <a property='url' data-bind="attr: {href: linkedin}" href='<%= listing.linkedin %>'><%= image_tag 'linkedin-16x16.png', :alt => "Linkedin" %><span property='name' class='contact-point-description'>Linkedin</span></a>
         </span>
       <% end %>
     </p>
   </div>
 
-  <h2 property="name"<% if @preview %> data-bind="html: name"<% end %>><%= organization.name %></h2>
+  <h2 property="name"<% if @preview %> data-bind="html: name"<% end %>><%= listing.name %></h2>
 
   <div class='<%= @member.supporter? ? '' : 'organization-content' %>'>
 
-    <% if @preview || organization.tagline.present? %>
-      <p data-bind="visible: tagline().length > 0"><strong data-bind="text: tagline"><%= organization.tagline %></strong></p>
+    <% if @preview || listing.tagline.present? %>
+      <p data-bind="visible: tagline().length > 0"><strong data-bind="text: tagline"><%= listing.tagline %></strong></p>
     <% end %>
 
     <div class='organization-description' property="description" datatype="rdf:HTML">
       <% if @preview %>
         <div data-bind="html: formattedDescription"></div>
       <% else %>
-        <%= simple_format(organization.description) %>
+        <%= simple_format(listing.description) %>
       <% end %>
     </div>
 
@@ -88,18 +88,18 @@
 
   <% if @preview %>
     <script type="text/javascript">
-        function OrganisationViewModel() {
-            this.name         = ko.observable("<%= organization.name %>");
-            this.description  = ko.observable("<%= escape_javascript(strip_tags(organization.description).html_safe) rescue nil %>");
-            this.url          = ko.observable("<%= organization.url %>");
-            this.imageSrc     = ko.observable("url(<%= organization.logo.rectangular.url %>)");
-            this.contactName  = ko.observable("<%= organization.contact_name %>");
-            this.contactPhone = ko.observable("<%= organization.contact_phone %>");
-            this.contactEmail = ko.observable("<%= organization.contact_email %>");
-            this.twitter      = ko.observable("<%= organization.twitter %>");
-            this.facebook     = ko.observable("<%= organization.facebook %>");
-            this.linkedin     = ko.observable("<%= organization.linkedin %>");
-            this.tagline      = ko.observable("<%= escape_javascript(strip_tags(organization.tagline).html_safe) rescue nil %>");
+        function ListingViewModel() {
+            this.name         = ko.observable("<%= listing.name %>");
+            this.description  = ko.observable("<%= escape_javascript(strip_tags(listing.description).html_safe) rescue nil %>");
+            this.url          = ko.observable("<%= listing.url %>");
+            this.imageSrc     = ko.observable("url(<%= listing.logo.rectangular.url %>)");
+            this.contactName  = ko.observable("<%= listing.contact_name %>");
+            this.contactPhone = ko.observable("<%= listing.contact_phone %>");
+            this.contactEmail = ko.observable("<%= listing.contact_email %>");
+            this.twitter      = ko.observable("<%= listing.twitter %>");
+            this.facebook     = ko.observable("<%= listing.facebook %>");
+            this.linkedin     = ko.observable("<%= listing.linkedin %>");
+            this.tagline      = ko.observable("<%= escape_javascript(strip_tags(listing.tagline).html_safe) rescue nil %>");
             this.mailto       = ko.computed(function() {
               return 'mailto:' + this.contactEmail();
             }, this);
@@ -123,18 +123,18 @@
               return str;
             }, this);
             this.updateImage = function() {
-              input = $('#member_organization_attributes_logo')[0]
+              input = $('#member_listing_attributes_logo')[0]
               if (input.files[0] && window.FileReader) {
                 reader = new FileReader();
                 reader.onloadend = function( ){
-                    window.organizationPreview.imageSrc("url("+this.result+")");
+                    window.listingPreview.imageSrc("url("+this.result+")");
                 }
                 reader.readAsDataURL(input.files[0]);
               }
             };
         };
-        window.organizationPreview = new OrganisationViewModel()
-        ko.applyBindings(window.organizationPreview);
+        window.listingPreview = new ListingViewModel()
+        ko.applyBindings(window.listingPreview);
     </script>
   <% end %>
 

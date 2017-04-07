@@ -20,22 +20,22 @@
     	<%= f.text_area :description,
                       :class => 'input',
                       :rows => '8',
-                      :maxlength => @member.organization.character_limit,
+                      :maxlength => @member.listing.character_limit,
                       :required => 'required',
                       :'data-bind' => "value: description, valueUpdate: 'afterkeydown'" %>
     	<span class="help-block"><small>Plain text only, but you can use paragraphs</small></span>
-    	<span class="help-block" id="limit"><%= "Limit of #{@member.organization.character_limit} characters" %></span>
+    	<span class="help-block" id="limit"><%= "Limit of #{@member.listing.character_limit} characters" %></span>
     	<script>
     	$(document).ready(function() {
-        var max = <%= "#{@member.organization.character_limit}" %> - $('#member_organization_attributes_description').val().replace(/(\r\n|\n|\r)/g,"  ").length
+        var max = <%= "#{@member.listing.character_limit}" %> - $('#member_listing_attributes_description').val().replace(/(\r\n|\n|\r)/g,"  ").length
     		$('#limit').html('<span id="remaining">'+ max +'</span> characters remaining');
-    		$('#member_organization_attributes_description').keyup(function() {
-          var max = <%= "#{@member.organization.character_limit}" %>
+    		$('#member_listing_attributes_description').keyup(function() {
+          var max = <%= "#{@member.listing.character_limit}" %>
     			var len = $(this).val().replace(/(\r\n|\n|\r)/g,"  ").length;
     			var rem = max - len
     			$('#remaining').html(rem);
     		});
-        org_name = $('#member_organization_attributes_name')
+        org_name = $('#member_listing_attributes_name')
         org_name.val($('<div/>').html(org_name.val()).text())
     	});
     	</script>
