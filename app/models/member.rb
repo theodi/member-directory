@@ -91,14 +91,14 @@ class Member < ActiveRecord::Base
     default: 30
   }
 
-  has_one :organization, dependent: :destroy
+  has_one :listing, dependent: :destroy
   has_many :embed_stats
 
-  accepts_nested_attributes_for :organization
-  attr_accessible :organization_attributes
+  accepts_nested_attributes_for :listing
+  attr_accessible :listing_attributes
 
   before_create :set_membership_number, :set_address
-  after_create  :setup_organization
+  after_create  :setup_listing
 
   devise :database_authenticatable,
          :recoverable, :rememberable, :trackable, :validatable
@@ -403,7 +403,7 @@ class Member < ActiveRecord::Base
   end
 
   def organization_name
-    organization.try(:name) || @organization_name
+    listing.try(:name) || @organization_name
   end
 
   def organization_name=(value)
@@ -511,10 +511,10 @@ class Member < ActiveRecord::Base
     ].compact.join("\n")
   end
 
-  def setup_organization
+  def setup_listing
     return unless organization?
 
-    self.create_organization(:name => organization_name)
+    self.create_listing(:name => organization_name)
   end
 
   def country_name

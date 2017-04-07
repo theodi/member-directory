@@ -41,15 +41,15 @@ class Listing < ActiveRecord::Base
       when 'supporter' then 4
       else 5
     end,
-    organizations.name
+    listings.name
   ORDER
   
   def self.in_alpha_group(alpha)
     if alpha.upcase.between?('A', 'Z')
-      where("substr(organizations.name, 1, 1) = ?", alpha)
+      where("substr(listings.name, 1, 1) = ?", alpha)
     else
       letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-      where("instr('#{letters}', substr(organizations.name, 1, 1)) = 0")
+      where("instr('#{letters}', substr(listings.name, 1, 1)) = 0")
     end
   end
 
