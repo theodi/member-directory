@@ -43,7 +43,7 @@ describe Member do
     end
 
     it "fails if organization already exists" do
-      FactoryGirl.create(:organization, :name => "Acme")
+      FactoryGirl.create(:listing, :name => "Acme")
       (member = Member.new(:organization_name => "Acme")).valid?
       expect(member.errors[:organization_name]).to include("is already taken")
     end
@@ -51,7 +51,7 @@ describe Member do
     it 'strips spaces from organization name' do
       member = FactoryGirl.create(:member, :organization_name => '  Acme  ')
       expect(member.organization_name).to eq("Acme")
-      expect(member.organization.name).to eq("Acme")
+      expect(member.listing.name).to eq("Acme")
     end
 
     it "does not need organization details for an individual" do
@@ -75,7 +75,7 @@ describe Member do
     it "does not run validations on organization" do
       member = FactoryGirl.create(:member)
       # this is required on upate but not set up by factories
-      member.organization.description = Faker::Company.catch_phrase
+      member.listing.description = Faker::Company.catch_phrase
       member.organization_size = nil
       member.organization_sector = nil
       member.organization_name = nil
@@ -86,7 +86,7 @@ describe Member do
   end
 
   context "deleting a member" do
-    it "deletes the associated the organization when the member is destroyed" do
+    it "deletes the associated the listing when the member is destroyed" do
       member = FactoryGirl.create(:member)
 
       expect { member.destroy }.to change { Listing.count }.by(-1)
@@ -194,11 +194,11 @@ describe Member do
     end
 
     context "member is an organization" do
-      let(:organization) { double("Listing") }
+      let(:listing) { double("Listing") }
 
       before do
         allow(member).to receive(:organization?).and_return(true)
-        allow(member).to receive(:organization).and_return(organization)
+        allow(member).to receive(:listing).and_return(listing)
       end
 
       it "sets the members #active flag" do
