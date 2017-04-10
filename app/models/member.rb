@@ -109,8 +109,8 @@ class Member < ActiveRecord::Base
                   :password_confirmation,
                   :remember_me,
                   :product_name,
-                  :cached_newsletter,
-                  :cached_share_with_third_parties,
+                  :newsletter,
+                  :share_with_third_parties,
                   :organization_name,
                   :organization_size,
                   :organization_type,
@@ -153,8 +153,8 @@ class Member < ActiveRecord::Base
                   :password_confirmation,
                   :remember_me,
                   :product_name,
-                  :cached_newsletter,
-                  :cached_share_with_third_parties,
+                  :newsletter,
+                  :share_with_third_parties,
                   :organization_name,
                   :organization_size,
                   :organization_type,
@@ -319,7 +319,7 @@ class Member < ActiveRecord::Base
   end
 
   def current!
-    update_attribute(:cached_active, true) if organization?
+    update_attribute(:active, true) if organization?
     update_attribute(:current, true)
   end
 
@@ -445,7 +445,7 @@ class Member < ActiveRecord::Base
   end
 
   def unsubscribe_from_newsletter!
-    self.update_attribute(:cached_newsletter, false)
+    self.update_attribute(:newsletter, false)
   end
 
   def register_embed(referrer)

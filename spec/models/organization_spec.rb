@@ -8,10 +8,10 @@ describe Organization do
     end
 
     it "should strip prefix from twitter handles before saving" do
-      org = FactoryGirl.create :organization, :cached_twitter => "@test1", :member => @member
-      expect(org.cached_twitter).to eq("test1")
-      org = FactoryGirl.create :organization, :cached_twitter => "test2", :member => @member
-      expect(org.cached_twitter).to eq("test2")
+      org = FactoryGirl.create :organization, :twitter => "@test1", :member => @member
+      expect(org.twitter).to eq("test1")
+      org = FactoryGirl.create :organization, :twitter => "test2", :member => @member
+      expect(org.twitter).to eq("test2")
     end
 
     it "cannot create organizations with the same name" do

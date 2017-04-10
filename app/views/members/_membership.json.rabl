@@ -21,31 +21,31 @@ node :member do |org|
     {
       :description  => "Sales contact",
       :type         => "http://schema.org/ContactPoint",
-      :name         => org.cached_contact_name,
-      :email        => org.cached_contact_email,
-      :telephone    => org.cached_contact_phone
+      :name         => org.contact_name,
+      :email        => org.contact_email,
+      :telephone    => org.contact_phone
     }.compact,
   ]
   # Social media URLs
-  if org.cached_twitter.present?
+  if org.twitter.present?
     member[:contactPoint] << {
       :name         => "Twitter",
       :type         => "http://schema.org/ContactPoint",
       :url          => org.twitter_url
     }
   end
-  if org.cached_facebook.present?
+  if org.facebook.present?
     member[:contactPoint] << {
       :name         => "Facebook",
       :type         => "http://schema.org/ContactPoint",
-      :url          => org.cached_facebook
+      :url          => org.facebook
     }
   end
-  if org.cached_linkedin.present?
+  if org.linkedin.present?
     member[:contactPoint] << {
       :name         => "Linkedin",
       :type         => "http://schema.org/ContactPoint",
-      :url          => org.cached_linkedin
+      :url          => org.linkedin
     }
   end
   # Logo

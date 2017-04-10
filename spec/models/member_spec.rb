@@ -201,9 +201,9 @@ describe Member do
         allow(member).to receive(:organization).and_return(organization)
       end
 
-      it "sets the members #cached_active flag" do
+      it "sets the members #active flag" do
         member.current!
-      expect(member.cached_active).to eq(true)
+      expect(member.active).to eq(true)
       end
 
     end
@@ -214,14 +214,14 @@ describe Member do
     let(:member) do
       FactoryGirl.create(
         :member,
-        :cached_newsletter => true
+        :newsletter => true
       )
     end
 
     it "sets the member's newsletter flag to false" do
       member.unsubscribe_from_newsletter!
 
-      expect(member.cached_newsletter).to eq(false)
+      expect(member.newsletter).to eq(false)
     end
   end
 

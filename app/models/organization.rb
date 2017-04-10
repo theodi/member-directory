@@ -4,12 +4,12 @@ class Organization < ActiveRecord::Base
   mount_uploader :logo, ImageObjectUploader
 
   attr_accessible :name, :description, :url, :logo, :logo_cache,
-                  :cached_contact_name, :cached_contact_phone, :cached_contact_email,
-                  :cached_twitter, :cached_linkedin, :cached_facebook, :cached_tagline
+                  :contact_name, :contact_phone, :contact_email,
+                  :twitter, :linkedin, :facebook, :tagline
 
   attr_accessible :name, :description, :url, :logo, :logo_cache,
-                  :cached_contact_name, :cached_contact_phone, :cached_contact_email,
-                  :cached_twitter, :cached_linkedin, :cached_facebook, :cached_tagline,
+                  :contact_name, :contact_phone, :contact_email,
+                  :twitter, :linkedin, :facebook, :tagline,
                   :as => [:admin, :user]
 
   # Using after_save here so we get the right image urls
@@ -27,7 +27,7 @@ class Organization < ActiveRecord::Base
   # but undesirable
   validates :url, :url => {:allow_nil => true}, :format => {:with => /\Ahttps?:\/\/([^\.\/]+?)\.([^\.\/]+?)/, :allow_nil => true}
 
-  scope :active, joins(:member).where(:members => { :cached_active => true })
+  scope :active, joins(:member).where(:members => { :active => true })
   scope :for_level, lambda { |level| joins(:member).where(members: { product_name: level}) }
 
   # Sorry, ActiveRecord can't quite make this query
@@ -75,7 +75,7 @@ class Organization < ActiveRecord::Base
   end
 
   def strip_twitter_prefix
-    self.cached_twitter = self.cached_twitter.last(-1) if self.cached_twitter.try(:starts_with?, '@')
+    self.twitter = self.twitter.last(-1) if self.twitter.try(:starts_with?, '@')
   end
 
   def prefix_url
@@ -85,7 +85,7 @@ class Organization < ActiveRecord::Base
   end
 
   def twitter_url
-    cached_twitter ? "http://twitter.com/#{cached_twitter}" : nil
+    twitter ? "http://twitter.com/#{twitter}" : nil
   end
 end
 
