@@ -107,7 +107,7 @@
     </p>
 
     <%= f.fields_for :organization do |builder| %>
-      <%= render :partial => 'organizations/form', :locals => { :f => builder } %>
+      <%= render :partial => 'listings/form', :locals => { :f => builder } %>
     <% end %>
 
     <div class="control-group">
