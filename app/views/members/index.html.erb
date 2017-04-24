@@ -14,8 +14,8 @@
   </ul>
 </div>
 
-<% @organizations.each do |organization| %>
-  <%= render :partial => 'organizations/summary', :locals => {:organization => organization}%>
+<% @listings.each do |listing| %>
+  <%= render :partial => 'listings/summary', :locals => {:listing => listing}%>
 <% end %>
 
 <%= render 'shared/alternate_formats' %>

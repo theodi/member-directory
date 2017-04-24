@@ -16,7 +16,6 @@ gem 'validate_url'
 
 gem 'rack-google-analytics'
 
-gem 'airbrake'
 gem 'rdiscount'
 gem 'country_select'
 gem 'ransack'
@@ -77,6 +76,7 @@ group :test do
 end
 
 group :production do
+  gem 'airbrake'
   gem 'rails_12factor'
   gem 'foreman', '< 0.65.0'
   gem 'thin'

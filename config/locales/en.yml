@@ -13,7 +13,7 @@ en:
   activerecord:
     models:
       member: Member
-      organization: Organisation
+      listing: Listing
     attributes:
       member:
         login: "Member ID or email address"
@@ -54,7 +54,7 @@ en:
         university_course_end_date: "Course end date"
         twitter: "Twitter handle"
         dob: "Date of birth"
-      organization:
+      listing:
         name: "Organisation name"
         url: "Homepage"
         description: "Description"

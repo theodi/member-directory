@@ -11,30 +11,30 @@ class MembersController < ApplicationController
   before_filter :ensure_current, :only => :show
 
   def index
-    @organizations = Organization.active.display_order
+    @listings = Listing.active.display_order
 
     if params[:level]
-      @organizations = @organizations.for_level(params[:level].downcase)
+      @listings = @listings.for_level(params[:level].downcase)
     end
 
-    @groups = @organizations.alpha_groups
+    @groups = @listings.alpha_groups
 
     if @search = params[:q]
-      @organizations = @organizations.search(
+      @listings = @listings.search(
         m: 'or',
         name_cont: @search,
         description_cont: @search
       ).result
     elsif @alpha = params[:alpha]
-      @organizations = @organizations.in_alpha_group(@alpha)
+      @listings = @listings.in_alpha_group(@alpha)
     end
 
-    respond_with(@organizations)
+    respond_with(@listings)
   end
 
   def show
-    # Get organization
-    @organization = @member.organization
+    # Get listing
+    @listing = @member.listing
     if editable?(@member) && request.format.html?
       @preview = true
       if current_member == @member
@@ -44,7 +44,7 @@ class MembersController < ApplicationController
       end
       render 'edit'
     else
-      raise ActiveRecord::RecordNotFound and return if @organization.nil?
+      raise ActiveRecord::RecordNotFound and return if @listing.nil?
       if @member.active == false
         if signed_in?
           raise ActiveResource::UnauthorizedAccess.new(request.fullpath) and return
@@ -53,8 +53,8 @@ class MembersController < ApplicationController
           redirect_to new_member_session_path and return
         end
       end
-      @title = @organization.name
-      respond_with(@organization)
+      @title = @listing.name
+      respond_with(@listing)
     end
   end
 
