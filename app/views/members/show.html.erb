@@ -1,10 +1,10 @@
 <ul class="breadcrumb">
   <li><%= link_to 'Members', members_path %></a> <span class="divider">/</span></li>
-  <li class="active"><%= @organization.name %></li>
+  <li class="active"><%= @listing.name %></li>
 </ul>
 
 <div id="singleview">
-	<%= render :partial => 'listings/listing', :locals => {:organization => @organization}%>
+	<%= render :partial => 'listings/listing', :locals => {:listing => @listing}%>
 </div>
 
 <div style='clear:right'></div>

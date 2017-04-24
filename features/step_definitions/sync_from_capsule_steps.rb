@@ -7,7 +7,7 @@ end
 
 Given /^I am already signed up$/ do
   @membership = FactoryGirl.create :current_active_member
-  @old_description = @membership.organization.description
+  @old_description = @membership.listing.description
 end
 
 Given(/^I am already signed up as an individual member$/) do
@@ -107,7 +107,7 @@ Then /^a membership should be created for me$/ do
   expect(@membership).to be_present
   @membership_number = @membership.membership_number
   expect(@membership_number).to be_present
-  @old_description = @membership.organization.description
+  @old_description = @membership.listing.description
 end
 
 Then(/^an individual membership should be created for me$/) do
@@ -130,16 +130,16 @@ Then /^my details should be cached correctly$/ do
   expect(@membership.newsletter).to                 eq @newsletter
   expect(@membership.organization_size).to                 eq @organization_size
   expect(@membership.organization_sector).to               eq @organization_sector
-  expect(@membership.organization.name).to                 eq @organization_name
-  expect(@membership.organization.description).to          eq @old_description # description should not change when synced
-  expect(@membership.organization.url).to                  eq @url
-  expect(@membership.organization.contact_name).to  eq @contact_name
-  expect(@membership.organization.contact_phone).to eq @contact_phone
-  expect(@membership.organization.contact_email).to eq @contact_email
-  expect(@membership.organization.twitter).to       eq @twitter
-  expect(@membership.organization.linkedin).to      eq @linkedin
-  expect(@membership.organization.facebook).to      eq @facebook
-  expect(@membership.organization.tagline).to       eq @tagline
+  expect(@membership.listing.name).to                 eq @organization_name
+  expect(@membership.listing.description).to          eq @old_description # description should not change when synced
+  expect(@membership.listing.url).to                  eq @url
+  expect(@membership.listing.contact_name).to  eq @contact_name
+  expect(@membership.listing.contact_phone).to eq @contact_phone
+  expect(@membership.listing.contact_email).to eq @contact_email
+  expect(@membership.listing.twitter).to       eq @twitter
+  expect(@membership.listing.linkedin).to      eq @linkedin
+  expect(@membership.listing.facebook).to      eq @facebook
+  expect(@membership.listing.tagline).to       eq @tagline
 end
 
 Then(/^my individual details should be cached correctly$/) do

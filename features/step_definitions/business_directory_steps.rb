@@ -69,16 +69,16 @@ Then /^I enter my organization details$/ do
   @organization_facebook    = Faker::Internet.url
   @organization_tagline     = Faker::Company.bs
 
-  fill_in('member_organization_attributes_name',                 :with => @organization_name)
-  fill_in('member_organization_attributes_description',          :with => @organization_description)
-  fill_in('member_organization_attributes_url',                  :with => @organization_url)
-  fill_in('member_organization_attributes_contact_name',  :with => @organization_contact)
-  fill_in('member_organization_attributes_contact_phone', :with => @organization_phone)
-  fill_in('member_organization_attributes_contact_email', :with => @organization_email)
-  fill_in('member_organization_attributes_twitter',       :with => @organization_twitter)
-  fill_in('member_organization_attributes_linkedin',      :with => @organization_linkedin)
-  fill_in('member_organization_attributes_facebook',      :with => @organization_facebook)
-  fill_in('member_organization_attributes_tagline',       :with => @organization_tagline)
+  fill_in('member_listing_attributes_name',                 :with => @organization_name)
+  fill_in('member_listing_attributes_description',          :with => @organization_description)
+  fill_in('member_listing_attributes_url',                  :with => @organization_url)
+  fill_in('member_listing_attributes_contact_name',  :with => @organization_contact)
+  fill_in('member_listing_attributes_contact_phone', :with => @organization_phone)
+  fill_in('member_listing_attributes_contact_email', :with => @organization_email)
+  fill_in('member_listing_attributes_twitter',       :with => @organization_twitter)
+  fill_in('member_listing_attributes_linkedin',      :with => @organization_linkedin)
+  fill_in('member_listing_attributes_facebook',      :with => @organization_facebook)
+  fill_in('member_listing_attributes_tagline',       :with => @organization_tagline)
 end
 
 Then /^I attach an image$/ do
@@ -89,20 +89,20 @@ Then /^I attach an image$/ do
   @rectangular_url = "#{ENV['RACKSPACE_DIRECTORY_ASSET_HOST']}/logos/<MEMBERSHIP_NUMBER>/rectangular.png"
   @square_url = "#{ENV['RACKSPACE_DIRECTORY_ASSET_HOST']}/logos/<MEMBERSHIP_NUMBER>/square.png"
 
-  attach_file('member_organization_attributes_logo', @organization_logo)
+  attach_file('member_listing_attributes_logo', @organization_logo)
 end
 
 Then /^I enter the URL (.*?)$/ do |url|
   @organization_url = url
-  fill_in('member_organization_attributes_url',          :with => @organization_url)
+  fill_in('member_listing_attributes_url',          :with => @organization_url)
 end
 
 Then /^I leave my organization (.*?) blank$/ do |field|
-  fill_in("member_organization_attributes_#{field}", :with => nil)
+  fill_in("member_listing_attributes_#{field}", :with => nil)
 end
 
 Then /^I enter the organization name '(.*?)'$/ do |org_name|
-  fill_in("member_organization_attributes_name", :with => org_name)
+  fill_in("member_listing_attributes_name", :with => org_name)
 end
 
 When /^I click submit$/ do
@@ -137,7 +137,7 @@ Then /^I should see my changed details when I revisit the edit page$/ do
 end
 
 Then /^my description is (\d+) characters long$/ do |length|
-  fill_in('member_organization_attributes_description',  :with => (0...length.to_i).map{ ('a'..'z').to_a[rand(26)] }.join)
+  fill_in('member_listing_attributes_description',  :with => (0...length.to_i).map{ ('a'..'z').to_a[rand(26)] }.join)
 end
 
 When /^I should see an error telling me that my description should not be longer than (\d+) characters$/ do |characters|
@@ -146,15 +146,15 @@ end
 
 Then /^the fullsize logo should be available at the correct URL$/ do
   @member = Member.find_by_email(@email)
-  expect(@member.organization.logo.url).to eq @fullsize_url.gsub(/<MEMBERSHIP_NUMBER>/, @member.membership_number)
+  expect(@member.listing.logo.url).to eq @fullsize_url.gsub(/<MEMBERSHIP_NUMBER>/, @member.membership_number)
 end
 
 Then /^the rectangular logo should be available at the correct URL$/ do
-  expect(@member.organization.logo.rectangular.url).to eq @rectangular_url.gsub(/<MEMBERSHIP_NUMBER>/, @member.membership_number)
+  expect(@member.listing.logo.rectangular.url).to eq @rectangular_url.gsub(/<MEMBERSHIP_NUMBER>/, @member.membership_number)
 end
 
 Then /^the square logo should be available at the correct URL$/ do
-  expect(@member.organization.logo.square.url).to eq @square_url.gsub(/<MEMBERSHIP_NUMBER>/, @member.membership_number)
+  expect(@member.listing.logo.square.url).to eq @square_url.gsub(/<MEMBERSHIP_NUMBER>/, @member.membership_number)
 end
 
 Then(/^I update my membership details$/) do
@@ -194,8 +194,8 @@ end
 Given(/^there are (\d+) active partners in the directory$/) do |num|
   num.to_i.times do
     member = FactoryGirl.create :member, :product_name => 'partner', :active => true
-    member.organization.description = Faker::Company.catch_phrase
-    member.organization.save
+    member.listing.description = Faker::Company.catch_phrase
+    member.listing.save
   end
 end
 

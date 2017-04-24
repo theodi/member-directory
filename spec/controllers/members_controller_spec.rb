@@ -17,20 +17,20 @@ describe MembersController do
     it "shows only members with active flag set" do
       get 'index'
       expect(response).to be_success
-      expect(assigns(:organizations)).to_not include(@inactive.organization)
+      expect(assigns(:listings)).to_not include(@inactive.listing)
     end
 
     it "shows all levels without filter" do
       get 'index'
       expect(response).to be_success
-      expect(assigns(:organizations)).to include(@member.organization)
-      expect(assigns(:organizations)).to include(@supporter.organization)
+      expect(assigns(:listings)).to include(@member.listing)
+      expect(assigns(:listings)).to include(@supporter.listing)
     end
 
     it "shows only requested levels" do
       get 'index', :level => 'supporter'
       expect(response).to be_success
-      expect(assigns(:organizations)).to include(@member.organization)
+      expect(assigns(:listings)).to include(@member.listing)
     end
   end
 
