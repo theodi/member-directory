@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20170327123025) do
+ActiveRecord::Schema.define(:version => 20170327124718) do
 
   create_table "admins", :force => true do |t|
     t.string   "email",              :default => "", :null => false
@@ -40,6 +40,23 @@ ActiveRecord::Schema.define(:version => 20170327123025) do
   end
 
   add_index "embed_stats", ["referrer"], :name => "index_embed_stats_on_referrer", :unique => true
+
+  create_table "listings", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+    t.integer  "member_id"
+    t.string   "logo"
+    t.text     "description"
+    t.string   "url"
+    t.string   "contact_name"
+    t.string   "contact_phone"
+    t.string   "contact_email"
+    t.string   "twitter"
+    t.string   "facebook"
+    t.string   "linkedin"
+    t.string   "tagline"
+  end
 
   create_table "members", :force => true do |t|
     t.string   "email",                                       :default => "",       :null => false
@@ -99,23 +116,6 @@ ActiveRecord::Schema.define(:version => 20170327123025) do
 
   add_index "members", ["email"], :name => "index_members_on_email", :unique => true
   add_index "members", ["reset_password_token"], :name => "index_members_on_reset_password_token", :unique => true
-
-  create_table "organizations", :force => true do |t|
-    t.string   "name"
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
-    t.integer  "member_id"
-    t.string   "logo"
-    t.text     "description"
-    t.string   "url"
-    t.string   "contact_name"
-    t.string   "contact_phone"
-    t.string   "contact_email"
-    t.string   "twitter"
-    t.string   "facebook"
-    t.string   "linkedin"
-    t.string   "tagline"
-  end
 
   create_table "rails_admin_histories", :force => true do |t|
     t.text     "message"

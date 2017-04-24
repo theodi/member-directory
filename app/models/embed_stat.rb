@@ -8,7 +8,7 @@ class EmbedStat < ActiveRecord::Base
   def self.csv
     CSV.generate(row_sep: "\r\n") do |csv|
       csv << ["Member Name", "Referring URL", "First Detected"]
-      all.each { |s| csv << [s.member.organization.name, s.referrer, s.created_at] }
+      all.each { |s| csv << [s.member.listing.name, s.referrer, s.created_at] }
     end
   end
 

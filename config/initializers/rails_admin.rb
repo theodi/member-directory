@@ -6,6 +6,6 @@ RailsAdmin.config do |config|
 
   config.attr_accessible_role { :admin }
 
-  config.included_models = ['Member', 'Organization']
+  config.included_models = ['Member', 'Listing']
 
 end
