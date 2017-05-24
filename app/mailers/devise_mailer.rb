@@ -5,6 +5,7 @@ class DeviseMailer < Devise::Mailer
 
   def headers_for(action, opts)
     headers = super
+    headers['X-MC-Subaccount'] = 'directory'
     if action == :confirmation_instructions
       headers[:bcc] = 'members@theodi.org'
 
