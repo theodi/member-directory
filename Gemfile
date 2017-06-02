@@ -78,6 +78,6 @@ end
 group :production do
   gem 'airbrake'
   gem 'rails_12factor'
-  gem 'foreman', '< 0.65.0'
+  gem 'foreman', '< 0.84.0'
   gem 'thin'
 end
