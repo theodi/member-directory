@@ -145,7 +145,8 @@ class Member < ActiveRecord::Base
                   :dob_day,
                   :dob_month,
                   :dob_year,
-                  :subscription_amount
+                  :subscription_amount,
+                  :login # non-DB field
 
   # Copying all this is terrible, but it will get tidier later
   attr_accessible :email,
