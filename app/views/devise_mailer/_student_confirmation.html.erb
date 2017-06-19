@@ -86,7 +86,7 @@
 
                 <p style="font-family: Helvetica, Arial, sans-serif;">
                   <% if @resource.reset_password_token %>
-                    To activate your account click <%= link_to 'here', edit_password_url(@resource, :reset_password_token => @resource.reset_password_token) %>
+                    To activate your account click <%= link_to 'here', edit_password_url(@resource, :reset_password_token => @token) %>
                   <% else %>
                     To login to your account click <%= link_to 'here', new_member_session_url(membership_number: @resource.membership_number) %></li>
                   <% end %>

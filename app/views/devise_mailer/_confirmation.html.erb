@@ -12,7 +12,7 @@
 
     <p style="font-family: Helvetica, Arial, sans-serif;">- Your membership number is <strong><%= @member.membership_number %></strong>.</p>
 
-    <p style="font-family: Helvetica, Arial, sans-serif;">- To activate your account click <%= link_to 'here', edit_password_url(@member, :reset_password_token => @member.reset_password_token) %> and enter your company profile for the Member Directory.</p>
+    <p style="font-family: Helvetica, Arial, sans-serif;">- To activate your account click <%= link_to 'here', edit_password_url(@member, :reset_password_token => @token) %> and enter your company profile for the Member Directory.</p>
 
     <% unless @type == "capsule" %>
       <p style="font-family: Helvetica, Arial, sans-serif;">- You will soon receive your Welcome Pack to help you get started with your ODI membership and make the most of ODI communications.</p>
