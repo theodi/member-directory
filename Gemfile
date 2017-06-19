@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 ruby "2.1.10"
 
 gem 'rails', '~> 3.2'
-gem 'devise', '~> 2.2'
+gem 'devise', '~> 3.5'
 gem 'dotenv'
 gem 'fog'
 gem 'carrierwave'
