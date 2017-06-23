@@ -527,5 +527,13 @@ class Member < ActiveRecord::Base
   def organization_type_enum
     Member::ORGANISATION_TYPES.to_a
   end
-  
+
+  def organization_size_enum
+    Member::ORGANISATION_SIZES.to_a
+  end
+    
+  def product_name_enum
+    Member::SUPPORTER_LEVELS.to_a
+  end
+    
 end
