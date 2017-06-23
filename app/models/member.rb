@@ -524,7 +524,7 @@ class Member < ActiveRecord::Base
     country.translations[I18n.locale.to_s] || country.name
   end
     
-  def organization_types_enum
+  def organization_type_enum
     Member::ORGANISATION_TYPES.to_a
   end
   
