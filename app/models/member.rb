@@ -523,4 +523,9 @@ class Member < ActiveRecord::Base
     return "" if country.nil?
     country.translations[I18n.locale.to_s] || country.name
   end
+    
+  def organization_types_enum
+    Member::ORGANISATION_TYPES.to_a
+  end
+  
 end
