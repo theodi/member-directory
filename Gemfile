@@ -57,7 +57,7 @@ group :development, :test do
   gem 'database_cleaner'
   gem 'rspec-rails'
   gem 'guard-cucumber'
-  gem 'rb-fsevent', '~> 0.9'
+  gem 'rb-fsevent', '~> 0.10'
   gem 'launchy'
   gem 'factory_girl_rails'
   gem 'faker'
