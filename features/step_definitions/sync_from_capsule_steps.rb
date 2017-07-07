@@ -1,17 +1,9 @@
 Given /^I am not currently a member$/ do
 end
 
-Given /^I am not currently an individual member$/ do
-  @product_name = "individual"
-end
-
 Given /^I am already signed up$/ do
   @membership = FactoryGirl.create :current_active_member
   @old_description = @membership.listing.description
-end
-
-Given(/^I am already signed up as an individual member$/) do
-  @membership = FactoryGirl.create :current_active_individual_member
 end
 
 When /^I am set as a member in CapsuleCRM$/ do
@@ -110,14 +102,6 @@ Then /^a membership should be created for me$/ do
   @old_description = @membership.listing.description
 end
 
-Then(/^an individual membership should be created for me$/) do
-  @membership = Member.where(:email => @email).first
-  expect(@membership).to be_present
-  @membership_number = @membership.membership_number
-  expect(@membership_number).to be_present
-  expect(@membership.individual?).to eq(true)
-end
-
 Then(/^that membership should not be shown in the directory$/) do
   @active = false
   expect(@membership.active).to eq(@active)
@@ -140,13 +124,6 @@ Then /^my details should be cached correctly$/ do
   expect(@membership.listing.linkedin).to      eq @linkedin
   expect(@membership.listing.facebook).to      eq @facebook
   expect(@membership.listing.tagline).to       eq @tagline
-end
-
-Then(/^my individual details should be cached correctly$/) do
-  @membership = Member.where(membership_number: @membership_number).first
-  expect(@membership.active).to                     eq (@active == "true")
-  expect(@membership.product_name).to                      eq @product_name
-  expect(@membership.newsletter).to                 eq @newsletter
 end
 
 Then /^a warning email should be sent to the commercial team$/ do

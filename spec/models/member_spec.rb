@@ -54,21 +54,6 @@ describe Member do
       expect(member.listing.name).to eq("Acme")
     end
 
-    it "does not need organization details for an individual" do
-      member = Member.new(product_name: 'individual')
-      member.save
-
-      organization_errors = member.errors.select {|k,_| k.to_s.starts_with?('organization_') }
-      expect(organization_errors).to be_empty
-    end
-
-    it "does not need organization details for an student" do
-      member = Member.new(product_name: 'student')
-      member.save
-
-      organization_errors = member.errors.select {|k,_| k.to_s.starts_with?('organization_') }
-      expect(organization_errors).to be_empty
-    end
   end
 
   context "updating a member" do
@@ -94,21 +79,6 @@ describe Member do
   end
 
   describe "#plan" do
-    context "member is individual" do
-      it "returns 'individual-supporter-new'" do
-        member = Member.new(product_name: "individual")
-
-        expect(member.plan).to eq("individual-supporter-new")
-      end
-    end
-
-    context "member is student" do
-      it "returns 'individual-supporter-student'" do
-        member = Member.new(product_name: "student")
-
-        expect(member.plan).to eq("individual-supporter-student")
-      end
-    end
 
     context "member is a large corporate organization" do
       it "returns 'corporate-supporter_annual'" do
@@ -169,16 +139,13 @@ describe Member do
 
     it 'breaks down count of current members by product_name' do
       FactoryGirl.build(:member, product_name: nil).save(validate: false)
-      FactoryGirl.create_list(:current_individual_member, 2)
-      FactoryGirl.create_list(:individual_member, 1)
       breakdown = {supporter: 3, member: 2, partner: 1, sponsor: 4}
       breakdown.each do |product_name, count|
         FactoryGirl.build_list(:current_member, count, :product_name => product_name).map {|m| m.save(validate: false)}
         FactoryGirl.build_list(:member, 1, :product_name => product_name).map {|m| m.save(validate: false)}
       end
 
-      expect(Member.summary[:breakdown]).to eq breakdown.merge(individual: 2).stringify_keys
-      expect(Member.summary[:all][:breakdown]).to eq({individual: 3, supporter: 4, member: 3, partner: 2, sponsor: 5}.stringify_keys)
+      expect(Member.summary[:all][:breakdown]).to eq({supporter: 4, member: 3, partner: 2, sponsor: 5}.stringify_keys)
     end
   end
 
