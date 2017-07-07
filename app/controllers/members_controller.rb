@@ -4,7 +4,6 @@ class MembersController < ApplicationController
   before_filter :get_member, :except => [:index, :right_to_cancel, :summary]
   before_filter :set_formats, :log_embed, :only => [:badge]
   before_filter :authenticate_member!, :only => [:thanks]
-  before_filter :individual_signed_in, :only => :show
 
   before_filter(:only => [:index, :show]) {alternate_formats [:json]}
 
@@ -100,10 +99,6 @@ class MembersController < ApplicationController
 
   def ensure_current
     redirect_to payment_member_path(@member) unless @member.current?
-  end
-
-  def individual_signed_in
-    authenticate_member! if @member.individual?
   end
 
 end

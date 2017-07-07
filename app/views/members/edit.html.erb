@@ -19,30 +19,6 @@
       </div>
     </div>
 
-    <% if @member.individual? %>
-      <div class="control-group">
-        <%= f.label :contact_name, :class => 'control-label' %>
-        <div class="controls">
-          <%= f.text_field :contact_name %>
-        </div>
-      </div>
-
-      <div class="control-group">
-        <%= f.label :telephone, :class => 'control-label' %>
-        <div class="controls">
-          <%= f.telephone_field :telephone %>
-        </div>
-      </div>
-
-      <div class="control-group">
-        <%= f.label :address, :class => 'control-label' %>
-        <div class="controls">
-          <%= f.text_area :address, :rows => 5 %>
-        </div>
-      </div>
-    <% end %>
-
-    <% if @member.organization? %>
     <div class="control-group">
       <%= f.label :organization_size, :class => 'control-label' %>
       <div class="controls">
@@ -55,7 +31,6 @@
           }) %>
       </div>
     </div>
-    <% end %>
 
     <div class="control-group">
       <%= f.label :organization_sector, :class => 'control-label'  %>
@@ -95,7 +70,6 @@
     <%= render(:partial => 'badge_download') %>
   </fieldset>
 
-  <% if @member.organization? %>
   <fieldset id='organization-details'>
 
     <legend>Organisation Details</legend>
@@ -119,7 +93,6 @@
     </div>
 
   </fieldset>
-  <% end %>
 
   <% unless current_admin %>
 
@@ -162,11 +135,9 @@
     </fieldset>
   <% end %>
 
-  <% unless @member.individual? || @member.active %>
-    <p class='alert alert-info'>
-      After you save, the ODI will review your listing and enable it for display in the public directory.
-    </p>
-  <% end %>
+  <p class='alert alert-info'>
+    After you save, the ODI will review your listing and enable it for display in the public directory.
+  </p>
 
   <div class="form-actions">
     <%= f.submit "Save", :id => 'save', :class => 'btn btn-primary btn-large' %>
