@@ -16,8 +16,6 @@ class Member < ActiveRecord::Base
 
   CURRENT_SUPPORTER_LEVELS = %w[
     supporter
-    individual
-    student
   ]
 
   ORGANISATION_TYPES = {
@@ -129,23 +127,7 @@ class Member < ActiveRecord::Base
                   :origin,
                   :coupon,
                   :invoice,
-                  :university_email,
-                  :university_country,
-                  :university_address_country,
-                  :university_name,
-                  :university_name_other,
-                  :university_course_name,
-                  :university_qualification,
-                  :university_qualification_other,
-                  :university_course_start_date_year,
-                  :university_course_start_date_month,
-                  :university_course_end_date_year,
-                  :university_course_end_date_month,
                   :twitter,
-                  :dob_day,
-                  :dob_month,
-                  :dob_year,
-                  :subscription_amount,
                   :login # non-DB field
 
   # Copying all this is terrible, but it will get tidier later
@@ -174,63 +156,12 @@ class Member < ActiveRecord::Base
                   :origin,
                   :coupon,
                   :invoice,
-                  :university_email,
-                  :university_country,
-                  :university_address_country,
-                  :university_name,
-                  :university_name_other,
-                  :university_course_name,
-                  :university_qualification,
-                  :university_qualification_other,
-                  :university_course_start_date_year,
-                  :university_course_start_date_month,
-                  :university_course_end_date_year,
-                  :university_course_end_date_month,
                   :twitter,
-                  :dob_day,
-                  :dob_month,
-                  :dob_year,
-                  :subscription_amount,
                   :as => :admin
 
   attr_accessor :agreed_to_terms
-  attr_accessor :university_course_start_date_year
-  attr_accessor :university_course_start_date_month
-  attr_accessor :university_course_end_date_year
-  attr_accessor :university_course_end_date_month
-  attr_accessor :dob_day
-  attr_accessor :dob_month
-  attr_accessor :dob_year
 
   attr_accessor :no_payment
-
-  before_validation :normalize_dob
-  before_validation :normalize_course_start_date
-  before_validation :normalize_course_end_date
-
-  def normalize_dob
-    return unless dob_day.present? && dob_month.present? && dob_year.present?
-
-    self.dob = Date.parse("#{dob_year}/#{dob_month}/#{dob_day}")
-  rescue ArgumentError
-    errors.add(:dob, "is not a valid date")
-  end
-
-  def normalize_course_start_date
-    return unless university_course_start_date_year.present? && university_course_start_date_month.present?
-
-    self.university_course_start_date = Date.parse("#{university_course_start_date_year}/#{university_course_start_date_month}/01")
-  rescue ArgumentError
-    errors.add(:university_course_start_date, "is not a valid date")
-  end
-
-  def normalize_course_end_date
-    return unless university_course_end_date_year.present? && university_course_end_date_month.present?
-
-    self.university_course_end_date   = Date.parse("#{university_course_end_date_year}/#{university_course_end_date_month}/01")
-  rescue ArgumentError
-    errors.add(:university_course_end_date, "is not a valid date")
-  end
 
   # allow admins to edit access key
   attr_accessible :access_key, as: :admin
@@ -242,20 +173,9 @@ class Member < ActiveRecord::Base
   validates :address_region, presence: true, on: :create
   validates :address_country, presence: true, on: :create
   validates :postal_code, presence: true, on: :create
-  validates :subscription_amount, presence: true, on: :create, if: Proc.new { |member| member.individual? && member.coupon.nil? }
   validates_acceptance_of :agreed_to_terms, on: :create
 
-  validates_with OrganizationValidator, on: :create, unless: Proc.new { |member| member.individual? || member.student? }
-
-  validates :university_email,               presence: true, if: Proc.new { |member| member.student? }
-  validates :university_name,                presence: true, if: Proc.new { |member| member.student? }
-  validates :university_name_other,          presence: true, if: Proc.new { |member| member.student? && member.university_name == "Other (please specify)" }
-  validates :university_course_name,         presence: true, if: Proc.new { |member| member.student? }
-  validates :university_qualification,       presence: true, if: Proc.new { |member| member.student? }
-  validates :university_qualification_other, presence: true, if: Proc.new { |member| member.student? && member.university_qualification == "Other (please specify)" }
-  validates :university_course_start_date,   presence: true, if: Proc.new { |member| member.student? }
-  validates :university_course_end_date,     presence: true, if: Proc.new { |member| member.student? }
-  validates :dob,                            presence: true, if: Proc.new { |member| member.student? }
+  validates_with OrganizationValidator, on: :create
 
   scope :current, where(:current => true)
   scope :valid, where('product_name is not null')
@@ -275,10 +195,6 @@ class Member < ActiveRecord::Base
 
   def self.is_current_supporter_level?(level)
     CURRENT_SUPPORTER_LEVELS.include?(level)
-  end
-
-  def self.is_individual_level?(level)
-    'individual' == level
   end
 
   def self.sectors
@@ -320,7 +236,7 @@ class Member < ActiveRecord::Base
   end
 
   def current!
-    update_attribute(:active, true) if organization?
+    update_attribute(:active, true)
     update_attribute(:current, true)
   end
 
@@ -360,21 +276,8 @@ class Member < ActiveRecord::Base
     product_name == "supporter"
   end
 
-  def individual?
-    # TODO This is weird, why does this one check use a class method?
-    self.class.is_individual_level?(product_name)
-  end
-
-  def student?
-    product_name == "student"
-  end
-
   def no_payment?
     no_payment
-  end
-
-  def organization?
-    %w[partner sponsor supporter].include?(product_name)
   end
 
   def large_corporate_organization?
@@ -382,7 +285,7 @@ class Member < ActiveRecord::Base
   end
 
   def monthly_payment_option?
-    organization? && !large_corporate_organization?
+    !large_corporate_organization?
   end
 
   def founding_partner?
@@ -436,12 +339,8 @@ class Member < ActiveRecord::Base
   def membership_description
     if founding_partner?
       'Founding partner'
-    elsif organization?
-      product_name.titleize
-    elsif student?
-      "Student Supporter"
     else
-      "Supporter"
+      product_name.titleize
     end
   end
 
@@ -459,8 +358,6 @@ class Member < ActiveRecord::Base
 
   def get_plan_description
     {
-      'individual-supporter-new' => 'Individual Supporter',
-      'individual-supporter-student' => 'ODI Student Supporter',
       'corporate-supporter_annual'   => 'Corporate Supporter',
       'supporter_annual'             => 'Supporter',
       'supporter_monthly'            => 'Supporter'
@@ -472,18 +369,12 @@ class Member < ActiveRecord::Base
   end
 
   def plan
-    if individual?
-      'individual-supporter-new'
-    elsif student?
-      'individual-supporter-student'
+    if large_corporate_organization?
+      'corporate-supporter_annual'
+    elsif payment_frequency == 'monthly'
+      'supporter_monthly'
     else
-      if large_corporate_organization?
-        'corporate-supporter_annual'
-      elsif payment_frequency == 'monthly'
-        'supporter_monthly'
-      else
-        'supporter_annual'
-      end
+      'supporter_annual'
     end
   end
 
@@ -513,8 +404,6 @@ class Member < ActiveRecord::Base
   end
 
   def setup_listing
-    return unless organization?
-
     self.create_listing(:name => organization_name)
   end
 

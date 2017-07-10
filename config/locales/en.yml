@@ -39,21 +39,7 @@ en:
         card_validation_code: CVC
         card_expiry_month: Expiry month
         card_expiry_year: Expiry year
-        university_email: "Email address"
-        university_street_address: "Address line 1"
-        university_address_locality: "Address line 2"
-        university_address_region: "Town or city"
-        university_address_country: "Country"
-        university_postal_code: "Postcode"
-        university_name: "University/college name"
-        university_name_other: ""
-        university_qualification: "Qualification"
-        university_qualification_other: ""
-        university_course_name: "Course name"
-        university_course_start_date: "Course start date"
-        university_course_end_date: "Course end date"
         twitter: "Twitter handle"
-        dob: "Date of birth"
       listing:
         name: "Organisation name"
         url: "Homepage"
