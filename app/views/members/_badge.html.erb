@@ -8,10 +8,6 @@
       <li>London, UK</li>
     </ul>
   <% end %>
-  <% if @member.organization? %>
-    <a href="<%= member_url(@member) %>"><%= yield :badge_details %></a>
-  <% else %>
-    <%= yield :badge_details %>
-  <% end %>
+  <a href="<%= member_url(@member) %>"><%= yield :badge_details %></a>
 </div>
 <!-- END ODI MEMBER BADGE -->
