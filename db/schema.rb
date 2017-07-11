@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20170707170759) do
+ActiveRecord::Schema.define(:version => 20170707171842) do
 
   create_table "admins", :force => true do |t|
     t.string   "email",              :default => "", :null => false
@@ -59,8 +59,8 @@ ActiveRecord::Schema.define(:version => 20170707170759) do
   end
 
   create_table "members", :force => true do |t|
-    t.string   "email",                                    :default => "",       :null => false
-    t.string   "encrypted_password",                       :default => "",       :null => false
+    t.string   "email",                                    :default => "",      :null => false
+    t.string   "encrypted_password",                       :default => "",      :null => false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
@@ -69,8 +69,8 @@ ActiveRecord::Schema.define(:version => 20170707170759) do
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
-    t.datetime "created_at",                                                     :null => false
-    t.datetime "updated_at",                                                     :null => false
+    t.datetime "created_at",                                                    :null => false
+    t.datetime "updated_at",                                                    :null => false
     t.string   "membership_number",           :limit => 8
     t.string   "product_name"
     t.boolean  "active",                                   :default => false
@@ -81,23 +81,15 @@ ActiveRecord::Schema.define(:version => 20170707170759) do
     t.string   "name"
     t.string   "phone"
     t.text     "address"
-    t.string   "chargify_customer_id"
-    t.string   "chargify_subscription_id"
-    t.string   "chargify_payment_id"
-    t.boolean  "chargify_data_verified",                   :default => false
     t.string   "street_address"
     t.string   "address_locality"
     t.string   "address_region"
     t.string   "address_country"
     t.string   "postal_code"
     t.string   "organization_type"
-    t.string   "organization_vat_id"
     t.string   "organization_company_number"
-    t.boolean  "current",                                  :default => false,    :null => false
-    t.string   "origin",                                   :default => "odihq",  :null => false
-    t.string   "payment_frequency",                        :default => "annual", :null => false
-    t.string   "coupon"
-    t.boolean  "invoice",                                  :default => false
+    t.boolean  "current",                                  :default => false,   :null => false
+    t.string   "origin",                                   :default => "odihq", :null => false
     t.boolean  "share_with_third_parties",                 :default => false
     t.string   "twitter"
   end
