@@ -120,13 +120,10 @@ class Member < ActiveRecord::Base
                   :address_region,
                   :address_country,
                   :postal_code,
-                  :organization_vat_id,
                   :organization_company_number,
                   :agreed_to_terms,
                   :address,
                   :origin,
-                  :coupon,
-                  :invoice,
                   :twitter,
                   :login # non-DB field
 
@@ -149,13 +146,10 @@ class Member < ActiveRecord::Base
                   :address_region,
                   :address_country,
                   :postal_code,
-                  :organization_vat_id,
                   :organization_company_number,
                   :agreed_to_terms,
                   :address,
                   :origin,
-                  :coupon,
-                  :invoice,
                   :twitter,
                   :as => :admin
 
@@ -364,15 +358,9 @@ class Member < ActiveRecord::Base
     }[plan]
   end
 
-  def invoiced?
-    self.invoice == true
-  end
-
   def plan
     if large_corporate_organization?
       'corporate-supporter_annual'
-    elsif payment_frequency == 'monthly'
-      'supporter_monthly'
     else
       'supporter_annual'
     end

@@ -90,39 +90,11 @@ describe Member do
       end
     end
 
-    context "member is a supporter who pays monthly" do
-      it "returns 'supporter_monthly'" do
-        member = Member.new(product_name: "supporter")
-        member.payment_frequency = "monthly"
-
-        expect(member.plan).to eq("supporter_monthly")
-      end
-    end
-
-    context "member is a supporter who pays annually" do
+    context "member is a supporter" do
       it "returns 'supporter_annual" do
         member = Member.new(product_name: "supporter")
-        member.payment_frequency = nil
 
         expect(member.plan).to eq("supporter_annual")
-      end
-    end
-  end
-
-  describe 'invoiced?' do
-    context 'member has invoice flag set to true' do
-      it 'returns true' do
-        member.invoice = true
-
-        expect(member.invoiced?).to be true
-      end
-    end
-
-    context 'member does NOT have invoice flag set' do
-      it 'returns false' do
-        member.invoice = nil
-
-        expect(member.invoiced?).to be_falsey
       end
     end
   end
