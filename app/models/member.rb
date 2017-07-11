@@ -371,8 +371,6 @@ class Member < ActiveRecord::Base
   def plan
     if large_corporate_organization?
       'corporate-supporter_annual'
-    elsif payment_frequency == 'monthly'
-      'supporter_monthly'
     else
       'supporter_annual'
     end

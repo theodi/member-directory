@@ -15,7 +15,6 @@ Given /^that I have a membership number and password$/ do
     :organization_size => "251-1000",
     :organization_type => "commercial",
     :organization_sector => "Energy",
-    :organization_vat_id => '213244343',
     :password => 'p4ssw0rd',
     :password_confirmation => 'p4ssw0rd',
     :agreed_to_terms => '1')

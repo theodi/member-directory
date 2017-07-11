@@ -21,7 +21,6 @@ Given /^that I have signed up as a (\w*)$/ do |product_name|
     :organization_size => "251-1000",
     :organization_type => "commercial",
     :organization_sector => "Energy",
-    :organization_vat_id => '213244343',
     :password => 'p4ssw0rd',
     :password_confirmation => 'p4ssw0rd',
     :agreed_to_terms => '1')
