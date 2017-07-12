@@ -4,8 +4,6 @@ RailsAdmin.config do |config|
 
   config.current_user_method { current_admin }
 
-  config.attr_accessible_role { :admin }
-
   config.included_models = ['Member']
 
 end
