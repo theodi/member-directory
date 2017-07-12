@@ -53,7 +53,7 @@ module MemberListings
     end
 
     def self.alpha_groups
-      pluck(:organization_name).group_by {|name| alpha_group(name) }.keys.sort
+      pluck(:organization_name).compact.group_by {|name| alpha_group(name) }.keys.sort
     end
 
     def self.alpha_group(name)
