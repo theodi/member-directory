@@ -192,7 +192,7 @@ end
 
 Given(/^there are (\d+) active partners in the directory$/) do |num|
   num.to_i.times do
-    member = FactoryGirl.create :member, :product_name => 'partner', :active => true
+    member = FactoryGirl.create :current_active_member, :product_name => 'partner'
     member.organization_description = Faker::Company.catch_phrase
     member.save
   end
