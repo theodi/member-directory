@@ -9,9 +9,9 @@ describe MembersController do
   describe "GET 'index'" do
 
     before :each do
-      @member    = FactoryGirl.create :member, :active => true, :product_name => 'member'
-      @supporter = FactoryGirl.create :member, :active => true, :product_name => 'supporter'
-      @inactive  = FactoryGirl.create :member, :active => false, :product_name => 'member'
+      @member    = FactoryGirl.create :current_active_member, :product_name => 'member'
+      @supporter = FactoryGirl.create :current_active_member, :product_name => 'supporter'
+      @inactive  = FactoryGirl.create :member, :product_name => 'member'
     end
 
     it "shows only members with active flag set" do
