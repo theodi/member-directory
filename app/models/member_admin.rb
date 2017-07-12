@@ -43,6 +43,14 @@ module MemberAdmin
 
     rails_admin do
       
+      list do
+        field :membership_number
+        field :name
+        field :organization_name
+        field :product_name
+        field :active
+      end
+
       create do
 
         field :email do

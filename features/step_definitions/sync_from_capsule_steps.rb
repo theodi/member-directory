@@ -3,7 +3,7 @@ end
 
 Given /^I am already signed up$/ do
   @membership = FactoryGirl.create :current_active_member
-  @old_description = @membership.listing.description
+  @old_description = @membership.organization_description
 end
 
 When /^I am set as a member in CapsuleCRM$/ do
@@ -99,7 +99,7 @@ Then /^a membership should be created for me$/ do
   expect(@membership).to be_present
   @membership_number = @membership.membership_number
   expect(@membership_number).to be_present
-  @old_description = @membership.listing.description
+  @old_description = @membership.organization_description
 end
 
 Then(/^that membership should not be shown in the directory$/) do
@@ -114,16 +114,16 @@ Then /^my details should be cached correctly$/ do
   expect(@membership.newsletter).to                 eq @newsletter
   expect(@membership.organization_size).to                 eq @organization_size
   expect(@membership.organization_sector).to               eq @organization_sector
-  expect(@membership.listing.name).to                 eq @organization_name
-  expect(@membership.listing.description).to          eq @old_description # description should not change when synced
-  expect(@membership.listing.url).to                  eq @url
-  expect(@membership.listing.contact_name).to  eq @contact_name
-  expect(@membership.listing.contact_phone).to eq @contact_phone
-  expect(@membership.listing.contact_email).to eq @contact_email
-  expect(@membership.listing.twitter).to       eq @twitter
-  expect(@membership.listing.linkedin).to      eq @linkedin
-  expect(@membership.listing.facebook).to      eq @facebook
-  expect(@membership.listing.tagline).to       eq @tagline
+  expect(@membership.organization_name).to                 eq @organization_name
+  expect(@membership.organization_description).to          eq @old_description # description should not change when synced
+  expect(@membership.organization_url).to                  eq @url
+  expect(@membership.organization_contact_name).to  eq @contact_name
+  expect(@membership.organization_contact_phone).to eq @contact_phone
+  expect(@membership.organization_contact_email).to eq @contact_email
+  expect(@membership.organization_twitter).to       eq @twitter
+  expect(@membership.organization_linkedin).to      eq @linkedin
+  expect(@membership.organization_facebook).to      eq @facebook
+  expect(@membership.organization_tagline).to       eq @tagline
 end
 
 Then /^a warning email should be sent to the commercial team$/ do

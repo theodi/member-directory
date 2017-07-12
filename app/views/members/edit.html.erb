@@ -80,14 +80,12 @@
       the details that are shown in the directory.
     </p>
 
-    <%= f.fields_for :listing do |builder| %>
-      <%= render :partial => 'listings/form', :locals => { :f => builder } %>
-    <% end %>
+    <%= render :partial => 'listings/form', :locals => { :f => f } %>
 
     <div class="control-group">
       <div class="controls">
         <section class='preview'>
-          <%= render :partial => 'listings/listing', :locals => { :listing => @member.listing } %>
+          <%= render :partial => 'listings/listing', :locals => { :member => @member } %>
         </section>
       </div>
     </div>

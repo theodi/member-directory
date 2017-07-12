@@ -68,6 +68,7 @@ group :development, :test do
   gem 'rspec-html-matchers'
   gem 'csvlint'
   gem 'coveralls'
+  gem 'byebug'
 end
 
 group :test do

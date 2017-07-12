@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Listing do
+describe "Member Listings" do
 
   context "validations" do
     before :each do
@@ -8,73 +8,67 @@ describe Listing do
     end
 
     it "should strip prefix from twitter handles before saving" do
-      org = FactoryGirl.create :listing, :twitter => "@test1", :member => @member
-      expect(org.twitter).to eq("test1")
-      org = FactoryGirl.create :listing, :twitter => "test2", :member => @member
-      expect(org.twitter).to eq("test2")
+      org = FactoryGirl.create :member_with_listing, :organization_twitter => "@test1"
+      expect(org.organization_twitter).to eq("test1")
+      org = FactoryGirl.create :member_with_listing, :organization_twitter => "test2"
+      expect(org.organization_twitter).to eq("test2")
+    end
+
+    it "should add prefix to URL before saving" do
+      org = FactoryGirl.create :member_with_listing, :organization_url => "https://google.com"
+      expect(org.organization_url).to eq("https://google.com")
+      org = FactoryGirl.create :member_with_listing, :organization_url => "http://google.com"
+      expect(org.organization_url).to eq("http://google.com")
+      org = FactoryGirl.create :member_with_listing, :organization_url => "google.com"
+      expect(org.organization_url).to eq("http://google.com")
     end
 
     it "cannot create listings with the same name" do
       name = Faker::Company.name
-      FactoryGirl.create :listing, :name => name, :member => @member
+      FactoryGirl.create :member_with_listing, :organization_name => name
       expect {
-        FactoryGirl.create :listing, :name => name, :member => @member
+        FactoryGirl.create :member_with_listing, :organization_name => name
       }.to raise_error(ActiveRecord::RecordInvalid)
     end
 
-    it "can create two listings with no name" do
-      expect {
-        FactoryGirl.create :listing, :name => nil, :member => @member
-        FactoryGirl.create :listing, :name => nil, :member => @member
-      }.to change{Listing.count}.by(2)
-    end
   end
 
   context "scopes" do
 
-    def listing(options={})
-      values = {
-        organization_name: options[:name],
-        product_name: options[:type]
-      }.reject {|k, v| v.nil? }
-
-      (FactoryGirl.create :member, values).listing
-    end
-
     context "display order" do
+      
       it "sorts alphabetically" do
-        g = listing(:name => 'Grace')
-        b = listing(:name => 'Betty')
-        a = listing(:name => 'Ace')
+        g = FactoryGirl.create :member, :organization_name => 'Grace'
+        b = FactoryGirl.create :member, :organization_name => 'Betty'
+        a = FactoryGirl.create :member, :organization_name => 'Ace'
 
-        expect(Listing.display_order).to eq([a,b,g])
+        expect(Member.display_order).to eq([a,b,g])
       end
 
       it "sorts by partner, sponsor, member, supporter" do
-        supporter = listing(:type => 'supporter')
-        sponsor = listing(:type => 'sponsor')
-        member = listing()
-        member.member.update_attribute(:product_name, 'member')
-        partner = listing(:type => 'partner')
-        expect(Listing.display_order).to eq([partner, sponsor, member, supporter])
+        supporter = FactoryGirl.create :member, :product_name => 'supporter'
+        sponsor = FactoryGirl.create :member, :product_name => 'sponsor'
+        member = FactoryGirl.create :member
+        member.update_attribute(:product_name, 'member')
+        partner = FactoryGirl.create :member, :product_name => 'partner'
+        expect(Member.display_order).to eq([partner, sponsor, member, supporter])
       end
 
       it "sorts by founding partner first" do
-        partner = listing(:name => 'a', :type => 'partner')
-        founding_partner = listing(:name => 'z', :type => 'partner')
-        founding_partner.member.update_attribute(:membership_number, Member.founding_partner_id)
-        expect(founding_partner.member).to be_founding_partner
-        expect(Listing.display_order).to eq([founding_partner, partner])
+        partner = FactoryGirl.create :member, :organization_name => 'a', :product_name => 'partner'
+        founding_partner = FactoryGirl.create :member, :organization_name => 'z', :product_name => 'partner', :membership_number => Member.founding_partner_id
+        expect(founding_partner).to be_founding_partner
+        expect(Member.display_order).to eq([founding_partner, partner])
       end
     end
 
     context "filtering by alpha group" do
       it "returns listing in a group" do
-        a1 = listing(:name => "Alice")
-        a2 = listing(:name => "Agile")
-        listing(:name => "Eve")
+        a1 = FactoryGirl.create :member, :organization_name => "Alice"
+        a2 = FactoryGirl.create :member, :organization_name => "Agile"
+        FactoryGirl.create :member, :organization_name => "Eve"
 
-        expect(Listing.in_alpha_group("A")).to eq([a1, a2])
+        expect(Member.in_alpha_group("A")).to eq([a1, a2])
       end
     end
   end

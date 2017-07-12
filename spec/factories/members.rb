@@ -23,5 +23,10 @@ FactoryGirl.define do
   factory :current_active_member, parent: :current_member do
     active true
   end
+
+  factory :member_with_listing, parent: :member do
+    organization_description { Faker::Company.catch_phrase }
+    organization_url         { Faker::Internet.url }
+  end
   
 end

@@ -36,7 +36,6 @@ Feature: Adding details to the organization directory
 		Examples:
 			| field       | text         |
 			| name        | name		     |
-			| description | Description  |
 
 
   Scenario Outline: User submits bad URLs

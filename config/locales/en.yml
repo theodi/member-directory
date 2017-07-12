@@ -12,7 +12,6 @@ en:
   activerecord:
     models:
       member: Member
-      listing: Listing
     attributes:
       member:
         login: "Member ID or email address"
@@ -32,30 +31,18 @@ en:
         organization_company_number: "Company / Charity number"
         password: "Password"
         password_confirmation: "Confirm password"
-        twitter: "Twitter handle"
+        twitter: "Individual twitter handle"
         organization_name: "Organisation name"
-        organization_url: "Organization homepage"
-        organization_description: "Organization description"
-        organization_logo: "Organization logo"
-        organization_contact_name: "Organization contact person"
-        organization_contact_phone: "Organization contact telephone"
-        organization_contact_email: "Organization contact email"
-        organization_twitter: "Organization Twitter handle"
-        organization_facebook: "Organization Facebook"
-        organization_linkedin: "Organization LinkedIn"
-        organization_tagline: "Organization tagline"
-      listing:
-        name: "Organisation name"
-        url: "Homepage"
-        description: "Description"
-        logo: "Logo"
-        contact_name: "Contact person"
-        contact_phone: "Contact telephone"
-        contact_email: "Contact email"
-        twitter: "Twitter handle"
-        facebook: "Facebook"
-        linkedin: "LinkedIn"
-        tagline: "Tagline"
+        organization_url: "Homepage"
+        organization_description: "Description"
+        organization_logo: "Logo"
+        organization_contact_name: "Sales contact"
+        organization_contact_phone: "Sales telephone"
+        organization_contact_email: "Sales email"
+        organization_twitter: "Twitter handle"
+        organization_facebook: "Facebook"
+        organization_linkedin: "LinkedIn"
+        organization_tagline: "tagline"
   activemodel:
     models:
       contact_request: Contact Request

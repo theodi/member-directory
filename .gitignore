@@ -29,3 +29,4 @@ config/database.yml
 /db/test.sqlite3-journal
 dump.rdb
 .chef/
+.byebug_history

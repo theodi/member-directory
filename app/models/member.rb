@@ -24,7 +24,6 @@ class Member < ActiveRecord::Base
                   :product_name,
                   :newsletter,
                   :share_with_third_parties,
-                  :organization_name,
                   :organization_size,
                   :organization_type,
                   :organization_sector,
@@ -53,16 +52,10 @@ class Member < ActiveRecord::Base
   validates :address_region, presence: true, on: :create
   validates :address_country, presence: true, on: :create
   validates :postal_code, presence: true, on: :create
-  validates_acceptance_of :agreed_to_terms, on: :create
-
-  validates_with OrganizationValidator, on: :create
+  validates_acceptance_of :agreed_to_terms, on: :create  
 
   scope :current, where(:current => true)
   scope :valid, where('product_name is not null')
-
-  def self.founding_partner_id
-    ENV['FOUNDING_PARTNER_ID']
-  end
 
   def self.find_for_database_authentication(warden_conditions)
     conditions = warden_conditions.dup
@@ -176,14 +169,6 @@ class Member < ActiveRecord::Base
     else
       "supporter"
     end
-  end
-
-  def organization_name
-    listing.try(:name) || @organization_name
-  end
-
-  def organization_name=(value)
-    @organization_name = value.try(:strip)
   end
 
   def contact_name

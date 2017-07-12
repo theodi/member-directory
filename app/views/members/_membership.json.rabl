@@ -1,63 +1,63 @@
-node(:url         ) { |org| member_url(org.member) }
-node(:membershipId) { |org| org.member.membership_number }
-if root_object.member.product_name
-  node(:role        ) do |org|
+node(:url         ) { |member| member_url(member) }
+node(:membershipId) { |member| member.membership_number }
+if root_object.product_name
+  node(:role        ) do |member|
     {
-      :url  => "http://schema.theodi.org/membership/#{org.member.product_name}",
-      :name => org.member.product_name.capitalize,
+      :url  => "http://schema.theodi.org/membership/#{member.product_name}",
+      :name => member.product_name.capitalize,
     }
   end
 end
-node :member do |org|
+node :member do |member|
   # Basics
-  member = {
+  details = {
     :type         => "http://schema.org/Organization",
-    :name         => org.name,
-    :description  => org.description,
-    :url          => org.url
+    :name         => member.organization_name,
+    :description  => member.organization_description,
+    :url          => member.organization_url
   }
   # Contact point
-  member[:contactPoint] = [
+  details[:contactPoint] = [
     {
       :description  => "Sales contact",
       :type         => "http://schema.org/ContactPoint",
-      :name         => org.contact_name,
-      :email        => org.contact_email,
-      :telephone    => org.contact_phone
-    }.compact,
+      :name         => member.organization_contact_name,
+      :email        => member.organization_contact_email,
+      :telephone    => member.organization_contact_phone
+    },
   ]
   # Social media URLs
-  if org.twitter.present?
-    member[:contactPoint] << {
+  if member.organization_twitter.present?
+    details[:contactPoint] << {
       :name         => "Twitter",
       :type         => "http://schema.org/ContactPoint",
-      :url          => org.twitter_url
+      :url          => member.twitter_url
     }
   end
-  if org.facebook.present?
-    member[:contactPoint] << {
+  if member.organization_facebook.present?
+    details[:contactPoint] << {
       :name         => "Facebook",
       :type         => "http://schema.org/ContactPoint",
-      :url          => org.facebook
+      :url          => member.organization_facebook
     }
   end
-  if org.linkedin.present?
-    member[:contactPoint] << {
+  if member.organization_linkedin.present?
+    details[:contactPoint] << {
       :name         => "Linkedin",
       :type         => "http://schema.org/ContactPoint",
-      :url          => org.linkedin
+      :url          => member.organization_linkedin
     }
   end
   # Logo
-  if root_object.logo.url
-    member[:logo] = [
+  if root_object.organization_logo.url
+    details[:logo] = [
       {
         :type        => "http://schema.org/ImageObject",
         :description => "Original",
-        :contentUrl  => org.logo.url,
+        :contentUrl  => member.organization_logo.url,
         :thumbnail   => {
           :type        => "http://schema.org/ImageObject",
-          :contentUrl  => org.logo.square.url,
+          :contentUrl  => member.organization_logo.square.url,
           :height      => 100,
           :width       => 100,
         }
@@ -65,17 +65,17 @@ node :member do |org|
       {
         :type        => "http://schema.org/ImageObject",
         :description => "Rectangular",
-        :contentUrl  => org.logo.rectangular.url,
+        :contentUrl  => member.organization_logo.rectangular.url,
         :height      => 100,
         :width       => 200,
         :thumbnail   => {
           :type        => "http://schema.org/ImageObject",
-          :contentUrl  => org.logo.square.url,
+          :contentUrl  => member.organization_logo.square.url,
           :height      => 100,
           :width       => 100,
         }
       }
     ]
   end
-  member
+  details
 end

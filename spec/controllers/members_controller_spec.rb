@@ -9,7 +9,7 @@ describe MembersController do
   describe "GET 'index'" do
 
     before :each do
-      @member    = FactoryGirl.create :member, :active => true, :product_name => 'supporter'
+      @member    = FactoryGirl.create :member, :active => true, :product_name => 'member'
       @supporter = FactoryGirl.create :member, :active => true, :product_name => 'supporter'
       @inactive  = FactoryGirl.create :member, :active => false, :product_name => 'member'
     end
@@ -17,20 +17,21 @@ describe MembersController do
     it "shows only members with active flag set" do
       get 'index'
       expect(response).to be_success
-      expect(assigns(:listings)).to_not include(@inactive.listing)
+      expect(assigns(:members)).to_not include(@inactive)
     end
 
     it "shows all levels without filter" do
       get 'index'
       expect(response).to be_success
-      expect(assigns(:listings)).to include(@member.listing)
-      expect(assigns(:listings)).to include(@supporter.listing)
+      expect(assigns(:members)).to include(@member)
+      expect(assigns(:members)).to include(@supporter)
     end
 
     it "shows only requested levels" do
       get 'index', :level => 'supporter'
       expect(response).to be_success
-      expect(assigns(:listings)).to include(@member.listing)
+      expect(assigns(:members)).not_to include(@member)
+      expect(assigns(:members)).to include(@supporter)
     end
   end
 

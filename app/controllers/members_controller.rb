@@ -7,33 +7,29 @@ class MembersController < ApplicationController
 
   before_filter(:only => [:index, :show]) {alternate_formats [:json]}
 
-  before_filter :ensure_current, :only => :show
-
   def index
-    @listings = Listing.active.display_order
+    @members = Member.where(active: true).display_order
 
     if params[:level]
-      @listings = @listings.for_level(params[:level].downcase)
+      @members = @members.where(product_name: params[:level].downcase)
     end
 
-    @groups = @listings.alpha_groups
+    @groups = @members.alpha_groups
 
     if @search = params[:q]
-      @listings = @listings.search(
+      @members = @members.search(
         m: 'or',
         name_cont: @search,
         description_cont: @search
       ).result
     elsif @alpha = params[:alpha]
-      @listings = @listings.in_alpha_group(@alpha)
+      @members = @members.in_alpha_group(@alpha)
     end
 
-    respond_with(@listings)
+    respond_with(@members)
   end
 
   def show
-    # Get listing
-    @listing = @member.listing
     if editable?(@member) && request.format.html?
       @preview = true
       if current_member == @member
@@ -43,7 +39,6 @@ class MembersController < ApplicationController
       end
       render 'edit'
     else
-      raise ActiveRecord::RecordNotFound and return if @listing.nil?
       if @member.active == false
         if signed_in?
           raise ActiveResource::UnauthorizedAccess.new(request.fullpath) and return
@@ -52,8 +47,8 @@ class MembersController < ApplicationController
           redirect_to new_member_session_path and return
         end
       end
-      @title = @listing.name
-      respond_with(@listing)
+      @title = @member.organization_name
+      respond_with(@member)
     end
   end
 
@@ -95,10 +90,6 @@ class MembersController < ApplicationController
     unless request.referer =~ /https?:\/\/#{request.host_with_port}./
       @member.register_embed(request.referer)
     end
-  end
-
-  def ensure_current
-    redirect_to payment_member_path(@member) unless @member.current?
   end
 
 end
