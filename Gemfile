@@ -2,7 +2,6 @@ source 'https://rubygems.org'
 ruby "2.3.4"
 
 gem 'rails', '~> 4.2'
-gem 'syck'
 gem 'devise', '~> 3.5'
 gem 'dotenv'
 gem 'fog'
