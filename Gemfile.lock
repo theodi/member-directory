@@ -594,7 +594,7 @@ DEPENDENCIES
   launchy
   mailcatcher
   mini_magick
-  mysql2 (~> 0.4)
+  mysql2 (~> 0.3.10)
   omniauth-google-oauth2
   poltergeist
   rabl
