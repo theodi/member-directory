@@ -50,7 +50,7 @@ gem 'zeroclipboard-rails'
 
 # To use debugger
 # gem 'debugger'
-gem 'mysql2', '~> 0.4'
+gem 'mysql2', '~> 0.3.21' # Rails 3 only works with < 0.4
 
 group :development, :test do
   gem 'sqlite3'
