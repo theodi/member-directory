@@ -13,8 +13,6 @@ gem 'alternate_rails', git: 'https://github.com/theodi/alternate-rails.git', bra
 gem 'rails_admin'
 gem 'omniauth-google-oauth2'
 
-gem 'protected_attributes' # smooth upgrade for attributes, until rails 5
-
 gem 'validate_url'
 
 gem 'rack-google-analytics'
