@@ -28,11 +28,10 @@ module MemberListings
     validates :organization_url, :url => {:allow_nil => true}, :format => {:with => /\Ahttps?:\/\/([^\.\/]+?)\.([^\.\/]+?)/, :allow_nil => true}
 
     validates :organization_name, presence: true, uniqueness: true
-    validates :organization_size, presence: true, inclusion: Member::ORGANISATION_SIZES.map{|k,v| v}
-    validates :organization_sector, presence: true, inclusion: Member::SECTORS
-    validates :organization_type, presence: true, inclusion: Member::ORGANISATION_TYPES.map{|k,v| v}
+    validates :organization_size, presence: true, inclusion: Member::ORGANISATION_SIZES.map{|k,v| v}, on: :create
+    validates :organization_sector, presence: true, inclusion: Member::SECTORS, on: :create
+    validates :organization_type, presence: true, inclusion: Member::ORGANISATION_TYPES.map{|k,v| v}, on: :create
 
-    validates :organization_description, :presence => true, :on => :update
     validates :organization_description, :length => { :maximum  => 500, :too_long => "Your description cannot be longer than %{count} characters"}, :if => :supporter?
     validates :organization_description, :length => { :maximum  => 1000, :too_long => "Your description cannot be longer than %{count} characters"}, :unless => :supporter?
 
