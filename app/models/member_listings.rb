@@ -6,6 +6,8 @@ module MemberListings
 
   included do
 
+    mount_uploader :organization_logo, ImageObjectUploader
+
     before_validation :strip_organization_name
     before_validation :strip_twitter_prefix
     before_validation :prefix_url

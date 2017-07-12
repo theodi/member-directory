@@ -1,21 +1,21 @@
 <div class='organization' vocab="http://schema.org/" typeOf="Organization">
 
   <div class="organization-sidebar pull-right">
-    <% unless @member.supporter? || listing.logo.blank? %>
+    <% unless member.supporter? || member.organization_logo.blank? %>
       <div class='organization-logo'
-           style='background-image: url(<%= listing.logo.rectangular.url %>)'
+           style='background-image: url(<%= member.organization_logo.rectangular.url %>)'
            data-bind='style: {backgroundImage: imageSrc}' >
       </div>
     <% end %>
 
     <p>
-      <span class="label <%= listing.member.product_name %>"><%= listing.member.product_name.capitalize %></span>
+      <span class="label <%= member.product_name %>"><%= member.product_name.capitalize %></span>
     </p>
 
-    <% if listing.url.present? %>
+    <% if member.organization_url.present? %>
       <p>
         <span class='contact-detail'>
-          <i class='icon icon-home'></i> <a property="url" data-bind="text: url, attr: {href: url}" href='<%= listing.url %>'><%= listing.url%></a>
+          <i class='icon icon-home'></i> <a property="url" data-bind="text: url, attr: {href: url}" href='<%= member.organization_url %>'><%= member.organization_url%></a>
         </span>
       </p>
     <% end %>
@@ -23,59 +23,59 @@
     <p property='contactPoint' typeOf="ContactPoint">
 
       <span property='description' class='contact-point-description'>Sales contact</span>
-      <% if @preview || listing.contact_name.present? %>
+      <% if @preview || member.organization_contact_name.present? %>
         <span data-bind="visible: contactName().length > 0" class='contact-detail'>
-          <i class='icon-user'></i> <span property="name" data-bind="text: contactName"><%= listing.contact_name %></span>
+          <i class='icon-user'></i> <span property="name" data-bind="text: contactName"><%= member.organization_contact_name %></span>
         </span>
       <% end %>
 
-      <% if @preview || listing.contact_email.present? %>
+      <% if @preview || member.organization_contact_email.present? %>
         <span data-bind="visible: contactEmail().length > 0" class='contact-detail'>
-          <i class='icon-envelope-alt'></i> <a property="email" data-bind="text: contactEmail, attr: {href: mailto}" href='mailto:<%= listing.contact_email %>'><%= listing.contact_email %></a>
+          <i class='icon-envelope-alt'></i> <a property="email" data-bind="text: contactEmail, attr: {href: mailto}" href='mailto:<%= member.organization_contact_email %>'><%= member.organization_contact_email %></a>
         </span>
       <% end %>
 
-      <% if @preview || listing.contact_phone.present? %>
+      <% if @preview || member.organization_contact_phone.present? %>
         <span data-bind="visible: contactPhone().length > 0" class='contact-detail'>
-          <i class='icon-phone-sign'></i> <span property="telephone" data-bind="text: contactPhone"><%= listing.contact_phone %></span>
+          <i class='icon-phone-sign'></i> <span property="telephone" data-bind="text: contactPhone"><%= member.organization_contact_phone %></span>
         </span>
       <% end %>
     </p>
 
     <p>
-      <% if @preview || listing.twitter.present? %>
+      <% if @preview || member.organization_twitter.present? %>
         <span data-bind="visible: twitter().length > 0" property='contactPoint' typeof='ContactPoint'>
-          <a property='url' data-bind="attr: {href: twitterUrl}" href='http://twitter.com/<%= listing.twitter %>'><%= image_tag 'twitter-16x16.png', :alt => "Twitter" %><span property='name' class='contact-point-description'>Twitter</span></a>
+          <a property='url' data-bind="attr: {href: twitterUrl}" href='http://twitter.com/<%= member.organization_twitter %>'><%= image_tag 'twitter-16x16.png', :alt => "Twitter" %><span property='name' class='contact-point-description'>Twitter</span></a>
         </span>
       <% end %>
 
-      <% if @preview || listing.facebook.present? %>
+      <% if @preview || member.organization_facebook.present? %>
         <span data-bind="visible: facebook().length > 0" property='contactPoint' typeof='ContactPoint'>
-          <a property='url' data-bind="attr: {href: facebook}" href='<%= listing.facebook %>'><%= image_tag 'facebook-16x16.png', :alt => "Facebook" %><span property='name' class='contact-point-description'>Facebook</span></a>
+          <a property='url' data-bind="attr: {href: facebook}" href='<%= member.organization_facebook %>'><%= image_tag 'facebook-16x16.png', :alt => "Facebook" %><span property='name' class='contact-point-description'>Facebook</span></a>
         </span>
       <% end %>
 
-      <% if @preview || listing.linkedin.present? %>
+      <% if @preview || member.organization_linkedin.present? %>
         <span data-bind="visible: linkedin().length > 0" property='contactPoint' typeof='ContactPoint'>
-          <a property='url' data-bind="attr: {href: linkedin}" href='<%= listing.linkedin %>'><%= image_tag 'linkedin-16x16.png', :alt => "Linkedin" %><span property='name' class='contact-point-description'>Linkedin</span></a>
+          <a property='url' data-bind="attr: {href: linkedin}" href='<%= member.organization_linkedin %>'><%= image_tag 'linkedin-16x16.png', :alt => "Linkedin" %><span property='name' class='contact-point-description'>Linkedin</span></a>
         </span>
       <% end %>
     </p>
   </div>
 
-  <h2 property="name"<% if @preview %> data-bind="html: name"<% end %>><%= listing.name %></h2>
+  <h2 property="name"<% if @preview %> data-bind="html: name"<% end %>><%= member.organization_name %></h2>
 
   <div class='<%= @member.supporter? ? '' : 'listing-content' %>'>
 
-    <% if @preview || listing.tagline.present? %>
-      <p data-bind="visible: tagline().length > 0"><strong data-bind="text: tagline"><%= listing.tagline %></strong></p>
+    <% if @preview || member.organization_tagline.present? %>
+      <p data-bind="visible: tagline().length > 0"><strong data-bind="text: tagline"><%= member.organization_tagline %></strong></p>
     <% end %>
 
     <div class='organization-description' property="description" datatype="rdf:HTML">
       <% if @preview %>
         <div data-bind="html: formattedDescription"></div>
       <% else %>
-        <%= simple_format(listing.description) %>
+        <%= simple_format(member.organization_description) %>
       <% end %>
     </div>
 
@@ -88,17 +88,17 @@
   <% if @preview %>
     <script type="text/javascript">
         function OrganisationViewModel() {
-            this.name         = ko.observable("<%= listing.name %>");
-            this.description  = ko.observable("<%= escape_javascript(strip_tags(listing.description).html_safe) rescue nil %>");
-            this.url          = ko.observable("<%= listing.url %>");
-            this.imageSrc     = ko.observable("url(<%= listing.logo.rectangular.url %>)");
-            this.contactName  = ko.observable("<%= listing.contact_name %>");
-            this.contactPhone = ko.observable("<%= listing.contact_phone %>");
-            this.contactEmail = ko.observable("<%= listing.contact_email %>");
-            this.twitter      = ko.observable("<%= listing.twitter %>");
-            this.facebook     = ko.observable("<%= listing.facebook %>");
-            this.linkedin     = ko.observable("<%= listing.linkedin %>");
-            this.tagline      = ko.observable("<%= escape_javascript(strip_tags(listing.tagline).html_safe) rescue nil %>");
+            this.name         = ko.observable("<%= member.organization_name %>");
+            this.description  = ko.observable("<%= escape_javascript(strip_tags(member.organization_description).html_safe) rescue nil %>");
+            this.url          = ko.observable("<%= member.organization_url %>");
+            this.imageSrc     = ko.observable("url(<%= member.organization_logo.rectangular.url %>)");
+            this.contactName  = ko.observable("<%= member.organization_contact_name %>");
+            this.contactPhone = ko.observable("<%= member.organization_contact_phone %>");
+            this.contactEmail = ko.observable("<%= member.organization_contact_email %>");
+            this.twitter      = ko.observable("<%= member.organization_twitter %>");
+            this.facebook     = ko.observable("<%= member.organization_facebook %>");
+            this.linkedin     = ko.observable("<%= member.organization_linkedin %>");
+            this.tagline      = ko.observable("<%= escape_javascript(strip_tags(member.organization_tagline).html_safe) rescue nil %>");
             this.mailto       = ko.computed(function() {
               return 'mailto:' + this.contactEmail();
             }, this);
