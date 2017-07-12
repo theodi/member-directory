@@ -3,7 +3,7 @@ sudo: false
 dist: precise
 cache: bundler
 rvm:
-- 2.2.6
+- 2.3.3
 before_script: cp config/database.example.yml config/database.yml && bundle exec rake
   db:schema:load
 branches:
