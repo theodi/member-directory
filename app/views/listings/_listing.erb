@@ -15,7 +15,7 @@
     <% if member.organization_url.present? %>
       <p>
         <span class='contact-detail'>
-          <i class='icon icon-home'></i> <a property="url" data-bind="text: url, attr: {href: url}" href='<%= member.organization_url %>'><%= member.organization_url%></a>
+          <i class='icon icon-home'></i> <a property="url" data-bind="text: url, attr: {href: organization_url}" href='<%= member.organization_url %>'><%= member.organization_url%></a>
         </span>
       </p>
     <% end %>
@@ -25,19 +25,19 @@
       <span property='description' class='contact-point-description'>Sales contact</span>
       <% if @preview || member.organization_contact_name.present? %>
         <span data-bind="visible: contactName().length > 0" class='contact-detail'>
-          <i class='icon-user'></i> <span property="name" data-bind="text: contactName"><%= member.organization_contact_name %></span>
+          <i class='icon-user'></i> <span property="name" data-bind="text: organization_contactName"><%= member.organization_contact_name %></span>
         </span>
       <% end %>
 
       <% if @preview || member.organization_contact_email.present? %>
         <span data-bind="visible: contactEmail().length > 0" class='contact-detail'>
-          <i class='icon-envelope-alt'></i> <a property="email" data-bind="text: contactEmail, attr: {href: mailto}" href='mailto:<%= member.organization_contact_email %>'><%= member.organization_contact_email %></a>
+          <i class='icon-envelope-alt'></i> <a property="email" data-bind="text: organization_contactEmail, attr: {href: mailto}" href='mailto:<%= member.organization_contact_email %>'><%= member.organization_contact_email %></a>
         </span>
       <% end %>
 
       <% if @preview || member.organization_contact_phone.present? %>
         <span data-bind="visible: contactPhone().length > 0" class='contact-detail'>
-          <i class='icon-phone-sign'></i> <span property="telephone" data-bind="text: contactPhone"><%= member.organization_contact_phone %></span>
+          <i class='icon-phone-sign'></i> <span property="telephone" data-bind="text: organization_contactPhone"><%= member.organization_contact_phone %></span>
         </span>
       <% end %>
     </p>
@@ -51,19 +51,19 @@
 
       <% if @preview || member.organization_facebook.present? %>
         <span data-bind="visible: facebook().length > 0" property='contactPoint' typeof='ContactPoint'>
-          <a property='url' data-bind="attr: {href: facebook}" href='<%= member.organization_facebook %>'><%= image_tag 'facebook-16x16.png', :alt => "Facebook" %><span property='name' class='contact-point-description'>Facebook</span></a>
+          <a property='url' data-bind="attr: {href: organization_facebook}" href='<%= member.organization_facebook %>'><%= image_tag 'facebook-16x16.png', :alt => "Facebook" %><span property='name' class='contact-point-description'>Facebook</span></a>
         </span>
       <% end %>
 
       <% if @preview || member.organization_linkedin.present? %>
         <span data-bind="visible: linkedin().length > 0" property='contactPoint' typeof='ContactPoint'>
-          <a property='url' data-bind="attr: {href: linkedin}" href='<%= member.organization_linkedin %>'><%= image_tag 'linkedin-16x16.png', :alt => "Linkedin" %><span property='name' class='contact-point-description'>Linkedin</span></a>
+          <a property='url' data-bind="attr: {href: organization_linkedin}" href='<%= member.organization_linkedin %>'><%= image_tag 'linkedin-16x16.png', :alt => "Linkedin" %><span property='name' class='contact-point-description'>Linkedin</span></a>
         </span>
       <% end %>
     </p>
   </div>
 
-  <h2 property="name"<% if @preview %> data-bind="html: name"<% end %>><%= member.organization_name %></h2>
+  <h2 property="name"<% if @preview %> data-bind="html: organization_name"<% end %>><%= member.organization_name %></h2>
 
   <div class='<%= @member.supporter? ? '' : 'listing-content' %>'>
 
@@ -88,31 +88,31 @@
   <% if @preview %>
     <script type="text/javascript">
         function OrganisationViewModel() {
-            this.name         = ko.observable("<%= member.organization_name %>");
-            this.description  = ko.observable("<%= escape_javascript(strip_tags(member.organization_description).html_safe) rescue nil %>");
-            this.url          = ko.observable("<%= member.organization_url %>");
-            this.imageSrc     = ko.observable("url(<%= member.organization_logo.rectangular.url %>)");
-            this.contactName  = ko.observable("<%= member.organization_contact_name %>");
-            this.contactPhone = ko.observable("<%= member.organization_contact_phone %>");
-            this.contactEmail = ko.observable("<%= member.organization_contact_email %>");
-            this.twitter      = ko.observable("<%= member.organization_twitter %>");
-            this.facebook     = ko.observable("<%= member.organization_facebook %>");
-            this.linkedin     = ko.observable("<%= member.organization_linkedin %>");
-            this.tagline      = ko.observable("<%= escape_javascript(strip_tags(member.organization_tagline).html_safe) rescue nil %>");
-            this.mailto       = ko.computed(function() {
+            this.organization_name         = ko.observable("<%= member.organization_name %>");
+            this.organization_description  = ko.observable("<%= escape_javascript(strip_tags(member.organization_description).html_safe) rescue nil %>");
+            this.organization_url          = ko.observable("<%= member.organization_url %>");
+            this.imageSrc                  = ko.observable("url(<%= member.organization_logo.rectangular.url %>)");
+            this.organization_contactName  = ko.observable("<%= member.organization_contact_name %>");
+            this.organization_contactPhone = ko.observable("<%= member.organization_contact_phone %>");
+            this.organization_contactEmail = ko.observable("<%= member.organization_contact_email %>");
+            this.organization_twitter      = ko.observable("<%= member.organization_twitter %>");
+            this.organization_facebook     = ko.observable("<%= member.organization_facebook %>");
+            this.organization_linkedin     = ko.observable("<%= member.organization_linkedin %>");
+            this.organization_tagline      = ko.observable("<%= escape_javascript(strip_tags(member.organization_tagline).html_safe) rescue nil %>");
+            this.mailto                    = ko.computed(function() {
               return 'mailto:' + this.contactEmail();
             }, this);
             this.twitterUrl   = ko.computed(function() {
-              return 'http://twitter.com/' + this.twitter();
+              return 'http://twitter.com/' + this.organization_twitter();
             }, this);
             this.facebookLabel= ko.computed(function() {
-              return this.facebook().split('/').pop();
+              return this.organization_facebook().split('/').pop();
             }, this);
             this.linkedinLabel= ko.computed(function() {
-              return this.linkedin().split('/').pop();
+              return this.organization_linkedin().split('/').pop();
             }, this);
             this.formattedDescription = ko.computed(function() {
-              str = this.description().replace(/\r\n?/, "\n");
+              str = this.organization_description().replace(/\r\n?/, "\n");
               str = $.trim(str);
               if (str.length > 0) {
                 str = str.replace(/\n\n+/g, '</p><p>');

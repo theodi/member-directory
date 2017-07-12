@@ -14,8 +14,8 @@
   </ul>
 </div>
 
-<% @listings.each do |listing| %>
-  <%= render :partial => 'listings/summary', :locals => {:listing => listing}%>
+<% @members.each do |member| %>
+  <%= render :partial => 'listings/summary', :locals => {:member => member}%>
 <% end %>
 
 <%= render 'shared/alternate_formats' %>
