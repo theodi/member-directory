@@ -110,11 +110,9 @@ describe Member do
     end
 
     context "member is an organization" do
-      let(:listing) { double("Listing") }
 
       before do
         allow(member).to receive(:organization?).and_return(true)
-        allow(member).to receive(:listing).and_return(listing)
       end
 
       it "sets the members #active flag" do

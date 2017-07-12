@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Listing do
+describe "Member Listings" do
 
   context "validations" do
     before :each do
