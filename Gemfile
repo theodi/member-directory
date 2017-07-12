@@ -1,7 +1,8 @@
 source 'https://rubygems.org'
-ruby "2.1.10"
+ruby "2.3.4"
 
 gem 'rails', '~> 3.2'
+gem 'syck'
 gem 'devise', '~> 3.5'
 gem 'dotenv'
 gem 'fog'
@@ -60,7 +61,7 @@ group :development, :test do
   gem 'rb-fsevent', '~> 0.10'
   gem 'launchy'
   gem 'factory_girl_rails'
-  gem 'faker'
+  gem 'faker', '1.6.6' #lock for now due to i18n bugs with ruby 2.2
   gem 'timecop'
   gem 'email_spec', require: false
   gem 'mailcatcher'
@@ -69,6 +70,7 @@ group :development, :test do
   gem 'csvlint'
   gem 'coveralls'
   gem 'byebug'
+  gem 'test-unit'
 end
 
 group :test do
