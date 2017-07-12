@@ -639,7 +639,6 @@ DEPENDENCIES
   ransack
   rb-fsevent (~> 0.10)
   rdiscount
-  responders (~> 2.0)
   rspec-html-matchers
   rspec-rails
   sass-rails
