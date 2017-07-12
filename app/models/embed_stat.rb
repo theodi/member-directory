@@ -1,4 +1,4 @@
-class EmbedStat < ActiveRecord::Base
+class EmbedStat < ApplicationRecord
   belongs_to :member
 
   validates :referrer, url: true
