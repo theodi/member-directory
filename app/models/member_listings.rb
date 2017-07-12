@@ -63,7 +63,7 @@ module MemberListings
 
     # Sorry, ActiveRecord can't quite make this query
     # should work in both MySQL and sqlite
-    scope :display_order, order(<<-ORDER)
+    scope :display_order, -> { order(<<-ORDER)
       membership_number = '#{connection.quote_string(founding_partner_id)}' desc,
       case product_name
         when 'partner' then 1
@@ -73,7 +73,8 @@ module MemberListings
         else 5
       end,
       organization_name
-    ORDER
+      ORDER
+    }
 
     def strip_twitter_prefix
       self.organization_twitter = organization_twitter.last(-1) if organization_twitter.try(:starts_with?, '@')

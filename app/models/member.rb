@@ -54,8 +54,8 @@ class Member < ActiveRecord::Base
   validates :postal_code, presence: true, on: :create
   validates_acceptance_of :agreed_to_terms, on: :create  
 
-  scope :current, where(:current => true)
-  scope :valid, where('product_name is not null')
+  scope :current, -> { where(:current => true) }
+  scope :valid, -> { where('product_name is not null') }
 
   def self.find_for_database_authentication(warden_conditions)
     conditions = warden_conditions.dup
