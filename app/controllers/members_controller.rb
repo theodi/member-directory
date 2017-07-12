@@ -58,11 +58,11 @@ class MembersController < ApplicationController
 
   def update
     if current_admin
-      if updated = @member.update_attributes(params[:member])
+      if updated = @member.update_attributes(member_form_params)
         flash[:notice] = "Account updated successfully."
       end
     elsif @member == current_member
-      if updated = @member.update_with_password(params[:member])
+      if updated = @member.update_with_password(member_form_params)
         flash[:notice] = "You updated your account successfully."
       end
     end
@@ -92,4 +92,25 @@ class MembersController < ApplicationController
     end
   end
 
+  def member_form_params
+    params.require(:member).permit(
+      :current_password,
+      :email,
+      :newsletter,
+      :share_with_third_parties,
+      :organization_name,
+      :organization_description,
+      :organization_url,
+      :organization_logo,
+      :organization_size,
+      :organization_sector,
+      :organization_contact_name,
+      :organization_contact_phone,
+      :organization_contact_email,
+      :organization_twitter,
+      :organization_facebook,
+      :organization_linkedin,
+      :organization_tagline,
+    )
+  end
 end
