@@ -572,7 +572,7 @@ DEPENDENCIES
   alternate_rails!
   byebug
   carrierwave
-  coffee-rails (~> 3.2)
+  coffee-rails
   country_select
   coveralls
   csvlint
@@ -603,7 +603,7 @@ DEPENDENCIES
   rdiscount
   rspec-html-matchers
   rspec-rails
-  sass-rails (~> 3.2)
+  sass-rails
   sqlite3
   therubyracer
   thin
