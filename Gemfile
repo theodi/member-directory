@@ -51,8 +51,11 @@ gem 'zeroclipboard-rails'
 # gem 'debugger'
 gem 'mysql2'
 
-group :development, :test do
+group :development do
   gem 'web-console', '~> 2.0' 
+end
+
+group :development, :test do
   gem 'sqlite3'
   gem 'cucumber-rails', require: false
   gem 'database_cleaner'
