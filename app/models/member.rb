@@ -5,98 +5,13 @@ class Member < ActiveRecord::Base
   # :token_authenticatable, :confirmable,
   # :lockable, :timeoutable and :omniauthable
 
-  SUPPORTER_LEVELS = %w[
-    supporter
-    member
-    partner
-    sponsor
-    individual
-    student
-  ]
+  include MemberConstants
+  include MemberAdmin
+  include MemberListings
 
-  CURRENT_SUPPORTER_LEVELS = %w[
-    supporter
-  ]
-
-  ORGANISATION_TYPES = {
-    "Corporate" => "commercial",
-    "Nonprofit / Government" => "non_commercial"
-  }
-
-  ORGANISATION_SIZES = {
-    "less than 10 employees" => '<10',
-    "10 - 50 employees" => '10-50',
-    "51 - 250 employees" => '51-250',
-    "251 - 1000 employees" => '251-1000',
-    "more than 1000 employees" => '>1000'
-  }
-
-  SECTORS = [
-    "Business & Legal Services",
-    "Data/Technology",
-    "Education",
-    "Energy",
-    "Environment & Weather",
-    "Finance & Investment",
-    "Food & Agriculture",
-    "Geospatial/Mapping",
-    "Governance",
-    "Healthcare",
-    "Housing/Real Estate",
-    "Insurance",
-    "Lifestyle & Consumer",
-    "Media",
-    "Research & Consulting",
-    "Scientific Research",
-    "Transportation",
-    "Other"
-  ]
-
-  ORIGINS = {
-    "Aberdeen" => "odi-aberdeen",
-    "Athens" => "odi-athens",
-    "Belfast" => "odi-belfast",
-    "Birmingham" => "odi-birmingham",
-    "Brasilia" => "odi-brasilia",
-    "Bristol" => "odi-bristol",
-    "Cairo" => "odi-cairo",
-    "Cardiff" => "odi-cardiff",
-    "Cornwall" => "odi-cornwall",
-    "Devon" => "odi-devon",
-    "Dubai" => "odi-dubai",
-    "Galway" => "odi-galway",
-    "Gothenburg" => "odi-gothenburg",
-    "Hampshire" => "odi-hampshire",
-    "Leeds" => "odi-leeds",
-    "Madrid" => "odi-madrid",
-    "Osaka" => "odi-osaka",
-    "Paris" => "odi-paris",
-    "Queensland" => "odi-queensland",
-    "Rio" => "odi-rio",
-    "Rome" => "odi-rome",
-    "Riyadh" => "odi-riyadh",
-    "Seoul" => "odi-seoul",
-    "St Petersburg" => "odi-st-petersburg",
-    "Toronto" => "odi-toronto",
-    "Trento" => "odi-trento",
-    "Vienna" => "odi-vienna"
-  }
-
-  LARGE_CORPORATE = %w[251-1000 >1000]
-
-  SUBSCRIPTION_OPTIONS = {
-    choices: [1,2,5,10,20,30,40,50,60,70,80,90,100],
-    default: 30
-  }
-
-  has_one :listing, dependent: :destroy
   has_many :embed_stats
 
-  accepts_nested_attributes_for :listing
-  attr_accessible :listing_attributes
-
   before_create :set_membership_number, :set_address
-  after_create  :setup_listing
 
   devise :database_authenticatable,
          :recoverable, :rememberable, :trackable, :validatable
@@ -127,38 +42,9 @@ class Member < ActiveRecord::Base
                   :twitter,
                   :login # non-DB field
 
-  # Copying all this is terrible, but it will get tidier later
-  attr_accessible :email,
-                  :password,
-                  :password_confirmation,
-                  :remember_me,
-                  :product_name,
-                  :newsletter,
-                  :share_with_third_parties,
-                  :organization_name,
-                  :organization_size,
-                  :organization_type,
-                  :organization_sector,
-                  :contact_name,
-                  :telephone,
-                  :street_address,
-                  :address_locality,
-                  :address_region,
-                  :address_country,
-                  :postal_code,
-                  :organization_company_number,
-                  :agreed_to_terms,
-                  :address,
-                  :origin,
-                  :twitter,
-                  :as => :admin
-
   attr_accessor :agreed_to_terms
 
   attr_accessor :no_payment
-
-  # allow admins to edit access key
-  attr_accessible :access_key, as: :admin
 
   # validations
   validates :product_name, presence: true, inclusion: SUPPORTER_LEVELS, on: :create
@@ -252,14 +138,6 @@ class Member < ActiveRecord::Base
 
   def deliver_welcome_email!
     send_devise_notification(:confirmation_instructions)
-  end
-
-  def check_organization_names
-    if new_record? # Only validate on create
-      unless Listing.where(:name => organization_name).empty?
-        errors.add(:organization_name, "is already taken")
-      end
-    end
   end
 
   def to_param
@@ -391,26 +269,10 @@ class Member < ActiveRecord::Base
     ].compact.join("\n")
   end
 
-  def setup_listing
-    self.create_listing(:name => organization_name)
-  end
-
   def country_name
     country = ISO3166::Country[address_country]
     return "" if country.nil?
     country.translations[I18n.locale.to_s] || country.name
-  end
-    
-  def organization_type_enum
-    Member::ORGANISATION_TYPES.to_a
-  end
-
-  def organization_size_enum
-    Member::ORGANISATION_SIZES.to_a
-  end
-    
-  def product_name_enum
-    Member::SUPPORTER_LEVELS.to_a
   end
     
 end
