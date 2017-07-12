@@ -57,10 +57,6 @@ class Member < ActiveRecord::Base
   scope :current, where(:current => true)
   scope :valid, where('product_name is not null')
 
-  def self.founding_partner_id
-    ENV['FOUNDING_PARTNER_ID']
-  end
-
   def self.find_for_database_authentication(warden_conditions)
     conditions = warden_conditions.dup
     if login = conditions.delete(:login)
