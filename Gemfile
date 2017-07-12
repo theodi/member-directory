@@ -3,6 +3,7 @@ ruby "2.3.4"
 
 gem 'rails', '~> 4.2'
 gem 'devise', '~> 3.5'
+gem 'psych' # explicit dependency required for Heroku
 gem 'dotenv'
 gem 'fog'
 gem 'carrierwave'
