@@ -49,6 +49,7 @@ module MemberAdmin
         field :organization_name
         field :product_name
         field :active
+        field :current
       end
 
       create do
@@ -65,9 +66,17 @@ module MemberAdmin
         end
         field :product_name
         field :organization_name
+        field :organization_url do 
+          required true
+        end
         field :organization_type
         field :organization_size
         field :organization_sector
+
+        field :name do
+          label "Membership admin contact name"
+          required true
+        end
 
         field :street_address
         field :address_locality
@@ -76,7 +85,6 @@ module MemberAdmin
         field :postal_code
 
         field :organization_description
-        field :organization_url
         field :organization_contact_name
         field :organization_contact_phone
         field :organization_contact_email
@@ -85,9 +93,6 @@ module MemberAdmin
         field :organization_linkedin
         field :organization_tagline
 
-        field :name do
-          label "Membership admin email address"
-        end
         field :phone do
           label "Membership admin phone number"
         end
