@@ -8,7 +8,7 @@ class MembersController < ApplicationController
   before_filter(:only => [:index, :show]) {alternate_formats [:json]}
 
   def index
-    @members = Member.where(active: true).display_order
+    @members = Member.where(active: true, current: true).where("organization_name IS NOT NULL").display_order
 
     if params[:level]
       @members = @members.where(product_name: params[:level].downcase)
