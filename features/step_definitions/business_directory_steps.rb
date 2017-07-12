@@ -145,7 +145,7 @@ end
 
 Then /^the fullsize logo should be available at the correct URL$/ do
   @member = Member.find_by_email(@email)
-  expect(@member.logo.url).to eq @fullsize_url.gsub(/<MEMBERSHIP_NUMBER>/, @member.membership_number)
+  expect(@member.organization_logo.url).to eq @fullsize_url.gsub(/<MEMBERSHIP_NUMBER>/, @member.membership_number)
 end
 
 Then /^the rectangular logo should be available at the correct URL$/ do
@@ -194,14 +194,14 @@ Given(/^there are (\d+) active partners in the directory$/) do |num|
   num.to_i.times do
     member = FactoryGirl.create :member, :product_name => 'partner', :active => true
     member.organization_description = Faker::Company.catch_phrase
-    member.organization_save
+    member.save
   end
 end
 
 Given(/^I am a founding partner$/) do
   @member = Member.find_by_email(@email)
   @member.membership_number = ENV['FOUNDING_PARTNER_ID']
-  @member.save
+  @member.save validate: false
 end
 
 When(/^I visit the members list$/) do
