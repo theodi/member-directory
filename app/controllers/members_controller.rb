@@ -7,8 +7,6 @@ class MembersController < ApplicationController
 
   before_filter(:only => [:index, :show]) {alternate_formats [:json]}
 
-  before_filter :ensure_current, :only => :show
-
   def index
     @members = Member.where(active: true).display_order
 
@@ -92,10 +90,6 @@ class MembersController < ApplicationController
     unless request.referer =~ /https?:\/\/#{request.host_with_port}./
       @member.register_embed(request.referer)
     end
-  end
-
-  def ensure_current
-    redirect_to payment_member_path(@member) unless @member.current?
   end
 
 end
