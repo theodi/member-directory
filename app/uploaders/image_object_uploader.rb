@@ -10,7 +10,7 @@ class ImageObjectUploader < CarrierWave::Uploader::Base
   #storage :file
 
   def store_dir
-    "logos/#{model.member.membership_number}"
+    "logos/#{model.membership_number}"
   end
 
   def extension_white_list
@@ -23,14 +23,14 @@ class ImageObjectUploader < CarrierWave::Uploader::Base
 
   version :rectangular do
     process :resize_to_fit => [200,100]
-    def full_filename (for_file = model.member.logo)
+    def full_filename (for_file = model.organization_logo)
       "rectangular.png"
     end
   end
 
   version :square do
     process :resize_to_fit => [100,100]
-    def full_filename (for_file = model.member.logo)
+    def full_filename (for_file = model.organization_logo)
       "square.png"
     end
   end
