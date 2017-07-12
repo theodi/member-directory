@@ -14,6 +14,15 @@ describe Listing do
       expect(org.organization_twitter).to eq("test2")
     end
 
+    it "should add prefix to URL before saving" do
+      org = FactoryGirl.create :member_with_listing, :organization_url => "https://google.com"
+      expect(org.organization_url).to eq("https://google.com")
+      org = FactoryGirl.create :member_with_listing, :organization_url => "http://google.com"
+      expect(org.organization_url).to eq("http://google.com")
+      org = FactoryGirl.create :member_with_listing, :organization_url => "google.com"
+      expect(org.organization_url).to eq("http://google.com")
+    end
+
     it "cannot create listings with the same name" do
       name = Faker::Company.name
       FactoryGirl.create :member_with_listing, :organization_name => name
