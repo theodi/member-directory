@@ -10,8 +10,11 @@ gem 'carrierwave'
 gem 'mini_magick'
 gem 'rabl'
 gem 'alternate_rails', git: 'https://github.com/theodi/alternate-rails.git', branch: "v4.2.0"
-gem 'rails_admin', "~> 0.4"
+gem 'rails_admin'
 gem 'omniauth-google-oauth2'
+
+gem 'protected_attributes' # smooth upgrade for attributes, until rails 5
+gem 'responders', '~> 2.0' 
 
 gem 'validate_url'
 
@@ -49,6 +52,7 @@ gem 'zeroclipboard-rails'
 gem 'mysql2'
 
 group :development, :test do
+  gem 'web-console', '~> 2.0' 
   gem 'sqlite3'
   gem 'cucumber-rails', require: false
   gem 'database_cleaner'
