@@ -11,9 +11,5 @@ class Listing < ActiveRecord::Base
     member.membership_description
   end
 
-  def character_limit
-    supporter? ? 500 : 1000 
-  end
-
 end
 

@@ -88,6 +88,10 @@ module MemberListings
       self.organization_url = "http://#{self.organization_url}"
     end
 
+    def character_limit
+      supporter? ? 500 : 1000 
+    end
+
   end
 
 end
