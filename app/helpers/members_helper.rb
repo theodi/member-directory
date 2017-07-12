@@ -12,6 +12,7 @@ module MembersHelper
   end
 
   def highlight(text, search)
+    return if text.nil?
     super(text, search, :highlighter => '<mark>\1</mark>')
   end
 
