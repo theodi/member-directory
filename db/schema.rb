@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20170707171842) do
+ActiveRecord::Schema.define(:version => 20170711215520) do
 
   create_table "admins", :force => true do |t|
     t.string   "email",              :default => "", :null => false
@@ -92,6 +92,17 @@ ActiveRecord::Schema.define(:version => 20170707171842) do
     t.string   "origin",                                   :default => "odihq", :null => false
     t.boolean  "share_with_third_parties",                 :default => false
     t.string   "twitter"
+    t.string   "organization_name"
+    t.string   "organization_logo"
+    t.text     "organization_description"
+    t.string   "organization_url"
+    t.string   "organization_contact_name"
+    t.string   "organization_contact_phone"
+    t.string   "organization_contact_email"
+    t.string   "organization_twitter"
+    t.string   "organization_facebook"
+    t.string   "organization_linkedin"
+    t.string   "organization_tagline"
   end
 
   add_index "members", ["email"], :name => "index_members_on_email", :unique => true
