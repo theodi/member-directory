@@ -4,6 +4,7 @@ MemberDirectory::Application.configure do
   # In the development environment your application's code is reloaded on
   # every request. This slows down response time but is perfect for development
   # since you don't have to restart the web server when you make code changes.
+  config.eager_load = false
   config.cache_classes = true # setting this to false means class constants get reset from values set in initializers
   config.action_view.cache_template_loading = false
   # see to_prepare hook in application.rb in order to fix
