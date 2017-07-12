@@ -68,6 +68,7 @@ module MemberConstants
       "Galway" => "odi-galway",
       "Gothenburg" => "odi-gothenburg",
       "Hampshire" => "odi-hampshire",
+      "ODI HQ" => "odihq",
       "Leeds" => "odi-leeds",
       "Madrid" => "odi-madrid",
       "Osaka" => "odi-osaka",
