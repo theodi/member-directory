@@ -12,15 +12,14 @@ module MemberListings
     before_validation :strip_twitter_prefix
     before_validation :prefix_url
 
-    attr_accessible :organization_name, :organization_description, :organization_url, :organization_logo, :organization_logo_cache,
-                    :organization_contact_name, :organization_contact_phone, :organization_contact_email,
-                    :organization_twitter, :organization_linkedin, :organization_facebook, :organization_tagline
-
-    attr_accessible :organization_name, :organization_description, :organization_url, :organization_logo, :organization_logo_cache,
-                    :organization_contact_name, :organization_contact_phone, :organization_contact_email,
-                    :organization_twitter, :organization_linkedin, :organization_facebook, :organization_tagline,
-                    as: [:admin, :user]
-
+    # attr_accessible :organization_name, :organization_description, :organization_url, :organization_logo, :organization_logo_cache,
+    #                 :organization_contact_name, :organization_contact_phone, :organization_contact_email,
+    #                 :organization_twitter, :organization_linkedin, :organization_facebook, :organization_tagline
+    # 
+    # attr_accessible :organization_name, :organization_description, :organization_url, :organization_logo, :organization_logo_cache,
+    #                 :organization_contact_name, :organization_contact_phone, :organization_contact_email,
+    #                 :organization_twitter, :organization_linkedin, :organization_facebook, :organization_tagline,
+    #                 as: [:admin, :user]
                     
     # We use both a URL-parsing validator, and a simple regexp here
     # so that we exclude things like http://localhost, which are valid

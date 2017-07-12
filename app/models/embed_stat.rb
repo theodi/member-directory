@@ -3,8 +3,6 @@ class EmbedStat < ApplicationRecord
 
   validates :referrer, url: true
 
-  attr_accessible :referrer
-
   def self.csv
     CSV.generate(row_sep: "\r\n") do |csv|
       csv << ["Member Name", "Referring URL", "First Detected"]
