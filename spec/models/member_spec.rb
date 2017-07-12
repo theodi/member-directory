@@ -42,40 +42,17 @@ describe Member do
       end
     end
 
-    it "fails if organization already exists" do
-      FactoryGirl.create(:listing, :name => "Acme")
+    it "fails if organization name is already taken" do
+      FactoryGirl.create(:member, :organization_name => "Acme")
       (member = Member.new(:organization_name => "Acme")).valid?
-      expect(member.errors[:organization_name]).to include("is already taken")
+      expect(member.errors[:organization_name]).to include("has already been taken")
     end
 
     it 'strips spaces from organization name' do
       member = FactoryGirl.create(:member, :organization_name => '  Acme  ')
       expect(member.organization_name).to eq("Acme")
-      expect(member.listing.name).to eq("Acme")
     end
 
-  end
-
-  context "updating a member" do
-    it "does not run validations on organization" do
-      member = FactoryGirl.create(:member)
-      # this is required on upate but not set up by factories
-      member.listing.description = Faker::Company.catch_phrase
-      member.organization_size = nil
-      member.organization_sector = nil
-      member.organization_name = nil
-      member.organization_type = nil
-      member.valid?
-      expect(member.errors).to be_empty
-    end
-  end
-
-  context "deleting a member" do
-    it "deletes the associated the listing when the member is destroyed" do
-      member = FactoryGirl.create(:member)
-
-      expect { member.destroy }.to change { Listing.count }.by(-1)
-    end
   end
 
   describe "#plan" do
@@ -142,7 +119,7 @@ describe Member do
 
       it "sets the members #active flag" do
         member.current!
-      expect(member.active).to eq(true)
+        expect(member.active).to eq(true)
       end
 
     end

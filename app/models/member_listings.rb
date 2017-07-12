@@ -6,35 +6,30 @@ module MemberListings
 
   included do
 
-    has_one :listing, dependent: :destroy
+    before_validation :strip_organization_name
 
-    accepts_nested_attributes_for :listing
-    attr_accessible :listing_attributes
+    attr_accessible :organization_name, :organization_description, :organization_url, :organization_logo, :organization_logo_cache,
+                    :organization_contact_name, :organization_contact_phone, :organization_contact_email,
+                    :organization_twitter, :organization_linkedin, :organization_facebook, :organization_tagline
 
-    after_create  :setup_listing
+    attr_accessible :organization_name, :organization_description, :organization_url, :organization_logo, :organization_logo_cache,
+                    :organization_contact_name, :organization_contact_phone, :organization_contact_email,
+                    :organization_twitter, :organization_linkedin, :organization_facebook, :organization_tagline,
+                    as: [:admin, :user]
 
-    def check_organization_names
-      if new_record? # Only validate on create
-        unless Listing.where(:name => organization_name).empty?
-          errors.add(:organization_name, "is already taken")
-        end
-      end
+    validates :organization_name, presence: true, uniqueness: true
+    validates :organization_size, presence: true, inclusion: Member::ORGANISATION_SIZES.map{|k,v| v}
+    validates :organization_sector, presence: true, inclusion: Member::SECTORS
+    validates :organization_type, presence: true, inclusion: Member::ORGANISATION_TYPES.map{|k,v| v}
+
+    validates :organization_description, :presence => true, :on => :update
+    validates :organization_description, :length => { :maximum  => 500, :too_long => "Your description cannot be longer than %{count} characters"}, :if => :supporter?
+    validates :organization_description, :length => { :maximum  => 1000, :too_long => "Your description cannot be longer than %{count} characters"}, :unless => :supporter?
+
+    def strip_organization_name
+      organization_name.try(:strip!)
     end
 
-    def organization_name
-      listing.try(:name) || @organization_name
-    end
-
-    def organization_name=(value)
-      @organization_name = value.try(:strip)
-    end
-
-    private
-
-    def setup_listing
-      self.create_listing(:name => organization_name)
-    end
-      
   end
 
 end
