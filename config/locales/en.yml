@@ -20,7 +20,6 @@ en:
         product_name: "Membership level"
         email: "Email address"
         contact_name: "Full name"
-        organization_name: "Organisation name"
         organization_size: "Organisation size"
         organization_type: "Organisation type"
         organization_sector: "Industry sector"
@@ -31,14 +30,20 @@ en:
         address_country: "Country"
         postal_code: "Postcode"
         organization_company_number: "Company / Charity number"
-        organization_vat_id: "VAT Number (if not UK)"
-        purchase_order_number: "Purchase order number"
         password: "Password"
         password_confirmation: "Confirm password"
-        card_validation_code: CVC
-        card_expiry_month: Expiry month
-        card_expiry_year: Expiry year
         twitter: "Twitter handle"
+        organization_name: "Organisation name"
+        organization_url: "Organization homepage"
+        organization_description: "Organization description"
+        organization_logo: "Organization logo"
+        organization_contact_name: "Organization contact person"
+        organization_contact_phone: "Organization contact telephone"
+        organization_contact_email: "Organization contact email"
+        organization_twitter: "Organization Twitter handle"
+        organization_facebook: "Organization Facebook"
+        organization_linkedin: "Organization LinkedIn"
+        organization_tagline: "Organization tagline"
       listing:
         name: "Organisation name"
         url: "Homepage"
