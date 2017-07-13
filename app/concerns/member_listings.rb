@@ -12,16 +12,6 @@ module MemberListings
     before_validation :strip_twitter_prefix
     before_validation :prefix_url
 
-    attr_accessible :organization_name, :organization_description, :organization_url, :organization_logo, :organization_logo_cache,
-                    :organization_contact_name, :organization_contact_phone, :organization_contact_email,
-                    :organization_twitter, :organization_linkedin, :organization_facebook, :organization_tagline
-
-    attr_accessible :organization_name, :organization_description, :organization_url, :organization_logo, :organization_logo_cache,
-                    :organization_contact_name, :organization_contact_phone, :organization_contact_email,
-                    :organization_twitter, :organization_linkedin, :organization_facebook, :organization_tagline,
-                    as: [:admin, :user]
-
-                    
     # We use both a URL-parsing validator, and a simple regexp here
     # so that we exclude things like http://localhost, which are valid
     # but undesirable
@@ -63,7 +53,7 @@ module MemberListings
 
     # Sorry, ActiveRecord can't quite make this query
     # should work in both MySQL and sqlite
-    scope :display_order, order(<<-ORDER)
+    scope :display_order, -> { order(<<-ORDER)
       membership_number = '#{connection.quote_string(founding_partner_id)}' desc,
       case product_name
         when 'partner' then 1
@@ -73,7 +63,8 @@ module MemberListings
         else 5
       end,
       organization_name
-    ORDER
+      ORDER
+    }
 
     def strip_twitter_prefix
       self.organization_twitter = organization_twitter.last(-1) if organization_twitter.try(:starts_with?, '@')

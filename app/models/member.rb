@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-class Member < ActiveRecord::Base
+class Member < ApplicationRecord
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,
   # :lockable, :timeoutable and :omniauthable
@@ -15,35 +15,8 @@ class Member < ActiveRecord::Base
 
   devise :database_authenticatable,
          :recoverable, :rememberable, :trackable, :validatable
-
-  # Setup accessible (or protected) attributes for your model
-  attr_accessible :email,
-                  :password,
-                  :password_confirmation,
-                  :remember_me,
-                  :product_name,
-                  :newsletter,
-                  :share_with_third_parties,
-                  :organization_size,
-                  :organization_type,
-                  :organization_sector,
-                  :contact_name,
-                  :telephone,
-                  :street_address,
-                  :address_locality,
-                  :address_region,
-                  :address_country,
-                  :postal_code,
-                  :organization_company_number,
-                  :agreed_to_terms,
-                  :address,
-                  :origin,
-                  :twitter,
-                  :login # non-DB field
-
+                  
   attr_accessor :agreed_to_terms
-
-  attr_accessor :no_payment
 
   # validations
   validates :product_name, presence: true, inclusion: SUPPORTER_LEVELS, on: :create
@@ -54,8 +27,8 @@ class Member < ActiveRecord::Base
   validates :postal_code, presence: true, on: :create
   validates_acceptance_of :agreed_to_terms, on: :create  
 
-  scope :current, where(:current => true)
-  scope :valid, where('product_name is not null')
+  scope :current, -> { where(:current => true) }
+  scope :valid, -> { where('product_name is not null') }
 
   def self.find_for_database_authentication(warden_conditions)
     conditions = warden_conditions.dup
@@ -139,10 +112,6 @@ class Member < ActiveRecord::Base
 
   def supporter?
     product_name == "supporter"
-  end
-
-  def no_payment?
-    no_payment
   end
 
   def large_corporate_organization?

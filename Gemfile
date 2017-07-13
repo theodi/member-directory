@@ -1,16 +1,16 @@
 source 'https://rubygems.org'
-ruby "2.3.4"
+ruby "2.4.1"
 
-gem 'rails', '~> 3.2'
-gem 'syck'
+gem 'rails', '~> 4.2'
 gem 'devise', '~> 3.5'
+gem 'psych' # explicit dependency required for Heroku
 gem 'dotenv'
 gem 'fog'
 gem 'carrierwave'
 gem 'mini_magick'
 gem 'rabl'
-gem 'alternate_rails', git: 'https://github.com/theodi/alternate-rails.git', branch: "83a5b8b73655283b2d9729eeae848488881eecc4"
-gem 'rails_admin', "~> 0.4"
+gem 'alternate_rails', git: 'https://github.com/theodi/alternate-rails.git', branch: "v4.2.0"
+gem 'rails_admin'
 gem 'omniauth-google-oauth2'
 
 gem 'validate_url'
@@ -21,17 +21,13 @@ gem 'rdiscount'
 gem 'country_select'
 gem 'ransack'
 
-# Gems used only for assets and not required
-# in production environments by default.
-group :assets do
-  gem 'sass-rails'
-  gem 'coffee-rails'
+gem 'sass-rails'
+gem 'coffee-rails'
 
-  # See https://github.com/sstephenson/execjs#readme for more supported runtimes
-  gem 'therubyracer', :platforms => :ruby
+# See https://github.com/sstephenson/execjs#readme for more supported runtimes
+gem 'therubyracer', :platforms => :ruby
 
-  gem 'uglifier', '>= 1.0.3'
-end
+gem 'uglifier', '>= 1.0.3'
 
 gem 'jquery-rails'
 gem 'zeroclipboard-rails'
@@ -50,7 +46,11 @@ gem 'zeroclipboard-rails'
 
 # To use debugger
 # gem 'debugger'
-gem 'mysql2', '~> 0.3.21' # Rails 3 only works with < 0.4
+gem 'mysql2'
+
+group :development do
+  gem 'web-console', '~> 2.0' 
+end
 
 group :development, :test do
   gem 'sqlite3'

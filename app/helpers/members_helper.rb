@@ -26,7 +26,6 @@ module MembersHelper
       'green' => '#0DBC37',
       'pomegranate' => '#dc4810',
       'grey' => '#aaa',
-      'orange' => '#ff6700'
     }[colour] rescue nil
   end
 

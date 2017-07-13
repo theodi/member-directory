@@ -17,27 +17,27 @@ MemberDirectory::Application.routes.draw do
       controller: 'devise/sessions'
   end
 
-  match '/members/newsletter', :to => 'newsletter_subscriptions#unsubscribe'
+  delete '/members/newsletter', to: 'newsletter_subscriptions#unsubscribe'
 
   resources :members, :only => [:index, :show, :update] do
     member do
       get :badge, defaults: {format: :js}
     end
     collection do
-      get :summary, to: :summary, as: :summary, format: :xml
+      get :summary, action: :summary, as: :summary, format: :xml
     end
   end
 
-  root :to => redirect("/members")
+  root to: redirect("/members")
 
   get '/logos/:level/:size/:colour.svg', defaults: {format: :svg}, to: 'badge#logo'
   get '/logos/:level/:size/:colour.png', defaults: {format: :png}, to: 'badge#badge'
   get 'embed_stats.csv', to: 'embed_stats#index'
 
-  get 'terms/:product' => 'home#terms'
+  get 'terms/:product', to: 'home#terms'
 
-  match '/401', :to => 'errors#unauthorized'
-  match '/404', :to => 'errors#not_found'
-  match '/500', :to => 'errors#server_error'
+  get '/401', to: 'errors#unauthorized'
+  get '/404', to: 'errors#not_found'
+  get '/500', to: 'errors#server_error'
 
 end
