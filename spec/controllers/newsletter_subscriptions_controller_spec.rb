@@ -39,14 +39,14 @@ describe NewsletterSubscriptionsController do
     end
 
     it "sets the member's newsletter preference" do
-      post :unsubscribe, params
+      post :unsubscribe, params: params
 
       expect(response).to have_http_status(200)
       expect(member.reload.newsletter).to eq(false)
     end
 
     it "authenticates the request" do
-      post :unsubscribe, params.merge!({ token: "INCORRECT" })
+      post :unsubscribe, params: params.merge!({ token: "INCORRECT" })
 
       expect(response).to have_http_status(401)
     end
