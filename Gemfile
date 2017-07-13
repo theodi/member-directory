@@ -70,7 +70,6 @@ group :development, :test do
   gem 'csvlint'
   gem 'coveralls'
   gem 'byebug'
-  gem 'test-unit'
   gem 'rails-controller-testing'
 end
 
