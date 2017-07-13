@@ -650,7 +650,7 @@ DEPENDENCIES
   travis
   uglifier (>= 1.0.3)
   validate_url
-  web-console (~> 3.3)
+  web-console
   webmock
   zeroclipboard-rails
 
