@@ -236,6 +236,6 @@ Given(/^I am logged in as an administrator$/) do
   hash = OmniAuth::AuthHash.new
   hash[:info] = { email: 'test@example.com' }
   OmniAuth.config.mock_auth[:google_oauth2] = hash
-  visit admin_omniauth_authorize_path(:google_oauth2)
+  visit admin_google_oauth2_omniauth_authorize_path(:google_oauth2)
 end
 

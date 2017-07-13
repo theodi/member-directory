@@ -111,7 +111,7 @@
               <li><a href="http://theodi.org/terms-of-use">Terms of Use</a></li>
               <li><a href="http://theodi.org/privacy-policy">Privacy Policy</a></li>
               <li><a href="http://theodi.org/cookie-policy">Cookie Policy</a></li>
-              <li><%= link_to "Administration", current_admin ? '/admin' : admin_omniauth_authorize_path(:google_oauth2)%></li>
+              <li><%= link_to "Administration", current_admin ? '/admin' : admin_google_oauth2_omniauth_authorize_path(:google_oauth2)%></li>
 
             </ul>
           </nav>
