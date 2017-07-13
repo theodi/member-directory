@@ -150,7 +150,7 @@ GEM
     factory_girl_rails (4.8.0)
       factory_girl (~> 4.8.0)
       railties (>= 3.0.0)
-    faker (1.6.6)
+    faker (1.8.4)
       i18n (~> 0.5)
     faraday (0.12.1)
       multipart-post (>= 1.2, < 3)
@@ -622,7 +622,7 @@ DEPENDENCIES
   dotenv
   email_spec
   factory_girl_rails
-  faker (= 1.6.6)
+  faker (= 1.8.4)
   fog
   foreman (< 0.84.0)
   guard-cucumber

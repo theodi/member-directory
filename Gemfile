@@ -61,7 +61,7 @@ group :development, :test do
   gem 'rb-fsevent', '~> 0.10'
   gem 'launchy'
   gem 'factory_girl_rails'
-  gem 'faker', '1.6.6' #lock for now due to i18n bugs with ruby 2.2
+  gem 'faker', '1.8.4' #lock for now due to i18n bugs with ruby 2.2
   gem 'timecop'
   gem 'email_spec', require: false
   gem 'mailcatcher'
