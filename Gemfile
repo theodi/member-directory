@@ -1,15 +1,15 @@
 source 'https://rubygems.org'
 ruby "2.4.1"
 
-gem 'rails', '~> 4.2'
-gem 'devise', '~> 3.5'
+gem 'rails', '~> 5.1'
+gem 'devise'
 gem 'psych' # explicit dependency required for Heroku
 gem 'dotenv'
 gem 'fog'
 gem 'carrierwave'
 gem 'mini_magick'
 gem 'rabl'
-gem 'alternate_rails', git: 'https://github.com/theodi/alternate-rails.git', branch: "v4.2.0"
+gem 'alternate_rails', git: 'https://github.com/theodi/alternate-rails.git', branch: "v5.0.0"
 gem 'rails_admin'
 gem 'omniauth-google-oauth2'
 
@@ -71,6 +71,7 @@ group :development, :test do
   gem 'coveralls'
   gem 'byebug'
   gem 'test-unit'
+  gem 'rails-controller-testing'
 end
 
 group :test do
