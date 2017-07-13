@@ -79,7 +79,5 @@ module MemberDirectory
 
     config.action_dispatch.rescue_responses.merge!('ActiveResource::UnauthorizedAccess' => :unauthorized)
 
-    config.active_record.raise_in_transactional_callbacks = true
-
   end
 end
