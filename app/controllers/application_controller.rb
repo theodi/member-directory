@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
 
-  before_filter :set_content_location_header
+  before_action :set_content_location_header
 
   def set_content_location_header
     if request.format

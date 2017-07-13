@@ -1,11 +1,11 @@
 class MembersController < ApplicationController
   respond_to :html, :json
 
-  before_filter :get_member, :except => [:index, :right_to_cancel, :summary]
-  before_filter :set_formats, :log_embed, :only => [:badge]
-  before_filter :authenticate_member!, :only => [:thanks]
+  before_action :get_member, :except => [:index, :right_to_cancel, :summary]
+  before_action :set_formats, :log_embed, :only => [:badge]
+  before_action :authenticate_member!, :only => [:thanks]
 
-  before_filter(:only => [:index, :show]) {alternate_formats [:json]}
+  before_action(:only => [:index, :show]) {alternate_formats [:json]}
 
   def index
     @members = Member.where(active: true, current: true).where("organization_name IS NOT NULL").display_order

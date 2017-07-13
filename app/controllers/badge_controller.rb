@@ -1,6 +1,6 @@
 class BadgeController < ApplicationController
 
-  before_filter :set_formats, :only => [:logo]
+  before_action :set_formats, :only => [:logo]
 
   def logo
     render "logos/#{badge_type}-#{badge_size}", format: :svg
