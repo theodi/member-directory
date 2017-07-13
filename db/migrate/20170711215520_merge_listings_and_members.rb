@@ -1,4 +1,4 @@
-class MergeListingsAndMembers < ActiveRecord::Migration
+class MergeListingsAndMembers < ActiveRecord::Migration[3.2]
   def up
     add_column :members, :organization_name, :string
     add_column :members, :organization_logo, :string

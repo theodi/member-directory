@@ -1,4 +1,4 @@
-class AddTwitterAndDobFields < ActiveRecord::Migration
+class AddTwitterAndDobFields < ActiveRecord::Migration[3.2]
   def change
     add_column :members, :twitter, :string
     add_column :members, :dob, :date

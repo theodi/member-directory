@@ -1,4 +1,4 @@
-class RemoveConfirmationFields < ActiveRecord::Migration
+class RemoveConfirmationFields < ActiveRecord::Migration[3.2]
   def up
     remove_column :members, :confirmation_token
     remove_column :members, :confirmed_at

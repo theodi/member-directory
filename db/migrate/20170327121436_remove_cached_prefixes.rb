@@ -1,4 +1,4 @@
-class RemoveCachedPrefixes < ActiveRecord::Migration
+class RemoveCachedPrefixes < ActiveRecord::Migration[3.2]
   def change
     rename_column :organizations, :cached_contact_name, :contact_name
     rename_column :organizations, :cached_contact_phone, :contact_phone

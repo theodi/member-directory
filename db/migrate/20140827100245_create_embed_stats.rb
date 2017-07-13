@@ -1,4 +1,4 @@
-class CreateEmbedStats < ActiveRecord::Migration
+class CreateEmbedStats < ActiveRecord::Migration[3.2]
   def change
     create_table(:embed_stats) do |t|
       t.string     :referrer

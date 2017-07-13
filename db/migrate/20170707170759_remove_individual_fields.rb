@@ -1,4 +1,4 @@
-class RemoveIndividualFields < ActiveRecord::Migration
+class RemoveIndividualFields < ActiveRecord::Migration[3.2]
   def change
     remove_column :members, :university_email
     remove_column :members, :university_street_address

@@ -1,4 +1,4 @@
-class AddPaymentFrequencyField < ActiveRecord::Migration
+class AddPaymentFrequencyField < ActiveRecord::Migration[3.2]
   def up
     add_column :members, :payment_frequency, :string, default: 'annual', null: false
   end

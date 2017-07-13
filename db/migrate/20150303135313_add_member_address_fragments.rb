@@ -1,4 +1,4 @@
-class AddMemberAddressFragments < ActiveRecord::Migration
+class AddMemberAddressFragments < ActiveRecord::Migration[3.2]
   def up
     add_column :members, :street_address, :string
     add_column :members, :address_locality, :string

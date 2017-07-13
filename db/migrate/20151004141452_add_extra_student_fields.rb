@@ -1,4 +1,4 @@
-class AddExtraStudentFields < ActiveRecord::Migration
+class AddExtraStudentFields < ActiveRecord::Migration[3.2]
   def change
     add_column :members, :university_email, :string
     add_column :members, :university_street_address, :string

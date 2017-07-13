@@ -1,4 +1,4 @@
-class RemoveFinancialFields < ActiveRecord::Migration
+class RemoveFinancialFields < ActiveRecord::Migration[3.2]
   def change
     remove_column :members, :chargify_customer_id
     remove_column :members, :chargify_subscription_id

@@ -1,4 +1,4 @@
-class AddActiveFlagToMembers < ActiveRecord::Migration
+class AddActiveFlagToMembers < ActiveRecord::Migration[3.2]
   def self.up
     add_column :members, :cached_active, :boolean, :default => false
   end

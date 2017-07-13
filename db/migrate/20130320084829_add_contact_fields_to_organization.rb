@@ -1,4 +1,4 @@
-class AddContactFieldsToOrganization < ActiveRecord::Migration
+class AddContactFieldsToOrganization < ActiveRecord::Migration[3.2]
   def change
     add_column :organizations, :cached_contact_name, :string
     add_column :organizations, :cached_contact_phone, :string

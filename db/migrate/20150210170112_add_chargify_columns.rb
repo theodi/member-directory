@@ -1,4 +1,4 @@
-class AddChargifyColumns < ActiveRecord::Migration
+class AddChargifyColumns < ActiveRecord::Migration[3.2]
   def up
     add_column :members, :chargify_customer_id, :string
     add_column :members, :chargify_subscription_id, :string
