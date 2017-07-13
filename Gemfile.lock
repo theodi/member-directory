@@ -51,8 +51,6 @@ GEM
     arel (6.0.4)
     backports (3.8.0)
     bcrypt (3.1.11)
-    binding_of_caller (0.7.2)
-      debug_inspector (>= 0.0.1)
     builder (3.2.3)
     byebug (9.0.6)
     capybara (2.14.4)
@@ -585,11 +583,10 @@ GEM
       addressable
     warden (1.2.7)
       rack (>= 1.0)
-    web-console (2.3.0)
-      activemodel (>= 4.0)
-      binding_of_caller (>= 0.7.2)
-      railties (>= 4.0)
-      sprockets-rails (>= 2.0, < 4.0)
+    web-console (3.3.0)
+      activemodel (>= 4.2)
+      debug_inspector
+      railties (>= 4.2)
     webmock (3.0.1)
       addressable (>= 2.3.6)
       crack (>= 0.3.2)
@@ -653,7 +650,7 @@ DEPENDENCIES
   travis
   uglifier (>= 1.0.3)
   validate_url
-  web-console (~> 2.0)
+  web-console (~> 3.3)
   webmock
   zeroclipboard-rails
 

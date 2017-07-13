@@ -49,7 +49,7 @@ gem 'zeroclipboard-rails'
 gem 'mysql2'
 
 group :development do
-  gem 'web-console', '~> 2.0' 
+  gem 'web-console', '~> 3.3' 
 end
 
 group :development, :test do
