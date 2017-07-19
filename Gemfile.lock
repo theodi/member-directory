@@ -79,7 +79,7 @@ GEM
       money (~> 6.7)
       sixarm_ruby_unaccent (~> 1.1)
       unicode_utils (~> 1.4)
-    country_select (3.0.0)
+    country_select (3.1.0)
       countries (~> 2.0)
       sort_alphabetical (~> 1.0)
     coveralls (0.8.21)
