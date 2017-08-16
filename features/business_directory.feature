@@ -73,32 +73,12 @@ Feature: Adding details to the organization directory
 		Given that I have signed up as a supporter
 		Then I am redirected to submit my organization details
 		And I cannot see a logo upload
-		And the description field is limited to 500 characters
 
 	Scenario: Sponsor can upload images
 
 		Given I have a sponsor account
 		And I visit my account page
 		And I can see a logo upload
-		And the description field is limited to 1000 characters
-
-	Scenario: Supporter tries to enter more than 500 characters
-
-		Given that I have signed up as a supporter
-		Then I am redirected to submit my organization details
-		And I enter my organization details
-		And my description is 525 characters long
-		When I click submit
-		And I should see an error telling me that my description should not be longer than 500 characters
-
-	Scenario: Sponsor tries to enter more than 1000 characters
-
-		Given I have a sponsor account
-		And I visit my account page
-		And I enter my organization details
-		And my description is 1035 characters long
-    When I click submit
-		And I should see an error telling me that my description should not be longer than 1000 characters
 
 	Scenario: Founding partner labelled correctly
 

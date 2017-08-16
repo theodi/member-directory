@@ -48,10 +48,6 @@ Then /^I cannot see a logo upload$/ do
   expect(page).to_not have_content 'Logo'
 end
 
-Then /^the description field is limited to (\d+) characters$/ do |limit|
-  expect(page).to have_content "Limit of #{limit} characters"
-end
-
 Then /^I can see a logo upload$/ do
   expect(page).to have_content 'Logo'
 end
@@ -133,14 +129,6 @@ Then /^I should see my changed details when I revisit the edit page$/ do
   expect(page).to have_content @changed_organization_linkedin
   expect(page).to have_content @changed_organization_facebook
   expect(page).to have_content @changed_organization_tagline
-end
-
-Then /^my description is (\d+) characters long$/ do |length|
-  fill_in('member_organization_description',  :with => (0...length.to_i).map{ ('a'..'z').to_a[rand(26)] }.join)
-end
-
-When /^I should see an error telling me that my description should not be longer than (\d+) characters$/ do |characters|
-  expect(page).to have_content "Your description cannot be longer than #{characters} characters"
 end
 
 Then /^the fullsize logo should be available at the correct URL$/ do

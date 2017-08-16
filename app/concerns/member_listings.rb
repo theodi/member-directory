@@ -22,9 +22,6 @@ module MemberListings
     validates :organization_sector, presence: true, inclusion: Member::SECTORS, on: :create
     validates :organization_type, presence: true, inclusion: Member::ORGANISATION_TYPES.map{|k,v| v}, on: :create
 
-    validates :organization_description, :length => { :maximum  => 500, :too_long => "Your description cannot be longer than %{count} characters"}, :if => :supporter?
-    validates :organization_description, :length => { :maximum  => 1000, :too_long => "Your description cannot be longer than %{count} characters"}, :unless => :supporter?
-
     def self.founding_partner_id
       ENV['FOUNDING_PARTNER_ID']
     end
@@ -78,10 +75,6 @@ module MemberListings
       return if !self.organization_url.present? || self.organization_url =~ /^([a-z]+):\/\//
 
       self.organization_url = "http://#{self.organization_url}"
-    end
-
-    def character_limit
-      supporter? ? 500 : 1000 
     end
 
   end
