@@ -31,14 +31,10 @@
     	</script>
     <% end %>
 
-    <% unless @member.product_name == "supporter" %>
-
-      <%= form_field f, :organization_logo do %>
-    		<%= f.file_field :organization_logo, :accept => "image/*",
-                         :'data-bind' => "event: {change: updateImage}" %>
-    		<%= f.hidden_field :organization_logo_cache %>
-      <% end %>
-
+    <%= form_field f, :organization_logo do %>
+  		<%= f.file_field :organization_logo, :accept => "image/*",
+                       :'data-bind' => "event: {change: updateImage}" %>
+  		<%= f.hidden_field :organization_logo_cache %>
     <% end %>
 
   </div>

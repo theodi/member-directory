@@ -68,11 +68,11 @@ Feature: Adding details to the organization directory
 		When I click submit
 		And I should see an error relating to Organisation name
 
-	Scenario: Supporter cannot upload images
+	Scenario: Supporter can upload images
 
 		Given that I have signed up as a supporter
 		Then I am redirected to submit my organization details
-		And I cannot see a logo upload
+		And I can see a logo upload
 
 	Scenario: Sponsor can upload images
 
