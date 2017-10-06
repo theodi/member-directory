@@ -91,15 +91,15 @@ GEM
     crack (0.4.3)
       safe_yaml (~> 1.0.0)
     crass (1.0.2)
-    csvlint (0.3.3)
-      activesupport (< 5.0)
+    csvlint (0.4.0)
+      activesupport
       addressable
       colorize
       escape_utils
       mime-types
       net-http-persistent (< 3.0)
       open_uri_redirections
-      rack (< 2.0)
+      rack
       thor
       typhoeus
       uri_template
