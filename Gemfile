@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 ruby "2.4.1"
 
 gem 'rails', '~> 4.2'
-gem 'devise', '~> 3.5'
+gem 'devise', '~> 4.3'
 gem 'psych' # explicit dependency required for Heroku
 gem 'dotenv'
 gem 'fog'
